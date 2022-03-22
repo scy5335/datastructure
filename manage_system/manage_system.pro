@@ -19,7 +19,7 @@ FORMS += \
     mainwindow.ui
 
 TRANSLATIONS += \
-    untitled_zh_CN.ts
+    manage_system_zh_CN.ts
 CONFIG += lrelease
 CONFIG += embed_translations
 
