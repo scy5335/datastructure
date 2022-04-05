@@ -1,11 +1,13 @@
 # ninja log v5
-2	139	0	C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/CMakeFiles/cmake.verify_globs	f7383d4473115e03
-3	711	6697264795569145	manage_system_autogen/timestamp	40dba4bba118f7f4
-3	711	6697264795569145	manage_system_autogen/mocs_compilation.cpp	40dba4bba118f7f4
-3	711	6697264795569145	C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/manage_system_autogen/timestamp	40dba4bba118f7f4
-3	711	6697264795569145	C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/manage_system_autogen/mocs_compilation.cpp	40dba4bba118f7f4
-717	1458	6697264804664247	C:/Users/18214/Documents/GitHub/datastructure/manage_system/manage_system_zh_CN.ts	9d0c0e0431ad149
-1458	5842	6697264848478328	CMakeFiles/manage_system.dir/manage_system_autogen/mocs_compilation.cpp.obj	31a88723338cecd0
-1471	5859	6697264848558112	CMakeFiles/manage_system.dir/mainwindow.cpp.obj	ac7b626a7d79b694
-1465	5901	6697264848967024	CMakeFiles/manage_system.dir/main.cpp.obj	f3b3b95228b9e8a3
-5902	6752	6697264857554099	manage_system.exe	7e9ffc8c16b20e05
+2	130	0	C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/CMakeFiles/cmake.verify_globs	f7383d4473115e03
+9	584	6708738567465321	C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/manage_system_autogen/timestamp	40dba4bba118f7f4
+588	689	6708738568504767	C:/Users/18214/Documents/GitHub/datastructure/manage_system/manage_system_zh_CN.ts	9d0c0e0431ad149
+9	584	6708738567465321	manage_system_autogen/timestamp	40dba4bba118f7f4
+9	584	6708738567465321	manage_system_autogen/mocs_compilation.cpp	40dba4bba118f7f4
+9	584	6708738567465321	C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/manage_system_autogen/mocs_compilation.cpp	40dba4bba118f7f4
+1001	6003	6708718321701926	CMakeFiles/manage_system.dir/manage_system_autogen/mocs_compilation.cpp.obj	31a88723338cecd0
+697	3994	6708738601450656	CMakeFiles/manage_system.dir/mainwindow.cpp.obj	ac7b626a7d79b694
+1020	6021	6708718321771755	CMakeFiles/manage_system.dir/main.cpp.obj	f3b3b95228b9e8a3
+3995	4388	6708738604514988	manage_system.exe	66ac2ef077df4d4f
+690	3991	6708738601460635	CMakeFiles/manage_system.dir/logwindow.cpp.obj	c37b3f08c96aed19
+1	129	0	C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/CMakeFiles/cmake.verify_globs	f7383d4473115e03

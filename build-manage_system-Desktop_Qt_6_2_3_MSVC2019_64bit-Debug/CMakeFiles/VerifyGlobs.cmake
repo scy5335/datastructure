@@ -41,6 +41,7 @@ endif()
 # _directory_contents at D:/QT/6.2.3/msvc2019_64/lib/cmake/Qt6LinguistTools/Qt6LinguistToolsMacros.cmake:79 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "C:/Users/18214/Documents/GitHub/datastructure/manage_system/*.cpp")
 set(OLD_GLOB
+  "C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.cpp"
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/main.cpp"
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.cpp"
   )
@@ -61,6 +62,7 @@ endif()
 # _directory_contents at D:/QT/6.2.3/msvc2019_64/lib/cmake/Qt6LinguistTools/Qt6LinguistToolsMacros.cmake:79 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "C:/Users/18214/Documents/GitHub/datastructure/manage_system/*.h")
 set(OLD_GLOB
+  "C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.h"
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.h"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
@@ -161,6 +163,7 @@ endif()
 # _directory_contents at D:/QT/6.2.3/msvc2019_64/lib/cmake/Qt6LinguistTools/Qt6LinguistToolsMacros.cmake:79 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "C:/Users/18214/Documents/GitHub/datastructure/manage_system/*.ui")
 set(OLD_GLOB
+  "C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.ui"
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.ui"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")

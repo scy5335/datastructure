@@ -9,4 +9,12 @@
         <translation type="unfinished"></translation>
     </message>
 </context>
+<context>
+    <name>logwindow</name>
+    <message>
+        <location filename="logwindow.ui" line="16"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>

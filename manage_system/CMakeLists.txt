@@ -21,6 +21,9 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        logwindow.h
+        logwindow.cpp
+        logwindow.ui
         ${TS_FILES}
 )
 

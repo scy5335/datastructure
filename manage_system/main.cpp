@@ -1,8 +1,8 @@
 #include "mainwindow.h"
+#include "logwindow.h"
 
 #include <QApplication>
 #include <QLocale>
-#include <QTranslator>
 
 int main(int argc, char *argv[])
 {
@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
             break;
         }
     }
-    MainWindow w;
-    w.show();
+    logwindow w;
+    w.dislogwindow();
     return a.exec();
 }
