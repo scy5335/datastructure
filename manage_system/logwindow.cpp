@@ -15,7 +15,19 @@ logwindow::~logwindow()
 
 void logwindow::TryLogin()
 {
-    qDebug() << "成功";
+    if (user -> text() == password -> text()){
+        this->hide();
+        emit showmainwindow();
+    }
+    else {
+        info->setText("账号或密码错误");
+    }
+}
+
+void logwindow::clear()
+{
+    user -> clear();
+    password -> clear();
 }
 
 void logwindow::dislogwindow()
@@ -34,11 +46,16 @@ void logwindow::dislogwindow()
     botton = new QHBoxLayout();
     botton -> addWidget(login);
     botton -> addWidget(cancel);
+    info = new QLabel();
+    info -> setStyleSheet("color:red;");
+    info -> setAlignment(Qt::AlignHCenter);
     layout -> addRow("账号", user);
     layout -> addRow("密码", password);
     layout -> setSpacing(20);
+    layout -> addRow(info);
     layout -> addRow(botton);
     setLayout(layout);
     show();
     connect(login, &QPushButton::clicked, this, &logwindow::TryLogin);
+    connect(cancel, &QPushButton::clicked, this, &logwindow::clear);
 }

@@ -17,7 +17,9 @@ int main(int argc, char *argv[])
             break;
         }
     }
-    logwindow w;
-    w.dislogwindow();
+    logwindow logpage;
+    MainWindow student;
+    logpage.dislogwindow();
+    QObject::connect(&logpage, &logwindow::showmainwindow, &student, &MainWindow::display);
     return a.exec();
 }

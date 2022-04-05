@@ -36,6 +36,7 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qglobalstatic.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qhash.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qhashfunctions.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/qiodevice.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qiodevicebase.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qiterable.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qiterator.h \
@@ -82,6 +83,7 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qtmetamacros.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qtranslator.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qtypeinfo.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/qurl.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qutf8stringview.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qvariant.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qvarlengtharray.h \
@@ -99,6 +101,7 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qpaintdevice.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qpalette.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qpen.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtGui/qpicture.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qpixelformat.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qpixmap.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qpolygon.h \
@@ -106,6 +109,7 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qrgb.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qrgba64.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qtextcursor.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtGui/qtextdocument.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qtextformat.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qtextoption.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qtgui-config.h \
@@ -115,6 +119,7 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qwindowdefs_win.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QFormLayout \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QHBoxLayout \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QLabel \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QLayout \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QLineEdit \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QMainWindow \
@@ -125,6 +130,7 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qformlayout.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qframe.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qgridlayout.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qlabel.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qlayout.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qlayoutitem.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qlineedit.h \

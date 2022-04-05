@@ -13,3 +13,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::setmainwindow()
+{
+    setWindowTitle("学生主页");
+}
+
+void MainWindow::display()
+{
+    setmainwindow();
+    this->show();
+}

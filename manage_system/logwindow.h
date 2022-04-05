@@ -7,6 +7,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QHBoxLayout>
+#include <QLabel>
 
 namespace Ui {
 class logwindow;
@@ -18,9 +19,12 @@ class logwindow : public QWidget
 
 public:
     void TryLogin();
+    void clear();
     explicit logwindow(QWidget *parent = nullptr);
     ~logwindow();
     void dislogwindow();
+signals:
+    void showmainwindow();
 private:
     Ui::logwindow *ui;
     QFormLayout* layout;
@@ -29,6 +33,7 @@ private:
     QPushButton* login;
     QPushButton* cancel;
     QHBoxLayout* botton;
+    QLabel *info;
 };
 
 #endif // LOGWINDOW_H
