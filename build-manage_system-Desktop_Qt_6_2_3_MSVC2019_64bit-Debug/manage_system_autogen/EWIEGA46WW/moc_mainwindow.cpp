@@ -8,6 +8,7 @@
 
 #include <memory>
 #include "../../../manage_system/mainwindow.h"
+#include <QtGui/qtextcursor.h>
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
@@ -21,22 +22,22 @@
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-struct qt_meta_stringdata_MainWindow_t {
+struct qt_meta_stringdata_mainwindow_t {
     const uint offsetsAndSize[2];
     char stringdata0[11];
 };
 #define QT_MOC_LITERAL(ofs, len) \
-    uint(offsetof(qt_meta_stringdata_MainWindow_t, stringdata0) + ofs), len 
-static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
+    uint(offsetof(qt_meta_stringdata_mainwindow_t, stringdata0) + ofs), len 
+static const qt_meta_stringdata_mainwindow_t qt_meta_stringdata_mainwindow = {
     {
-QT_MOC_LITERAL(0, 10) // "MainWindow"
+QT_MOC_LITERAL(0, 10) // "mainwindow"
 
     },
-    "MainWindow"
+    "mainwindow"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_MainWindow[] = {
+static const uint qt_meta_data_mainwindow[] = {
 
  // content:
       10,       // revision
@@ -52,7 +53,7 @@ static const uint qt_meta_data_MainWindow[] = {
        0        // eod
 };
 
-void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void mainwindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     (void)_o;
     (void)_id;
@@ -60,14 +61,14 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     (void)_a;
 }
 
-const QMetaObject MainWindow::staticMetaObject = { {
-    QMetaObject::SuperData::link<QMainWindow::staticMetaObject>(),
-    qt_meta_stringdata_MainWindow.offsetsAndSize,
-    qt_meta_data_MainWindow,
+const QMetaObject mainwindow::staticMetaObject = { {
+    QMetaObject::SuperData::link<QWidget::staticMetaObject>(),
+    qt_meta_stringdata_mainwindow.offsetsAndSize,
+    qt_meta_data_mainwindow,
     qt_static_metacall,
     nullptr,
-qt_incomplete_metaTypeArray<qt_meta_stringdata_MainWindow_t
-, QtPrivate::TypeAndForceComplete<MainWindow, std::true_type>
+qt_incomplete_metaTypeArray<qt_meta_stringdata_mainwindow_t
+, QtPrivate::TypeAndForceComplete<mainwindow, std::true_type>
 
 
 
@@ -76,22 +77,22 @@ qt_incomplete_metaTypeArray<qt_meta_stringdata_MainWindow_t
 } };
 
 
-const QMetaObject *MainWindow::metaObject() const
+const QMetaObject *mainwindow::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *MainWindow::qt_metacast(const char *_clname)
+void *mainwindow::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_MainWindow.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_mainwindow.stringdata0))
         return static_cast<void*>(this);
-    return QMainWindow::qt_metacast(_clname);
+    return QWidget::qt_metacast(_clname);
 }
 
-int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int mainwindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QMainWindow::qt_metacall(_c, _id, _a);
+    _id = QWidget::qt_metacall(_c, _id, _a);
     return _id;
 }
 QT_WARNING_POP

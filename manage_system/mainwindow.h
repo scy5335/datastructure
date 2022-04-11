@@ -1,23 +1,44 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
+#include <QWidget>
+#include <QTableWidget>
+#include <QHBoxLayout>
+#include <QHeaderView>
+#include <QTime>
+#include <QLabel>
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+class time_form
+{
 
-class MainWindow : public QMainWindow
+public:
+    void set_time();
+    QTime get_time();
+
+private:
+    static QTime pro_time;
+};
+
+namespace Ui {
+class mainwindow;
+}
+
+class mainwindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    explicit mainwindow(QWidget *parent = nullptr);
+    ~mainwindow();
     void display();
 
 private:
-    void setmainwindow();
-    Ui::MainWindow *ui;
+    Ui::mainwindow *ui;
+    void pageset();
+    QHBoxLayout* layout;
+    QTableWidget* lessontable;
+    QLabel* timelabel;
+    time_form* main_time_form;
 };
+
 #endif // MAINWINDOW_H

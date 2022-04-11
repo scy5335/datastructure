@@ -18,8 +18,8 @@ int main(int argc, char *argv[])
         }
     }
     logwindow logpage;
-    MainWindow student;
+    mainwindow student;
     logpage.dislogwindow();
-    QObject::connect(&logpage, &logwindow::showmainwindow, &student, &MainWindow::display);
+    QObject::connect(&logpage, &logwindow::showmainwindow, &student, &mainwindow::display);
     return a.exec();
 }

@@ -2,17 +2,17 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN">
 <context>
-    <name>MainWindow</name>
+    <name>logwindow</name>
     <message>
-        <location filename="mainwindow.ui" line="14"/>
-        <source>MainWindow</source>
+        <location filename="logwindow.ui" line="16"/>
+        <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>logwindow</name>
+    <name>mainwindow</name>
     <message>
-        <location filename="logwindow.ui" line="16"/>
+        <location filename="mainwindow.ui" line="16"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
