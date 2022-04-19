@@ -8,6 +8,8 @@ manage_system_autogen/timestamp: \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/main.cpp \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.cpp \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.cpp \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QTime \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QTranslator \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qabstractitemmodel.h \
@@ -106,6 +108,7 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qimage.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qkeysequence.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qpaintdevice.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtGui/qpainter.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qpalette.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qpen.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qpicture.h \
@@ -126,6 +129,7 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qwindowdefs.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qwindowdefs_win.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QFormLayout \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QGraphicsView \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QHBoxLayout \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QHeaderView \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QLabel \
@@ -146,6 +150,8 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qboxlayout.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qformlayout.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qframe.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qgraphicsscene.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qgraphicsview.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qgridlayout.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qheaderview.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qlabel.h \
@@ -156,6 +162,7 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qlistwidget.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qpushbutton.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qrubberband.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qscrollarea.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qsizepolicy.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qslider.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qstackedwidget.h \

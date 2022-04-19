@@ -27,13 +27,17 @@ void mainwindow::pageset(){
     main_time_form -> set_time();
     set_lesson_page();
     set_calendar_page();
+    set_guide_page();
     page[0] = new QWidget();
     page[0] -> setLayout(lesson_layout);
     page[1] = new QWidget();
     page[1] -> setLayout(calendar_layout);
+    page[2] = new QWidget();
+    page[2] -> setLayout(guide_layout);
     stackwidget = new QStackedWidget();
     stackwidget -> addWidget(page[0]);
     stackwidget -> addWidget(page[1]);
+    stackwidget -> addWidget(page[2]);
     layout = new QHBoxLayout();
     QFont ft;
     ft.setPointSize(30);
@@ -58,8 +62,12 @@ void mainwindow::pageset(){
     layout -> addLayout(time_clock_layout);
     layout -> addWidget(stackwidget);
     setLayout(layout);
-    connect(to_calendar_module1, &QPushButton::clicked, this, &mainwindow::switch_to_calendar_page);
     connect(to_lesson_module1, &QPushButton::clicked, this, &mainwindow::switch_to_lesson_page);
+    connect(to_lesson_module2, &QPushButton::clicked, this, &mainwindow::switch_to_lesson_page);
+    connect(to_calendar_module1, &QPushButton::clicked, this, &mainwindow::switch_to_calendar_page);
+    connect(to_calendar_module2, &QPushButton::clicked, this, &mainwindow::switch_to_calendar_page);
+    connect(to_guide_module1, &QPushButton::clicked, this, &mainwindow::switch_to_guide_page);
+    connect(to_guide_module2, &QPushButton::clicked, this, &mainwindow::switch_to_guide_page);
 }
 
 void mainwindow::set_lesson_page(){
@@ -104,6 +112,22 @@ void mainwindow::set_calendar_page(){
     calendar_layout -> addWidget(to_guide_module2);
 }
 
+void mainwindow::set_guide_page(){
+    map = new myGraphView();
+    guide_layout = new QHBoxLayout();
+    guide_layout -> addWidget(map);
+    to_lesson_module2 = new QPushButton();
+    to_lesson_module2 -> setText("查看课程表");
+    to_calendar_module2 = new QPushButton();
+    to_calendar_module2 -> setText("查看日程表");
+    guide_layout ->addWidget(to_lesson_module2);
+    guide_layout ->addWidget(to_calendar_module2);
+}
+
+void mainwindow::switch_to_guide_page(){
+    stackwidget -> setCurrentIndex(2);
+}
+
 void mainwindow::switch_to_calendar_page(){
     stackwidget -> setCurrentIndex(1);
 }
@@ -115,6 +139,7 @@ void mainwindow::switch_to_lesson_page(){
 void time_form::set_time(){
     program_time = QTime::currentTime();
 }
+
 
 QTime time_form::get_time(){
     return program_time;

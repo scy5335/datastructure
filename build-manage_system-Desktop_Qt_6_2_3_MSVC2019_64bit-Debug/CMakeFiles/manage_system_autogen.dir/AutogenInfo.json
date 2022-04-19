@@ -279,6 +279,12 @@
 			"MU",
 			"EWIEGA46WW/moc_mainwindow.cpp",
 			null
+		],
+		[
+			"C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.h",
+			"MU",
+			"EWIEGA46WW/moc_mygraphview.cpp",
+			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
@@ -342,6 +348,11 @@
 		],
 		[
 			"C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.cpp",
 			"MU",
 			null
 		]

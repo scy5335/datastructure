@@ -44,6 +44,7 @@ set(OLD_GLOB
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.cpp"
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/main.cpp"
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.cpp"
+  "C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
@@ -64,6 +65,7 @@ file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "C:/Users/18214/Documents/GitH
 set(OLD_GLOB
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.h"
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.h"
+  "C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.h"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")

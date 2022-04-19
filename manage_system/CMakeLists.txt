@@ -24,6 +24,8 @@ set(PROJECT_SOURCES
         logwindow.h
         logwindow.cpp
         logwindow.ui
+        mygraphview.h
+        mygraphview.cpp
         ${TS_FILES}
 )
 
