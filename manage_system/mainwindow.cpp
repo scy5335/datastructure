@@ -155,6 +155,7 @@ void mainwindow::set_guide_page(){
     connect(place_select_button, &QPushButton::clicked, this, &mainwindow::send_place_info);
     connect(start_guide, &QPushButton::clicked, this, &mainwindow::get_guide_result);
     connect(place_clear_button, &QPushButton::clicked, this, &mainwindow::clear_guide_list);
+    connect(map, &myGraphView::selected, this, &mainwindow::set_place_info);
 }
 
 void mainwindow::send_place_info(){
@@ -175,6 +176,10 @@ void mainwindow::get_guide_result(){
 
 void mainwindow::clear_guide_list(){
     query_list -> clear();
+}
+
+void mainwindow::set_place_info(int id){
+    place_select -> setCurrentIndex(id);
 }
 
 void mainwindow::switch_to_guide_page(){

@@ -57,6 +57,7 @@ private:
     QComboBox* place_select;
     void pageset();
     void send_place_info();
+    void set_place_info(int id);
     void switch_to_calendar_page();
     void switch_to_lesson_page();
     void switch_to_guide_page();

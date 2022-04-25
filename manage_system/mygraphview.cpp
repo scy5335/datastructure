@@ -25,15 +25,17 @@ myGraphView::myGraphView()
 
 void myGraphView::mousePressEvent(QMouseEvent *event)
 {
-    if (event -> button() == Qt::LeftButton)
+    if (event -> button() == Qt::LeftButton){
         onLeftbotton = 1;
+        emit mouseLeftClicked(mapToScene(event->pos()));
+    }
 }
 
 void myGraphView::mouseReleaseEvent(QMouseEvent *event)
 {
     if (onLeftbotton){
         onLeftbotton = 0;
-        addVec(mapToScene(event -> pos()), "test");
+        emit mouseReleased();
     }
 }
 
@@ -139,6 +141,20 @@ myGraphVectex::myGraphVectex(QPointF _center, qreal _r, QString name, int nameID
 void myGraphVectex::estconnect(myGraphView *view)
 {
     view -> scene() -> addItem(nameTag);
+    connect(view, &myGraphView::mouseLeftClicked, this, &myGraphVectex::onLeftClick);
+    connect(view, &myGraphView::mouseReleased, this, &myGraphVectex::releaseffect);
+    connect(this, &myGraphVectex::selected, view, &myGraphView::selected);
+}
+
+void myGraphVectex::onLeftClick(QPointF position){
+    if (this -> contains(position))
+        beSelected = 1;
+    else beSelected = 0;
+}
+
+void myGraphVectex::releaseffect(){
+    if (beSelected)
+        emit selected(id);
 }
 
 QString myGraphVectex::GetName(){
@@ -225,7 +241,6 @@ QStringList graph::FindPath(QStringList guide_list){
     result_list << QString::fromUtf8(name[list[0]]);
     for (int i = 1; i < size; i++)
         result_list += dijkstra(list[i], list[i-1]);
-    qDebug()<<"???"<<result_list;
     return result_list;
 }
 
@@ -242,7 +257,6 @@ QStringList graph::dijkstra(int st, int ed){
                 id = j;
             }
         vis[id] = 1;
-        qDebug()<<id<<" "<<name[id];
         if (id == ed) break;
         for (int j = head[id]; j; j = e[j].last)
             if (dis[id] + e[j].len < dis[e[j].to]){

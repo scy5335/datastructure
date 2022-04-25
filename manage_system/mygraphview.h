@@ -40,6 +40,11 @@ private:
     qreal zValue = -1;
     double dis(double x1, double y1, double x2, double y2);
 
+signals:
+    void mouseLeftClicked(QPointF position);
+    void mouseReleased();
+    void selected(int id);
+
 public:
     myGraphView();
     void SaveToFile();
@@ -67,6 +72,13 @@ private:
     QGraphicsSimpleTextItem *nowpos = nullptr;
     QString hintText = "";
     QFont hintFont = QFont("Corbel", 10);
+    bool beSelected = false;
+
+    void onLeftClick(QPointF position);
+    void releaseffect();
+
+signals:
+    void selected(int id);
 
 public:
     int id;
