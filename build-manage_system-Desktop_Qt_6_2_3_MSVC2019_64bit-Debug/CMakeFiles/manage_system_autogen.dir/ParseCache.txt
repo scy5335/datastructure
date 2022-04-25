@@ -3,7 +3,17 @@ C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.h
  mmc:Q_OBJECT
  mdp:C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.h
  mdp:C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.h
+ mdp:C:/Users/18214/Documents/GitHub/datastructure/manage_system/trie.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/QDebug
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/QEasingCurve
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/QList
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/QObject
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/QRect
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/QSize
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/QSizeF
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/QTime
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/QTimeLine
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/QVector
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qabstractitemmodel.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qalgorithms.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qanystringview.h
@@ -26,9 +36,14 @@ C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qcontainerinfo.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qcontainertools_impl.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qcontiguouscache.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qcoreapplication.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qcoreapplication_platform.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qcoreevent.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qdatastream.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qdatetime.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qdebug.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qeasingcurve.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qeventloop.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qflags.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qglobal.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qglobalstatic.h
@@ -49,6 +64,7 @@ C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qmetacontainer.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qmetatype.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qnamespace.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qnativeinterface.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qnumeric.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qobject.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qobject_impl.h
@@ -56,6 +72,7 @@ C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qobjectdefs_impl.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qpair.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qpoint.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qpointer.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qprocessordetection.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qrect.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qrefcount.h
@@ -81,42 +98,61 @@ C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qtaggedpointer.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qtcore-config.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qtextstream.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qtimeline.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qtmetamacros.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qtypeinfo.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qurl.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qutf8stringview.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qvariant.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qvarlengtharray.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qvector.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qversiontagging.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/QMouseEvent
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/QTransform
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qbitmap.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qbrush.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qcolor.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qcursor.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qevent.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qeventpoint.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qfont.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qfontinfo.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qfontmetrics.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qguiapplication.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qguiapplication_platform.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qicon.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qimage.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qinputdevice.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qinputmethod.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qkeysequence.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qpaintdevice.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qpainter.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qpainterpath.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qpalette.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qpen.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qpicture.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qpixelformat.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qpixmap.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qpointingdevice.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qpolygon.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qregion.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qrgb.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qrgba64.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qscreen.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qtextdocument.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qtextoption.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qtgui-config.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qtguiglobal.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qtransform.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qvalidator.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qvector2d.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qvectornd.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qwindowdefs.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qwindowdefs_win.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QApplication
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QComboBox
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QGraphicsEllipseItem
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QGraphicsScene
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QGraphicsView
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QHBoxLayout
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QHeaderView
@@ -133,8 +169,11 @@ C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qabstractscrollarea.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qabstractslider.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qabstractspinbox.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qapplication.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qboxlayout.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qcombobox.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qframe.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qgraphicsitem.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qgraphicsscene.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qgraphicsview.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qgridlayout.h
@@ -159,10 +198,10 @@ C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qtwidgets-config.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qtwidgetsglobal.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qwidget.h
+C:/Users/18214/Documents/GitHub/datastructure/manage_system/trie.h
+C:/Users/18214/Documents/GitHub/datastructure/manage_system/main.cpp
 C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.cpp
  uic:ui_mainwindow.h
-C:/Users/18214/Documents/GitHub/datastructure/manage_system/main.cpp
-C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.cpp
 C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.h
  mmc:Q_OBJECT
  mdp:C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.h
@@ -296,9 +335,23 @@ C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qtwidgets-config.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qtwidgetsglobal.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qwidget.h
+C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.cpp
+C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.cpp
+ uic:ui_logwindow.h
 C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.h
  mmc:Q_OBJECT
  mdp:C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.h
+ mdp:C:/Users/18214/Documents/GitHub/datastructure/manage_system/trie.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/QDebug
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/QEasingCurve
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/QList
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/QObject
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/QRect
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/QSize
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/QSizeF
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/QTime
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/QTimeLine
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/QVector
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qalgorithms.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qanystringview.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qarraydata.h
@@ -311,6 +364,7 @@ C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qbytearrayalgorithms.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qbytearraylist.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qbytearrayview.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qcalendar.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qchar.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qcompare.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qcompilerdetection.h
@@ -318,22 +372,35 @@ C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qcontainerfwd.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qcontainerinfo.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qcontainertools_impl.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qcontiguouscache.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qcoreapplication.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qcoreapplication_platform.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qcoreevent.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qdatastream.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qdatetime.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qdebug.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qeasingcurve.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qeventloop.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qflags.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qglobal.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qglobalstatic.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qhash.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qhashfunctions.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qiodevice.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qiodevicebase.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qiterable.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qiterator.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qline.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qlist.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qlocale.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qlogging.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qmap.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qmargins.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qmath.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qmetacontainer.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qmetatype.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qnamespace.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qnativeinterface.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qnumeric.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qobject.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qobject_impl.h
@@ -341,17 +408,21 @@ C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qobjectdefs_impl.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qpair.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qpoint.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qpointer.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qprocessordetection.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qrect.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qrefcount.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qscopedpointer.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qscopeguard.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qset.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qshareddata.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qshareddata_impl.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qsharedpointer.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qsharedpointer_impl.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qsize.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qstring.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qstringalgorithms.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qstringconverter.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qstringlist.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qstringliteral.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qstringmatcher.h
@@ -361,39 +432,62 @@ C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qsystemdetection.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qtaggedpointer.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qtcore-config.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qtextstream.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qtimeline.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qtmetamacros.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qtypeinfo.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qurl.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qutf8stringview.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qvariant.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qvarlengtharray.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qvector.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtCore/qversiontagging.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/QMouseEvent
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/QTransform
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qbitmap.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qbrush.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qcolor.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qcursor.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qevent.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qeventpoint.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qfont.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qfontinfo.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qfontmetrics.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qguiapplication.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qguiapplication_platform.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qimage.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qinputdevice.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qinputmethod.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qkeysequence.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qpaintdevice.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qpainter.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qpainterpath.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qpalette.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qpen.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qpixelformat.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qpixmap.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qpointingdevice.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qpolygon.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qregion.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qrgb.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qrgba64.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qscreen.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qtextoption.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qtgui-config.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qtguiglobal.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qtransform.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qvector2d.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qvectornd.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qwindowdefs.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qwindowdefs_win.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QApplication
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QGraphicsEllipseItem
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QGraphicsScene
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QGraphicsView
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qabstractscrollarea.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qapplication.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qframe.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qgraphicsitem.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qgraphicsscene.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qgraphicsview.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qscrollarea.h
@@ -401,5 +495,4 @@ C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qtwidgets-config.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qtwidgetsglobal.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qwidget.h
-C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.cpp
- uic:ui_logwindow.h
+C:/Users/18214/Documents/GitHub/datastructure/manage_system/trie.cpp

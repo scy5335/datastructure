@@ -11,6 +11,7 @@
 #include <QPushButton>
 #include <QStackedWidget>
 #include <QListWidget>
+#include <QComboBox>
 #include "mygraphview.h"
 
 class time_form
@@ -36,20 +37,15 @@ public:
     explicit mainwindow(QWidget *parent = nullptr);
     ~mainwindow();
     void display();
-    void set_lesson_page();
-    void set_calendar_page();
-    void set_guide_page();
-    void switch_to_calendar_page();
-    void switch_to_lesson_page();
-    void switch_to_guide_page();
 
 private:
     Ui::mainwindow *ui;
-    void pageset();
-    QHBoxLayout* layout, *time_button_layout, *lesson_layout, *calendar_layout, *guide_layout;
-    QVBoxLayout* time_clock_layout, *calendar_main_layout;
+    QHBoxLayout* layout, *time_button_layout, *lesson_layout, *calendar_layout, *guide_layout,
+                *place_layout, *guide_button_layout;
+    QVBoxLayout* time_clock_layout, *calendar_main_layout, *guide_mod_layout;
     QPushButton* accelerate, *slow_down, *to_calendar_module1, *to_calendar_module2,
-                *to_guide_module1, *to_guide_module2, *to_lesson_module1, *to_lesson_module2;
+                *to_guide_module1, *to_guide_module2, *to_lesson_module1, *to_lesson_module2,
+                *place_select_button, *place_clear_button, *start_guide;
     QLabel* timelabel, *speedlabel, *calendar_title;
     QListWidget* calendar_list;
     QTableWidget* lessontable;
@@ -57,6 +53,18 @@ private:
     time_form* main_time_form;
     myGraphView* map;
     QStackedWidget* stackwidget;
+    QListWidget* query_list, *answer_list;
+    QComboBox* place_select;
+    void pageset();
+    void send_place_info();
+    void switch_to_calendar_page();
+    void switch_to_lesson_page();
+    void switch_to_guide_page();
+    void set_lesson_page();
+    void set_calendar_page();
+    void set_guide_page();
+    void get_guide_result();
+    void clear_guide_list();
 };
 
 #endif // MAINWINDOW_H

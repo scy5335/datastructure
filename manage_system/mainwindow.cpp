@@ -114,14 +114,67 @@ void mainwindow::set_calendar_page(){
 
 void mainwindow::set_guide_page(){
     map = new myGraphView();
-    guide_layout = new QHBoxLayout();
-    guide_layout -> addWidget(map);
+    map -> setSceneRect(map -> rect());
     to_lesson_module2 = new QPushButton();
     to_lesson_module2 -> setText("查看课程表");
     to_calendar_module2 = new QPushButton();
     to_calendar_module2 -> setText("查看日程表");
-    guide_layout ->addWidget(to_lesson_module2);
-    guide_layout ->addWidget(to_calendar_module2);
+
+    guide_button_layout =new QHBoxLayout();
+    guide_button_layout -> addWidget(to_lesson_module2);
+    guide_button_layout -> addWidget(to_calendar_module2);
+
+    place_select = new QComboBox();
+    place_select -> addItems(map -> GetVecName());
+    place_select -> setCurrentIndex(-1);
+    place_select_button = new QPushButton();
+    place_select_button -> setText("确认");
+    place_clear_button = new QPushButton();
+    place_clear_button -> setText("清除");
+    place_layout =new QHBoxLayout();
+    place_layout -> addWidget(place_select_button);
+    place_layout -> addWidget(place_clear_button);
+
+    guide_mod_layout = new QVBoxLayout();
+    query_list = new QListWidget();
+    query_list -> setFixedWidth(200);
+    answer_list = new QListWidget();
+    answer_list -> setFixedWidth(200);
+    start_guide = new QPushButton();
+    start_guide -> setText("开始导航");
+    guide_mod_layout -> addWidget(query_list);
+    guide_mod_layout -> addWidget(answer_list);
+    guide_mod_layout -> addWidget(place_select);
+    guide_mod_layout -> addLayout(place_layout);
+    guide_mod_layout -> addWidget(start_guide);
+    guide_mod_layout -> addLayout(guide_button_layout);
+
+    guide_layout = new QHBoxLayout();
+    guide_layout -> addWidget(map);
+    guide_layout -> addLayout(guide_mod_layout);
+    connect(place_select_button, &QPushButton::clicked, this, &mainwindow::send_place_info);
+    connect(start_guide, &QPushButton::clicked, this, &mainwindow::get_guide_result);
+    connect(place_clear_button, &QPushButton::clicked, this, &mainwindow::clear_guide_list);
+}
+
+void mainwindow::send_place_info(){
+    if (place_select -> currentIndex() == -1)
+        return;
+    query_list -> addItem(place_select->currentText());
+}
+
+void mainwindow::get_guide_result(){
+    QStringList qsl;
+    int cnt = query_list -> count();
+    for (int i = 0; i < cnt; i++){
+        qsl.append((query_list->item(i))->text());
+    }
+    answer_list -> clear();
+    answer_list -> addItems(map -> maingraph -> FindPath(qsl));
+}
+
+void mainwindow::clear_guide_list(){
+    query_list -> clear();
 }
 
 void mainwindow::switch_to_guide_page(){
