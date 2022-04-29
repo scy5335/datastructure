@@ -13,8 +13,8 @@
 #include <QTime>
 #include <random>
 #include <cstring>
-#include "trie.h"
 #include <cmath>
+#include "trie.h"
 
 class myGraphVectex;
 class myGraphView;
@@ -128,17 +128,20 @@ public:
 
     myGraphEdge(myGraphVectex *start, myGraphVectex *end, QGraphicsItem *parent = nullptr);
     void refreshLine();
-    void ReflashNarrow();
+    int ReflashNarrow();
 };
 
 struct Edge{
     int last, to;
+    int narrow = 0;
     double len;
 };
 
 class graph{
 private:
     const static int max_vec = 55;
+    constexpr static double onfootspeed = 10.0;
+    constexpr static double bicyclespeed = 50.0;
     int VecNum = 0, EdgeNum = 1;
     int head[max_vec];
     char name[max_vec][105];
@@ -147,11 +150,12 @@ private:
     double dis[max_vec];
     bool vis[max_vec];
     int lastpos[max_vec];
-    QStringList dijkstra(int st, int ed);
+    QStringList dijkstra(int st, int ed, double &totminutes);
 public:
-    QStringList FindPath(QStringList guide_list);
+    QStringList FindPath(QStringList guide_list, double &totminutes);
     void addVec(char* S);
     void addEdge(int start,int end, double len);
+    void resetnarrow(int* narrowlist, int num);
 };
 
 #endif // MYGRAPHVIEW_H

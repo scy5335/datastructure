@@ -109,8 +109,11 @@ double myGraphView::dis(double x1, double y1, double x2, double y2){
 }
 
 void myGraphView::GetNewNarrow(){
+    int *NarrowList = new int[line.size()];
     for (int i=0; i < line.size(); i++)
-        line[i]->ReflashNarrow();
+        NarrowList[i] = line[i]->ReflashNarrow();
+    maingraph -> resetnarrow(NarrowList, line.size());
+    delete[] NarrowList;
 }
 
 QStringList myGraphView::GetVecName(){
@@ -209,7 +212,7 @@ void myGraphEdge::drawLine(){
     line = newLine;
 }
 
-void myGraphEdge::ReflashNarrow(){
+int myGraphEdge::ReflashNarrow(){
     Narrow = rand() % 100;
     if (Narrow <40)
         curPen.setColor(smoothColor);
@@ -217,6 +220,7 @@ void myGraphEdge::ReflashNarrow(){
         curPen.setColor(normalColor);
     else curPen.setColor(crowdColor);
     refreshLine();
+    return Narrow;
 }
 
 void graph::addVec(char *S){
@@ -231,7 +235,7 @@ void graph::addEdge(int start, int end, double len){
     e[EdgeNum].to = start; e[EdgeNum].last = head[end]; e[EdgeNum].len = len; head[end] = EdgeNum++;
 }
 
-QStringList graph::FindPath(QStringList guide_list){
+QStringList graph::FindPath(QStringList guide_list, double &totminutes){
     int list[15];
     int size = guide_list.size();
     if (size <= 1) return guide_list;
@@ -240,11 +244,11 @@ QStringList graph::FindPath(QStringList guide_list){
         list[i] = graphtrie.findid(guide_list[i].toStdString().c_str());
     result_list << QString::fromUtf8(name[list[0]]);
     for (int i = 1; i < size; i++)
-        result_list += dijkstra(list[i], list[i-1]);
+        result_list += dijkstra(list[i], list[i-1], totminutes);
     return result_list;
 }
 
-QStringList graph::dijkstra(int st, int ed){
+QStringList graph::dijkstra(int st, int ed, double &totminutes){
     memset(vis, 0, sizeof vis);
     for (int i = 1; i <= VecNum; i++) dis[i]=1e9;
     dis[st] = 0;
@@ -258,16 +262,24 @@ QStringList graph::dijkstra(int st, int ed){
             }
         vis[id] = 1;
         if (id == ed) break;
-        for (int j = head[id]; j; j = e[j].last)
-            if (dis[id] + e[j].len < dis[e[j].to]){
-                dis[e[j].to] = dis[id] + e[j].len;
+        for (int j = head[id]; j; j = e[j].last){
+            double minutes = e[j].len / (10 + onfootspeed * e[j].narrow / 100);
+            if (dis[id] + minutes < dis[e[j].to]){
+                dis[e[j].to] = dis[id] + minutes;
                 lastpos[e[j].to] = id;
             }
+        }
     }
+    totminutes += dis[ed];
     QStringList ret_list;
     while (ed!=st){
         ed = lastpos[ed];
         ret_list.append(QString::fromUtf8(name[ed]));
     }
     return ret_list;
+}
+
+void graph::resetnarrow(int *narrowlist, int num){
+    for (int i = 1; i <= num; i++)
+        e[i * 2].narrow = e[i * 2 - 1].narrow = narrowlist[i];
 }

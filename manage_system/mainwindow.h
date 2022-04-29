@@ -46,7 +46,7 @@ private:
     QPushButton* accelerate, *slow_down, *to_calendar_module1, *to_calendar_module2,
                 *to_guide_module1, *to_guide_module2, *to_lesson_module1, *to_lesson_module2,
                 *place_select_button, *place_clear_button, *start_guide;
-    QLabel* timelabel, *speedlabel, *calendar_title;
+    QLabel* timelabel, *speedlabel, *calendar_title, *guide_time;
     QListWidget* calendar_list;
     QTableWidget* lessontable;
     QWidget* page[3];

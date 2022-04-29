@@ -140,10 +140,12 @@ void mainwindow::set_guide_page(){
     query_list -> setFixedWidth(200);
     answer_list = new QListWidget();
     answer_list -> setFixedWidth(200);
+    guide_time = new QLabel();
     start_guide = new QPushButton();
     start_guide -> setText("开始导航");
     guide_mod_layout -> addWidget(query_list);
     guide_mod_layout -> addWidget(answer_list);
+    guide_mod_layout -> addWidget(guide_time);
     guide_mod_layout -> addWidget(place_select);
     guide_mod_layout -> addLayout(place_layout);
     guide_mod_layout -> addWidget(start_guide);
@@ -171,11 +173,15 @@ void mainwindow::get_guide_result(){
         qsl.append((query_list->item(i))->text());
     }
     answer_list -> clear();
-    answer_list -> addItems(map -> maingraph -> FindPath(qsl));
+    double totminutes = 0;
+    answer_list -> addItems(map -> maingraph -> FindPath(qsl, totminutes));
+    QString estimate_time = "预计用时 " + QString::number(ceil(totminutes))+" 分钟";
+    guide_time -> setText(estimate_time);
 }
 
 void mainwindow::clear_guide_list(){
     query_list -> clear();
+    guide_time -> clear();
 }
 
 void mainwindow::set_place_info(int id){
