@@ -28,6 +28,12 @@ set(PROJECT_SOURCES
         mygraphview.cpp
         trie.h
         trie.cpp
+        addtest.h
+        addtest.cpp
+        addtest.ui
+        addhomework.h
+        addhomework.cpp
+        addhomework.ui
         ${TS_FILES}
 )
 

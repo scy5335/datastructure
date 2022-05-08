@@ -19,6 +19,10 @@ void logwindow::TryLogin()
         this->hide();
         emit showmainwindow();
     }
+    else if (user -> text() == "11" || password -> text() == "22"){
+        this->hide();
+        emit showmanagewindow();
+    }
     else {
         info->setText("账号或密码错误");
     }

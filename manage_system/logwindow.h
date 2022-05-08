@@ -25,6 +25,7 @@ public:
     void dislogwindow();
 signals:
     void showmainwindow();
+    void showmanagewindow();
 private:
     Ui::logwindow *ui;
     QFormLayout* layout;

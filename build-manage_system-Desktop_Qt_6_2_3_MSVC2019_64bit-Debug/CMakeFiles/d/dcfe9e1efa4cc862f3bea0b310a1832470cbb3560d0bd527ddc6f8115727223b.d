@@ -3,6 +3,10 @@ manage_system_autogen/timestamp: \
   CMakeFiles/3.21.1/CMakeRCCompiler.cmake \
   CMakeFiles/3.21.1/CMakeSystem.cmake \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/CMakeLists.txt \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/addhomework.cpp \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/addhomework.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/addtest.cpp \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/addtest.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.cpp \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/main.cpp \
@@ -12,6 +16,7 @@ manage_system_autogen/timestamp: \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/trie.cpp \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/trie.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/QDate \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QDebug \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QEasingCurve \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QList \
@@ -19,6 +24,7 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QRect \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QSize \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QSizeF \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/QString \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QTime \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QTimeLine \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QTranslator \
@@ -167,6 +173,7 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QGraphicsEllipseItem \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QGraphicsScene \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QGraphicsView \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QGridLayout \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QHBoxLayout \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QHeaderView \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QLabel \
@@ -336,6 +343,8 @@ manage_system_autogen/timestamp: \
   D:/QT/Tools/CMake_64/share/cmake-3.21/Modules/Platform/Windows.cmake \
   D:/QT/Tools/CMake_64/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake \
   D:/QT/Tools/QtCreator/share/qtcreator/package-manager/auto-setup.cmake \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/addhomework.ui \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/addtest.ui \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.ui \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.ui \
   D:/QT/Tools/CMake_64/bin/cmake.exe

@@ -269,6 +269,18 @@
 	"HEADERS" : 
 	[
 		[
+			"C:/Users/18214/Documents/GitHub/datastructure/manage_system/addhomework.h",
+			"MU",
+			"EWIEGA46WW/moc_addhomework.cpp",
+			null
+		],
+		[
+			"C:/Users/18214/Documents/GitHub/datastructure/manage_system/addtest.h",
+			"MU",
+			"EWIEGA46WW/moc_addtest.cpp",
+			null
+		],
+		[
 			"C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.h",
 			"MU",
 			"EWIEGA46WW/moc_logwindow.cpp",
@@ -342,6 +354,16 @@
 	"SETTINGS_FILE" : "C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/CMakeFiles/manage_system_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
+		[
+			"C:/Users/18214/Documents/GitHub/datastructure/manage_system/addhomework.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/18214/Documents/GitHub/datastructure/manage_system/addtest.cpp",
+			"MU",
+			null
+		],
 		[
 			"C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.cpp",
 			"MU",
