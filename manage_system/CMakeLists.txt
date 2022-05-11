@@ -34,6 +34,18 @@ set(PROJECT_SOURCES
         addhomework.h
         addhomework.cpp
         addhomework.ui
+        myalarm.h
+        myalarm.cpp
+        hfmtree.h
+        hfmtree.cpp
+        data.h
+        data.cpp
+        task.h
+        task.cpp
+        course.h
+        course.cpp
+        mytime.h
+        mytime.cpp
         ${TS_FILES}
 )
 
