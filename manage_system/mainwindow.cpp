@@ -9,6 +9,9 @@ mainwindow::mainwindow(QWidget *parent) :
     ui->setupUi(this);
     add_test_page = NULL;
     add_homework_page = NULL;
+    material_page = NULL;
+    student_material_page = NULL;
+    alarm_set_page = NULL;
 }
 
 mainwindow::~mainwindow()
@@ -30,6 +33,7 @@ void mainwindow::student_page_set(){
     set_lesson_page();
     set_calendar_page();
     set_guide_page();
+    calendar_set_place(map -> GetVecName());
     page[0] = new QWidget();
     page[0] -> setLayout(lesson_layout);
     page[1] = new QWidget();
@@ -50,6 +54,9 @@ void mainwindow::student_page_set(){
     timelabel -> setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     speedlabel -> setText("当前速度:10x");
     speedlabel -> setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    speed = 10;
+    alarm_modify = new QPushButton();
+    alarm_modify -> setText("闹钟设置");
     accelerate = new QPushButton();
     accelerate -> setText("加速");
     slow_down = new QPushButton();
@@ -60,6 +67,7 @@ void mainwindow::student_page_set(){
     time_clock_layout = new QVBoxLayout();
     time_clock_layout -> addWidget(timelabel);
     time_clock_layout -> addWidget(speedlabel);
+    time_clock_layout -> addWidget(alarm_modify);
     time_clock_layout -> addLayout(time_button_layout);
     layout -> addLayout(time_clock_layout);
     layout -> addWidget(stackwidget);
@@ -70,6 +78,21 @@ void mainwindow::student_page_set(){
     connect(to_calendar_module2, &QPushButton::clicked, this, &mainwindow::switch_to_calendar_page);
     connect(to_guide_module1, &QPushButton::clicked, this, &mainwindow::switch_to_guide_page);
     connect(to_guide_module2, &QPushButton::clicked, this, &mainwindow::switch_to_guide_page);
+    connect(alarm_modify, &QPushButton::clicked, this, &mainwindow::show_alarm_page);
+    connect(accelerate, &QPushButton::clicked, this, &mainwindow::add_speed);
+    connect(slow_down, &QPushButton::clicked, this, &mainwindow::dec_speed);
+}
+
+void mainwindow::add_speed(){
+    speed++;
+    speedlabel -> setText("当前速度:" + QString::number(speed) + "x");
+}
+
+void mainwindow::dec_speed(){
+    if (!speed)
+        QMessageBox::critical(this, "减速出错", "时间已停止");
+    speed--;
+    speedlabel -> setText("当前速度:" + QString::number(speed) + "x");
 }
 
 void mainwindow::set_lesson_page(){
@@ -96,6 +119,8 @@ void mainwindow::set_lesson_page(){
     test_info = new QListWidget();
     homework_label = new QLabel();
     homework_label -> setText("作业信息");
+    material_list_button = new QPushButton();
+    material_list_button -> setText("查看课程资料");
     homework_submit = new QPushButton();
     homework_submit -> setText("提交作业");
     homework_info = new QListWidget();
@@ -110,9 +135,10 @@ void mainwindow::set_lesson_page(){
     lesson_detail_info_layout -> addRow("课程名称", lesson_name);
     lesson_detail_info_layout -> addRow("授课教师", lesson_teacher);
     lesson_detail_info_layout -> addRow("上课地点", lesson_place);
-    lesson_detail_info_layout -> addRow(homework_submit);
     lesson_detail_info_layout -> addRow(test_label, homework_label);
     lesson_detail_info_layout -> addRow(test_info, homework_info);
+    lesson_detail_info_layout -> addRow(homework_submit);
+    lesson_detail_info_layout -> addRow(material_list_button);
     lesson_detail_info_layout -> addRow(lesson_jump_button);
     lesson_layout = new QHBoxLayout();
     lesson_layout -> addWidget(lessontable);
@@ -126,14 +152,47 @@ void mainwindow::set_calendar_page(){
     calendar_main_layout = new QVBoxLayout();
     calendar_main_layout -> addWidget(calendar_title);
     calendar_main_layout -> addWidget(calendar_list);
+    calendar_description = new QLineEdit();
+    set_time();
+    single_activity = new QRadioButton();
+    single_activity -> setText("个人活动");
+    group_activity = new QRadioButton();
+    group_activity -> setText("集体活动");
+    single_activity -> setChecked(true);
+    activity_radio = new QHBoxLayout();
+    activity_radio -> addWidget(single_activity);
+    activity_radio -> addWidget(group_activity);
+    calendar_place = new QComboBox();
+    calendar_info_layout = new QFormLayout();
+    calendar_info_layout -> addRow("活动名称", calendar_description);
+    calendar_info_layout -> addRow("活动类型", activity_radio);
+    calendar_info_layout -> addRow("活动开始时间",s_calendar_time_layout);
+    calendar_info_layout -> addRow("活动结束时间",e_calendar_time_layout);
+    calendar_info_layout -> addRow("活动地点",calendar_place);
+    calendar_add = new QPushButton();
+    calendar_add -> setText("添加活动");
+    calendar_del = new QPushButton();
+    calendar_del -> setText("删除活动");
+    calendar_info_layout -> addRow(calendar_add);
+    calendar_info_layout -> addRow(calendar_del);
     to_lesson_module1 = new QPushButton();
     to_lesson_module1 -> setText("查看课程表");
     to_guide_module2 = new QPushButton();
     to_guide_module2 -> setText("导航页面");
+    calendar_change_button = new QHBoxLayout();
+    calendar_change_button -> addWidget(to_lesson_module1);
+    calendar_change_button -> addWidget(to_guide_module2);
+    calendar_right = new QVBoxLayout();
+    calendar_right -> addLayout(calendar_info_layout);
+    calendar_right -> addLayout(calendar_change_button);
+    //calendar_info_layout -> addRow(calendar_change_button);
     calendar_layout = new QHBoxLayout();
     calendar_layout -> addLayout(calendar_main_layout);
-    calendar_layout -> addWidget(to_lesson_module1);
-    calendar_layout -> addWidget(to_guide_module2);
+    calendar_layout -> addLayout(calendar_right);
+    connect(s_nian, &QComboBox::currentIndexChanged, this, &mainwindow::s_change_day);
+    connect(s_yue, &QComboBox::currentIndexChanged, this, &mainwindow::s_change_day);
+    connect(e_nian, &QComboBox::currentIndexChanged, this, &mainwindow::e_change_day);
+    connect(e_yue, &QComboBox::currentIndexChanged, this, &mainwindow::e_change_day);
 }
 
 void mainwindow::set_guide_page(){
@@ -292,7 +351,8 @@ void mainwindow::manage_page_set(){
     homework_title = new QLabel();
     homework_title -> setText("作业信息");
     homework_list = new QListWidget();
-
+    material_manage_button = new QPushButton();
+    material_manage_button -> setText("管理课程资料");
     message_layout = new QGridLayout();
     message_layout -> addWidget(class_name_title, 0, 0);
     message_layout -> addWidget(class_name, 0, 1);
@@ -307,10 +367,11 @@ void mainwindow::manage_page_set(){
     button_grid -> addWidget(homework_add, 1, 1);
     button_grid -> addWidget(test_del, 2, 0);
     button_grid -> addWidget(homework_del, 2, 1);
-    button_grid -> addWidget(test_title, 3, 0);
-    button_grid -> addWidget(homework_title, 3, 1);
-    button_grid -> addWidget(test_list, 4, 0);
-    button_grid -> addWidget(homework_list, 4, 1);
+    button_grid -> addWidget(material_manage_button, 3, 0, 1, 2);
+    button_grid -> addWidget(test_title, 4, 0);
+    button_grid -> addWidget(homework_title, 4, 1);
+    button_grid -> addWidget(test_list, 5, 0);
+    button_grid -> addWidget(homework_list, 5, 1);
     class_detail_layout = new QVBoxLayout();
     class_detail_layout -> addLayout(message_layout);
     class_detail_layout -> addLayout(button_grid);
@@ -323,6 +384,7 @@ void mainwindow::manage_page_set(){
     setLayout(manage_main_layout);
     connect(test_add, &QPushButton::clicked, this, &mainwindow::test_add_page);
     connect(homework_add, &QPushButton::clicked, this, &mainwindow::homework_add_page);
+    connect(material_manage_button, &QPushButton::clicked, this, &mainwindow::material_add_page);
 }
 
 void mainwindow::test_add_page(){
@@ -335,10 +397,223 @@ void mainwindow::test_add_page(){
 void mainwindow::homework_add_page(){
     if (add_homework_page != NULL) delete add_homework_page;
     add_homework_page = new addhomework();
-    //map -> GetVecName()
     add_homework_page -> show();
+}
+
+void mainwindow::material_add_page(){
+    if (material_page != NULL) delete material_page;
+    material_page = new material_manage_page();
+    material_page -> show();
+}
+
+void mainwindow::show_material_page(){
+    if (student_material_page != NULL) delete student_material_page;
+    student_material_page = new material_detail();
+    student_material_page -> show();
+}
+
+void mainwindow::show_alarm_page(){
+    if (alarm_set_page != NULL) delete alarm_set_page;
+    alarm_set_page = new alarm_page();
+    alarm_set_page -> show();
+}
+
+void mainwindow::set_time(){
+    int now_year = 2022;
+    s_nian = new QComboBox();
+    for (int i = now_year; i <= now_year + 5; i++)
+        s_nian -> addItem(QString::number(i));
+    s_nian -> setCurrentIndex(-1);
+    s_nian_name = new QLabel();
+    s_nian_name -> setText("年");
+    s_yue = new QComboBox();
+    for (int i = 1; i <= 12; i++)
+        s_yue -> addItem(QString::number(i));
+    s_yue -> setCurrentIndex(-1);
+    s_yue_name = new QLabel();
+    s_yue_name -> setText("月");
+    s_ri = new QComboBox();
+    s_ri_name = new QLabel();
+    s_ri_name -> setText("日");
+    s_shi = new QComboBox();
+    for (int i = 0; i <= 23; i++)
+        s_shi -> addItem(QString::number(i));
+    s_shi -> setCurrentIndex(-1);
+    s_shi_name = new QLabel();
+    s_shi_name -> setText("时");
+    s_fen = new QComboBox();
+    for (int i = 0; i <= 59; i++)
+        s_fen -> addItem(QString::number(i));
+    s_fen -> setCurrentIndex(-1);
+    s_fen_name = new QLabel();
+    s_fen_name -> setText("分");
+    s_calendar_time_layout = new QHBoxLayout();
+    s_calendar_time_layout -> addWidget(s_nian);
+    s_calendar_time_layout -> addWidget(s_nian_name);
+    s_calendar_time_layout -> addWidget(s_yue);
+    s_calendar_time_layout -> addWidget(s_yue_name);
+    s_calendar_time_layout -> addWidget(s_ri);
+    s_calendar_time_layout -> addWidget(s_ri_name);
+    s_calendar_time_layout -> addWidget(s_shi);
+    s_calendar_time_layout -> addWidget(s_shi_name);
+    s_calendar_time_layout -> addWidget(s_fen);
+    s_calendar_time_layout -> addWidget(s_fen_name);
+    e_nian = new QComboBox();
+    for (int i = now_year; i <= now_year + 5; i++)
+        e_nian -> addItem(QString::number(i));
+    e_nian -> setCurrentIndex(-1);
+    e_nian_name = new QLabel();
+    e_nian_name -> setText("年");
+    e_yue = new QComboBox();
+    for (int i = 1; i <= 12; i++)
+        e_yue -> addItem(QString::number(i));
+    e_yue -> setCurrentIndex(-1);
+    e_yue_name = new QLabel();
+    e_yue_name -> setText("月");
+    e_ri = new QComboBox();
+    e_ri_name = new QLabel();
+    e_ri_name -> setText("日");
+    e_shi = new QComboBox();
+    for (int i = 0; i <= 23; i++)
+        e_shi -> addItem(QString::number(i));
+    e_shi -> setCurrentIndex(-1);
+    e_shi_name = new QLabel();
+    e_shi_name -> setText("时");
+    e_fen = new QComboBox();
+    for (int i = 0; i <= 59; i++)
+        e_fen -> addItem(QString::number(i));
+    e_fen -> setCurrentIndex(-1);
+    e_fen_name = new QLabel();
+    e_fen_name -> setText("分");
+    e_calendar_time_layout = new QHBoxLayout();
+    e_calendar_time_layout -> addWidget(e_nian);
+    e_calendar_time_layout -> addWidget(e_nian_name);
+    e_calendar_time_layout -> addWidget(e_yue);
+    e_calendar_time_layout -> addWidget(e_yue_name);
+    e_calendar_time_layout -> addWidget(e_ri);
+    e_calendar_time_layout -> addWidget(e_ri_name);
+    e_calendar_time_layout -> addWidget(e_shi);
+    e_calendar_time_layout -> addWidget(e_shi_name);
+    e_calendar_time_layout -> addWidget(e_fen);
+    e_calendar_time_layout -> addWidget(e_fen_name);
+}
+
+void mainwindow::s_change_day(){
+    if (s_nian -> currentIndex() == -1 || s_yue -> currentIndex() == -1) return;
+    QDate date(s_nian -> currentText().toInt(), s_yue -> currentText().toInt(), 1);
+    s_ri -> clear();
+    int day = date.daysInMonth();
+    for (int i = 1; i <= day; i++)
+        s_ri -> addItem(QString::number(i));
+    s_ri -> setCurrentIndex(-1);
+}
+
+void mainwindow::e_change_day(){
+    if (e_nian -> currentIndex() == -1 || e_yue -> currentIndex() == -1) return;
+    QDate date(e_nian -> currentText().toInt(), e_yue -> currentText().toInt(), 1);
+    e_ri -> clear();
+    int day = date.daysInMonth();
+    for (int i = 1; i <= day; i++)
+        e_ri -> addItem(QString::number(i));
+    e_ri -> setCurrentIndex(-1);
+}
+
+void mainwindow::calendar_set_place(QStringList name){
+    calendar_place -> addItems(name);
+    calendar_place -> setCurrentIndex(-1);
 }
 
 QTime time_form::get_time(){
     return program_time;
+}
+
+material_detail::material_detail(QWidget *parent){
+    material_list = new QListWidget();
+    layout = new QHBoxLayout();
+    layout -> addWidget(material_list);
+    setLayout(layout);
+}
+
+alarm_page::alarm_page(QWidget *parent){
+    alarm_description = new QLineEdit();
+    hour_minute = new QLabel();
+    hour_minute -> setText(":");
+    hour = new QComboBox();
+    for (int i=0; i < 24; i++)
+        hour -> addItem(QString::number(i));
+    minute = new QComboBox();
+    for (int i=0; i < 60; i++)
+        minute -> addItem(QString::number(i));
+    time_layout = new QHBoxLayout();
+    time_layout -> addWidget(hour);
+    time_layout -> addWidget(hour_minute);
+    time_layout -> addWidget(minute);
+    only_once = new QRadioButton();
+    only_once -> setText("仅一次");
+    every_day = new QRadioButton();
+    every_day -> setText("每天一次");
+    every_week = new QRadioButton();
+    every_week -> setText("每周一次");
+    radio_layout = new QHBoxLayout();
+    radio_layout -> addWidget(only_once);
+    radio_layout -> addWidget(every_day);
+    radio_layout -> addWidget(every_week);
+    only_once -> setChecked(true);
+    add_alarm = new QPushButton();
+    add_alarm -> setText("添加闹钟");
+    new_alarm_layout = new QFormLayout();
+    new_alarm_layout -> addRow("闹钟描述", alarm_description);
+    new_alarm_layout -> addRow("时间", time_layout);
+    new_alarm_layout -> addRow("重复频次", radio_layout);
+    page[0] = new QWidget();
+    day_layout = new QHBoxLayout();
+    page[1] = new QWidget();
+    for (int i = 0; i < 7; i++){
+        day[i] = new QCheckBox();
+        QString day_name;
+        switch (i){
+            case 0 : day_name = "星期一";
+                     break;
+            case 1 : day_name = "星期二";
+                     break;
+            case 2 : day_name = "星期三";
+                     break;
+            case 3 : day_name = "星期四";
+                     break;
+            case 4 : day_name = "星期五";
+                     break;
+            case 5 : day_name = "星期六";
+                     break;
+            default : day_name = "星期日";
+        }
+        day[i] -> setText(day_name);
+        day_layout -> addWidget(day[i]);
+    }
+    page[1] -> setLayout(day_layout);
+    day_widget = new QStackedWidget();
+    day_widget -> addWidget(page[0]);
+    day_widget -> addWidget(page[1]);
+    day_widget -> setCurrentIndex(0);
+    new_alarm_layout -> addRow(day_widget);
+    new_alarm_layout -> addRow(add_alarm);
+    alarm_list = new QTableWidget();
+    alarm_list_title = new QLabel();
+    alarm_list_title -> setText("闹钟列表");
+    del_alarm = new QPushButton();
+    del_alarm -> setText("删除闹钟");
+    new_alarm_layout -> addRow(alarm_list_title);
+    new_alarm_layout -> addRow(alarm_list);
+    new_alarm_layout -> addRow(del_alarm);
+    setLayout(new_alarm_layout);
+    connect(only_once, &QAbstractButton::clicked, this, &alarm_page::hide_day);
+    connect(every_day, &QAbstractButton::clicked, this, &alarm_page::hide_day);
+    connect(every_week, &QAbstractButton::clicked, this, &alarm_page::display_day);
+}
+
+void alarm_page::hide_day(){
+    day_widget -> setCurrentIndex(0);
+}
+
+void alarm_page::display_day(){
+    day_widget -> setCurrentIndex(1);
 }

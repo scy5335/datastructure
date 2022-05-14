@@ -33,4 +33,22 @@
         <translation type="unfinished"></translation>
     </message>
 </context>
+<context>
+    <name>material_manage_page</name>
+    <message>
+        <location filename="material_manage_page.ui" line="16"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="material_manage_page.cpp" line="35"/>
+        <source>选择文件</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="material_manage_page.cpp" line="35"/>
+        <source>All files(*.*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>

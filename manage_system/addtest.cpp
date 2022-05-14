@@ -6,12 +6,18 @@ addtest::addtest(QWidget *parent) :
     ui(new Ui::addtest)
 {
     ui->setupUi(this);
+    setWindowTitle("考试添加");
     test_name_title = new QLabel();
     test_name_title -> setText("考试名称");
     test_name_edit = new QLineEdit();
     test_time_title = new QLabel();
     test_time_title -> setText("考试时间");
     set_time();
+    test_last_title = new QLabel();
+    test_last_title -> setText("考试时长/分钟");
+    test_last = new QLineEdit();
+    QIntValidator * pIntVld = new QIntValidator(this);
+    test_last -> setValidator(pIntVld);
     test_place_title = new QLabel();
     test_place_title -> setText("考试地点");
     test_place = new QComboBox();
@@ -20,8 +26,10 @@ addtest::addtest(QWidget *parent) :
     main_info_layout -> addWidget(test_name_edit, 0, 1);
     main_info_layout -> addWidget(test_time_title, 1, 0);
     main_info_layout -> addLayout(test_time_layout, 1, 1);
-    main_info_layout -> addWidget(test_place_title, 2, 0);
-    main_info_layout -> addWidget(test_place, 2, 1);
+    main_info_layout -> addWidget(test_last_title, 2, 0);
+    main_info_layout -> addWidget(test_last, 2, 1);
+    main_info_layout -> addWidget(test_place_title, 3, 0);
+    main_info_layout -> addWidget(test_place, 3, 1);
     complete = new QPushButton();
     complete -> setText("确定");
     cancel = new QPushButton();

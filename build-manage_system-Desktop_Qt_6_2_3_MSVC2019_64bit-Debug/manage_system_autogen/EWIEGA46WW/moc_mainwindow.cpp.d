@@ -1,6 +1,7 @@
 C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/manage_system_autogen/EWIEGA46WW/moc_mainwindow.cpp: C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/addhomework.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/addtest.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/material_manage_page.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/trie.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QDate \
@@ -43,8 +44,12 @@ C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qdatastream.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qdatetime.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qdebug.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/qdir.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qeasingcurve.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qeventloop.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/qfile.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/qfiledevice.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/qfileinfo.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qflags.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qglobal.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qglobalstatic.h \
@@ -153,7 +158,9 @@ C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qwindowdefs.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qwindowdefs_win.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QApplication \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QCheckBox \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QComboBox \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QFileDialog \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QFormLayout \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QGraphicsEllipseItem \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QGraphicsScene \
@@ -165,7 +172,9 @@ C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QLayout \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QLineEdit \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QListWidget \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QMessageBox \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QPushButton \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QRadioButton \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QStackedWidget \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QTableWidget \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QVBoxLayout \
@@ -178,7 +187,10 @@ C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qabstractspinbox.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qapplication.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qboxlayout.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qcheckbox.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qcombobox.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qdialog.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qfiledialog.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qformlayout.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qframe.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qgraphicsitem.h \
@@ -192,7 +204,9 @@ C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qlineedit.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qlistview.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qlistwidget.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qmessagebox.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qpushbutton.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qradiobutton.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qrubberband.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qscrollarea.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qsizepolicy.h \

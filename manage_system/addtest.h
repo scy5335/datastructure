@@ -28,8 +28,8 @@ public:
 private:
     Ui::addtest *ui;
     QLabel* test_name_title, *test_time_title, *test_place_title, *nian_name, *yue_name,
-            *ri_name, *shi_name, *fen_name, *state;
-    QLineEdit* test_name_edit;
+            *ri_name, *shi_name, *fen_name, *state, *test_last_title;
+    QLineEdit* test_name_edit, *test_last;
     QComboBox* nian, *yue, *ri, *shi, *fen, *test_place;
     QPushButton* complete, *cancel;
     QGridLayout* main_info_layout;

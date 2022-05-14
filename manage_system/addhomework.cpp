@@ -6,6 +6,7 @@ addhomework::addhomework(QWidget *parent) :
     ui(new Ui::addhomework)
 {
     ui->setupUi(this);
+    setWindowTitle("作业添加");
     homework_name_title = new QLabel();
     homework_name_title -> setText("作业名称");
     homework_name_edit = new QLineEdit();

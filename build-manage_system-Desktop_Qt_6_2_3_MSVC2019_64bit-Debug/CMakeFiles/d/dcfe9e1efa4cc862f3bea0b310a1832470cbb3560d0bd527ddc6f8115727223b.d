@@ -7,13 +7,27 @@ manage_system_autogen/timestamp: \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/addhomework.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/addtest.cpp \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/addtest.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/course.cpp \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/course.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/data.cpp \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/data.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/hfmtree.cpp \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/hfmtree.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.cpp \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/main.cpp \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.cpp \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/material_manage_page.cpp \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/material_manage_page.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/myalarm.cpp \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/myalarm.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.cpp \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/mytime.cpp \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/mytime.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/task.cpp \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/task.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/trie.cpp \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/trie.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QDate \
@@ -57,8 +71,12 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qdatastream.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qdatetime.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qdebug.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/qdir.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qeasingcurve.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qeventloop.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/qfile.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/qfiledevice.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/qfileinfo.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qflags.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qglobal.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qglobalstatic.h \
@@ -168,7 +186,9 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qwindowdefs.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qwindowdefs_win.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QApplication \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QCheckBox \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QComboBox \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QFileDialog \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QFormLayout \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QGraphicsEllipseItem \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QGraphicsScene \
@@ -180,7 +200,9 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QLayout \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QLineEdit \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QListWidget \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QMessageBox \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QPushButton \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QRadioButton \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QStackedWidget \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QTableWidget \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QVBoxLayout \
@@ -193,7 +215,10 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qabstractspinbox.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qapplication.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qboxlayout.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qcheckbox.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qcombobox.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qdialog.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qfiledialog.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qformlayout.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qframe.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qgraphicsitem.h \
@@ -207,7 +232,9 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qlineedit.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qlistview.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qlistwidget.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qmessagebox.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qpushbutton.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qradiobutton.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qrubberband.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qscrollarea.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qsizepolicy.h \
@@ -347,4 +374,5 @@ manage_system_autogen/timestamp: \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/addtest.ui \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.ui \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.ui \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/material_manage_page.ui \
   D:/QT/Tools/CMake_64/bin/cmake.exe

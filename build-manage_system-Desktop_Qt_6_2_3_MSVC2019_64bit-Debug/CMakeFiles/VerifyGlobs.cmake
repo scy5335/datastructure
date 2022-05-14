@@ -43,10 +43,17 @@ file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "C:/Users/18214/Documents/GitH
 set(OLD_GLOB
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/addhomework.cpp"
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/addtest.cpp"
+  "C:/Users/18214/Documents/GitHub/datastructure/manage_system/course.cpp"
+  "C:/Users/18214/Documents/GitHub/datastructure/manage_system/data.cpp"
+  "C:/Users/18214/Documents/GitHub/datastructure/manage_system/hfmtree.cpp"
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.cpp"
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/main.cpp"
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.cpp"
+  "C:/Users/18214/Documents/GitHub/datastructure/manage_system/material_manage_page.cpp"
+  "C:/Users/18214/Documents/GitHub/datastructure/manage_system/myalarm.cpp"
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.cpp"
+  "C:/Users/18214/Documents/GitHub/datastructure/manage_system/mytime.cpp"
+  "C:/Users/18214/Documents/GitHub/datastructure/manage_system/task.cpp"
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/trie.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
@@ -68,9 +75,16 @@ file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "C:/Users/18214/Documents/GitH
 set(OLD_GLOB
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/addhomework.h"
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/addtest.h"
+  "C:/Users/18214/Documents/GitHub/datastructure/manage_system/course.h"
+  "C:/Users/18214/Documents/GitHub/datastructure/manage_system/data.h"
+  "C:/Users/18214/Documents/GitHub/datastructure/manage_system/hfmtree.h"
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.h"
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.h"
+  "C:/Users/18214/Documents/GitHub/datastructure/manage_system/material_manage_page.h"
+  "C:/Users/18214/Documents/GitHub/datastructure/manage_system/myalarm.h"
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.h"
+  "C:/Users/18214/Documents/GitHub/datastructure/manage_system/mytime.h"
+  "C:/Users/18214/Documents/GitHub/datastructure/manage_system/task.h"
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/trie.h"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
@@ -175,6 +189,7 @@ set(OLD_GLOB
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/addtest.ui"
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.ui"
   "C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.ui"
+  "C:/Users/18214/Documents/GitHub/datastructure/manage_system/material_manage_page.ui"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
