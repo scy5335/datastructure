@@ -93,7 +93,7 @@ void Course::setExamInfo(string examName, MyTime startTime, int locale, int last
     need2save=true;
 }
 
-unsigned Course::getCourseId()
+void Course::setRoot(string root)
 {
     this->dir=root+"\\course_"+to_string(courseId);
     need2save=true;
