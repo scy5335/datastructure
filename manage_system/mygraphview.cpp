@@ -235,7 +235,7 @@ void graph::addEdge(int start, int end, double len){
     e[EdgeNum].to = start; e[EdgeNum].last = head[end]; e[EdgeNum].len = len; head[end] = EdgeNum++;
 }
 
-QStringList graph::FindPath(QStringList guide_list, double &totminutes){
+QStringList graph::FindPath(QStringList guide_list, double &totminutes, int mod){
     int list[15];
     int size = guide_list.size();
     if (size <= 1) return guide_list;
@@ -244,11 +244,11 @@ QStringList graph::FindPath(QStringList guide_list, double &totminutes){
         list[i] = graphtrie.findid(guide_list[i].toStdString().c_str());
     result_list << QString::fromUtf8(name[list[0]]);
     for (int i = 1; i < size; i++)
-        result_list += dijkstra(list[i], list[i-1], totminutes);
+        result_list += dijkstra(list[i], list[i-1], totminutes, mod);
     return result_list;
 }
 
-QStringList graph::dijkstra(int st, int ed, double &totminutes){
+QStringList graph::dijkstra(int st, int ed, double &totminutes, int mod){
     memset(vis, 0, sizeof vis);
     for (int i = 1; i <= VecNum; i++) dis[i]=1e9;
     dis[st] = 0;
@@ -263,9 +263,13 @@ QStringList graph::dijkstra(int st, int ed, double &totminutes){
         vis[id] = 1;
         if (id == ed) break;
         for (int j = head[id]; j; j = e[j].last){
-            double minutes = e[j].len / (10 + onfootspeed * e[j].narrow / 100);
-            if (dis[id] + minutes < dis[e[j].to]){
-                dis[e[j].to] = dis[id] + minutes;
+            double len;
+            if (mod == 0) len = e[j].len / (10 + onfootspeed);
+            else if (mod == 1) len = e[j].len / (10 + onfootspeed * e[j].narrow / 100);
+            else len = min(e[j].len / (10 + onfootspeed * e[j].narrow / 100),
+                           e[j].len / (5 + bicyclespeed * e[j].narrow / 100));
+            if (dis[id] + len < dis[e[j].to]){
+                dis[e[j].to] = dis[id] + len;
                 lastpos[e[j].to] = id;
             }
         }

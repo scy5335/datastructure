@@ -230,6 +230,21 @@ void mainwindow::set_guide_page(){
     guide_time = new QLabel();
     start_guide = new QPushButton();
     start_guide -> setText("开始导航");
+    dist_only = new QRadioButton();
+    dist_only -> setText("距离优先");
+    time_first = new QRadioButton();
+    time_first -> setText("时间优先");
+    mix = new QRadioButton();
+    mix -> setText("交通工具");
+    mode_select = new QHBoxLayout();
+    mode_select -> addWidget(dist_only);
+    mode_select -> addWidget(time_first);
+    mode_select -> addWidget(mix);
+    mode_group = new QButtonGroup();
+    mode_group -> addButton(dist_only, 0);
+    mode_group -> addButton(time_first, 1);
+    mode_group -> addButton(mix, 2);
+    dist_only -> setChecked(true);
     guide_mod_layout -> addWidget(query_label);
     guide_mod_layout -> addWidget(query_list);
     guide_mod_layout -> addWidget(answer_label);
@@ -238,6 +253,7 @@ void mainwindow::set_guide_page(){
     guide_mod_layout -> addWidget(place_select);
     guide_mod_layout -> addLayout(place_layout);
     guide_mod_layout -> addWidget(start_guide);
+    guide_mod_layout -> addLayout(mode_select);
     guide_mod_layout -> addLayout(guide_button_layout);
 
     guide_layout = new QHBoxLayout();
@@ -263,7 +279,7 @@ void mainwindow::get_guide_result(){
     }
     answer_list -> clear();
     double totminutes = 0;
-    answer_list -> addItems(map -> maingraph -> FindPath(qsl, totminutes));
+    answer_list -> addItems(map -> maingraph -> FindPath(qsl, totminutes, mode_group -> checkedId()));
     QString estimate_time = "预计用时 " + QString::number(ceil(totminutes))+" 分钟";
     guide_time -> setText(estimate_time);
 }
