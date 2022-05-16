@@ -683,9 +683,12 @@ alarm_page::alarm_page(QWidget *parent){
 
 void alarm_page::deletealarm(){
     int row = alarm_list -> rowCount();
+    int backet[maxLen], cnt = 0;
     for (int i = 0; i < row; i++)
         if (alarm_list -> item(i, 0) -> checkState() == Qt::Checked)
-            emit delete_signal(alarm_id[i]);
+            backet[cnt++] = alarm_id[i];
+    for (int i = 0; i < cnt; i++)
+        emit delete_signal(backet[i]);
 }
 
 void alarm_page::hide_day(){
@@ -745,9 +748,9 @@ void alarm_page::set_alarm_list(MyClock *Clock){
                 Str1 = "仅一次";
             else if (Clock -> alarms -> arr[i].getType() == 0x7f)
                 Str1 = "每周一次";
-            else for (int i = 0; i < 7; i++)
-                if (Clock -> alarms -> arr[i].getType() & (1<<i)){
-                    switch (i){
+            else for (int j = 0; j < 7; j++)
+                if (Clock -> alarms -> arr[i].getType() & (1<<j)){
+                    switch (j){
                         case 0 : Str1 += "星期一";
                                 break;
                         case 1 : Str1 += "星期二";
@@ -768,6 +771,7 @@ void alarm_page::set_alarm_list(MyClock *Clock){
             row_count ++;
         }
     connect(alarm_list, &QTableWidget::cellChanged, this, &alarm_page::set_type);
+    qDebug()<<"???\n";
 }
 
 void alarm_page::set_type(int row, int column){
