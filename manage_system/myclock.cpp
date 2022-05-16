@@ -25,6 +25,7 @@ MyClock::MyClock(MyTime sysTime, double secsPerSystemHour)
 void MyClock::setTime(MyTime sysTime)
 {
     this->sysTime=sysTime;
+    emit timeChange();
 }
 
 MyTime MyClock::getTime()
@@ -47,7 +48,6 @@ void MyClock::start()
 {
     dayInit();
     timer.start(secsPerSystemHour*1000/60);
-
 }
 
 void MyClock::pause()
