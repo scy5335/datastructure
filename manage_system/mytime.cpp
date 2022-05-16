@@ -72,37 +72,37 @@ void MyTime::setMin(int minute)
     this->minute = minute;
 }
 
-int MyTime::getYear()
+int MyTime::getYear()const
 {
     return year;
 }
 
-int MyTime::getMonth()
+int MyTime::getMonth()const
 {
     return month + 1;
 }
 
-int MyTime::getDay()
+int MyTime::getDay()const
 {
     return day + 1;
 }
 
-int MyTime::getHour()
+int MyTime::getHour()const
 {
     return hour;
 }
 
-int MyTime::getMin()
+int MyTime::getMin()const
 {
     return minute;
 }
 
-bool MyTime::isLeapYear()
+bool MyTime::isLeapYear()const
 {
     return (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0));
 }
 
-int MyTime::getWeek0_6()
+int MyTime::getWeek0_6()const
 {
     int y = year, m = month + 1, d = day + 1;
     if (m == 1 || m == 2)
@@ -166,17 +166,17 @@ void MyTime::minIncre(int offset)
     hourIncre(temp / 60);
 }
 
-QString MyTime::toString()
+string MyTime::toString()
 {
     QString date = QDate(year,this->getMonth(),this->getDay()).toString("yyyy-MM-dd");
     QString time = QTime(hour,minute).toString("HH:mm");
-    return date+" "+time;
+    return date.toStdString()+" "+time.toStdString();
 }
 
-QString MyTime::toString(char *format)
+string MyTime::toString(char *format)
 {
     QString dateTime = QDateTime(QDate(year,getMonth(),getDay()),QTime(hour,minute)).toString(format);
-    return dateTime;
+    return dateTime.toStdString();
 }
 
 bool MyTime::operator<(const MyTime &b)const

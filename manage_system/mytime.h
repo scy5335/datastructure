@@ -29,19 +29,19 @@ public:
 
     void setMin(int minute);
 
-    int getYear();
+    int getYear()const;
 
-    int getMonth();
+    int getMonth()const;
 
-    int getDay();
+    int getDay()const;
 
-    int getHour();
+    int getHour()const;
 
-    int getMin();
+    int getMin()const;
 
-    int getWeek0_6();
+    int getWeek0_6()const;
 
-    bool isLeapYear();
+    bool isLeapYear()const;
 
     void dayIncOne();
 
@@ -55,9 +55,9 @@ public:
 
     void minIncre(int offset);
 
-    QString toString();
+    string toString();
 
-    QString toString(char*);
+    string toString(char*);
 
     bool operator<(const MyTime& b) const;
 
