@@ -161,6 +161,7 @@ C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qwindowdefs.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtGui/qwindowdefs_win.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QApplication
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QButtonGroup
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QCheckBox
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QComboBox
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QFileDialog
@@ -190,6 +191,7 @@ C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qabstractspinbox.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qapplication.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qboxlayout.h
+ mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qbuttongroup.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qcheckbox.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qcombobox.h
  mdp:D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qdialog.h

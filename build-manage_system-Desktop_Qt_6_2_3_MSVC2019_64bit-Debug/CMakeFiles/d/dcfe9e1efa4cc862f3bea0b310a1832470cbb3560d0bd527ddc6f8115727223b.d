@@ -186,6 +186,7 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qwindowdefs.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qwindowdefs_win.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QApplication \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QButtonGroup \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QCheckBox \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QComboBox \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QFileDialog \
@@ -215,6 +216,7 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qabstractspinbox.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qapplication.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qboxlayout.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qbuttongroup.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qcheckbox.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qcombobox.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qdialog.h \

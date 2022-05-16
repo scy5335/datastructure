@@ -150,9 +150,9 @@ private:
     double dis[max_vec];
     bool vis[max_vec];
     int lastpos[max_vec];
-    QStringList dijkstra(int st, int ed, double &totminutes);
+    QStringList dijkstra(int st, int ed, double &totminutes, int mod);
 public:
-    QStringList FindPath(QStringList guide_list, double &totminutes);
+    QStringList FindPath(QStringList guide_list, double &totminutes, int mod);
     void addVec(char* S);
     void addEdge(int start,int end, double len);
     void resetnarrow(int* narrowlist, int num);

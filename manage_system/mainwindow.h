@@ -18,6 +18,7 @@
 #include <QRadioButton>
 #include <QCheckBox>
 #include <QMessageBox>
+#include <QButtonGroup>
 #include "mygraphview.h"
 #include "addtest.h"
 #include "addhomework.h"
@@ -84,7 +85,7 @@ private:
     QHBoxLayout* layout, *time_button_layout, *lesson_layout, *calendar_layout, *guide_layout,
                 *place_layout, *guide_button_layout, *lesson_jump_button, *info_layout,
                 *s_calendar_time_layout, *e_calendar_time_layout, *activity_radio,
-                *calendar_change_button;
+                *calendar_change_button, *mode_select;
     QVBoxLayout* time_clock_layout, *calendar_main_layout, *guide_mod_layout, *calendar_right;
     QPushButton* accelerate, *slow_down, *to_calendar_module1, *to_calendar_module2,
                 *to_guide_module1, *to_guide_module2, *to_lesson_module1, *to_lesson_module2,
@@ -106,7 +107,8 @@ private:
     QLabel *s_nian_name, *s_yue_name, *s_ri_name, *s_shi_name, *s_fen_name,
            *e_nian_name, *e_yue_name, *e_ri_name, *e_shi_name, *e_fen_name;
     QLineEdit *calendar_description;
-    QRadioButton *single_activity, *group_activity;
+    QRadioButton *single_activity, *group_activity, *time_first, *dist_only, *mix;
+    QButtonGroup *mode_group;
     alarm_page *alarm_set_page;
     int speed;
 
