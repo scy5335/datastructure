@@ -19,8 +19,6 @@ mainwindow::~mainwindow()
     delete ui;
 }
 
-QTime time_form::program_time = QTime::currentTime();
-
 void mainwindow::display_student_page(){
     student_page_set();
     this -> showMaximized();
@@ -28,8 +26,8 @@ void mainwindow::display_student_page(){
 
 void mainwindow::student_page_set(){
     setWindowTitle("学生主页");
-    main_time_form = new time_form();
-    main_time_form -> set_time();
+    Clock = new MyClock();
+    Clock -> start();
     set_lesson_page();
     set_calendar_page();
     set_guide_page();
@@ -45,31 +43,41 @@ void mainwindow::student_page_set(){
     stackwidget -> addWidget(page[1]);
     stackwidget -> addWidget(page[2]);
     layout = new QHBoxLayout();
-    QFont ft;
-    ft.setPointSize(30);
+    QFont fttime, ftdate;
+    fttime.setPointSize(30);
     timelabel = new QLabel();
-    speedlabel = new QLabel();
-    timelabel -> setFont(ft);
-    timelabel -> setText(main_time_form -> get_time(). toString("HH:mm")); 
+    timelabel -> setFont(fttime);
+    timelabel -> setText(trans_time(Clock -> getTime()));
     timelabel -> setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-    speedlabel -> setText("当前速度:10x");
+    ftdate.setPointSize(18);
+    datelabel = new QLabel();
+    datelabel -> setFont(ftdate);
+    datelabel -> setText(trans_date(Clock -> getTime()));
+    datelabel -> setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    speedlabel = new QLabel();
+    speedlabel -> setText("当前速度:360x");
     speedlabel -> setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-    speed = 10;
+    speed = 360;
     alarm_modify = new QPushButton();
     alarm_modify -> setText("闹钟设置");
     accelerate = new QPushButton();
-    accelerate -> setText("加速");
-    slow_down = new QPushButton();
-    slow_down -> setText("减速");
+    accelerate -> setText("设置速度");
+    speed_change = new QLineEdit();
+    QIntValidator * pIntVld = new QIntValidator(1, 3600, this);
+    speed_change -> setValidator(pIntVld);
     time_button_layout = new QHBoxLayout();
+    time_button_layout -> addWidget(speed_change);
     time_button_layout -> addWidget(accelerate);
-    time_button_layout -> addWidget(slow_down);
     time_clock_layout = new QVBoxLayout();
+    time_clock_layout -> addWidget(datelabel);
     time_clock_layout -> addWidget(timelabel);
     time_clock_layout -> addWidget(speedlabel);
     time_clock_layout -> addWidget(alarm_modify);
     time_clock_layout -> addLayout(time_button_layout);
-    layout -> addLayout(time_clock_layout);
+    time_widget = new QWidget();
+    time_widget -> setLayout(time_clock_layout);
+    time_widget -> setFixedWidth(200);
+    layout -> addWidget(time_widget);
     layout -> addWidget(stackwidget);
     setLayout(layout);
     connect(to_lesson_module1, &QPushButton::clicked, this, &mainwindow::switch_to_lesson_page);
@@ -80,19 +88,24 @@ void mainwindow::student_page_set(){
     connect(to_guide_module2, &QPushButton::clicked, this, &mainwindow::switch_to_guide_page);
     connect(alarm_modify, &QPushButton::clicked, this, &mainwindow::show_alarm_page);
     connect(accelerate, &QPushButton::clicked, this, &mainwindow::add_speed);
-    connect(slow_down, &QPushButton::clicked, this, &mainwindow::dec_speed);
+    connect(Clock, &MyClock::timeChange, this, &mainwindow::time_change);
+    connect(Clock, &MyClock::ring, this, &mainwindow::clock_ring);
+}
+
+void mainwindow::clock_ring(string description){
+    QMessageBox::information(this, "闹钟", QString::fromStdString(description));
+    if (alarm_set_page)alarm_flash();
+}
+
+void mainwindow::time_change(){
+    datelabel -> setText(trans_date(Clock -> getTime()));
+    timelabel -> setText(trans_time(Clock -> getTime()));
 }
 
 void mainwindow::add_speed(){
-    speed++;
+    speed = speed_change -> text().toInt();
     speedlabel -> setText("当前速度:" + QString::number(speed) + "x");
-}
-
-void mainwindow::dec_speed(){
-    if (!speed)
-        QMessageBox::critical(this, "减速出错", "时间已停止");
-    speed--;
-    speedlabel -> setText("当前速度:" + QString::number(speed) + "x");
+    Clock -> setSecsPerSystemHour(3600/speed);
 }
 
 void mainwindow::set_lesson_page(){
@@ -185,7 +198,6 @@ void mainwindow::set_calendar_page(){
     calendar_right = new QVBoxLayout();
     calendar_right -> addLayout(calendar_info_layout);
     calendar_right -> addLayout(calendar_change_button);
-    //calendar_info_layout -> addRow(calendar_change_button);
     calendar_layout = new QHBoxLayout();
     calendar_layout -> addLayout(calendar_main_layout);
     calendar_layout -> addLayout(calendar_right);
@@ -305,10 +317,6 @@ void mainwindow::switch_to_lesson_page(){
     stackwidget -> setCurrentIndex(0);
 }
 
-void time_form::set_time(){
-    program_time = QTime::currentTime();
-}
-
 void mainwindow::display_manage_page(){
     manage_page_set();
     this -> show();
@@ -405,14 +413,14 @@ void mainwindow::manage_page_set(){
 
 void mainwindow::test_add_page(){
     if (add_test_page != NULL) delete add_test_page;
-    add_test_page = new addtest();
+    add_test_page = new addtest(Clock -> getTime().getYear());
     add_test_page -> set_place(map -> GetVecName());
     add_test_page -> show();
 }
 
 void mainwindow::homework_add_page(){
     if (add_homework_page != NULL) delete add_homework_page;
-    add_homework_page = new addhomework();
+    add_homework_page = new addhomework(Clock -> getTime().getYear());
     add_homework_page -> show();
 }
 
@@ -431,11 +439,34 @@ void mainwindow::show_material_page(){
 void mainwindow::show_alarm_page(){
     if (alarm_set_page != NULL) delete alarm_set_page;
     alarm_set_page = new alarm_page();
+    alarm_set_page -> set_alarm_list(Clock);
     alarm_set_page -> show();
+    connect(alarm_set_page, &alarm_page::create_new_alarm, this, &mainwindow::add_alarm);
+    connect(alarm_set_page, &alarm_page::create_new_alarm, this, &mainwindow::alarm_flash);
+    connect(alarm_set_page, &alarm_page::alarm_type_changed, this, &mainwindow::alarm_type_modify);
+    connect(alarm_set_page, &alarm_page::delete_signal, this, &mainwindow::delete_alarm);
+}
+
+void mainwindow::alarm_type_modify(int row){
+    Clock -> alarms ->  arr[row].setState(3 - Clock -> alarms -> arr[row].getState());
+}
+
+void mainwindow::alarm_flash(){
+    alarm_set_page -> set_alarm_list(Clock);
+}
+
+void mainwindow::add_alarm(Alarm a){
+    if (Clock -> addAlarm(a) == NULL)
+        QMessageBox::critical(this, "加入闹钟出错", "闹钟数量过多，删掉一些吧！");
+}
+
+void mainwindow::delete_alarm(int id){
+    Clock -> rmAlarm(&Clock -> alarms -> arr[id]);
+    alarm_flash();
 }
 
 void mainwindow::set_time(){
-    int now_year = 2022;
+    int now_year = Clock -> getTime().getYear();
     s_nian = new QComboBox();
     for (int i = now_year; i <= now_year + 5; i++)
         s_nian -> addItem(QString::number(i));
@@ -539,8 +570,23 @@ void mainwindow::calendar_set_place(QStringList name){
     calendar_place -> setCurrentIndex(-1);
 }
 
-QTime time_form::get_time(){
-    return program_time;
+QString mainwindow::trans_time(MyTime now_time){
+    QString Str1, Str2;
+    if (now_time.getHour()<=9) Str1 = "0" + QString::number(now_time.getHour());
+    else Str1 = QString::number(now_time.getHour());
+    if (now_time.getMin()<=9) Str2 = "0" + QString::number(now_time.getMin());
+    else Str2 = QString::number(now_time.getMin());
+    return Str1+":"+Str2;
+}
+
+QString mainwindow::trans_date(MyTime now_time){
+    QString Str1, Str2, Str3;
+    Str1 = QString::number(now_time.getYear());
+    if (now_time.getMonth()<=9) Str2 = "0" + QString::number(now_time.getMonth());
+    else Str2 = QString::number(now_time.getMonth());
+    if (now_time.getDay()<=9) Str3 = "0" + QString::number(now_time.getDay());
+    else Str3 = QString::number(now_time.getDay());
+    return Str1+"年"+Str2+"月"+Str3+"日";
 }
 
 material_detail::material_detail(QWidget *parent){
@@ -570,6 +616,10 @@ alarm_page::alarm_page(QWidget *parent){
     every_day -> setText("每天一次");
     every_week = new QRadioButton();
     every_week -> setText("每周一次");
+    times_group = new QButtonGroup();
+    times_group ->addButton(only_once, 0);
+    times_group ->addButton(every_day, 1);
+    times_group ->addButton(every_week, 2);
     radio_layout = new QHBoxLayout();
     radio_layout -> addWidget(only_once);
     radio_layout -> addWidget(every_day);
@@ -580,7 +630,7 @@ alarm_page::alarm_page(QWidget *parent){
     new_alarm_layout = new QFormLayout();
     new_alarm_layout -> addRow("闹钟描述", alarm_description);
     new_alarm_layout -> addRow("时间", time_layout);
-    new_alarm_layout -> addRow("重复频次", radio_layout);
+    new_alarm_layout -> addRow("频率", radio_layout);
     page[0] = new QWidget();
     day_layout = new QHBoxLayout();
     page[1] = new QWidget();
@@ -613,6 +663,9 @@ alarm_page::alarm_page(QWidget *parent){
     new_alarm_layout -> addRow(day_widget);
     new_alarm_layout -> addRow(add_alarm);
     alarm_list = new QTableWidget();
+    alarm_list -> setColumnCount(5);
+    alarm_list -> setHorizontalHeaderLabels(QStringList()<<"选择"<<"描述"<<"是否开启"<<"时间"<<"频率");
+    alarm_list -> horizontalHeader() -> setSectionResizeMode(QHeaderView::Stretch);
     alarm_list_title = new QLabel();
     alarm_list_title -> setText("闹钟列表");
     del_alarm = new QPushButton();
@@ -624,6 +677,15 @@ alarm_page::alarm_page(QWidget *parent){
     connect(only_once, &QAbstractButton::clicked, this, &alarm_page::hide_day);
     connect(every_day, &QAbstractButton::clicked, this, &alarm_page::hide_day);
     connect(every_week, &QAbstractButton::clicked, this, &alarm_page::display_day);
+    connect(add_alarm, &QPushButton::clicked, this, &alarm_page::get_new_alarm);
+    connect(del_alarm, &QPushButton::clicked, this, &alarm_page::deletealarm);
+}
+
+void alarm_page::deletealarm(){
+    int row = alarm_list -> rowCount();
+    for (int i = 0; i < row; i++)
+        if (alarm_list -> item(i, 0) -> checkState() == Qt::Checked)
+            emit delete_signal(alarm_id[i]);
 }
 
 void alarm_page::hide_day(){
@@ -632,4 +694,83 @@ void alarm_page::hide_day(){
 
 void alarm_page::display_day(){
     day_widget -> setCurrentIndex(1);
+}
+
+void alarm_page::get_new_alarm(){
+    int state = 0;
+    if (times_group -> checkedId() == 1) state = 0x7F;
+    else if (times_group -> checkedId() == 2){
+        for (int i = 0; i < 7 ;i++)
+            state |= day[i] -> checkState() << i;
+        qDebug() << state;
+        if (!state)
+            QMessageBox::critical(this, "错误", "请选择至少一天");
+    }
+
+    Alarm new_alarm = Alarm(hour -> currentIndex(), minute -> currentIndex(), state, 1,
+                            alarm_description -> text().toStdString());
+    emit create_new_alarm(new_alarm);
+}
+
+void alarm_page::set_alarm_list(MyClock *Clock){
+    alarm_list -> clearContents();
+    alarm_list -> setRowCount(0);
+    alarm_count = 0;
+    disconnect(alarm_list, &QTableWidget::cellChanged, this, &alarm_page::set_type);
+    int len = Clock -> alarms -> getLen();
+    int row_count = alarm_list -> rowCount();
+    for (int i = 0; i < len; i++)
+        if (Clock -> alarms -> arr[i].getState() != -1){
+            alarm_list -> setRowCount(row_count + 1);
+            QTableWidgetItem* p_check = new QTableWidgetItem(), *sel_check = new QTableWidgetItem();
+            if (Clock -> alarms -> arr[i].getState() == 1)
+                p_check -> setCheckState(Qt::Checked);
+            else
+                p_check -> setCheckState(Qt::Unchecked);
+            sel_check -> setCheckState(Qt::Unchecked);
+            alarm_list -> setItem(row_count, 0, sel_check);
+            alarm_list -> setItem(row_count, 1,new QTableWidgetItem(QString::fromStdString(
+                                      Clock -> alarms -> arr[i].getTip())));
+            alarm_list -> setItem(row_count, 2, p_check);
+            QString Str1, Str2;
+            int hour = Clock -> alarms -> arr[i].getHour(),
+                minute = Clock -> alarms -> arr[i].getMinute();
+            if (hour <= 9) Str1 = "0" + QString::number(hour);
+            else Str1 = QString::number(hour);
+            if (minute <= 9) Str2 = "0" + QString::number(minute);
+            else Str2 = QString::number(minute);
+            alarm_list -> setItem(row_count, 3, new QTableWidgetItem(Str1 + ":" + Str2));
+            Str1 = "";
+            if (Clock -> alarms -> arr[i].getType() == 0)
+                Str1 = "仅一次";
+            else if (Clock -> alarms -> arr[i].getType() == 0x7f)
+                Str1 = "每周一次";
+            else for (int i = 0; i < 7; i++)
+                if (Clock -> alarms -> arr[i].getType() & (1<<i)){
+                    switch (i){
+                        case 0 : Str1 += "星期一";
+                                break;
+                        case 1 : Str1 += "星期二";
+                                break;
+                        case 2 : Str1 += "星期三";
+                                break;
+                        case 3 : Str1 += "星期四";
+                                break;
+                        case 4 : Str1 += "星期五";
+                                break;
+                        case 5 : Str1 += "星期六";
+                                 break;
+                        default : Str1 += "星期日";
+                    }
+                }
+            alarm_list -> setItem(row_count, 4, new QTableWidgetItem(Str1));
+            alarm_id[alarm_count++] = i;
+            row_count ++;
+        }
+    connect(alarm_list, &QTableWidget::cellChanged, this, &alarm_page::set_type);
+}
+
+void alarm_page::set_type(int row, int column){
+    if (column == 2)
+        emit alarm_type_changed(alarm_id[row]);
 }

@@ -21,7 +21,7 @@ class addtest : public QWidget
     Q_OBJECT
 
 public:
-    explicit addtest(QWidget *parent = nullptr);
+    explicit addtest(int now_year, QWidget *parent = nullptr);
     ~addtest();
     void set_place(QStringList name);
 
@@ -35,6 +35,7 @@ private:
     QGridLayout* main_info_layout;
     QHBoxLayout* test_time_layout, *button_layout;
     QVBoxLayout* main_layout;
+    int now_year;
     void set_time();
     void change_day();
     void clear_content();

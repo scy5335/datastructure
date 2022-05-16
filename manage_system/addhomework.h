@@ -21,7 +21,7 @@ class addhomework : public QWidget
     Q_OBJECT
 
 public:
-    explicit addhomework(QWidget *parent = nullptr);
+    explicit addhomework(int now_year, QWidget *parent = nullptr);
     ~addhomework();
 
 private:
@@ -34,6 +34,7 @@ private:
     QGridLayout* main_info_layout;
     QHBoxLayout* homework_time_layout, *button_layout;
     QVBoxLayout* main_layout;
+    int now_year;
     void set_time();
     void change_day();
     void clear_content();

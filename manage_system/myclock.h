@@ -76,7 +76,7 @@ private:
     void check();
 
 signals:
-    void ring();//响铃闹钟信号
+    void ring(string description);//响铃闹钟信号
     void timeChange();//时间改变信号
 };
 

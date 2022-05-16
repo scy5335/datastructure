@@ -97,7 +97,6 @@ void MyClock::dayInit()
 void MyClock::check()
 {
     emit timeChange();
-    qDebug()<<sysTime.toString().c_str();
     if(sysTime.getHour()==0&&sysTime.getMin()==0)
         dayInit();
     Alarm* front = heap->front();
@@ -113,11 +112,11 @@ void MyClock::check()
             {
                 //响铃
                 qDebug()<<ringingAlarmTip().c_str();
-                emit ring();
                 if(front->type==type::single)
                 {
                     front->state=state::OFF;
                 }
+                emit ring(front->getTip());
             }
         }
         heap->pop();

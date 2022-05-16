@@ -7,6 +7,8 @@ manage_system_autogen/timestamp: \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/addhomework.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/addtest.cpp \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/addtest.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/alarm.cpp \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/alarm.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/course.cpp \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/course.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/data.cpp \
@@ -20,8 +22,8 @@ manage_system_autogen/timestamp: \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/mainwindow.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/material_manage_page.cpp \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/material_manage_page.h \
-  C:/Users/18214/Documents/GitHub/datastructure/manage_system/myalarm.cpp \
-  C:/Users/18214/Documents/GitHub/datastructure/manage_system/myalarm.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/myclock.cpp \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/myclock.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.cpp \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/mytime.cpp \
@@ -31,6 +33,7 @@ manage_system_autogen/timestamp: \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/trie.cpp \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/trie.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QDate \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/QDateTime \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QDebug \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QEasingCurve \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QList \
@@ -41,6 +44,7 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QString \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QTime \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QTimeLine \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/QTimer \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QTranslator \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QVector \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qabstractitemmodel.h \
@@ -51,6 +55,7 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qarraydatapointer.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qatomic.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qbasicatomic.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/qbasictimer.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qbindingstorage.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qbytearray.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qbytearrayalgorithms.h \
@@ -132,6 +137,7 @@ manage_system_autogen/timestamp: \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qtcore-config.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qtextstream.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qtimeline.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/qtimer.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qtmetamacros.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qtranslator.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qtypeinfo.h \

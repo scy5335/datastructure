@@ -1,12 +1,13 @@
 #include "addtest.h"
 #include "ui_addtest.h"
 
-addtest::addtest(QWidget *parent) :
+addtest::addtest(int now_year, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::addtest)
 {
     ui->setupUi(this);
     setWindowTitle("考试添加");
+    this -> now_year = now_year;
     test_name_title = new QLabel();
     test_name_title -> setText("考试名称");
     test_name_edit = new QLineEdit();
@@ -50,7 +51,6 @@ addtest::addtest(QWidget *parent) :
 }
 
 void addtest::set_time(){
-    int now_year = 2022;
     nian = new QComboBox();
     for (int i = now_year; i <= now_year + 5; i++)
         nian -> addItem(QString::number(i));

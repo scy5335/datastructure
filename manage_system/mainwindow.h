@@ -23,16 +23,7 @@
 #include "addtest.h"
 #include "addhomework.h"
 #include "material_manage_page.h"
-
-class time_form
-{
-public:
-    static void set_time();
-    static QTime get_time();
-
-private:
-    static QTime program_time;
-};
+#include "myclock.h"
 
 class material_detail : public QWidget{
     Q_OBJECT
@@ -60,10 +51,22 @@ private:
     QHBoxLayout *radio_layout, *time_layout, *day_layout;
     QFormLayout *new_alarm_layout;
     QCheckBox *day[7];
+    int alarm_id[maxLen], alarm_count;
+    QButtonGroup *times_group;
     void hide_day();
     void display_day();
+    void get_new_alarm();
+    void set_type(int row, int column);
+    void deletealarm();
+
+signals:
+    void create_new_alarm(Alarm a);
+    void alarm_type_changed(int row);
+    void delete_signal(int id);
+
 public:
     alarm_page(QWidget *parent = nullptr);
+    void set_alarm_list(MyClock *clock);
 };
 
 namespace Ui {
@@ -87,16 +90,15 @@ private:
                 *s_calendar_time_layout, *e_calendar_time_layout, *activity_radio,
                 *calendar_change_button, *mode_select;
     QVBoxLayout* time_clock_layout, *calendar_main_layout, *guide_mod_layout, *calendar_right;
-    QPushButton* accelerate, *slow_down, *to_calendar_module1, *to_calendar_module2,
+    QPushButton* accelerate, *to_calendar_module1, *to_calendar_module2,
                 *to_guide_module1, *to_guide_module2, *to_lesson_module1, *to_lesson_module2,
                 *place_select_button, *place_clear_button, *start_guide, *homework_submit,
                 *material_list_button, *calendar_add, *calendar_del, *alarm_modify;
-    QLabel* timelabel, *speedlabel, *calendar_title, *guide_time, *query_label, *answer_label,
+    QLabel* timelabel, *datelabel, *speedlabel, *calendar_title, *guide_time, *query_label, *answer_label,
             *lesson_name, *lesson_place, *lesson_teacher, *test_label, *homework_label;
-    QListWidget* calendar_list, *test_info, *homework_info, *alarm_list;
-    QTableWidget* lessontable;
-    QWidget* page[3];
-    time_form* main_time_form;
+    QListWidget* calendar_list, *test_info, *homework_info;
+    QTableWidget* lessontable, *alarm_list;
+    QWidget* page[3], *time_widget;
     myGraphView* map;
     QStackedWidget* stackwidget;
     QListWidget* query_list, *answer_list;
@@ -106,10 +108,11 @@ private:
     QComboBox* s_nian, *s_yue, *s_ri, *s_shi, *s_fen, *e_nian, *e_yue, *e_ri, *e_shi, *e_fen;
     QLabel *s_nian_name, *s_yue_name, *s_ri_name, *s_shi_name, *s_fen_name,
            *e_nian_name, *e_yue_name, *e_ri_name, *e_shi_name, *e_fen_name;
-    QLineEdit *calendar_description;
+    QLineEdit *calendar_description, *speed_change;
     QRadioButton *single_activity, *group_activity, *time_first, *dist_only, *mix;
     QButtonGroup *mode_group;
     alarm_page *alarm_set_page;
+    MyClock *Clock;
     int speed;
 
     void student_page_set();
@@ -132,6 +135,14 @@ private:
     void show_alarm_page();
     void add_speed();
     void dec_speed();
+    QString trans_time(MyTime);
+    QString trans_date(MyTime);
+    void time_change();
+    void alarm_type_modify(int row);
+    void alarm_flash();
+    void clock_ring(string description);
+    void add_alarm(Alarm a);
+    void delete_alarm(int id);
 
     //manage
     QComboBox* class_select, *place_message;

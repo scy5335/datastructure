@@ -1,12 +1,13 @@
 #include "addhomework.h"
 #include "ui_addhomework.h"
 
-addhomework::addhomework(QWidget *parent) :
+addhomework::addhomework(int now_year, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::addhomework)
 {
     ui->setupUi(this);
     setWindowTitle("作业添加");
+    this -> now_year = now_year;
     homework_name_title = new QLabel();
     homework_name_title -> setText("作业名称");
     homework_name_edit = new QLineEdit();
@@ -48,7 +49,6 @@ addhomework::~addhomework()
 }
 
 void addhomework::set_time(){
-    int now_year = 2022;
     nian = new QComboBox();
     for (int i = now_year; i <= now_year + 5; i++)
         nian -> addItem(QString::number(i));
