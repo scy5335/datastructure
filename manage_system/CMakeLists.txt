@@ -34,8 +34,10 @@ set(PROJECT_SOURCES
         addhomework.h
         addhomework.cpp
         addhomework.ui
-        myalarm.h
-        myalarm.cpp
+        alarm.h
+        alarm.cpp
+        myclock.h
+        myclock.cpp
         hfmtree.h
         hfmtree.cpp
         data.h

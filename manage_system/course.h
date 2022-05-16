@@ -62,10 +62,10 @@ Data* data[listLen];
 -------------------------------------------------------------
 -------------------------------------------------------------
 函数介绍
-Course(unsigned courseId, unsigned teacherId, unsigned locale, uchar startWeek, uchar endWeek, ull firstClass, uchar continuous, string root);
+Course(unsigned courseId, unsigned locale, string root="D:\\");
     主要用于创建新的课程时使用，会初始化课程的信息，
     但是具体的上课时间以及考试信息由于未给出而初始化为无效值。
-Course(unsigned courseId, ull firstClass, uchar continuous, string root);
+Course(unsigned courseId,string root="D:\\");
     io函数
     主要用于给已存在的课程创建一个课程类载体，会通过参数找到文件的位置并读取，
     如果不存在对应的文件会报错，但不会中断程序
@@ -79,22 +79,19 @@ void setGroup(string group);
     设置群
 void setExamInfo(string examName, MyTime startTime, int locale, int lastMinute);
     设置考试信息，参数为考试名称、起始时间、地点、考试持续多少分钟
+void setRoot(string root);
+    重新设置根目录，原有路径不再保存，可能造成数据丢失
 
 -------------------------------------------------------------
 -------------------------------------------------------------
 以下为基本的获取私有变量的值的函数
 unsigned getCourseId();
-unsigned getTeacherId();
 unsigned getLocale();
 int courseBeginHour(int day);
 int courseBeginMin(int day);
 int courseLast(int day);
-int getStartWeek();
-int getEndWeek();
 int getTotalHour();
     获取总课时数
-ull getFirstClass();
-int getClassNum();
 string getGroup();
 string getExamName();
 int getExamLocale();
@@ -182,12 +179,8 @@ class Course : public QObject
     Q_OBJECT
 private:
     unsigned courseId;
-    unsigned teacherId;
     unsigned locale;
     unsigned weekTable[7];
-    uchar startWeek,endWeek;
-    ull firstClass;
-    uchar continuous;
     string group;
     bool need2save;
     uchar taskNum;
@@ -202,15 +195,16 @@ public:
     Task* task[listLen];
     Data* data[listLen];
     explicit Course(QObject *parent = nullptr);
-    Course(unsigned courseId, unsigned teacherId, unsigned locale, uchar startWeek, uchar endWeek, ull firstClass, uchar continuous, string root);
-    Course(unsigned courseId, ull firstClass, uchar continuous, string root);
+    Course(unsigned courseId, unsigned locale, string root="D:\\");
+    Course(unsigned courseId, string root="D:\\");
     void setLocale(int locale);
     void setCourseTime(uchar weekDay, uchar hour, uchar min, uchar last);//星期、从几点的几分开始，持续几节课
-    void setPeriodWeek(int startWeek, int endWeek);
     void setGroup(string group);
     void setExamInfo(string examName, MyTime startTime, int locale, int lastMinute);
+    void setRoot(string root);
+    void cancelExam();
     unsigned getCourseId();
-    unsigned getTeacherId();
+
     unsigned getLocale();
     int courseBeginHour(int day);
     int courseBeginMin(int day);
@@ -233,6 +227,8 @@ public:
     Task* taskSearch(string name);
     void dataSort();
     Data* dataSearch(string name);
+    int getTaskNum();
+    int getDataNum();
     void taskRemove(Task* t);
     void dataRemove(Data* d);
     void remove();

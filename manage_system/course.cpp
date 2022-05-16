@@ -6,16 +6,11 @@ Course::Course(QObject *parent)
 
 }
 
-Course::Course(unsigned courseId, unsigned teacherId, unsigned locale, unsigned char startWeek, unsigned char endWeek, unsigned long long firstClass, unsigned char continuous, string root)
+Course::Course(unsigned courseId, unsigned locale, string root)
 {
     this->courseId = courseId;
-    this->teacherId = teacherId;
     this->locale =locale;
-    this->startWeek=startWeek;
-    this->endWeek=endWeek;
-    this->firstClass=firstClass;
-    this->continuous=continuous;
-    this->dir=root+"\\course_"+to_string(courseId)+"_"+to_string(firstClass)+"_"+to_string(continuous);
+    this->dir=root+"\\course_"+to_string(courseId);
     this->taskNum=0;
     this->dataNum=0;
     need2save = false;
@@ -28,17 +23,18 @@ Course::Course(unsigned courseId, unsigned teacherId, unsigned locale, unsigned 
     this->group = "uninitialized";
 }
 
-Course::Course(unsigned courseId, unsigned long long firstClass, unsigned char continuous, string root)
+Course::Course(unsigned courseId, string root)
 {
     this->courseId = courseId;
-    this->firstClass = firstClass;
-    this->continuous = continuous;
-    this->dir=root+"\\course_"+to_string(courseId)+"_"+to_string(firstClass)+"_"+to_string(continuous);
+    this->dir=root+"\\course_"+to_string(courseId);
     this->taskNum=0;
     this->dataNum=0;
     if(!fs::exists(dir))
     {
         qDebug()<<"未找到该课程路径，请检查该课程是否存在";
+        memset(weekTable,0,7*sizeof(unsigned));
+        this->examName = "uninitialized";
+        this->group = "uninitialized";
     }
     else
     {
@@ -61,14 +57,6 @@ void Course::setCourseTime(unsigned char weekDay, unsigned char hour, unsigned c
     weekTable[weekDay]=temp;
     need2save=true;
 }
-
-void Course::setPeriodWeek(int startWeek, int endWeek)
-{
-    this->startWeek=startWeek;
-    this->endWeek=endWeek;
-    need2save=true;
-}
-
 
 
 void Course::setGroup(string group)
@@ -105,15 +93,24 @@ void Course::setExamInfo(string examName, MyTime startTime, int locale, int last
     need2save=true;
 }
 
+void Course::setRoot(string root)
+{
+    this->dir=root+"\\course_"+to_string(courseId);
+    need2save=true;
+}
+
+void Course::cancelExam()
+{
+    need2save=true;
+    this->examName="uninitialized";
+    need2save = true;
+}
+
 unsigned Course::getCourseId()
 {
     return courseId;
 }
 
-unsigned Course::getTeacherId()
-{
-    return teacherId;
-}
 
 unsigned Course::getLocale()
 {
@@ -135,15 +132,7 @@ int Course::courseLast(int day)
     return weekTable[day]%10;
 }
 
-int Course::getStartWeek()
-{
-    return startWeek;
-}
 
-int Course::getEndWeek()
-{
-    return endWeek;
-}
 
 int Course::getTotalHour()
 {
@@ -152,17 +141,7 @@ int Course::getTotalHour()
     {
         perWeek+=courseLast(i);
     }
-    return perWeek*(endWeek-startWeek+1);
-}
-
-unsigned long long Course::getFirstClass()
-{
-    return firstClass;
-}
-
-int Course::getClassNum()
-{
-    return continuous;
+    return perWeek*16;
 }
 
 string Course::getGroup()
@@ -250,14 +229,13 @@ void Course::saveFile()
     }
     fstream ofs;
     ofs.open(dir+"\\courseInfo.txt",ios::out|ios::trunc);
-    ofs<<teacherId<<" "<<locale<<" "<<courseId<<endl;
+    ofs<<locale<<" "<<courseId<<endl;
     int i;
     for(i=0;i<7;i++)
     {
         ofs<<weekTable[i]<<" ";
     }
-    ofs<<(int)startWeek<<" "<<(int)endWeek<<endl;
-    ofs<<firstClass<<" "<<(int)continuous<<" "<<group<<endl;
+    ofs<<group<<endl;
     for(i=0;i<taskNum;i++)
     {
         ofs<<task[i]->getName()<<endl;
@@ -305,17 +283,12 @@ void Course::readFile()
         qDebug()<<"读取课程文件失败";
         return;
     }
-    ifs>>teacherId>>locale>>courseId;
+    ifs>>locale>>courseId;
     int i;
     for(i=0;i<7;i++)
     {
         ifs>>weekTable[i];
     }
-    int intTmp;
-    ifs>>intTmp;startWeek=intTmp;
-    ifs>>intTmp;endWeek=intTmp;
-    ifs>>firstClass;
-    ifs>>intTmp;continuous=intTmp;
     ifs>>group;
     string temp;
     for(i=0;ifs>>temp&&temp!="data:";i++)
@@ -398,6 +371,16 @@ Data *Course::dataSearch(string name)
         }
     }
     return nullptr;
+}
+
+int Course::getTaskNum()
+{
+    return taskNum;
+}
+
+int Course::getDataNum()
+{
+    return dataNum;
 }
 
 void Course::taskRemove(Task *t)
