@@ -35,6 +35,7 @@ MyTime MyClock::getTime()
 void MyClock::setSecsPerSystemHour(double secsPerSystemHour)
 {
     this->secsPerSystemHour=secsPerSystemHour;
+    timer.start(secsPerSystemHour*1000/60);
 }
 
 double MyClock::getSecsPerSystemHour()
