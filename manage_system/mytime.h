@@ -1,17 +1,15 @@
 #ifndef MYTIME_H
 #define MYTIME_H
 
-#include <QObject>
 #include<QTime>
 #include<iostream>
 using namespace std;
-class MyTime : public QObject
+class MyTime
 {
-    Q_OBJECT
     unsigned short year;
     unsigned char month,day,hour,minute;
 public:
-    explicit MyTime(QObject *parent = nullptr);
+    MyTime();
 
     MyTime(int year,int month, int day, int hour=0, int minute=0);
 
@@ -66,6 +64,10 @@ public:
     bool timeEquals(const MyTime& b) const;
 
     bool operator==(const MyTime& b) const;
+
+    string toByteStream();
+
+    ~MyTime();
 
 signals:
 

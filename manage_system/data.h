@@ -20,6 +20,7 @@ public:
     void getSetTime();
     string getName();
     void remove();
+    ~Data();
 private:
     string path;
     string name;

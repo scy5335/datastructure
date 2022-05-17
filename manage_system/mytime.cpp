@@ -1,9 +1,13 @@
 #include "mytime.h"
 const int days[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-MyTime::MyTime(QObject *parent)
-    : QObject{parent}
-{
 
+MyTime::MyTime()
+{
+    this->year = 2000;
+    this->month = 0;
+    this->day = 0;
+    this->hour = 0;
+    this->minute = 0;
 }
 
 MyTime::MyTime(int year, int month, int day, int hour, int minute)
@@ -205,4 +209,10 @@ bool MyTime::timeEquals(const MyTime &b) const
 bool MyTime::operator==(const MyTime &b) const
 {
     return dateEquals(b)&&timeEquals(b);
+}
+
+
+MyTime::~MyTime()
+{
+
 }

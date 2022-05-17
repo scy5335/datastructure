@@ -61,3 +61,8 @@ void Data::remove()
     this->name="none";
 }
 
+Data::~Data()
+{
+
+}
+
