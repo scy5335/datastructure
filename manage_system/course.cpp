@@ -76,7 +76,7 @@ Task *Course::releaseTask(string taskName, MyTime sysTime, MyTime deadline, stri
     }
     if(taskNum<listLen)
     {
-        task[taskNum] = new Task(courseId,taskName,sysTime,deadline,description,dir);
+        task[taskNum] = new Task(courseId,taskName,sysTime,deadline,description,dir,this);
         taskNum++;
         need2save=true;
         return task[taskNum-1];
@@ -180,7 +180,7 @@ Data* Course::releaseData(string dataName, string fileAddr, MyTime sysTime)
     }
     if(dataNum<listLen)
     {
-        data[dataNum] = new Data(dataName,dir);
+        data[dataNum] = new Data(dataName,dir,this);
         data[dataNum]->upload(sysTime,fileAddr);
         dataNum++;
         need2save=true;
@@ -194,7 +194,7 @@ void Course::taskReadIn(string name)
 {
     if(taskNum<listLen)
     {
-        task[taskNum]=new Task(courseId,name,dir);
+        task[taskNum]=new Task(courseId,name,dir,this);
         if(task[taskNum]->readTaskBasicFile()!=4)
         {
             qDebug()<<name.c_str()<<"作业读取失败";
@@ -216,7 +216,7 @@ void Course::dataReadIn(string name)
         qDebug()<<"dataList空间不足";
         return;
     }
-    data[dataNum] = new Data(name,dir);
+    data[dataNum] = new Data(name,dir,this);
     data[dataNum]->getSetTime();
     dataNum++;
 }
@@ -409,11 +409,9 @@ void Course::remove()
 {
     this->courseId=0xFFFFFFFF;
     int i;
-    qDebug()<<courseId;
     for(i=0;i<taskNum;i++)
     {
         task[i]->remove();
-        qDebug()<<"1";
         delete task[i];
     }
     for(i=0;i<dataNum;i++)
@@ -426,13 +424,5 @@ void Course::remove()
 
 Course::~Course()
 {
-    int i;
-    for(i=0;i<taskNum;i++)
-    {
-        delete task[i];
-    }
-    for(i=0;i<dataNum;i++)
-    {
-        delete data[i];
-    }
+
 }

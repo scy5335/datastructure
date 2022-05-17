@@ -6,7 +6,7 @@ Data::Data(QObject *parent)
 
 }
 
-Data::Data( string name, string parentCourseDir)
+Data::Data( string name, string parentCourseDir, QObject *parent)
 {
     this->name=name;
     this->path=parentCourseDir+"\\data";
@@ -16,6 +16,7 @@ Data::Data( string name, string parentCourseDir)
         qDebug()<<"注意：创建了新的资料目录";
         fs::create_directories(path);
     }
+    setParent(parent);
 }
 
 void Data::setName(string name)

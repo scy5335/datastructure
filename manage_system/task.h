@@ -18,8 +18,8 @@ class Task : public QObject
 public:
     MyTime setTime,deadline;
     explicit Task(QObject *parent = nullptr);
-    Task(int parentCourseId, string name, MyTime setTime, MyTime deadline, string description, string parentCourseDir);//通过所属课程和作业名称完成对作业文件目录的定位，如果目录不存在，说明该作业不存在，创建该目录
-    Task(int parentCourseId,string name,string parentCourseDir);
+    Task(int parentCourseId, string name, MyTime setTime, MyTime deadline, string description, string parentCourseDir, QObject *parent);//通过所属课程和作业名称完成对作业文件目录的定位，如果目录不存在，说明该作业不存在，创建该目录
+    Task(int parentCourseId,string name,string parentCourseDir, QObject *parent);
     void setDesciption(string description);
     void setSetTime(MyTime& time);
     void setDeadline(MyTime& time);

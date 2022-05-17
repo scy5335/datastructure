@@ -8,7 +8,7 @@ Task::Task(QObject *parent)
 
 
 
-Task::Task(int parentCourseId, string name, MyTime setTime, MyTime deadline, string description, string parentCourseDir)
+Task::Task(int parentCourseId, string name, MyTime setTime, MyTime deadline, string description, string parentCourseDir,QObject *parent)
 {
     this->parentCourseId=parentCourseId;
     this->name=name;
@@ -18,9 +18,10 @@ Task::Task(int parentCourseId, string name, MyTime setTime, MyTime deadline, str
     directory=parentCourseDir+"\\task_"+this->name;
     this->description=description;
     qDebug()<<"创建作业对象成功，路径为"<<directory.c_str();
+    setParent(parent);
 }
 
-Task::Task(int parentCourseId, string name, string parentCourseDir)
+Task::Task(int parentCourseId, string name, string parentCourseDir, QObject *parent)
 {
     this->parentCourseId=parentCourseId;
     this->name=name;
@@ -30,6 +31,7 @@ Task::Task(int parentCourseId, string name, string parentCourseDir)
     {
         fs::create_directories(directory);
     }
+    setParent(parent);
 }
 
 

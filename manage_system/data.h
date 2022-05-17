@@ -13,7 +13,7 @@ class Data : public QObject
 public:
     MyTime setTime;
     explicit Data(QObject *parent = nullptr);
-    Data(string name, string parentCourseDir);
+    Data(string name, string parentCourseDir, QObject *parent);
     void setName(string name);
     void upload(MyTime setTime, string fileAddr);
     void download(string downloadTo);
