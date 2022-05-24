@@ -1,66 +1,63 @@
 #include "calendar.h"
 
-Calendar::Calendar(string path):
-    path(path),
-    head(new Record())
+void Calendar::getRecordFromfile()
 {
-    head->next=NULL;
     /*读取文件初始化日程链表，成员函数通过链表来操作，直到析构才释放链表*/
-    int startTime,endTime;
     int year1,month1,day1,hour1,minute1;
     int year2,month2,day2,hour2,minute2;
     string event;
     ifstream file(path,ios::in);
     if(file.is_open()){
         while(!file.eof()){
-            file>>startTime;
-            file>>endTime;
+            file>>year1>>month1>>day1>>hour1>>minute1;
+            file>>year2>>month2>>day2>>hour2>>minute2;
             file>>event;
-            minute1=startTime&0x0000003f;
-            hour1=startTime  &0x000007c0;
-            day1=startTime   &0x0000f800;
-            month1=startTime &0x000f0000;
-            year1=startTime  &0xfff00000;
-            minute2=startTime&0x0000003f;
-            hour2=startTime  &0x000007c0;
-            day2=startTime   &0x0000f800;
-            month2=startTime &0x000f0000;
-            year2=startTime  &0xfff00000;
             addRecord(event,MyTime(year1,month1,day1,hour1,minute1),MyTime(year2,month2,day2,hour2,minute2));
         }
         file.close();
     }
 }
 
-Calendar::~Calendar()
+void Calendar::updateFile()
 {
     /*通过链表更新文件*/
-    int startTime;
-    int endTime;
     Record *temp=head->next;
     ofstream file(path,ios::out);
     if(file.is_open()){
         while(temp){
-            head->next=temp->next;
-            startTime=(temp->startTime.getYear()<<20)
-                    |(temp->startTime.getMonth()<<16)
-                    |(temp->startTime.getDay()<<11)
-                    |(temp->startTime.getHour()<<6)
-                    |(temp->startTime.getMin());
-            endTime=(temp->endTime.getYear()<<20)
-                    |(temp->endTime.getMonth()<<16)
-                    |(temp->endTime.getDay()<<11)
-                    |(temp->endTime.getHour()<<6)
-                    |(temp->endTime.getMin());
-            file<<startTime<<endl;
-            file<<endTime<<endl;
-            file<<temp->event<<endl;
-
-            delete temp;
-            temp=head->next;
+            file<<endl<<temp->startTime.getYear();
+            file<<endl<<temp->startTime.getMonth();
+            file<<endl<<temp->startTime.getDay();
+            file<<endl<<temp->startTime.getHour();
+            file<<endl<<temp->startTime.getMin();
+            file<<endl<<temp->endTime.getYear();
+            file<<endl<<temp->endTime.getMonth();
+            file<<endl<<temp->endTime.getDay();
+            file<<endl<<temp->endTime.getHour();
+            file<<endl<<temp->endTime.getMin();
+            file<<endl<<temp->event;
+            temp=temp->next;
         }
         file.close();
-    delete head;
+    }
+}
+
+Calendar::Calendar(string path):
+    path(path),
+    head(new Record())
+{
+    head->next=NULL;
+    getRecordFromfile();
+}
+
+Calendar::~Calendar()
+{
+    updateFile();
+    Record *temp=head;
+    while(temp){
+        head=temp->next;
+        delete temp;
+        temp=head;
     }
 }
 void Calendar::addRecord(string event,MyTime startTime,MyTime endTime)
@@ -68,6 +65,8 @@ void Calendar::addRecord(string event,MyTime startTime,MyTime endTime)
     Record* temp=head;
     Record* r=new Record(event,startTime,endTime);
     while(temp->next){
+        if(event==temp->next->event)//不允许重名
+            return;
         if(startTime<temp->next->startTime){
             r->next=temp->next;
             temp->next=r;
@@ -124,8 +123,8 @@ QStringList Calendar::getRecords()
     QStringList list;
     Record *temp=head->next;
     while(temp){
-        list.append(temp->startTime.toString());
-        list.append(temp->endTime.toString());
+        list.append(QString::fromStdString(temp->startTime.toString()));
+        list.append(QString::fromStdString(temp->endTime.toString()));
         list.append(QString::fromStdString(temp->event));
         temp=temp->next;
     }

@@ -1,32 +1,5 @@
 #include "manager.h"
 
-int Manager::getCourseId(string course)
-{
-    int courseId=0;
-    string courseName;
-    fstream file;
-    file.open("course\\courseId.txt",ios::in);
-    if(file.is_open()){
-        while(!file.eof()){
-            file>>courseId>>courseName;
-            if(courseName==course){
-                file.close();
-                return courseId;
-            }
-        }
-        if(file.eof()){//不存在该课程名称，则创造一个id
-            courseId++;
-            file.close();
-            file.open("course\\courseId.txt",ios::app);
-            if(file.is_open()){
-                file<<courseId<<endl;
-                file<<courseName<<endl;
-            }
-        }
-    }
-    return courseId;
-}
-
 Manager::Manager():id(0),logger("manager\\manager_logger.txt")
 {
 
@@ -37,136 +10,101 @@ Manager::~Manager()
 
 }
 
-void Manager::addCourse(string courseName,int locale)
+void Manager::addCourse(string courseName,int locale,int classId)
 {
     logger.addLogger("管理员增加了一门课程");
-    /*课程编号应该由课程文件产生*/
-    Course c(getCourseId(courseName),locale,"course");
-    c.saveFile();
+    Class::addCourse(courseName,locale,classId);
 }
 
-void Manager::deleteCoure(string courseName)
+void Manager::deleteCoure(string courseName,int classId)
 {
     logger.addLogger("管理员删除了一门课程");
-    Course c(getCourseId(courseName),"course");
-    c.remove();
-    c.saveFile();
-    /*还应该修改课程编号和课程名称关系的文件，但是如果保证该门课程不再查询，则不会查询到该门课程id*/
+    Class c(classId);
+    c.deleteCoure(courseName);
 }
 
-void Manager::setCourseTime(string courseName,int weekday,int startHour,int startMinute,int classes)
+void Manager::setCourseTime(string courseName,int weekday,int startHour,int startMinute,int classes,int classId)
 {
     logger.addLogger("管理员设置了课程时间");
-    Course c(getCourseId(courseName),"course");
-    /*weekday-1是因为课程类函数的解释周一对应0*/
-    c.setCourseTime(weekday-1,startHour,startMinute,classes);
-    c.saveFile();
+    Class c(classId);
+    c.setCourseTime(courseName,weekday,startHour,startMinute,classes);
 }
 
-void Manager::setCourseGroup(string courseName,string courseGroup)
+void Manager::setCourseGroup(string courseName,string courseGroup,int classId)
 {
-    Course c(getCourseId(courseName),"course");
-    c.setGroup(courseGroup);
-    c.saveFile();
+    logger.addLogger("管理员设置了课程群");
+    Class c(classId);
+    c.setCourseGroup(courseName,courseGroup);
 }
 
-void Manager::uploadCourseData(string courseName, string dataName, string dataPath)
+void Manager::uploadCourseData(string courseName, string dataName, string dataPath,int classId)
 {
     logger.addLogger("管理员上传了课程资料");
-    Course c(getCourseId(courseName),"course");
-    /*releaseData函数好像没有给出资料参数的位置,第三个参数本应为系统当前参数，这里没有获取系统当前时间的方法*/
-    c.releaseData(dataName,dataPath,MyTime(2022,5,13));
-    c.saveFile();
+    Class c(classId);
+    c.uploadCourseData(courseName,dataName,dataPath);
 }
 
-QStringList Manager::getCourseDataInfo(string courseName)
+QStringList Manager::getCourseDataInfo(string courseName,int classId)
 {
     logger.addLogger("管理员查询了课程资料");
-    QStringList list;
-    Course c(getCourseId(courseName),"course");
-    int dataNum=c.getDataNum();
-    for(int i=0;i<dataNum;++i){
-        list.append(QString::fromStdString(c.data[i]->getName()));
-    }
-    return list;
+    Class c(classId);
+    return c.getCourseDataInfo(courseName);
 }
 
-void Manager::removeCourseData(string courseName, string dataName)
+void Manager::removeCourseData(string courseName, string dataName,int classId)
 {
     logger.addLogger("管理员删除了课程资料");
-    Course c(getCourseId(courseName),"course");
-    c.dataRemove(c.dataSearch(dataName));
-    c.saveFile();
+    Class c(classId);
+    c.removeCourseData(courseName,dataName);
 }
 
-void Manager::downloadCourseData(string courseName,string dataName,string downloadPath)
+void Manager::downloadCourseData(string courseName,string dataName,string downloadPath,int classId)
 {
     logger.addLogger("管理员下载询了课程资料");
-    Course c(getCourseId(courseName),"course");
-    c.dataSearch(dataName)->download(downloadPath);
+    Class c(classId);
+    c.downloadCourseData(courseName,dataName,downloadPath);
 }
 
-void Manager::uploadExam(string courseName, string examName, MyTime startTime, int location, int duration)
+void Manager::uploadExam(string courseName, string examName, MyTime startTime, int location, int duration,int classId)
 {
     logger.addLogger("管理员发布了考试");
-    Course c(getCourseId(courseName),"course");
-    c.setExamInfo(examName,startTime,location,duration);
-    c.saveFile();
+    Class c(classId);
+    c.uploadExam(courseName,examName,startTime,location,duration);
 }
 
-void Manager::deleteExam(string courseName)
+void Manager::deleteExam(string courseName,int classId)
 {
     logger.addLogger("管理员删除了考试");
-    Course c(getCourseId(courseName),"course");
-    /*增加了取消考试函数*/
-//    c.setExamInfo("无",MyTime(0,0,0),0,0);
-    c.cancelExam();
-    c.saveFile();
+    Class c(classId);
+    c.deleteExam(courseName);
 }
 
-QStringList Manager::getExamInfo(string courseName)
+QStringList Manager::getExamInfo(string courseName,int classId)
 {
     logger.addLogger("管理员查询了考试");
-    QStringList list;
-    Course c(getCourseId(courseName),"course");
-    list.append(QString::fromStdString(c.getExamName()));
-    list.append(c.getStartTime().toString());
-    list.append(QString::number(c.getExamLocale()));
-    list.append(QString::number(c.getLastMinute()));
-    return list;
+    Class c(classId);
+    return c.getExamInfo(courseName);
 }
 
-void Manager::uploadHomework(string courseName, string homeworkName, MyTime deadline, string description)
+void Manager::uploadHomework(string courseName, string homeworkName, MyTime deadline, string description,int classId)
 {
     logger.addLogger("管理员发布了作业");
-    Course c(getCourseId(courseName),"course");
-    /*下面releaseTask函数的获取当前系统时间的方法未给出*/
-    c.releaseTask(homeworkName,MyTime(2022,5,13),deadline,description);
-    c.saveFile();
+    Class c(classId);
+    c.uploadHomework(courseName,homeworkName,deadline,description);
 }
 
-void Manager::deleteHomework(string courseName, string homeworkName)
+void Manager::deleteHomework(string courseName, string homeworkName,int classId)
 {
     logger.addLogger("管理员删除了作业");
-    Course c(getCourseId(courseName),"course");
-    c.taskRemove(c.taskSearch(homeworkName));
+    Class c(classId);
+    c.deleteHomework(courseName,homeworkName);
 }
 
-QStringList Manager::getHomework(string courseName)
+QStringList Manager::getHomework(string courseName,int classId)
 {
-    QStringList list;
     logger.addLogger("管理员查询了作业");
-    Course c(getCourseId(courseName),"course");
-    Task t;
-    //数据残缺,无法获取task数目，只能通过判断空指针
-    for(int i=0;i<c.getTaskNum();i++)
-    {
-        list.append(QString::fromStdString(c.task[i]->getName()));
-        list.append(c.task[i]->setTime.toString());
-        list.append(QString::fromStdString(c.task[i]->getDesc()));
-        //这里只能查询到布置作业的名称和作业描述
-    }
-    return list;
+    Class c(classId);
+    return c.getHomework(courseName);
 }
 
 void Manager::clearLogger()

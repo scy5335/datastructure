@@ -3,38 +3,31 @@
 #include "logger.h"
 #include "calendar.h"
 #include "course.h"
+#include "class.h"
 
 class Student
 {
 private:
     int userId;
-    int courseNum;
     string userPassword;
     Logger logger;
     Calendar calendar;
-    Course* course[10];//课程数应该由学生自己记录
+    Class *studentClass;//学生班级
 
-//    /*获取当前学生的课程数目*/
-//    int getCourseNumber();
-    /*根据课程id获取课程名称*/
-    string getCourseName(int courseId);
-    /*根据课程名称获取课程id*/
-    int getCourseId(string courseName);
-    /*在课程类指针数组里，根据课程名称获取课程类指针*/
-    Course *getCourse(string courseName);
+    /*获取学生班级id*/
+    int getClassId(int studentId);
 public:
     Student(int id);
     ~Student();
 
-    /*静态成员函数*/
-    /*登录验证，若id和密码验证正确，返回true*/
-    static bool login(int studentId,string password);
+    /*静态成员函数,登录验证，若id和密码验证正确，返回true，否则注册账号,默认在2020211302班名单下*/
+    static bool login(int studentId,string password,int classId=2020211302);
 
     /*课程功能*/
     /*获取所有课程名称*/
     QStringList getAllCourseName();
     /*询问课程时间,参数为课程名称、星期几(1-7)以及接收返回结果的长度为3的数组,数组依次存放课程开始小时，开始分钟，连续几节课*/
-    void getCourseTime(string courseName,int day,int timeTable[3]);
+    void getCourseTime(string courseName,int day,int *timeTable);
     /*询问课程地点,参数为课程名称,返回值为课程地点编号*/
     int getCoursePlace(string courseName);
     /*询问课程进度,参数为课程名称*/
@@ -43,6 +36,8 @@ public:
     string getCourseGroup(string courseName);
 
     /*课程资料功能*/
+    /*获取课程资料名称,返回值为资料名称列表*/
+    QStringList getCourseDataName(string courseName);
     /*下载课程资料,参数依次为课程名称,资料名称，存放路径*/
     void getCourseData(string courseName,string dataName,string filePath);
 
@@ -58,21 +53,20 @@ public:
     /*查询考试，参数为课程名称，返回值列表依次为考试名称，开始时间，持续分钟，考试地点*/
     QStringList getExamInfo(string courseName);
 
-//    /*闹钟功能*/
-//    void setClock();//设置闹钟
-//    void getClock();//获取闹钟
 
     /*日程表功能*/
-    /*要求日程安排不能重名*/
-    /*增加日程安,参数依次为事件,开始时间，结束时间*/
+    /*增加日程安排,要求日程安排不能重名,否则会刷新日程,参数依次为事件,开始时间，结束时间*/
     void insertRecord(string event,MyTime startTime,MyTime endTime);
     /*修改日程安排,参数依次为事件,开始时间，结束时间*/
     void updateRecord(string event,MyTime startTime,MyTime endTime);
     /*删除特定日程安排,参数为事件*/
     void deleteRecord(string event);
-    void clearRecords();//清除日程
-    QStringList getRecords();//获取日程列表
-    bool checkTimeConflict();//检测日程冲突
+    /*清除所有日程安排*/
+    void clearRecords();
+    /*获取日程列表*/
+    QStringList getRecords();
+    /*检测日程冲突*/
+    bool checkTimeConflict();
 };
 
 #endif // STUDENT_H

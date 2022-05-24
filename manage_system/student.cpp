@@ -1,206 +1,147 @@
 #include "student.h"
 
-int Student::getCourseId(string courseName)
+int Student::getClassId(int studentId)
 {
-    int courseId=0;
-    string name;
-    fstream file;
-    file.open("course\\courseId.txt",ios::in);
-    while(!file.eof()){
-        file>>courseId>>courseName;
-        if(courseName==name){
-            file.close();
-            return courseId;
+    int id,classId=0;
+    string pwd;
+    fstream file("student\\studentInfo.txt",ios::in);
+    if(file.is_open()){
+        while(!file.eof()){
+            file>>id>>pwd>>classId;
+            if(id==studentId){
+                file.close();
+                return classId;
+            }
         }
     }
-    return courseId;
-}
-string Student::getCourseName(int courseId)
-{
-    int id=0;
-    string name;
-    fstream file;
-    file.open("course\\courseId.txt",ios::in);
-    while(!file.eof()){
-        file>>id>>name;
-        if(courseId==id){
-            file.close();
-            return name;
-        }
-    }
-    return name;
-}
-
-Course *Student::getCourse(string courseName)
-{
-    int couseId=getCourseId(courseName);
-    for(int i=0;i<courseNum;++i){
-        if(couseId==course[i]->getCourseId()){
-            return course[i];
-        }
-    }
+    return classId;
 }
 
 Student::Student(int id):
-    userId(id),logger("student\\"+to_string(id)+"_log.txt"),calendar(to_string(id)+"_calendar.txt")
+    userId(id),
+    logger("student\\"+to_string(id)+"_log.txt"),
+    calendar(to_string(id)+"_calendar.txt"),
+    studentClass(new Class(getClassId(id)))
 {
-    fstream file;
-    file.open("student\\"+to_string(id)+"_course.txt",ios::in);//读取学生课程文件
-    if(file.is_open()){
-        int courseId[10];
-        file>>courseNum;//文件第一个数据是课程科目
-        for(int i=0;i<courseNum;++i){
-            file>>courseId[i];
-            course[i]=new Course(courseId[i],"course");
+    /*将课程表导入日程表中，这是初始化操作，以便后续判断时间冲突*/
+    int day,timeTable[3];
+    QStringList list=studentClass->getAllCourseName();
+    for(int i=0;i<list.length();++i){
+        for(day=1;day<=5;++day){
+            studentClass->getCourseTime(list[i].toStdString(),day,timeTable);
+            /*下面生成时间年月日不好确定*/
+            MyTime *startTime=new MyTime(0,0,0,timeTable[0],timeTable[1]);
+            MyTime *endTime=new MyTime(0,0,0,timeTable[0],timeTable[1]);
+            endTime->minIncre(timeTable[2]*50-5);//计算课程总时间,默认课间没有户外活动
+            insertRecord("周"+to_string(day)+list[i].toStdString(),*startTime,*endTime);
         }
     }
 }
 
 Student::~Student()
 {
-
+    delete studentClass;
 }
 
-bool Student::login(int studentId, string password)
+bool Student::login(int studentId, string password,int classId)
 {
-    int id;
+    int id=1,classID=2020211302;
     string pwd;
     fstream file("student\\studentInfo.txt",ios::in);
     if(file.is_open()){
         while(!file.eof()){
-            file>>id;
-            file>>pwd;
-            if(id==studentId&&password==pwd){
+            file>>id>>pwd>>classID;
+            if(id==studentId){//学生账号存在
                 file.close();
-                return true;
+                return password==pwd;
             }
         }
         file.close();
-        file.open("student\\studentInfo.txt",ios::app);
-        if(file.is_open()){
-            file<<studentId<<endl;
-            file<<password<<endl;
-            file.close();
-        }
-        /*创建学生课程文件*/
-        file.open("student\\"+to_string(id)+"_course.txt",ios::out);
-        if(file.is_open()){
-            file<<0<<endl;//初始课程数目为0
-            file.close();
-        }
-        file.open("student\\"+to_string(id)+"_logger.txt",ios::out);
-        if(file.is_open()){
-            file.close();
-        }
-        file.open("student\\"+to_string(id)+"_calendar.txt",ios::out);
-        if(file.is_open()){
-            file.close();
-        }
+    }
+    /*若不存在该学生，根据参数classId给该学生注册账号*/
+    file.open("student\\studentInfo.txt",ios::app);
+    if(file.is_open()){
+        file<<endl<<studentId;
+        file<<endl<<password;
+        file<<endl<<classId;
+        file.close();
+    }
+    /*创建学生日志文件*/
+    file.open("student\\"+to_string(id)+"_logger.txt",ios::out);
+    if(file.is_open()){
+        file.close();
+    }
+    /*创建学生日程表文件*/
+    file.open("student\\"+to_string(id)+"_calendar.txt",ios::out);
+    if(file.is_open()){
+        file.close();
     }
     return false;
 }
 
 QStringList Student::getAllCourseName()
 {
-    QStringList list;
-    for(int i=0;i<courseNum;++i){
-        list.append(QString::fromStdString(getCourseName(course[i]->getCourseId())));
-    }
-    return list;
+    logger.addLogger("学生查询了所有课程名称");
+    return studentClass->getAllCourseName();
 }
 
-void Student::getCourseTime(string courseName,int day,int timeTable[3])
+void Student::getCourseTime(string courseName,int day,int *timeTable)
 {
     logger.addLogger("学生查询了课程时间");
-    timeTable[0]=getCourse(courseName)->courseBeginHour(day-1);
-    timeTable[1]=getCourse(courseName)->courseBeginMin(day-1);
-    timeTable[2]=getCourse(courseName)->courseLast(day-1);
+    studentClass->getCourseTime(courseName,day,timeTable);
 }
 
 int Student::getCoursePlace(string courseName)
 {
     logger.addLogger("学生查询了课程地点");
-    /*地点标识类型为int*/
-    return getCourse(courseName)->getLocale();
+    return studentClass->getCoursePlace(courseName);
 }
 
 void Student::getCourseData(string courseName,string dataName,string filePath)
 {
     logger.addLogger("学生查询了课程资源");
-    getCourse(courseName)->dataSearch(dataName)->download(filePath);
+    studentClass->getCourseData(courseName,dataName,filePath);
 }
-
 
 string Student::getSchedule(string courseName)
 {
     logger.addLogger("学生查询了课程进度");
-    /*没有相应函数，尝试获取最后一个data的名称*/
-    getCourse(courseName)->dataSort();
-    return getCourse(courseName)->data[getCourse(courseName)->getDataNum()-1]->getName();
+    return studentClass->getSchedule(courseName);
 }
 
 string Student::getCourseGroup(string courseName)
 {
     logger.addLogger("学生查询了课程群");
-    return getCourse(courseName)->getGroup();
+    return studentClass->getCourseGroup(courseName);
+}
+
+QStringList Student::getCourseDataName(string courseName)
+{
+    logger.addLogger("学生查询了课程资料");
+    return studentClass->getCourseDataInfo(courseName);
 }
 void Student::submitHomework(string courseName,string homeworkName,string filePath)
 {
-    getCourse(courseName)->taskSearch(homeworkName)->submit(userId,filePath);
+    logger.addLogger("学生提交了作业");
+    studentClass->submitHomework(courseName,homeworkName,filePath,userId);
 }
 QStringList Student::getHomeworkDone(string courseName)
 {
     logger.addLogger("学生查询了已完成作业");
-    QStringList list;
-    Course *c=getCourse(courseName);
-    for(int i=0;i<c->getTaskNum();++i){
-        /*haveIFinished函数返回值为0时，表示作业未完成,大于0表示完成*/
-        Task *t=c->task[i];
-        if(t->haveIFinished(userId)>0){
-            list.append(QString::fromStdString(t->getName()));
-            list.append(QString::fromStdString(t->getDesc()));
-        }
-    }
-    return list;
+    return studentClass->getHomeworkDone(courseName,userId);
 }
 
 QStringList Student::getHomeworkTodo(string courseName)
 {
     logger.addLogger("学生查询了未完成作业");
-    QStringList list;
-    Course *c=getCourse(courseName);
-    for(int i=0;i<c->getTaskNum();++i){
-        /*haveIFinished函数返回值为0时，表示作业未完成,大于0表示完成*/
-        Task *t=c->task[i];
-        if(t->haveIFinished(userId)==0){
-            list.append(QString::fromStdString(t->getName()));
-            list.append(QString::fromStdString(t->getDesc()));
-        }
-    }
-    return list;
+    return studentClass->getHomeworkTodo(courseName,userId);
 }
 
 QStringList Student::getExamInfo(string courseName)
 {
     logger.addLogger("学生查询了考试");
-    QStringList list;
-    list.append(QString::fromStdString(getCourse(courseName)->getExamName()));
-    list.append(getCourse(courseName)->getStartTime().toString());
-    list.append(QString::number(getCourse(courseName)->getLastMinute()));
-    list.append(QString::number(getCourse(courseName)->getLocale()));
-    return list;
+    return studentClass->getExamInfo(courseName);
 }
-
-void Student::setClock()
-{
-    logger.addLogger("学生设置了一个闹钟");
-}
-
-void Student::getClock()
-{
-    logger.addLogger("学生查询了闹钟");
-}
-
 void Student::insertRecord(string event,MyTime startTime,MyTime endTime)
 {
     logger.addLogger("学生增加了一条日程安排");

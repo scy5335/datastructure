@@ -12,7 +12,7 @@ void Logger::addLogger(string userAndOperation)
 {
     ofstream file(path,ios::app);
     string log=QDateTime::currentDateTime().toString("yyyy年MM月dd日hh:mm:ss").toStdString()+userAndOperation;
-    file<<log<<endl;
+    file<<endl<<log;
     file.close();
 }
 void Logger::clearLogger()
@@ -24,14 +24,13 @@ QStringList Logger::getLogger()
 {
     QStringList list;
     ifstream file(path,ios::in);
-    while(!file.eof()){
-        string line;
-        file>>line;
-        list.append(QString::fromStdString(line));
+    if(file.is_open()){
+        while(!file.eof()){
+            string line;
+            file>>line;
+            list.append(QString::fromStdString(line));
+        }
+        file.close();
     }
-//    /*该循环会导致最后读到一个空行，解决方法如下：去掉最后一个数据*/
-//    /*更合理的代码待写*/
-//    list.pop_back();
-    file.close();
     return list;
 }
