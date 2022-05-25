@@ -9,5 +9,4 @@
 #include "EWIEGA46WW/moc_material_manage_page.cpp"
 #include "EWIEGA46WW/moc_myclock.cpp"
 #include "EWIEGA46WW/moc_mygraphview.cpp"
-#include "EWIEGA46WW/moc_mytime.cpp"
 #include "EWIEGA46WW/moc_task.cpp"

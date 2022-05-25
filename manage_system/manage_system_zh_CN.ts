@@ -20,12 +20,12 @@
 <context>
     <name>homework_submit_page</name>
     <message>
-        <location filename="mainwindow.cpp" line="692"/>
+        <location filename="mainwindow.cpp" line="725"/>
         <source>选择文件</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="692"/>
+        <location filename="mainwindow.cpp" line="725"/>
         <source>All files(*.*)</source>
         <translation type="unfinished"></translation>
     </message>

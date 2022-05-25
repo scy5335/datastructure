@@ -23,8 +23,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_logwindow_t {
-    const uint offsetsAndSize[8];
-    char stringdata0[43];
+    const uint offsetsAndSize[10];
+    char stringdata0[51];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_logwindow_t, stringdata0) + ofs), len 
@@ -33,10 +33,12 @@ static const qt_meta_stringdata_logwindow_t qt_meta_stringdata_logwindow = {
 QT_MOC_LITERAL(0, 9), // "logwindow"
 QT_MOC_LITERAL(10, 14), // "showmainwindow"
 QT_MOC_LITERAL(25, 0), // ""
-QT_MOC_LITERAL(26, 16) // "showmanagewindow"
+QT_MOC_LITERAL(26, 7), // "user_id"
+QT_MOC_LITERAL(34, 16) // "showmanagewindow"
 
     },
-    "logwindow\0showmainwindow\0\0showmanagewindow"
+    "logwindow\0showmainwindow\0\0user_id\0"
+    "showmanagewindow"
 };
 #undef QT_MOC_LITERAL
 
@@ -54,11 +56,11 @@ static const uint qt_meta_data_logwindow[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   26,    2, 0x06,    1 /* Public */,
-       3,    0,   27,    2, 0x06,    2 /* Public */,
+       1,    1,   26,    2, 0x06,    1 /* Public */,
+       4,    0,   29,    2, 0x06,    3 /* Public */,
 
  // signals: parameters
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,    3,
     QMetaType::Void,
 
        0        // eod
@@ -70,14 +72,14 @@ void logwindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         auto *_t = static_cast<logwindow *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->showmainwindow(); break;
+        case 0: _t->showmainwindow((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 1: _t->showmanagewindow(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            using _t = void (logwindow::*)();
+            using _t = void (logwindow::*)(int );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&logwindow::showmainwindow)) {
                 *result = 0;
                 return;
@@ -91,7 +93,6 @@ void logwindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
             }
         }
     }
-    (void)_a;
 }
 
 const QMetaObject logwindow::staticMetaObject = { {
@@ -101,7 +102,7 @@ const QMetaObject logwindow::staticMetaObject = { {
     qt_static_metacall,
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_logwindow_t
-, QtPrivate::TypeAndForceComplete<logwindow, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
+, QtPrivate::TypeAndForceComplete<logwindow, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
 
 
 
@@ -141,9 +142,10 @@ int logwindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void logwindow::showmainwindow()
+void logwindow::showmainwindow(int _t1)
 {
-    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 
 // SIGNAL 1

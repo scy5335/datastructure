@@ -15,9 +15,9 @@ logwindow::~logwindow()
 
 void logwindow::TryLogin()
 {
-    if (user -> text() == password -> text()){
+    if (Student::login(user -> text().toInt(), password -> text().toStdString())){
         this->hide();
-        emit showmainwindow();
+        emit showmainwindow(user -> text().toInt());
     }
     else if (user -> text() == "11" || password -> text() == "22"){
         this->hide();
@@ -39,7 +39,9 @@ void logwindow::dislogwindow()
     setWindowTitle("登录");
     layout = new QFormLayout();
     user = new QLineEdit();
-    user -> setPlaceholderText("请输入账号");
+    user -> setPlaceholderText("请输入学号或管理员账号");
+    QIntValidator * pIntVld = new QIntValidator(this);
+    user -> setValidator(pIntVld);
     password = new QLineEdit();
     password -> setPlaceholderText("请输入密码");
     password -> setEchoMode(QLineEdit::Password);

@@ -293,6 +293,12 @@
 			null
 		],
 		[
+			"C:/Users/18214/Documents/GitHub/datastructure/manage_system/class.h",
+			"MU",
+			"EWIEGA46WW/moc_class.cpp",
+			null
+		],
+		[
 			"C:/Users/18214/Documents/GitHub/datastructure/manage_system/course.h",
 			"MU",
 			"EWIEGA46WW/moc_course.cpp",
@@ -443,6 +449,11 @@
 		],
 		[
 			"C:/Users/18214/Documents/GitHub/datastructure/manage_system/calendar.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/18214/Documents/GitHub/datastructure/manage_system/class.cpp",
 			"MU",
 			null
 		],

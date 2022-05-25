@@ -140,29 +140,9 @@ QStringList Student::getHomeworkTodo(string courseName)
 QStringList Student::getExamInfo(string courseName)
 {
     logger.addLogger("学生查询了考试");
-<<<<<<< Updated upstream
     return studentClass->getExamInfo(courseName);
 }
-=======
-    QStringList list;
-    list.append(QString::fromStdString(getCourse(courseName)->getExamName()));
-    list.append(QString::fromStdString(getCourse(courseName)->getStartTime().toString()));
-    list.append(QString::number(getCourse(courseName)->getLastMinute()));
-    list.append(QString::number(getCourse(courseName)->getLocale()));
-    return list;
-}
 
-//void Student::setClock()
-//{
-//    logger.addLogger("学生设置了一个闹钟");
-//}
-
-//void Student::getClock()
-//{
-//    logger.addLogger("学生查询了闹钟");
-//}
-
->>>>>>> Stashed changes
 void Student::insertRecord(string event,MyTime startTime,MyTime endTime)
 {
     logger.addLogger("学生增加了一条日程安排");

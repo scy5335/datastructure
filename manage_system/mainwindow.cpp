@@ -20,7 +20,9 @@ mainwindow::~mainwindow()
     delete ui;
 }
 
-void mainwindow::display_student_page(){
+void mainwindow::display_student_page(int user_id){
+    log_student = new Student(user_id);
+    student_class = new Class(log_student -> getClassId(user_id));
     student_page_set();
     this -> showMaximized();
 }
@@ -32,7 +34,9 @@ void mainwindow::student_page_set(){
     set_lesson_page();
     set_calendar_page();
     set_guide_page();
-    calendar_set_place(map -> GetVecName());
+    place_name = map -> GetVecName();
+    calendar_set_place(place_name);
+    student_get_course_info();
     page[0] = new QWidget();
     page[0] -> setLayout(lesson_layout);
     page[1] = new QWidget();
@@ -124,10 +128,9 @@ void mainwindow::set_lesson_page(){
                                            "14\n20:10\n20:55");
     for (int i=0;i<lessontable -> rowCount();i++)
         lessontable -> setRowHeight(i, 60);
-
+    qDebug() << lessontable -> rowCount();
     lesson_name = new QLabel();
     lesson_name -> setText("数据结构");
-    //lesson_teacher = new QLabel();
     lesson_place = new QLabel();
     lesson_place -> setText("N教学楼");
     test_label = new QLabel();
@@ -135,11 +138,6 @@ void mainwindow::set_lesson_page(){
     test_info = new QTableWidget();
     test_info -> setColumnCount(4);
     test_info -> setHorizontalHeaderLabels(QStringList()<<"考试名称"<<"时间"<<"时长"<<"地点");
-    test_info -> setRowCount(1);
-    test_info -> setItem(0, 0, new QTableWidgetItem("期中考"));
-    test_info -> setItem(0, 1, new QTableWidgetItem("2000年4月25日"));
-    test_info -> setItem(0, 2, new QTableWidgetItem("90分钟"));
-    test_info -> setItem(0, 3, new QTableWidgetItem("S教学楼"));
     homework_label = new QLabel();
     homework_label -> setText("作业信息");
     material_list_button = new QPushButton();
@@ -149,12 +147,6 @@ void mainwindow::set_lesson_page(){
     homework_info = new QTableWidget();
     homework_info -> setColumnCount(3);
     homework_info -> setHorizontalHeaderLabels(QStringList()<<"选择"<<"作业名称"<<"截止时间");
-    homework_info -> setRowCount(1);
-    QTableWidgetItem *p_check = new QTableWidgetItem();
-    p_check -> setCheckState(Qt::Unchecked);
-    homework_info -> setItem(0, 0, p_check);
-    homework_info -> setItem(0, 1, new QTableWidgetItem("第一次作业"));
-    homework_info -> setItem(0, 2, new QTableWidgetItem("2000年3月5日"));
     to_calendar_module1 = new QPushButton();
     to_calendar_module1 -> setText("查看日程表");
     to_guide_module1 = new QPushButton();
@@ -164,7 +156,6 @@ void mainwindow::set_lesson_page(){
     lesson_jump_button -> addWidget(to_guide_module1);
     lesson_detail_info_layout = new QFormLayout();
     lesson_detail_info_layout -> addRow("课程名称", lesson_name);
-    //lesson_detail_info_layout -> addRow("授课教师", lesson_teacher);
     lesson_detail_info_layout -> addRow("上课地点", lesson_place);
     lesson_detail_info_layout -> addRow(test_label, homework_label);
     lesson_detail_info_layout -> addRow(test_info, homework_info);
@@ -176,6 +167,61 @@ void mainwindow::set_lesson_page(){
     lesson_layout -> addLayout(lesson_detail_info_layout);
     connect(homework_submit, &QPushButton::clicked, this, &mainwindow::show_homework_page);
     connect(material_list_button, &QPushButton::clicked, this, &mainwindow::show_material_page);
+    connect(lessontable, &QTableWidget::cellClicked, this, &mainwindow::show_lesson_info);
+}
+
+void mainwindow::student_get_course_info(){
+    QStringList class_list = student_class -> getAllCourseName();
+    int len = class_list.length(), course_time[3];
+    for (int i = 0; i < len; i++)
+        for (int j = 1; j <= 7; j++){
+            student_class -> getCourseTime(class_list[i].toStdString(), j, course_time);
+            if (!course_time[2]) continue;
+            else {
+                QString format_min = QString::number(course_time[0]),
+                        format_hour = QString::number(course_time[1]),
+                        format_time;
+                if (course_time[0] <= 9) format_hour = "0" + format_hour;
+                if (course_time[1] <= 9) format_min = "0" + format_min;
+                format_time = format_hour + ":" +format_min;
+                int k;
+                for (k = 0; k < 14; k++)
+                    if (lessontable -> horizontalHeaderItem(k) -> text().contains(format_time))
+                        break;
+                lessontable -> setSpan(k, j-1, course_time[2], 1);
+                lessontable -> item(k, j-1) -> setText(class_list[i] + "\n" +
+                                                       place_name[student_class -> getCoursePlace(class_list[i].toStdString())]);
+            }
+        }
+}
+
+void mainwindow::show_lesson_info(int row, int column){
+    QStringList lesson_main_info = lessontable -> item(row, column) -> text().split('\n');
+    lesson_name -> setText(lesson_main_info[0]);
+    lesson_place -> setText(lesson_main_info[1]);
+    test_info -> clearContents();
+    test_info -> setRowCount(0);
+    QStringList now_test_info = student_class -> getExamInfo(lesson_main_info[0].toStdString());
+    if (now_test_info.length()){
+        test_info -> setRowCount(1);
+        test_info -> setItem(0, 0, new QTableWidgetItem(now_test_info[0]));
+        test_info -> setItem(0, 1, new QTableWidgetItem(now_test_info[1]));
+        test_info -> setItem(0, 2, new QTableWidgetItem(now_test_info[2]+"分钟"));
+        test_info -> setItem(0, 3, new QTableWidgetItem(place_name[now_test_info[3].toInt()]));
+    }
+    homework_info -> clearContents();
+    homework_info -> setRowCount(0);
+    QStringList now_homework_info = student_class -> getHomework(lesson_main_info[0].toStdString());
+    int row_count = homework_info -> rowCount(), len = now_homework_info.length();
+    for (int i = 0; i < len; i++){
+        homework_info -> setRowCount(row_count + 1);
+        QTableWidgetItem *p_check = new QTableWidgetItem();
+        p_check -> setCheckState(Qt::Unchecked);
+        homework_info -> setItem(0, 0, p_check);
+        homework_info -> setItem(0, 1, new QTableWidgetItem(now_homework_info[i++]));
+        homework_info -> setItem(0, 2, new QTableWidgetItem(now_homework_info[i++]));
+        row_count ++;
+    }
 }
 
 void mainwindow::set_calendar_page(){
@@ -254,7 +300,7 @@ void mainwindow::set_guide_page(){
     guide_button_layout -> addWidget(to_calendar_module2);
 
     place_select = new QComboBox();
-    place_select -> addItems(map -> GetVecName());
+    place_select -> addItems(place_name);
     place_select -> setCurrentIndex(-1);
     place_select_button = new QPushButton();
     place_select_button -> setText("确认");
@@ -391,7 +437,7 @@ void mainwindow::manage_page_set(){
     place_message_title -> setText("上课地点");
     place_message = new QComboBox();
     map = new myGraphView();
-    place_message -> addItems(map -> GetVecName());
+    place_message -> addItems(place_name);
     place_message -> setCurrentIndex(-1);
     add_lesson = new QPushButton();
     add_lesson -> setText("添加此课");
@@ -468,7 +514,7 @@ void mainwindow::manage_page_set(){
 void mainwindow::test_add_page(){
     if (add_test_page != NULL) delete add_test_page;
     add_test_page = new addtest(Clock -> getTime().getYear());
-    add_test_page -> set_place(map -> GetVecName());
+    add_test_page -> set_place(place_name);
     add_test_page -> show();
 }
 

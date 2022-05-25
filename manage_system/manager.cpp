@@ -54,31 +54,15 @@ QStringList Manager::getCourseDataInfo(string courseName,int classId)
 void Manager::removeCourseData(string courseName, string dataName,int classId)
 {
     logger.addLogger("管理员删除了课程资料");
-<<<<<<< Updated upstream
     Class c(classId);
     c.removeCourseData(courseName,dataName);
-=======
-    Course c(getCourseId(courseName),"course");
-    if(c.dataSearch(dataName)){
-        c.dataRemove(c.dataSearch(dataName));
-        c.saveFile();
-    }
-
->>>>>>> Stashed changes
 }
 
 void Manager::downloadCourseData(string courseName,string dataName,string downloadPath,int classId)
 {
     logger.addLogger("管理员下载询了课程资料");
-<<<<<<< Updated upstream
     Class c(classId);
     c.downloadCourseData(courseName,dataName,downloadPath);
-=======
-    Course c(getCourseId(courseName),"course");
-    if(c.dataSearch(dataName)){
-        c.dataSearch(dataName)->download(downloadPath);
-    }
->>>>>>> Stashed changes
 }
 
 void Manager::uploadExam(string courseName, string examName, MyTime startTime, int location, int duration,int classId)
@@ -98,18 +82,8 @@ void Manager::deleteExam(string courseName,int classId)
 QStringList Manager::getExamInfo(string courseName,int classId)
 {
     logger.addLogger("管理员查询了考试");
-<<<<<<< Updated upstream
     Class c(classId);
     return c.getExamInfo(courseName);
-=======
-    QStringList list;
-    Course c(getCourseId(courseName),"course");
-    list.append(QString::fromStdString(c.getExamName()));
-    list.append(QString::fromStdString(c.getStartTime().toString()));
-    list.append(QString::number(c.getExamLocale()));
-    list.append(QString::number(c.getLastMinute()));
-    return list;
->>>>>>> Stashed changes
 }
 
 void Manager::uploadHomework(string courseName, string homeworkName, MyTime deadline, string description,int classId)
@@ -129,22 +103,8 @@ void Manager::deleteHomework(string courseName, string homeworkName,int classId)
 QStringList Manager::getHomework(string courseName,int classId)
 {
     logger.addLogger("管理员查询了作业");
-<<<<<<< Updated upstream
     Class c(classId);
     return c.getHomework(courseName);
-=======
-    Course c(getCourseId(courseName),"course");
-    Task t;
-    //数据残缺,无法获取task数目，只能通过判断空指针
-    for(int i=0;i<c.getTaskNum();i++)
-    {
-        list.append(QString::fromStdString(c.task[i]->getName()));
-        list.append(QString::fromStdString(c.task[i]->deadline.toString()));
-        list.append(QString::fromStdString(c.task[i]->getDesc()));
-        //这里只能查询到布置作业的名称和作业描述
-    }
-    return list;
->>>>>>> Stashed changes
 }
 
 void Manager::clearLogger()

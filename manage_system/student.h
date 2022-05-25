@@ -14,11 +14,12 @@ private:
     Calendar calendar;
     Class *studentClass;//学生班级
 
-    /*获取学生班级id*/
-    int getClassId(int studentId);
 public:
     Student(int id);
     ~Student();
+
+    /*获取学生班级id*/
+    int getClassId(int studentId);
 
     /*静态成员函数,登录验证，若id和密码验证正确，返回true，否则注册账号,默认在2020211302班名单下*/
     static bool login(int studentId,string password,int classId=2020211302);

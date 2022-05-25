@@ -2,10 +2,19 @@ C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/addhomework.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/addtest.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/alarm.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/calendar.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/class.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/course.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/data.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/hfmtree.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/logger.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/manager.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/material_manage_page.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/myclock.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/mygraphview.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/mytime.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/student.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/task.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/trie.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QDate \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QDateTime \

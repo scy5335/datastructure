@@ -24,6 +24,10 @@
 #include "addhomework.h"
 #include "material_manage_page.h"
 #include "myclock.h"
+#include "student.h"
+#include "manager.h"
+#include "class.h"
+#include "course.h"
 
 class material_detail : public QWidget{
     Q_OBJECT
@@ -93,11 +97,14 @@ class mainwindow : public QWidget
 public:
     explicit mainwindow(QWidget *parent = nullptr);
     ~mainwindow();
-    void display_student_page();
+    void display_student_page(int user_id);
     void display_manage_page();
 
 private:
     Ui::mainwindow *ui;
+    QStringList place_name;
+    Student *log_student;
+    Class* student_class;
     QHBoxLayout* layout, *time_button_layout, *lesson_layout, *calendar_layout, *guide_layout,
                 *place_layout, *guide_button_layout, *lesson_jump_button, *info_layout,
                 *s_calendar_time_layout, *e_calendar_time_layout, *activity_radio,
@@ -157,8 +164,11 @@ private:
     void clock_ring(string description);
     void add_alarm(Alarm a);
     void delete_alarm(int id);
+    void student_get_course_info();
+    void show_lesson_info(int row, int column);
 
     //manage
+    Manager *log_manager;
     QComboBox* class_select, *place_message;
     QLabel* ask_class, *class_name_title, *place_message_title, *teacher_name_title, *test_title,
             *homework_title;

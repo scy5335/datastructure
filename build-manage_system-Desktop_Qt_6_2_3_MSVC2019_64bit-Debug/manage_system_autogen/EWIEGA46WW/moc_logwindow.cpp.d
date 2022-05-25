@@ -1,4 +1,17 @@
 C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/manage_system_autogen/EWIEGA46WW/moc_logwindow.cpp: C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/calendar.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/class.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/course.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/data.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/hfmtree.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/logger.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/mytime.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/student.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/task.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/QDateTime \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/QDebug \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/QObject \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/QTime \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QTranslator \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qalgorithms.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qanystringview.h \
@@ -12,6 +25,7 @@ C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qbytearrayalgorithms.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qbytearraylist.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qbytearrayview.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/qcalendar.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qchar.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qcompare.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qcompilerdetection.h \
@@ -21,6 +35,7 @@ C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qcontainertools_impl.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qcontiguouscache.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qdatastream.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/qdatetime.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qdebug.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qflags.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qglobal.h \
@@ -33,6 +48,7 @@ C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qiterator.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qline.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qlist.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/qlocale.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qlogging.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qmap.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qmargins.h \
@@ -50,6 +66,7 @@ C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qprocessordetection.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qrect.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qrefcount.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/qregularexpression.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qscopedpointer.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qscopeguard.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qset.h \
@@ -79,6 +96,7 @@ C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qvariant.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qvarlengtharray.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qversiontagging.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtGui/QIntValidator \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qbitmap.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qbrush.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qcolor.h \
@@ -106,6 +124,7 @@ C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qtgui-config.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qtguiglobal.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qtransform.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtGui/qvalidator.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qwindowdefs.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qwindowdefs_win.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QFormLayout \

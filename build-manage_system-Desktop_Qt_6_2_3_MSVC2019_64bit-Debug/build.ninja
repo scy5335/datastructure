@@ -229,6 +229,15 @@ build CMakeFiles\manage_system.dir\logger.cpp.obj: CXX_COMPILER__manage_system_D
   TARGET_COMPILE_PDB = CMakeFiles\manage_system.dir\
   TARGET_PDB = manage_system.pdb
 
+build CMakeFiles\manage_system.dir\class.cpp.obj: CXX_COMPILER__manage_system_Debug C$:\Users\18214\Documents\GitHub\datastructure\manage_system\class.cpp || cmake_object_order_depends_target_manage_system
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -Zc:__cplusplus -permissive- -utf-8 -std:c++17
+  INCLUDES = -IC:\Users\18214\Documents\GitHub\datastructure\build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Debug -IC:\Users\18214\Documents\GitHub\datastructure\manage_system -IC:\Users\18214\Documents\GitHub\datastructure\build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Debug\manage_system_autogen\include -ID:\QT\6.2.3\msvc2019_64\include\QtCore -ID:\QT\6.2.3\msvc2019_64\include -ID:\QT\6.2.3\msvc2019_64\mkspecs\win32-msvc -ID:\QT\6.2.3\msvc2019_64\include\QtWidgets -ID:\QT\6.2.3\msvc2019_64\include\QtGui
+  OBJECT_DIR = CMakeFiles\manage_system.dir
+  OBJECT_FILE_DIR = CMakeFiles\manage_system.dir
+  TARGET_COMPILE_PDB = CMakeFiles\manage_system.dir\
+  TARGET_PDB = manage_system.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target manage_system
@@ -237,7 +246,7 @@ build CMakeFiles\manage_system.dir\logger.cpp.obj: CXX_COMPILER__manage_system_D
 #############################################
 # Link the executable manage_system.exe
 
-build manage_system.exe: CXX_EXECUTABLE_LINKER__manage_system_Debug CMakeFiles\manage_system.dir\manage_system_autogen\mocs_compilation.cpp.obj CMakeFiles\manage_system.dir\main.cpp.obj CMakeFiles\manage_system.dir\mainwindow.cpp.obj CMakeFiles\manage_system.dir\logwindow.cpp.obj CMakeFiles\manage_system.dir\mygraphview.cpp.obj CMakeFiles\manage_system.dir\trie.cpp.obj CMakeFiles\manage_system.dir\addtest.cpp.obj CMakeFiles\manage_system.dir\addhomework.cpp.obj CMakeFiles\manage_system.dir\alarm.cpp.obj CMakeFiles\manage_system.dir\myclock.cpp.obj CMakeFiles\manage_system.dir\hfmtree.cpp.obj CMakeFiles\manage_system.dir\data.cpp.obj CMakeFiles\manage_system.dir\task.cpp.obj CMakeFiles\manage_system.dir\course.cpp.obj CMakeFiles\manage_system.dir\mytime.cpp.obj CMakeFiles\manage_system.dir\material_manage_page.cpp.obj CMakeFiles\manage_system.dir\student.cpp.obj CMakeFiles\manage_system.dir\manager.cpp.obj CMakeFiles\manage_system.dir\calendar.cpp.obj CMakeFiles\manage_system.dir\logger.cpp.obj | D$:\QT\6.2.3\msvc2019_64\lib\Qt6Widgetsd.lib D$:\QT\6.2.3\msvc2019_64\lib\Qt6Guid.lib D$:\QT\6.2.3\msvc2019_64\lib\Qt6Cored.lib D$:\QT\6.2.3\msvc2019_64\lib\Qt6EntryPointd.lib || manage_system_autogen manage_system_autogen_timestamp_deps
+build manage_system.exe: CXX_EXECUTABLE_LINKER__manage_system_Debug CMakeFiles\manage_system.dir\manage_system_autogen\mocs_compilation.cpp.obj CMakeFiles\manage_system.dir\main.cpp.obj CMakeFiles\manage_system.dir\mainwindow.cpp.obj CMakeFiles\manage_system.dir\logwindow.cpp.obj CMakeFiles\manage_system.dir\mygraphview.cpp.obj CMakeFiles\manage_system.dir\trie.cpp.obj CMakeFiles\manage_system.dir\addtest.cpp.obj CMakeFiles\manage_system.dir\addhomework.cpp.obj CMakeFiles\manage_system.dir\alarm.cpp.obj CMakeFiles\manage_system.dir\myclock.cpp.obj CMakeFiles\manage_system.dir\hfmtree.cpp.obj CMakeFiles\manage_system.dir\data.cpp.obj CMakeFiles\manage_system.dir\task.cpp.obj CMakeFiles\manage_system.dir\course.cpp.obj CMakeFiles\manage_system.dir\mytime.cpp.obj CMakeFiles\manage_system.dir\material_manage_page.cpp.obj CMakeFiles\manage_system.dir\student.cpp.obj CMakeFiles\manage_system.dir\manager.cpp.obj CMakeFiles\manage_system.dir\calendar.cpp.obj CMakeFiles\manage_system.dir\logger.cpp.obj CMakeFiles\manage_system.dir\class.cpp.obj | D$:\QT\6.2.3\msvc2019_64\lib\Qt6Widgetsd.lib D$:\QT\6.2.3\msvc2019_64\lib\Qt6Guid.lib D$:\QT\6.2.3\msvc2019_64\lib\Qt6Cored.lib D$:\QT\6.2.3\msvc2019_64\lib\Qt6EntryPointd.lib || manage_system_autogen manage_system_autogen_timestamp_deps
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:windows  -DYNAMICBASE -NXCOMPAT
   LINK_LIBRARIES = D:\QT\6.2.3\msvc2019_64\lib\Qt6Widgetsd.lib  D:\QT\6.2.3\msvc2019_64\lib\Qt6Guid.lib  D:\QT\6.2.3\msvc2019_64\lib\Qt6Cored.lib  mpr.lib  userenv.lib  D:\QT\6.2.3\msvc2019_64\lib\Qt6EntryPointd.lib  shell32.lib  d3d11.lib  dxgi.lib  dxguid.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
@@ -308,7 +317,7 @@ build manage_system_autogen\timestamp manage_system_autogen\mocs_compilation.cpp
 #############################################
 # Phony custom command for CMakeFiles\manage_system_autogen_timestamp_deps
 
-build CMakeFiles\manage_system_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles\manage_system_autogen_timestamp_deps: phony D$:\QT\6.2.3\msvc2019_64\bin\Qt6Cored.dll D$:\QT\6.2.3\msvc2019_64\.\bin\moc.exe D$:\QT\6.2.3\msvc2019_64\.\bin\uic.exe D$:\QT\6.2.3\msvc2019_64\bin\Qt6Widgetsd.dll
+build CMakeFiles\manage_system_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles\manage_system_autogen_timestamp_deps: phony D$:\QT\6.2.3\msvc2019_64\bin\Qt6Cored.dll D$:\QT\6.2.3\msvc2019_64\.\bin\uic.exe D$:\QT\6.2.3\msvc2019_64\.\bin\moc.exe D$:\QT\6.2.3\msvc2019_64\bin\Qt6Widgetsd.dll
 
 
 #############################################

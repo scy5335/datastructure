@@ -8,6 +8,8 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QLabel>
+#include "student.h"
+#include <QIntValidator>
 
 namespace Ui {
 class logwindow;
@@ -24,7 +26,7 @@ public:
     ~logwindow();
     void dislogwindow();
 signals:
-    void showmainwindow();
+    void showmainwindow(int user_id);
     void showmanagewindow();
 private:
     Ui::logwindow *ui;
