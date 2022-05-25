@@ -51,6 +51,7 @@ set(PROJECT_SOURCES
         material_manage_page.h
         material_manage_page.cpp
         material_manage_page.ui
+
         ${TS_FILES}
 )
 
