@@ -51,7 +51,18 @@ set(PROJECT_SOURCES
         material_manage_page.h
         material_manage_page.cpp
         material_manage_page.ui
+<<<<<<< Updated upstream
 
+=======
+        student.h
+        student.cpp
+        manager.h
+        manager.cpp
+        calendar.h
+        calendar.cpp
+        logger.h
+        logger.cpp
+>>>>>>> Stashed changes
         ${TS_FILES}
 )
 

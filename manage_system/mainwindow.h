@@ -29,11 +29,24 @@ class material_detail : public QWidget{
     Q_OBJECT
 
 private:
-    QListWidget *material_list;
+    QTableWidget *material_list;
     QHBoxLayout *layout;
 
 public:
     material_detail(QWidget *parent = nullptr);
+};
+
+class homework_submit_page : public QWidget{
+    Q_OBJECT
+
+private:
+    QLabel *title, *description, *state, *file_path;
+    QPushButton *file_select, *submit;
+    QFormLayout *layout;
+    void file_select_page();
+
+public:
+    homework_submit_page(QWidget *parent = nullptr);
 };
 
 class alarm_page : public QWidget{
@@ -96,8 +109,7 @@ private:
                 *material_list_button, *calendar_add, *calendar_del, *alarm_modify;
     QLabel* timelabel, *datelabel, *speedlabel, *calendar_title, *guide_time, *query_label, *answer_label,
             *lesson_name, *lesson_place, *lesson_teacher, *test_label, *homework_label;
-    QListWidget* calendar_list, *test_info, *homework_info;
-    QTableWidget* lessontable, *alarm_list;
+    QTableWidget* lessontable, *alarm_list, *test_info, *homework_info, *calendar_list;
     QWidget* page[3], *time_widget;
     myGraphView* map;
     QStackedWidget* stackwidget;
@@ -105,6 +117,7 @@ private:
     QComboBox* place_select, *calendar_place;
     QFormLayout* lesson_detail_info_layout, *lesson_message_button, *calendar_info_layout;
     material_detail *student_material_page;
+    homework_submit_page *student_homework_page;
     QComboBox* s_nian, *s_yue, *s_ri, *s_shi, *s_fen, *e_nian, *e_yue, *e_ri, *e_shi, *e_fen;
     QLabel *s_nian_name, *s_yue_name, *s_ri_name, *s_shi_name, *s_fen_name,
            *e_nian_name, *e_yue_name, *e_ri_name, *e_shi_name, *e_fen_name;
@@ -128,6 +141,7 @@ private:
     void get_guide_result();
     void clear_guide_list();
     void show_material_page();
+    void show_homework_page();
     void set_time();
     void s_change_day();
     void e_change_day();
@@ -154,7 +168,7 @@ private:
     QVBoxLayout* manage_main_layout, *class_detail_layout;
     QPushButton* add_lesson, *delete_lesson, *test_add, *homework_add, *homework_del, *test_del,
                  *material_manage_button;
-    QListWidget* test_list, *homework_list;
+    QTableWidget* test_list, *homework_list;
     addtest* add_test_page;
     addhomework* add_homework_page;
     material_manage_page* material_page;

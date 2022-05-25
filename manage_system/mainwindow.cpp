@@ -10,6 +10,7 @@ mainwindow::mainwindow(QWidget *parent) :
     add_test_page = NULL;
     add_homework_page = NULL;
     material_page = NULL;
+    student_homework_page = NULL;
     student_material_page = NULL;
     alarm_set_page = NULL;
 }
@@ -125,18 +126,35 @@ void mainwindow::set_lesson_page(){
         lessontable -> setRowHeight(i, 60);
 
     lesson_name = new QLabel();
-    lesson_teacher = new QLabel();
+    lesson_name -> setText("数据结构");
+    //lesson_teacher = new QLabel();
     lesson_place = new QLabel();
+    lesson_place -> setText("N教学楼");
     test_label = new QLabel();
     test_label -> setText("考试信息");
-    test_info = new QListWidget();
+    test_info = new QTableWidget();
+    test_info -> setColumnCount(4);
+    test_info -> setHorizontalHeaderLabels(QStringList()<<"考试名称"<<"时间"<<"时长"<<"地点");
+    test_info -> setRowCount(1);
+    test_info -> setItem(0, 0, new QTableWidgetItem("期中考"));
+    test_info -> setItem(0, 1, new QTableWidgetItem("2000年4月25日"));
+    test_info -> setItem(0, 2, new QTableWidgetItem("90分钟"));
+    test_info -> setItem(0, 3, new QTableWidgetItem("S教学楼"));
     homework_label = new QLabel();
     homework_label -> setText("作业信息");
     material_list_button = new QPushButton();
     material_list_button -> setText("查看课程资料");
     homework_submit = new QPushButton();
     homework_submit -> setText("提交作业");
-    homework_info = new QListWidget();
+    homework_info = new QTableWidget();
+    homework_info -> setColumnCount(3);
+    homework_info -> setHorizontalHeaderLabels(QStringList()<<"选择"<<"作业名称"<<"截止时间");
+    homework_info -> setRowCount(1);
+    QTableWidgetItem *p_check = new QTableWidgetItem();
+    p_check -> setCheckState(Qt::Unchecked);
+    homework_info -> setItem(0, 0, p_check);
+    homework_info -> setItem(0, 1, new QTableWidgetItem("第一次作业"));
+    homework_info -> setItem(0, 2, new QTableWidgetItem("2000年3月5日"));
     to_calendar_module1 = new QPushButton();
     to_calendar_module1 -> setText("查看日程表");
     to_guide_module1 = new QPushButton();
@@ -146,7 +164,7 @@ void mainwindow::set_lesson_page(){
     lesson_jump_button -> addWidget(to_guide_module1);
     lesson_detail_info_layout = new QFormLayout();
     lesson_detail_info_layout -> addRow("课程名称", lesson_name);
-    lesson_detail_info_layout -> addRow("授课教师", lesson_teacher);
+    //lesson_detail_info_layout -> addRow("授课教师", lesson_teacher);
     lesson_detail_info_layout -> addRow("上课地点", lesson_place);
     lesson_detail_info_layout -> addRow(test_label, homework_label);
     lesson_detail_info_layout -> addRow(test_info, homework_info);
@@ -156,17 +174,33 @@ void mainwindow::set_lesson_page(){
     lesson_layout = new QHBoxLayout();
     lesson_layout -> addWidget(lessontable);
     lesson_layout -> addLayout(lesson_detail_info_layout);
+    connect(homework_submit, &QPushButton::clicked, this, &mainwindow::show_homework_page);
+    connect(material_list_button, &QPushButton::clicked, this, &mainwindow::show_material_page);
 }
 
 void mainwindow::set_calendar_page(){
     calendar_title = new QLabel();
     calendar_title -> setText("日程表");
-    calendar_list = new QListWidget();
+    calendar_list = new QTableWidget();
+    calendar_list -> setColumnCount(6);
+    calendar_list -> setHorizontalHeaderLabels(QStringList()<<"选择"<<"活动名称"<<"活动类型"<<"开始时间"<<"结束时间"<<"地点");
+    calendar_list -> horizontalHeader() -> setSectionResizeMode(QHeaderView::Stretch);
+    calendar_list -> setRowCount(1);
+    QTableWidgetItem *p_check = new QTableWidgetItem();
+    p_check -> setCheckState(Qt::Unchecked);
+    calendar_list -> setItem(0, 0, p_check);
+    calendar_list -> setItem(0 ,1 ,new QTableWidgetItem("聚餐"));
+    calendar_list -> setItem(0 ,2 ,new QTableWidgetItem("个人活动"));
+    calendar_list -> setItem(0 ,3 ,new QTableWidgetItem("2000年3月2日19:00"));
+    calendar_list -> setItem(0 ,4 ,new QTableWidgetItem("2000年3月2日21:00"));
+    calendar_list -> setItem(0 ,5 ,new QTableWidgetItem("南区食堂"));
+    calendar_list -> resizeColumnsToContents();
     calendar_main_layout = new QVBoxLayout();
     calendar_main_layout -> addWidget(calendar_title);
     calendar_main_layout -> addWidget(calendar_list);
     calendar_description = new QLineEdit();
     set_time();
+    //QMessageBox::critical(this, "添加活动出错", "活动与课程或活动冲突");
     single_activity = new QRadioButton();
     single_activity -> setText("个人活动");
     group_activity = new QRadioButton();
@@ -324,6 +358,7 @@ void mainwindow::display_manage_page(){
 
 void mainwindow::manage_page_set(){
     setWindowTitle("管理员主页");
+    Clock = new MyClock();
     lessontable = new QTableWidget(14,7);
     lessontable -> setHorizontalHeaderLabels(QStringList()<<"星期一"<<"星期二"<<"星期三"<<
                                              "星期四"<<"星期五"<<"星期六"<<"星期天");
@@ -341,6 +376,7 @@ void mainwindow::manage_page_set(){
     ask_class = new QLabel();
     ask_class -> setText("请选择要进行操作的班级");
     class_select = new QComboBox();
+    class_select -> addItem("2020211302");
     class_layout = new QHBoxLayout();
     class_layout -> addWidget(ask_class);
     class_layout -> addWidget(class_select);
@@ -348,8 +384,8 @@ void mainwindow::manage_page_set(){
     class_name_title = new QLabel();
     class_name_title -> setText("课程名");
     class_name = new QLineEdit();
-    teacher_name_title = new QLabel();
-    teacher_name_title -> setText("任课教师");
+    //teacher_name_title = new QLabel();
+    //teacher_name_title -> setText("任课教师");
     teacher_message = new QLineEdit();
     place_message_title = new QLabel();
     place_message_title -> setText("上课地点");
@@ -367,23 +403,41 @@ void mainwindow::manage_page_set(){
     test_del -> setText("删除考试");
     test_title = new QLabel();
     test_title -> setText("考试信息");
-    test_list = new QListWidget();
+    test_list = new QTableWidget();
+    test_list -> setColumnCount(5);
+    test_list -> setHorizontalHeaderLabels(QStringList()<<"选择"<<"考试名称"<<"时间"<<"时长"<<"地点");
+    test_list -> setRowCount(1);
+    QTableWidgetItem *p_check = new QTableWidgetItem();
+    p_check -> setCheckState(Qt::Unchecked);
+    test_list -> setItem(0, 0, p_check);
+    test_list -> setItem(0, 1, new QTableWidgetItem("期中考"));
+    test_list -> setItem(0, 2, new QTableWidgetItem("2000年4月25日"));
+    test_list -> setItem(0, 3, new QTableWidgetItem("90分钟"));
+    test_list -> setItem(0, 4, new QTableWidgetItem("S教学楼"));
     homework_add = new QPushButton();
     homework_add -> setText("添加作业");
     homework_del = new QPushButton();
     homework_del -> setText("删除作业");
     homework_title = new QLabel();
     homework_title -> setText("作业信息");
-    homework_list = new QListWidget();
+    homework_list = new QTableWidget();
+    homework_list -> setColumnCount(3);
+    homework_list -> setHorizontalHeaderLabels(QStringList()<<"选择"<<"作业名称"<<"截止时间");
+    homework_list -> setRowCount(1);
+    QTableWidgetItem *p_check1 = new QTableWidgetItem();
+    p_check1 -> setCheckState(Qt::Unchecked);
+    homework_list -> setItem(0, 0, p_check1);
+    homework_list -> setItem(0, 1, new QTableWidgetItem("第一次作业"));
+    homework_list -> setItem(0, 2, new QTableWidgetItem("2000年3月5日"));
     material_manage_button = new QPushButton();
     material_manage_button -> setText("管理课程资料");
     message_layout = new QGridLayout();
     message_layout -> addWidget(class_name_title, 0, 0);
     message_layout -> addWidget(class_name, 0, 1);
-    message_layout -> addWidget(teacher_name_title, 1, 0);
-    message_layout -> addWidget(teacher_message, 1, 1);
-    message_layout -> addWidget(place_message_title, 2, 0);
-    message_layout -> addWidget(place_message, 2, 1);
+    //message_layout -> addWidget(teacher_name_title, 1, 0);
+    //message_layout -> addWidget(teacher_message, 1, 1);
+    message_layout -> addWidget(place_message_title, 1, 0);
+    message_layout -> addWidget(place_message, 1, 1);
     button_grid = new QGridLayout();
     button_grid -> addWidget(add_lesson, 0, 0);
     button_grid -> addWidget(delete_lesson, 0, 1);
@@ -434,6 +488,12 @@ void mainwindow::show_material_page(){
     if (student_material_page != NULL) delete student_material_page;
     student_material_page = new material_detail();
     student_material_page -> show();
+}
+
+void mainwindow::show_homework_page(){
+    if (student_homework_page != NULL) delete student_homework_page;
+    student_homework_page = new homework_submit_page();
+    student_homework_page -> show();
 }
 
 void mainwindow::show_alarm_page(){
@@ -590,13 +650,51 @@ QString mainwindow::trans_date(MyTime now_time){
 }
 
 material_detail::material_detail(QWidget *parent){
-    material_list = new QListWidget();
+    setWindowTitle("课程资料");
+    material_list = new QTableWidget();
+    material_list -> setColumnCount(2);
+    material_list -> setHorizontalHeaderLabels(QStringList()<<"资料名"<<"下载");
+    material_list -> setRowCount(1);
+    material_list -> horizontalHeader() -> setSectionResizeMode(QHeaderView::Stretch);
+    QPushButton *download = new QPushButton();
+    download -> setText("下载");
+    material_list -> setItem(0, 0, new QTableWidgetItem("第一次课件"));
+    material_list -> setCellWidget(0, 1, download);
     layout = new QHBoxLayout();
     layout -> addWidget(material_list);
     setLayout(layout);
 }
 
+homework_submit_page::homework_submit_page(QWidget *parent){
+    setWindowTitle("作业提交");
+    title = new QLabel();
+    title -> setText("第一次作业");
+    description = new QLabel();
+    description -> setText("课本P12 1, 2, 5题");
+    state = new QLabel();
+    state -> setText("未提交");
+    file_select = new QPushButton();
+    file_select -> setText("选择文件");
+    submit = new QPushButton();
+    submit -> setText("提交");
+    file_path = new QLabel();
+    layout = new QFormLayout();
+    layout -> addRow("作业名称", title);
+    layout -> addRow("作业描述", description);
+    layout -> addRow("提交状态", state);
+    layout -> addRow(file_select, file_path);
+    layout -> addRow(submit);
+    setLayout(layout);
+    connect(file_select, &QPushButton::clicked, this, &homework_submit_page::file_select_page);
+}
+
+void homework_submit_page::file_select_page(){
+    QString filename = QFileDialog::getOpenFileName(this, tr("选择文件"), "C:/", tr("All files(*.*)"));
+    file_path -> setText(filename);
+}
+
 alarm_page::alarm_page(QWidget *parent){
+    setWindowTitle("闹钟设置");
     alarm_description = new QLineEdit();
     hour_minute = new QLabel();
     hour_minute -> setText(":");
@@ -704,7 +802,7 @@ void alarm_page::get_new_alarm(){
     if (times_group -> checkedId() == 1) state = 0x7F;
     else if (times_group -> checkedId() == 2){
         for (int i = 0; i < 7 ;i++)
-            state |= day[i] -> checkState() << i;
+            state |= (day[i] -> checkState() == Qt::Checked) << i;
         qDebug() << state;
         if (!state)
             QMessageBox::critical(this, "错误", "请选择至少一天");
@@ -771,7 +869,6 @@ void alarm_page::set_alarm_list(MyClock *Clock){
             row_count ++;
         }
     connect(alarm_list, &QTableWidget::cellChanged, this, &alarm_page::set_type);
-    qDebug()<<"???\n";
 }
 
 void alarm_page::set_type(int row, int column){
