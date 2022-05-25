@@ -6,21 +6,21 @@ addtest::addtest(int now_year, QWidget *parent) :
     ui(new Ui::addtest)
 {
     ui->setupUi(this);
-    setWindowTitle("è€ƒè¯•æ·»åŠ ");
+    setWindowTitle("¿¼ÊÔÌí¼Ó");
     this -> now_year = now_year;
     test_name_title = new QLabel();
-    test_name_title -> setText("è€ƒè¯•åç§°");
+    test_name_title -> setText("¿¼ÊÔÃû³Æ");
     test_name_edit = new QLineEdit();
     test_time_title = new QLabel();
-    test_time_title -> setText("è€ƒè¯•æ—¶é—´");
+    test_time_title -> setText("¿¼ÊÔÊ±¼ä");
     set_time();
     test_last_title = new QLabel();
-    test_last_title -> setText("è€ƒè¯•æ—¶é•¿/åˆ†é’Ÿ");
+    test_last_title -> setText("¿¼ÊÔÊ±³¤/·ÖÖÓ");
     test_last = new QLineEdit();
     QIntValidator * pIntVld = new QIntValidator(this);
     test_last -> setValidator(pIntVld);
     test_place_title = new QLabel();
-    test_place_title -> setText("è€ƒè¯•åœ°ç‚¹");
+    test_place_title -> setText("¿¼ÊÔµØµã");
     test_place = new QComboBox();
     main_info_layout = new QGridLayout();
     main_info_layout -> addWidget(test_name_title, 0, 0);
@@ -32,9 +32,9 @@ addtest::addtest(int now_year, QWidget *parent) :
     main_info_layout -> addWidget(test_place_title, 3, 0);
     main_info_layout -> addWidget(test_place, 3, 1);
     complete = new QPushButton();
-    complete -> setText("ç¡®å®š");
+    complete -> setText("È·¶¨");
     cancel = new QPushButton();
-    cancel -> setText("é‡ç½®");
+    cancel -> setText("ÖØÖÃ");
     button_layout = new QHBoxLayout();
     button_layout -> addWidget(complete);
     button_layout -> addWidget(cancel);
@@ -56,28 +56,28 @@ void addtest::set_time(){
         nian -> addItem(QString::number(i));
     nian -> setCurrentIndex(-1);
     nian_name = new QLabel();
-    nian_name -> setText("å¹´");
+    nian_name -> setText("Äê");
     yue = new QComboBox();
     for (int i = 1; i <= 12; i++)
         yue -> addItem(QString::number(i));
     yue -> setCurrentIndex(-1);
     yue_name = new QLabel();
-    yue_name -> setText("æœˆ");
+    yue_name -> setText("ÔÂ");
     ri = new QComboBox();
     ri_name = new QLabel();
-    ri_name -> setText("æ—¥");
+    ri_name -> setText("ÈÕ");
     shi = new QComboBox();
     for (int i = 0; i <= 23; i++)
         shi -> addItem(QString::number(i));
     shi -> setCurrentIndex(-1);
     shi_name = new QLabel();
-    shi_name -> setText("æ—¶");
+    shi_name -> setText("Ê±");
     fen = new QComboBox();
     for (int i = 0; i <= 59; i++)
         fen -> addItem(QString::number(i));
     fen -> setCurrentIndex(-1);
     fen_name = new QLabel();
-    fen_name -> setText("åˆ†");
+    fen_name -> setText("·Ö");
     test_time_layout = new QHBoxLayout();
     test_time_layout -> addWidget(nian);
     test_time_layout -> addWidget(nian_name);
@@ -120,3 +120,4 @@ addtest::~addtest()
 {
     delete ui;
 }
+

@@ -11,7 +11,7 @@ Logger::~Logger()
 void Logger::addLogger(string userAndOperation)
 {
     ofstream file(path,ios::app);
-    string log=QDateTime::currentDateTime().toString("yyyyå¹´MMæœˆddæ—¥hh:mm:ss").toStdString()+userAndOperation;
+    string log=QDateTime::currentDateTime().toString("yyyyÄêMMÔÂddÈÕhh:mm:ss").toStdString()+userAndOperation;
     file<<endl<<log;
     file.close();
 }
@@ -34,3 +34,4 @@ QStringList Logger::getLogger()
     }
     return list;
 }
+

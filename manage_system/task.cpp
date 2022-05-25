@@ -17,7 +17,7 @@ Task::Task(int parentCourseId, string name, MyTime setTime, MyTime deadline, str
     this->submittedStuList=new long long[200]();
     directory=parentCourseDir+"\\task_"+this->name;
     this->description=description;
-    qDebug()<<"åˆ›å»ºä½œä¸šå¯¹è±¡æˆåŠŸï¼Œè·¯å¾„ä¸º"<<directory.c_str();
+    qDebug()<<"´´½¨×÷Òµ¶ÔÏó³É¹¦£¬Â·¾¶Îª"<<directory.c_str();
     setParent(parent);
 }
 
@@ -72,11 +72,11 @@ bool Task::submit(unsigned long long id, string fileAddr)
 {
     if(!haveIFinished(id))
     {
-        //ç›´æŽ¥æ·»åŠ åˆ°æäº¤åˆ—è¡¨ç»“å°¾
+        //Ö±½ÓÌí¼Óµ½Ìá½»ÁÐ±í½áÎ²
         submittedStuList[submittedStuList[0]++]=id;
         saveSubmittedList();
-    }//å¦åˆ™ä¸éœ€è¦æ·»åŠ åˆ°è¯¥åˆ—è¡¨
-    //è¯»å–æ–‡ä»¶
+    }//·ñÔò²»ÐèÒªÌí¼Óµ½¸ÃÁÐ±í
+    //¶ÁÈ¡ÎÄ¼þ
     hfmCompress(fileAddr,this->directory+"\\"+to_string(id)+".task",nullptr,0);
     return true;
 }
@@ -85,7 +85,7 @@ bool Task::download(unsigned long long id, string downloadTo)
 {
     if(!haveIFinished(id))
         return false;
-    hfmDecode(this->directory+"\\"+to_string(id)+".task",downloadTo,nullptr);//æœªå®Œæˆ
+    hfmDecode(this->directory+"\\"+to_string(id)+".task",downloadTo,nullptr);//Î´Íê³É
     return 0;
 }
 
@@ -246,3 +246,4 @@ Task::~Task()
 {
     delete[] submittedStuList;
 }
+

@@ -2,7 +2,7 @@
 
 void Calendar::getRecordFromfile()
 {
-    /*è¯»å–æ–‡ä»¶åˆå§‹åŒ–æ—¥ç¨‹é“¾è¡¨ï¼Œæˆå‘˜å‡½æ•°é€šè¿‡é“¾è¡¨æ¥æ“ä½œï¼Œç›´åˆ°ææ„æ‰é‡Šæ”¾é“¾è¡¨*/
+    /*¶ÁÈ¡ÎÄ¼ş³õÊ¼»¯ÈÕ³ÌÁ´±í£¬³ÉÔ±º¯ÊıÍ¨¹ıÁ´±íÀ´²Ù×÷£¬Ö±µ½Îö¹¹²ÅÊÍ·ÅÁ´±í*/
     int year1,month1,day1,hour1,minute1;
     int year2,month2,day2,hour2,minute2;
     string event;
@@ -20,7 +20,7 @@ void Calendar::getRecordFromfile()
 
 void Calendar::updateFile()
 {
-    /*é€šè¿‡é“¾è¡¨æ›´æ–°æ–‡ä»¶*/
+    /*Í¨¹ıÁ´±í¸üĞÂÎÄ¼ş*/
     Record *temp=head->next;
     ofstream file(path,ios::out);
     if(file.is_open()){
@@ -65,7 +65,7 @@ void Calendar::addRecord(string event,MyTime startTime,MyTime endTime)
     Record* temp=head;
     Record* r=new Record(event,startTime,endTime);
     while(temp->next){
-        if(event==temp->next->event)//ä¸å…è®¸é‡å
+        if(event==temp->next->event)//²»ÔÊĞíÖØÃû
             return;
         if(startTime<temp->next->startTime){
             r->next=temp->next;
@@ -76,7 +76,7 @@ void Calendar::addRecord(string event,MyTime startTime,MyTime endTime)
             temp=temp->next;
         }
     }
-    temp->next=r;//æ­¤æ—¶tempå³æ˜¯æœ€åä¸€ä¸ªèŠ‚ç‚¹
+    temp->next=r;//´ËÊ±temp¼´ÊÇ×îºóÒ»¸ö½Úµã
 }
 void Calendar::updateRecord(string event,MyTime startTime,MyTime endTime)
 {
@@ -119,7 +119,7 @@ void Calendar::clear()
 }
 QStringList Calendar::getRecords()
 {
-    /*å¦‚ä½•æŠŠæ—¥ç¨‹é“¾è¡¨è½¬åŒ–ä¸ºuiéœ€è¦çš„åˆ—è¡¨?æœªå®Œå–„*/
+    /*ÈçºÎ°ÑÈÕ³ÌÁ´±í×ª»¯ÎªuiĞèÒªµÄÁĞ±í?Î´ÍêÉÆ*/
     QStringList list;
     Record *temp=head->next;
     while(temp){
@@ -140,9 +140,10 @@ bool Calendar::checkTimeConflict()
             preTemp=temp;
             temp=temp->next;
         }
-        if(temp){//ç”±äºå‘ç”Ÿæ—¶é—´å†²çªé€€å‡ºå¾ªç¯
+        if(temp){//ÓÉÓÚ·¢ÉúÊ±¼ä³åÍ»ÍË³öÑ­»·
             return true;
         }
     }
     return false;
 }
+

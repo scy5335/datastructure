@@ -28,7 +28,7 @@ void mainwindow::display_student_page(int user_id){
 }
 
 void mainwindow::student_page_set(){
-    setWindowTitle("Â≠¶Áîü‰∏ªÈ°µ");
+    setWindowTitle("—ß…˙÷˜“≥");
     Clock = new MyClock();
     Clock -> start();
     set_lesson_page();
@@ -60,13 +60,13 @@ void mainwindow::student_page_set(){
     datelabel -> setText(trans_date(Clock -> getTime()));
     datelabel -> setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     speedlabel = new QLabel();
-    speedlabel -> setText("ÂΩìÂâçÈÄüÂ∫¶:360x");
+    speedlabel -> setText("µ±«∞ÀŸ∂»:360x");
     speedlabel -> setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     speed = 360;
     alarm_modify = new QPushButton();
-    alarm_modify -> setText("ÈóπÈíüËÆæÁΩÆ");
+    alarm_modify -> setText("ƒ÷÷”…Ë÷√");
     accelerate = new QPushButton();
-    accelerate -> setText("ËÆæÁΩÆÈÄüÂ∫¶");
+    accelerate -> setText("…Ë÷√ÀŸ∂»");
     speed_change = new QLineEdit();
     QIntValidator * pIntVld = new QIntValidator(1, 3600, this);
     speed_change -> setValidator(pIntVld);
@@ -95,10 +95,21 @@ void mainwindow::student_page_set(){
     connect(accelerate, &QPushButton::clicked, this, &mainwindow::add_speed);
     connect(Clock, &MyClock::timeChange, this, &mainwindow::time_change);
     connect(Clock, &MyClock::ring, this, &mainwindow::clock_ring);
+    connect(student_homework_page, &homework_submit_page::submit_homework, this, &mainwindow::submit_homework);
+    connect(student_material_page, &material_detail::download, this, &mainwindow::download_task);
+}
+
+void mainwindow::download_task(QString data_name, QString file_name){
+    student_class -> downloadCourseData(lesson_name -> text().toStdString(), data_name.toStdString(), file_name.toStdString());
+}
+
+void mainwindow::submit_homework(QString homework_name, QString file_name){
+    log_student -> submitHomework(lesson_name -> text().toStdString(), homework_name.toStdString(),
+                                  file_name.toStdString());
 }
 
 void mainwindow::clock_ring(string description){
-    QMessageBox::information(this, "ÈóπÈíü", QString::fromStdString(description));
+    QMessageBox::information(this, "ƒ÷÷”", QString::fromStdString(description));
     if (alarm_set_page)alarm_flash();
 }
 
@@ -109,14 +120,14 @@ void mainwindow::time_change(){
 
 void mainwindow::add_speed(){
     speed = speed_change -> text().toInt();
-    speedlabel -> setText("ÂΩìÂâçÈÄüÂ∫¶:" + QString::number(speed) + "x");
+    speedlabel -> setText("µ±«∞ÀŸ∂»:" + QString::number(speed) + "x");
     Clock -> setSecsPerSystemHour(3600/speed);
 }
 
 void mainwindow::set_lesson_page(){
     lessontable = new QTableWidget(14,7);
-    lessontable -> setHorizontalHeaderLabels(QStringList()<<"ÊòüÊúü‰∏Ä"<<"ÊòüÊúü‰∫å"<<"ÊòüÊúü‰∏â"<<
-                                             "ÊòüÊúüÂõõ"<<"ÊòüÊúü‰∫î"<<"ÊòüÊúüÂÖ≠"<<"ÊòüÊúüÂ§©");
+    lessontable -> setHorizontalHeaderLabels(QStringList()<<"–«∆⁄“ª"<<"–«∆⁄∂˛"<<"–«∆⁄»˝"<<
+                                             "–«∆⁄Àƒ"<<"–«∆⁄ŒÂ"<<"–«∆⁄¡˘"<<"–«∆⁄ÃÏ");
     lessontable -> horizontalHeader() -> setSectionResizeMode(QHeaderView::Stretch);
     lessontable -> setVerticalHeaderLabels(QStringList()<<"1\n08:00\n08:45"<<
                                            "2\n08:50\n09:35"<<"3\n09:50\n10:35"<<
@@ -130,33 +141,33 @@ void mainwindow::set_lesson_page(){
         lessontable -> setRowHeight(i, 60);
     qDebug() << lessontable -> rowCount();
     lesson_name = new QLabel();
-    lesson_name -> setText("Êï∞ÊçÆÁªìÊûÑ");
+    lesson_name -> setText(" ˝æ›Ω·ππ");
     lesson_place = new QLabel();
-    lesson_place -> setText("NÊïôÂ≠¶Ê•º");
+    lesson_place -> setText("NΩÃ—ß¬•");
     test_label = new QLabel();
-    test_label -> setText("ËÄÉËØï‰ø°ÊÅØ");
+    test_label -> setText("øº ‘–≈œ¢");
     test_info = new QTableWidget();
     test_info -> setColumnCount(4);
-    test_info -> setHorizontalHeaderLabels(QStringList()<<"ËÄÉËØïÂêçÁß∞"<<"Êó∂Èó¥"<<"Êó∂Èïø"<<"Âú∞ÁÇπ");
+    test_info -> setHorizontalHeaderLabels(QStringList()<<"øº ‘√˚≥∆"<<" ±º‰"<<" ±≥§"<<"µÿµ„");
     homework_label = new QLabel();
-    homework_label -> setText("‰Ωú‰∏ö‰ø°ÊÅØ");
+    homework_label -> setText("◊˜“µ–≈œ¢");
     material_list_button = new QPushButton();
-    material_list_button -> setText("Êü•ÁúãËØæÁ®ãËµÑÊñô");
+    material_list_button -> setText("≤Èø¥øŒ≥Ã◊ ¡œ");
     homework_submit = new QPushButton();
-    homework_submit -> setText("Êèê‰∫§‰Ωú‰∏ö");
+    homework_submit -> setText("Ã·Ωª◊˜“µ");
     homework_info = new QTableWidget();
     homework_info -> setColumnCount(3);
-    homework_info -> setHorizontalHeaderLabels(QStringList()<<"ÈÄâÊã©"<<"‰Ωú‰∏öÂêçÁß∞"<<"Êà™Ê≠¢Êó∂Èó¥");
+    homework_info -> setHorizontalHeaderLabels(QStringList()<<"—°‘Ò"<<"◊˜“µ√˚≥∆"<<"Ωÿ÷π ±º‰");
     to_calendar_module1 = new QPushButton();
-    to_calendar_module1 -> setText("Êü•ÁúãÊó•Á®ãË°®");
+    to_calendar_module1 -> setText("≤Èø¥»’≥Ã±Ì");
     to_guide_module1 = new QPushButton();
-    to_guide_module1 -> setText("ÂØºËà™È°µÈù¢");
+    to_guide_module1 -> setText("µº∫Ω“≥√Ê");
     lesson_jump_button = new QHBoxLayout();
     lesson_jump_button -> addWidget(to_calendar_module1);
     lesson_jump_button -> addWidget(to_guide_module1);
     lesson_detail_info_layout = new QFormLayout();
-    lesson_detail_info_layout -> addRow("ËØæÁ®ãÂêçÁß∞", lesson_name);
-    lesson_detail_info_layout -> addRow("‰∏äËØæÂú∞ÁÇπ", lesson_place);
+    lesson_detail_info_layout -> addRow("øŒ≥Ã√˚≥∆", lesson_name);
+    lesson_detail_info_layout -> addRow("…œøŒµÿµ„", lesson_place);
     lesson_detail_info_layout -> addRow(test_label, homework_label);
     lesson_detail_info_layout -> addRow(test_info, homework_info);
     lesson_detail_info_layout -> addRow(homework_submit);
@@ -206,7 +217,7 @@ void mainwindow::show_lesson_info(int row, int column){
         test_info -> setRowCount(1);
         test_info -> setItem(0, 0, new QTableWidgetItem(now_test_info[0]));
         test_info -> setItem(0, 1, new QTableWidgetItem(now_test_info[1]));
-        test_info -> setItem(0, 2, new QTableWidgetItem(now_test_info[2]+"ÂàÜÈíü"));
+        test_info -> setItem(0, 2, new QTableWidgetItem(now_test_info[2]+"∑÷÷”"));
         test_info -> setItem(0, 3, new QTableWidgetItem(place_name[now_test_info[3].toInt()]));
     }
     homework_info -> clearContents();
@@ -226,52 +237,52 @@ void mainwindow::show_lesson_info(int row, int column){
 
 void mainwindow::set_calendar_page(){
     calendar_title = new QLabel();
-    calendar_title -> setText("Êó•Á®ãË°®");
+    calendar_title -> setText("»’≥Ã±Ì");
     calendar_list = new QTableWidget();
     calendar_list -> setColumnCount(6);
-    calendar_list -> setHorizontalHeaderLabels(QStringList()<<"ÈÄâÊã©"<<"Ê¥ªÂä®ÂêçÁß∞"<<"Ê¥ªÂä®Á±ªÂûã"<<"ÂºÄÂßãÊó∂Èó¥"<<"ÁªìÊùüÊó∂Èó¥"<<"Âú∞ÁÇπ");
+    calendar_list -> setHorizontalHeaderLabels(QStringList()<<"—°‘Ò"<<"ªÓ∂Ø√˚≥∆"<<"ªÓ∂Ø¿‡–Õ"<<"ø™ º ±º‰"<<"Ω· ¯ ±º‰"<<"µÿµ„");
     calendar_list -> horizontalHeader() -> setSectionResizeMode(QHeaderView::Stretch);
     calendar_list -> setRowCount(1);
     QTableWidgetItem *p_check = new QTableWidgetItem();
     p_check -> setCheckState(Qt::Unchecked);
     calendar_list -> setItem(0, 0, p_check);
-    calendar_list -> setItem(0 ,1 ,new QTableWidgetItem("ËÅöÈ§ê"));
-    calendar_list -> setItem(0 ,2 ,new QTableWidgetItem("‰∏™‰∫∫Ê¥ªÂä®"));
-    calendar_list -> setItem(0 ,3 ,new QTableWidgetItem("2000Âπ¥3Êúà2Êó•19:00"));
-    calendar_list -> setItem(0 ,4 ,new QTableWidgetItem("2000Âπ¥3Êúà2Êó•21:00"));
-    calendar_list -> setItem(0 ,5 ,new QTableWidgetItem("ÂçóÂå∫È£üÂ†Ç"));
+    calendar_list -> setItem(0 ,1 ,new QTableWidgetItem("æ€≤Õ"));
+    calendar_list -> setItem(0 ,2 ,new QTableWidgetItem("∏ˆ»ÀªÓ∂Ø"));
+    calendar_list -> setItem(0 ,3 ,new QTableWidgetItem("2000ƒÍ3‘¬2»’19:00"));
+    calendar_list -> setItem(0 ,4 ,new QTableWidgetItem("2000ƒÍ3‘¬2»’21:00"));
+    calendar_list -> setItem(0 ,5 ,new QTableWidgetItem("ƒœ«¯ ≥Ã√"));
     calendar_list -> resizeColumnsToContents();
     calendar_main_layout = new QVBoxLayout();
     calendar_main_layout -> addWidget(calendar_title);
     calendar_main_layout -> addWidget(calendar_list);
     calendar_description = new QLineEdit();
     set_time();
-    //QMessageBox::critical(this, "Ê∑ªÂä†Ê¥ªÂä®Âá∫Èîô", "Ê¥ªÂä®‰∏éËØæÁ®ãÊàñÊ¥ªÂä®ÂÜ≤Á™Å");
+    //QMessageBox::critical(this, "ÃÌº”ªÓ∂Ø≥ˆ¥Ì", "ªÓ∂Ø”ÎøŒ≥ÃªÚªÓ∂Ø≥ÂÕª");
     single_activity = new QRadioButton();
-    single_activity -> setText("‰∏™‰∫∫Ê¥ªÂä®");
+    single_activity -> setText("∏ˆ»ÀªÓ∂Ø");
     group_activity = new QRadioButton();
-    group_activity -> setText("ÈõÜ‰ΩìÊ¥ªÂä®");
+    group_activity -> setText("ºØÃÂªÓ∂Ø");
     single_activity -> setChecked(true);
     activity_radio = new QHBoxLayout();
     activity_radio -> addWidget(single_activity);
     activity_radio -> addWidget(group_activity);
     calendar_place = new QComboBox();
     calendar_info_layout = new QFormLayout();
-    calendar_info_layout -> addRow("Ê¥ªÂä®ÂêçÁß∞", calendar_description);
-    calendar_info_layout -> addRow("Ê¥ªÂä®Á±ªÂûã", activity_radio);
-    calendar_info_layout -> addRow("Ê¥ªÂä®ÂºÄÂßãÊó∂Èó¥",s_calendar_time_layout);
-    calendar_info_layout -> addRow("Ê¥ªÂä®ÁªìÊùüÊó∂Èó¥",e_calendar_time_layout);
-    calendar_info_layout -> addRow("Ê¥ªÂä®Âú∞ÁÇπ",calendar_place);
+    calendar_info_layout -> addRow("ªÓ∂Ø√˚≥∆", calendar_description);
+    calendar_info_layout -> addRow("ªÓ∂Ø¿‡–Õ", activity_radio);
+    calendar_info_layout -> addRow("ªÓ∂Øø™ º ±º‰",s_calendar_time_layout);
+    calendar_info_layout -> addRow("ªÓ∂ØΩ· ¯ ±º‰",e_calendar_time_layout);
+    calendar_info_layout -> addRow("ªÓ∂Øµÿµ„",calendar_place);
     calendar_add = new QPushButton();
-    calendar_add -> setText("Ê∑ªÂä†Ê¥ªÂä®");
+    calendar_add -> setText("ÃÌº”ªÓ∂Ø");
     calendar_del = new QPushButton();
-    calendar_del -> setText("Âà†Èô§Ê¥ªÂä®");
+    calendar_del -> setText("…æ≥˝ªÓ∂Ø");
     calendar_info_layout -> addRow(calendar_add);
     calendar_info_layout -> addRow(calendar_del);
     to_lesson_module1 = new QPushButton();
-    to_lesson_module1 -> setText("Êü•ÁúãËØæÁ®ãË°®");
+    to_lesson_module1 -> setText("≤Èø¥øŒ≥Ã±Ì");
     to_guide_module2 = new QPushButton();
-    to_guide_module2 -> setText("ÂØºËà™È°µÈù¢");
+    to_guide_module2 -> setText("µº∫Ω“≥√Ê");
     calendar_change_button = new QHBoxLayout();
     calendar_change_button -> addWidget(to_lesson_module1);
     calendar_change_button -> addWidget(to_guide_module2);
@@ -291,9 +302,9 @@ void mainwindow::set_guide_page(){
     map = new myGraphView();
     map -> setSceneRect(map -> rect());
     to_lesson_module2 = new QPushButton();
-    to_lesson_module2 -> setText("Êü•ÁúãËØæÁ®ãË°®");
+    to_lesson_module2 -> setText("≤Èø¥øŒ≥Ã±Ì");
     to_calendar_module2 = new QPushButton();
-    to_calendar_module2 -> setText("Êü•ÁúãÊó•Á®ãË°®");
+    to_calendar_module2 -> setText("≤Èø¥»’≥Ã±Ì");
 
     guide_button_layout =new QHBoxLayout();
     guide_button_layout -> addWidget(to_lesson_module2);
@@ -303,31 +314,31 @@ void mainwindow::set_guide_page(){
     place_select -> addItems(place_name);
     place_select -> setCurrentIndex(-1);
     place_select_button = new QPushButton();
-    place_select_button -> setText("Á°ÆËÆ§");
+    place_select_button -> setText("»∑»œ");
     place_clear_button = new QPushButton();
-    place_clear_button -> setText("Ê∏ÖÈô§");
+    place_clear_button -> setText("«Â≥˝");
     place_layout =new QHBoxLayout();
     place_layout -> addWidget(place_select_button);
     place_layout -> addWidget(place_clear_button);
 
     guide_mod_layout = new QVBoxLayout();
     query_label = new QLabel();
-    query_label -> setText("ÂØºËà™Âú∞ÁÇπ");
+    query_label -> setText("µº∫Ωµÿµ„");
     query_list = new QListWidget();
     query_list -> setFixedWidth(200);
     answer_label = new QLabel();
-    answer_label -> setText("ÂØºËà™ÁªìÊûú");
+    answer_label -> setText("µº∫ΩΩ·π˚");
     answer_list = new QListWidget();
     answer_list -> setFixedWidth(200);
     guide_time = new QLabel();
     start_guide = new QPushButton();
-    start_guide -> setText("ÂºÄÂßãÂØºËà™");
+    start_guide -> setText("ø™ ºµº∫Ω");
     dist_only = new QRadioButton();
-    dist_only -> setText("Ë∑ùÁ¶ª‰ºòÂÖà");
+    dist_only -> setText("æ‡¿Î”≈œ»");
     time_first = new QRadioButton();
-    time_first -> setText("Êó∂Èó¥‰ºòÂÖà");
+    time_first -> setText(" ±º‰”≈œ»");
     mix = new QRadioButton();
-    mix -> setText("‰∫§ÈÄöÂ∑•ÂÖ∑");
+    mix -> setText("ΩªÕ®π§æﬂ");
     mode_select = new QHBoxLayout();
     mode_select -> addWidget(dist_only);
     mode_select -> addWidget(time_first);
@@ -372,7 +383,7 @@ void mainwindow::get_guide_result(){
     answer_list -> clear();
     double totminutes = 0;
     answer_list -> addItems(map -> maingraph -> FindPath(qsl, totminutes, mode_group -> checkedId()));
-    QString estimate_time = "È¢ÑËÆ°Áî®Êó∂ " + QString::number(ceil(totminutes))+" ÂàÜÈíü";
+    QString estimate_time = "‘§º∆”√ ± " + QString::number(ceil(totminutes))+" ∑÷÷”";
     guide_time -> setText(estimate_time);
 }
 
@@ -403,11 +414,11 @@ void mainwindow::display_manage_page(){
 }
 
 void mainwindow::manage_page_set(){
-    setWindowTitle("ÁÆ°ÁêÜÂëò‰∏ªÈ°µ");
+    setWindowTitle("π‹¿Ì‘±÷˜“≥");
     Clock = new MyClock();
     lessontable = new QTableWidget(14,7);
-    lessontable -> setHorizontalHeaderLabels(QStringList()<<"ÊòüÊúü‰∏Ä"<<"ÊòüÊúü‰∫å"<<"ÊòüÊúü‰∏â"<<
-                                             "ÊòüÊúüÂõõ"<<"ÊòüÊúü‰∫î"<<"ÊòüÊúüÂÖ≠"<<"ÊòüÊúüÂ§©");
+    lessontable -> setHorizontalHeaderLabels(QStringList()<<"–«∆⁄“ª"<<"–«∆⁄∂˛"<<"–«∆⁄»˝"<<
+                                             "–«∆⁄Àƒ"<<"–«∆⁄ŒÂ"<<"–«∆⁄¡˘"<<"–«∆⁄ÃÏ");
     lessontable -> horizontalHeader() -> setSectionResizeMode(QHeaderView::Stretch);
     lessontable -> setVerticalHeaderLabels(QStringList()<<"1\n08:00\n08:45"<<
                                            "2\n08:50\n09:35"<<"3\n09:50\n10:35"<<
@@ -420,7 +431,7 @@ void mainwindow::manage_page_set(){
     for (int i=0;i<lessontable -> rowCount();i++)
         lessontable -> setRowHeight(i, 60);
     ask_class = new QLabel();
-    ask_class -> setText("ËØ∑ÈÄâÊã©Ë¶ÅËøõË°åÊìç‰ΩúÁöÑÁè≠Á∫ß");
+    ask_class -> setText("«Î—°‘Ò“™Ω¯––≤Ÿ◊˜µƒ∞‡º∂");
     class_select = new QComboBox();
     class_select -> addItem("2020211302");
     class_layout = new QHBoxLayout();
@@ -428,55 +439,55 @@ void mainwindow::manage_page_set(){
     class_layout -> addWidget(class_select);
 
     class_name_title = new QLabel();
-    class_name_title -> setText("ËØæÁ®ãÂêç");
+    class_name_title -> setText("øŒ≥Ã√˚");
     class_name = new QLineEdit();
     //teacher_name_title = new QLabel();
-    //teacher_name_title -> setText("‰ªªËØæÊïôÂ∏à");
+    //teacher_name_title -> setText("»ŒøŒΩÃ ¶");
     teacher_message = new QLineEdit();
     place_message_title = new QLabel();
-    place_message_title -> setText("‰∏äËØæÂú∞ÁÇπ");
+    place_message_title -> setText("…œøŒµÿµ„");
     place_message = new QComboBox();
     map = new myGraphView();
     place_message -> addItems(place_name);
     place_message -> setCurrentIndex(-1);
     add_lesson = new QPushButton();
-    add_lesson -> setText("Ê∑ªÂä†Ê≠§ËØæ");
+    add_lesson -> setText("ÃÌº”¥ÀøŒ");
     delete_lesson = new QPushButton();
-    delete_lesson -> setText("Âà†Èô§Ê≠§ËØæ");
+    delete_lesson -> setText("…æ≥˝¥ÀøŒ");
     test_add = new QPushButton();
-    test_add -> setText("Ê∑ªÂä†ËÄÉËØï");
+    test_add -> setText("ÃÌº”øº ‘");
     test_del = new QPushButton();
-    test_del -> setText("Âà†Èô§ËÄÉËØï");
+    test_del -> setText("…æ≥˝øº ‘");
     test_title = new QLabel();
-    test_title -> setText("ËÄÉËØï‰ø°ÊÅØ");
+    test_title -> setText("øº ‘–≈œ¢");
     test_list = new QTableWidget();
     test_list -> setColumnCount(5);
-    test_list -> setHorizontalHeaderLabels(QStringList()<<"ÈÄâÊã©"<<"ËÄÉËØïÂêçÁß∞"<<"Êó∂Èó¥"<<"Êó∂Èïø"<<"Âú∞ÁÇπ");
+    test_list -> setHorizontalHeaderLabels(QStringList()<<"—°‘Ò"<<"øº ‘√˚≥∆"<<" ±º‰"<<" ±≥§"<<"µÿµ„");
     test_list -> setRowCount(1);
     QTableWidgetItem *p_check = new QTableWidgetItem();
     p_check -> setCheckState(Qt::Unchecked);
     test_list -> setItem(0, 0, p_check);
-    test_list -> setItem(0, 1, new QTableWidgetItem("Êúü‰∏≠ËÄÉ"));
-    test_list -> setItem(0, 2, new QTableWidgetItem("2000Âπ¥4Êúà25Êó•"));
-    test_list -> setItem(0, 3, new QTableWidgetItem("90ÂàÜÈíü"));
-    test_list -> setItem(0, 4, new QTableWidgetItem("SÊïôÂ≠¶Ê•º"));
+    test_list -> setItem(0, 1, new QTableWidgetItem("∆⁄÷–øº"));
+    test_list -> setItem(0, 2, new QTableWidgetItem("2000ƒÍ4‘¬25»’"));
+    test_list -> setItem(0, 3, new QTableWidgetItem("90∑÷÷”"));
+    test_list -> setItem(0, 4, new QTableWidgetItem("SΩÃ—ß¬•"));
     homework_add = new QPushButton();
-    homework_add -> setText("Ê∑ªÂä†‰Ωú‰∏ö");
+    homework_add -> setText("ÃÌº”◊˜“µ");
     homework_del = new QPushButton();
-    homework_del -> setText("Âà†Èô§‰Ωú‰∏ö");
+    homework_del -> setText("…æ≥˝◊˜“µ");
     homework_title = new QLabel();
-    homework_title -> setText("‰Ωú‰∏ö‰ø°ÊÅØ");
+    homework_title -> setText("◊˜“µ–≈œ¢");
     homework_list = new QTableWidget();
     homework_list -> setColumnCount(3);
-    homework_list -> setHorizontalHeaderLabels(QStringList()<<"ÈÄâÊã©"<<"‰Ωú‰∏öÂêçÁß∞"<<"Êà™Ê≠¢Êó∂Èó¥");
+    homework_list -> setHorizontalHeaderLabels(QStringList()<<"—°‘Ò"<<"◊˜“µ√˚≥∆"<<"Ωÿ÷π ±º‰");
     homework_list -> setRowCount(1);
     QTableWidgetItem *p_check1 = new QTableWidgetItem();
     p_check1 -> setCheckState(Qt::Unchecked);
     homework_list -> setItem(0, 0, p_check1);
-    homework_list -> setItem(0, 1, new QTableWidgetItem("Á¨¨‰∏ÄÊ¨°‰Ωú‰∏ö"));
-    homework_list -> setItem(0, 2, new QTableWidgetItem("2000Âπ¥3Êúà5Êó•"));
+    homework_list -> setItem(0, 1, new QTableWidgetItem("µ⁄“ª¥Œ◊˜“µ"));
+    homework_list -> setItem(0, 2, new QTableWidgetItem("2000ƒÍ3‘¬5»’"));
     material_manage_button = new QPushButton();
-    material_manage_button -> setText("ÁÆ°ÁêÜËØæÁ®ãËµÑÊñô");
+    material_manage_button -> setText("π‹¿ÌøŒ≥Ã◊ ¡œ");
     message_layout = new QGridLayout();
     message_layout -> addWidget(class_name_title, 0, 0);
     message_layout -> addWidget(class_name, 0, 1);
@@ -532,13 +543,27 @@ void mainwindow::material_add_page(){
 
 void mainwindow::show_material_page(){
     if (student_material_page != NULL) delete student_material_page;
-    student_material_page = new material_detail();
+    student_material_page = new material_detail(student_class -> getCourseDataInfo(lesson_name -> text().toStdString()));
     student_material_page -> show();
 }
 
 void mainwindow::show_homework_page(){
+    int id = -1, row_count = homework_info -> rowCount();
+    for (int i = 0; i < row_count; i++)
+        if (homework_info -> item(i, 0) -> checkState() == Qt::Checked){
+            if (id == -1)
+                id = i;
+            else {
+                QMessageBox::critical(this, "—°‘Ò¥ÌŒÛ", "“ª¥Œ÷ªƒ‹—°‘Ò“ª∏ˆ◊˜“µÃ·Ωª");
+                return;
+            }
+        }
+    if (id == -1) return;
     if (student_homework_page != NULL) delete student_homework_page;
-    student_homework_page = new homework_submit_page();
+    QStringList homework_total_info, now_homework_info = student_class -> getHomework(lesson_name->text().toStdString());
+    homework_total_info << now_homework_info[id * 3] << now_homework_info[id * 3 + 1]
+                        << now_homework_info[id * 3 + 2];
+    student_homework_page = new homework_submit_page(homework_total_info);
     student_homework_page -> show();
 }
 
@@ -563,7 +588,7 @@ void mainwindow::alarm_flash(){
 
 void mainwindow::add_alarm(Alarm a){
     if (Clock -> addAlarm(a) == NULL)
-        QMessageBox::critical(this, "Âä†ÂÖ•ÈóπÈíüÂá∫Èîô", "ÈóπÈíüÊï∞ÈáèËøáÂ§öÔºåÂà†Êéâ‰∏Ä‰∫õÂêßÔºÅ");
+        QMessageBox::critical(this, "º”»Îƒ÷÷”≥ˆ¥Ì", "ƒ÷÷” ˝¡øπ˝∂‡£¨…æµÙ“ª–©∞…£°");
 }
 
 void mainwindow::delete_alarm(int id){
@@ -578,28 +603,28 @@ void mainwindow::set_time(){
         s_nian -> addItem(QString::number(i));
     s_nian -> setCurrentIndex(-1);
     s_nian_name = new QLabel();
-    s_nian_name -> setText("Âπ¥");
+    s_nian_name -> setText("ƒÍ");
     s_yue = new QComboBox();
     for (int i = 1; i <= 12; i++)
         s_yue -> addItem(QString::number(i));
     s_yue -> setCurrentIndex(-1);
     s_yue_name = new QLabel();
-    s_yue_name -> setText("Êúà");
+    s_yue_name -> setText("‘¬");
     s_ri = new QComboBox();
     s_ri_name = new QLabel();
-    s_ri_name -> setText("Êó•");
+    s_ri_name -> setText("»’");
     s_shi = new QComboBox();
     for (int i = 0; i <= 23; i++)
         s_shi -> addItem(QString::number(i));
     s_shi -> setCurrentIndex(-1);
     s_shi_name = new QLabel();
-    s_shi_name -> setText("Êó∂");
+    s_shi_name -> setText(" ±");
     s_fen = new QComboBox();
     for (int i = 0; i <= 59; i++)
         s_fen -> addItem(QString::number(i));
     s_fen -> setCurrentIndex(-1);
     s_fen_name = new QLabel();
-    s_fen_name -> setText("ÂàÜ");
+    s_fen_name -> setText("∑÷");
     s_calendar_time_layout = new QHBoxLayout();
     s_calendar_time_layout -> addWidget(s_nian);
     s_calendar_time_layout -> addWidget(s_nian_name);
@@ -616,28 +641,28 @@ void mainwindow::set_time(){
         e_nian -> addItem(QString::number(i));
     e_nian -> setCurrentIndex(-1);
     e_nian_name = new QLabel();
-    e_nian_name -> setText("Âπ¥");
+    e_nian_name -> setText("ƒÍ");
     e_yue = new QComboBox();
     for (int i = 1; i <= 12; i++)
         e_yue -> addItem(QString::number(i));
     e_yue -> setCurrentIndex(-1);
     e_yue_name = new QLabel();
-    e_yue_name -> setText("Êúà");
+    e_yue_name -> setText("‘¬");
     e_ri = new QComboBox();
     e_ri_name = new QLabel();
-    e_ri_name -> setText("Êó•");
+    e_ri_name -> setText("»’");
     e_shi = new QComboBox();
     for (int i = 0; i <= 23; i++)
         e_shi -> addItem(QString::number(i));
     e_shi -> setCurrentIndex(-1);
     e_shi_name = new QLabel();
-    e_shi_name -> setText("Êó∂");
+    e_shi_name -> setText(" ±");
     e_fen = new QComboBox();
     for (int i = 0; i <= 59; i++)
         e_fen -> addItem(QString::number(i));
     e_fen -> setCurrentIndex(-1);
     e_fen_name = new QLabel();
-    e_fen_name -> setText("ÂàÜ");
+    e_fen_name -> setText("∑÷");
     e_calendar_time_layout = new QHBoxLayout();
     e_calendar_time_layout -> addWidget(e_nian);
     e_calendar_time_layout -> addWidget(e_nian_name);
@@ -692,42 +717,58 @@ QString mainwindow::trans_date(MyTime now_time){
     else Str2 = QString::number(now_time.getMonth());
     if (now_time.getDay()<=9) Str3 = "0" + QString::number(now_time.getDay());
     else Str3 = QString::number(now_time.getDay());
-    return Str1+"Âπ¥"+Str2+"Êúà"+Str3+"Êó•";
+    return Str1+"ƒÍ"+Str2+"‘¬"+Str3+"»’";
 }
 
-material_detail::material_detail(QWidget *parent){
-    setWindowTitle("ËØæÁ®ãËµÑÊñô");
+material_detail::material_detail(QStringList task_list, QWidget *parent){
+    setWindowTitle("øŒ≥Ã◊ ¡œ");
     material_list = new QTableWidget();
     material_list -> setColumnCount(2);
-    material_list -> setHorizontalHeaderLabels(QStringList()<<"ËµÑÊñôÂêç"<<"‰∏ãËΩΩ");
-    material_list -> setRowCount(1);
+    material_list -> setHorizontalHeaderLabels(QStringList()<<"◊ ¡œ√˚"<<"œ¬‘ÿ");
     material_list -> horizontalHeader() -> setSectionResizeMode(QHeaderView::Stretch);
-    QPushButton *download = new QPushButton();
-    download -> setText("‰∏ãËΩΩ");
-    material_list -> setItem(0, 0, new QTableWidgetItem("Á¨¨‰∏ÄÊ¨°ËØæ‰ª∂"));
-    material_list -> setCellWidget(0, 1, download);
+    int len = task_list.length();
+    material_list -> setRowCount(len);
+    for (int i = 0; i < len; i++){
+        QPushButton *download = new QPushButton();
+        download -> setText("œ¬‘ÿ");
+        material_list -> setItem(i, 0, new QTableWidgetItem(task_list[i]));
+        material_list -> setCellWidget(i, 1, download);
+    }
     layout = new QHBoxLayout();
     layout -> addWidget(material_list);
     setLayout(layout);
+    connect(material_list, &QTableWidget::clicked, this, &material_detail::try_download);
 }
 
-homework_submit_page::homework_submit_page(QWidget *parent){
-    setWindowTitle("‰Ωú‰∏öÊèê‰∫§");
+void material_detail::try_download(int row, int column){
+    if (column == 1){
+        QString file_path_name = QFileDialog::getExistingDirectory(this, tr("—°‘ÒŒƒº˛º–"),QDir::currentPath());
+        if (file_path_name.isEmpty())
+            return;
+        file_path_name += "\\" + material_list -> item(row, 0) -> text() + ".data";
+        emit download(material_list -> item(row, 0) -> text(), file_path_name);
+    }
+}
+
+homework_submit_page::homework_submit_page(QStringList info, QWidget *parent){
+    setWindowTitle("◊˜“µÃ·Ωª");
     title = new QLabel();
-    title -> setText("Á¨¨‰∏ÄÊ¨°‰Ωú‰∏ö");
+    title -> setText(info[0]);
+    ddl = new QLabel();
+    ddl -> setText(info[1]);
     description = new QLabel();
-    description -> setText("ËØæÊú¨P12 1, 2, 5È¢ò");
-    state = new QLabel();
-    state -> setText("Êú™Êèê‰∫§");
+    description -> setText(info[2]);
+    //state = new QLabel();
+    //state -> setText(info[1]);
     file_select = new QPushButton();
-    file_select -> setText("ÈÄâÊã©Êñá‰ª∂");
+    file_select -> setText("—°‘ÒŒƒº˛");
     submit = new QPushButton();
-    submit -> setText("Êèê‰∫§");
+    submit -> setText("Ã·Ωª");
     file_path = new QLabel();
     layout = new QFormLayout();
-    layout -> addRow("‰Ωú‰∏öÂêçÁß∞", title);
-    layout -> addRow("‰Ωú‰∏öÊèèËø∞", description);
-    layout -> addRow("Êèê‰∫§Áä∂ÊÄÅ", state);
+    layout -> addRow("◊˜“µ√˚≥∆", title);
+    layout -> addRow("◊˜“µΩÿ÷¡ ±º‰", ddl);
+    layout -> addRow("Ã·Ωª◊¥Ã¨", description);
     layout -> addRow(file_select, file_path);
     layout -> addRow(submit);
     setLayout(layout);
@@ -735,12 +776,13 @@ homework_submit_page::homework_submit_page(QWidget *parent){
 }
 
 void homework_submit_page::file_select_page(){
-    QString filename = QFileDialog::getOpenFileName(this, tr("ÈÄâÊã©Êñá‰ª∂"), "C:/", tr("All files(*.*)"));
+    QString filename = QFileDialog::getOpenFileName(this, tr("—°‘ÒŒƒº˛"), "C:/", tr("All files(*.*)"));
     file_path -> setText(filename);
+    emit submit_homework(title -> text(), filename);
 }
 
 alarm_page::alarm_page(QWidget *parent){
-    setWindowTitle("ÈóπÈíüËÆæÁΩÆ");
+    setWindowTitle("ƒ÷÷”…Ë÷√");
     alarm_description = new QLineEdit();
     hour_minute = new QLabel();
     hour_minute -> setText(":");
@@ -755,11 +797,11 @@ alarm_page::alarm_page(QWidget *parent){
     time_layout -> addWidget(hour_minute);
     time_layout -> addWidget(minute);
     only_once = new QRadioButton();
-    only_once -> setText("‰ªÖ‰∏ÄÊ¨°");
+    only_once -> setText("Ωˆ“ª¥Œ");
     every_day = new QRadioButton();
-    every_day -> setText("ÊØèÂ§©‰∏ÄÊ¨°");
+    every_day -> setText("√øÃÏ“ª¥Œ");
     every_week = new QRadioButton();
-    every_week -> setText("ÊØèÂë®‰∏ÄÊ¨°");
+    every_week -> setText("√ø÷‹“ª¥Œ");
     times_group = new QButtonGroup();
     times_group ->addButton(only_once, 0);
     times_group ->addButton(every_day, 1);
@@ -770,11 +812,11 @@ alarm_page::alarm_page(QWidget *parent){
     radio_layout -> addWidget(every_week);
     only_once -> setChecked(true);
     add_alarm = new QPushButton();
-    add_alarm -> setText("Ê∑ªÂä†ÈóπÈíü");
+    add_alarm -> setText("ÃÌº”ƒ÷÷”");
     new_alarm_layout = new QFormLayout();
-    new_alarm_layout -> addRow("ÈóπÈíüÊèèËø∞", alarm_description);
-    new_alarm_layout -> addRow("Êó∂Èó¥", time_layout);
-    new_alarm_layout -> addRow("È¢ëÁéá", radio_layout);
+    new_alarm_layout -> addRow("ƒ÷÷”√Ë ˆ", alarm_description);
+    new_alarm_layout -> addRow(" ±º‰", time_layout);
+    new_alarm_layout -> addRow("∆µ¬ ", radio_layout);
     page[0] = new QWidget();
     day_layout = new QHBoxLayout();
     page[1] = new QWidget();
@@ -782,19 +824,19 @@ alarm_page::alarm_page(QWidget *parent){
         day[i] = new QCheckBox();
         QString day_name;
         switch (i){
-            case 0 : day_name = "ÊòüÊúü‰∏Ä";
+            case 0 : day_name = "–«∆⁄“ª";
                      break;
-            case 1 : day_name = "ÊòüÊúü‰∫å";
+            case 1 : day_name = "–«∆⁄∂˛";
                      break;
-            case 2 : day_name = "ÊòüÊúü‰∏â";
+            case 2 : day_name = "–«∆⁄»˝";
                      break;
-            case 3 : day_name = "ÊòüÊúüÂõõ";
+            case 3 : day_name = "–«∆⁄Àƒ";
                      break;
-            case 4 : day_name = "ÊòüÊúü‰∫î";
+            case 4 : day_name = "–«∆⁄ŒÂ";
                      break;
-            case 5 : day_name = "ÊòüÊúüÂÖ≠";
+            case 5 : day_name = "–«∆⁄¡˘";
                      break;
-            default : day_name = "ÊòüÊúüÊó•";
+            default : day_name = "–«∆⁄»’";
         }
         day[i] -> setText(day_name);
         day_layout -> addWidget(day[i]);
@@ -808,12 +850,12 @@ alarm_page::alarm_page(QWidget *parent){
     new_alarm_layout -> addRow(add_alarm);
     alarm_list = new QTableWidget();
     alarm_list -> setColumnCount(5);
-    alarm_list -> setHorizontalHeaderLabels(QStringList()<<"ÈÄâÊã©"<<"ÊèèËø∞"<<"ÊòØÂê¶ÂºÄÂêØ"<<"Êó∂Èó¥"<<"È¢ëÁéá");
+    alarm_list -> setHorizontalHeaderLabels(QStringList()<<"—°‘Ò"<<"√Ë ˆ"<<" «∑Òø™∆Ù"<<" ±º‰"<<"∆µ¬ ");
     alarm_list -> horizontalHeader() -> setSectionResizeMode(QHeaderView::Stretch);
     alarm_list_title = new QLabel();
-    alarm_list_title -> setText("ÈóπÈíüÂàóË°®");
+    alarm_list_title -> setText("ƒ÷÷”¡–±Ì");
     del_alarm = new QPushButton();
-    del_alarm -> setText("Âà†Èô§ÈóπÈíü");
+    del_alarm -> setText("…æ≥˝ƒ÷÷”");
     new_alarm_layout -> addRow(alarm_list_title);
     new_alarm_layout -> addRow(alarm_list);
     new_alarm_layout -> addRow(del_alarm);
@@ -851,7 +893,7 @@ void alarm_page::get_new_alarm(){
             state |= (day[i] -> checkState() == Qt::Checked) << i;
         qDebug() << state;
         if (!state)
-            QMessageBox::critical(this, "ÈîôËØØ", "ËØ∑ÈÄâÊã©Ëá≥Â∞ë‰∏ÄÂ§©");
+            QMessageBox::critical(this, "¥ÌŒÛ", "«Î—°‘Ò÷¡…Ÿ“ªÃÏ");
     }
 
     Alarm new_alarm = Alarm(hour -> currentIndex(), minute -> currentIndex(), state, 1,
@@ -889,25 +931,25 @@ void alarm_page::set_alarm_list(MyClock *Clock){
             alarm_list -> setItem(row_count, 3, new QTableWidgetItem(Str1 + ":" + Str2));
             Str1 = "";
             if (Clock -> alarms -> arr[i].getType() == 0)
-                Str1 = "‰ªÖ‰∏ÄÊ¨°";
+                Str1 = "Ωˆ“ª¥Œ";
             else if (Clock -> alarms -> arr[i].getType() == 0x7f)
-                Str1 = "ÊØèÂë®‰∏ÄÊ¨°";
+                Str1 = "√ø÷‹“ª¥Œ";
             else for (int j = 0; j < 7; j++)
                 if (Clock -> alarms -> arr[i].getType() & (1<<j)){
                     switch (j){
-                        case 0 : Str1 += "ÊòüÊúü‰∏Ä";
+                        case 0 : Str1 += "–«∆⁄“ª";
                                 break;
-                        case 1 : Str1 += "ÊòüÊúü‰∫å";
+                        case 1 : Str1 += "–«∆⁄∂˛";
                                 break;
-                        case 2 : Str1 += "ÊòüÊúü‰∏â";
+                        case 2 : Str1 += "–«∆⁄»˝";
                                 break;
-                        case 3 : Str1 += "ÊòüÊúüÂõõ";
+                        case 3 : Str1 += "–«∆⁄Àƒ";
                                 break;
-                        case 4 : Str1 += "ÊòüÊúü‰∫î";
+                        case 4 : Str1 += "–«∆⁄ŒÂ";
                                 break;
-                        case 5 : Str1 += "ÊòüÊúüÂÖ≠";
+                        case 5 : Str1 += "–«∆⁄¡˘";
                                  break;
-                        default : Str1 += "ÊòüÊúüÊó•";
+                        default : Str1 += "–«∆⁄»’";
                     }
                 }
             alarm_list -> setItem(row_count, 4, new QTableWidgetItem(Str1));
@@ -921,3 +963,4 @@ void alarm_page::set_type(int row, int column){
     if (column == 2)
         emit alarm_type_changed(alarm_id[row]);
 }
+

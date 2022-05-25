@@ -60,3 +60,17 @@
 655	6640	6751779671002018	CMakeFiles/manage_system.dir/material_manage_page.cpp.obj	cf3add31f3dd5281
 627	7661	6751779681008468	CMakeFiles/manage_system.dir/mainwindow.cpp.obj	ac7b626a7d79b694
 7662	8807	6751779686826194	manage_system.exe	5d0e0ea576f32cff
+15	115	0	C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/CMakeFiles/cmake.verify_globs	f7383d4473115e03
+6	736	6751815210411371	manage_system_autogen/timestamp	40dba4bba118f7f4
+6	736	6751815210411371	manage_system_autogen/mocs_compilation.cpp	40dba4bba118f7f4
+6	736	6751815210411371	C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/manage_system_autogen/timestamp	40dba4bba118f7f4
+6	736	6751815210411371	C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/manage_system_autogen/mocs_compilation.cpp	40dba4bba118f7f4
+736	1212	6751815216365288	C:/Users/18214/Documents/GitHub/datastructure/manage_system/manage_system_zh_CN.ts	9d0c0e0431ad149
+1233	7291	6751815276776127	CMakeFiles/manage_system.dir/addhomework.cpp.obj	d874570ab6c28510
+1229	7309	6751815277075321	CMakeFiles/manage_system.dir/addtest.cpp.obj	6545ceaac32e0647
+1217	7357	6751815277683689	CMakeFiles/manage_system.dir/logwindow.cpp.obj	c37b3f08c96aed19
+1237	7913	6751815283308647	CMakeFiles/manage_system.dir/material_manage_page.cpp.obj	cf3add31f3dd5281
+1224	8413	6751815288345495	CMakeFiles/manage_system.dir/main.cpp.obj	f3b3b95228b9e8a3
+1221	8560	6751815289791276	CMakeFiles/manage_system.dir/mainwindow.cpp.obj	ac7b626a7d79b694
+1212	8741	6751815291606704	CMakeFiles/manage_system.dir/manage_system_autogen/mocs_compilation.cpp.obj	31a88723338cecd0
+8741	9764	6751815299554544	manage_system.exe	5d0e0ea576f32cff
