@@ -12,97 +12,97 @@ Manager::~Manager()
 
 void Manager::addCourse(string courseName,int locale,int classId)
 {
-    logger.addLogger("¹ÜÀíÔ±Ôö¼ÓÁËÒ»ÃÅ¿Î³Ì");
+    logger.addLogger("ç®¡ç†å‘˜å¢åŠ äº†ä¸€é—¨è¯¾ç¨‹");
     Class::addCourse(courseName,locale,classId);
 }
 
 void Manager::deleteCoure(string courseName,int classId)
 {
-    logger.addLogger("¹ÜÀíÔ±É¾³ıÁËÒ»ÃÅ¿Î³Ì");
+    logger.addLogger("ç®¡ç†å‘˜åˆ é™¤äº†ä¸€é—¨è¯¾ç¨‹");
     Class c(classId);
     c.deleteCoure(courseName);
 }
 
 void Manager::setCourseTime(string courseName,int weekday,int startHour,int startMinute,int classes,int classId)
 {
-    logger.addLogger("¹ÜÀíÔ±ÉèÖÃÁË¿Î³ÌÊ±¼ä");
+    logger.addLogger("ç®¡ç†å‘˜è®¾ç½®äº†è¯¾ç¨‹æ—¶é—´");
     Class c(classId);
     c.setCourseTime(courseName,weekday,startHour,startMinute,classes);
 }
 
 void Manager::setCourseGroup(string courseName,string courseGroup,int classId)
 {
-    logger.addLogger("¹ÜÀíÔ±ÉèÖÃÁË¿Î³ÌÈº");
+    logger.addLogger("ç®¡ç†å‘˜è®¾ç½®äº†è¯¾ç¨‹ç¾¤");
     Class c(classId);
     c.setCourseGroup(courseName,courseGroup);
 }
 
 void Manager::uploadCourseData(string courseName, string dataName, string dataPath,int classId)
 {
-    logger.addLogger("¹ÜÀíÔ±ÉÏ´«ÁË¿Î³Ì×ÊÁÏ");
+    logger.addLogger("ç®¡ç†å‘˜ä¸Šä¼ äº†è¯¾ç¨‹èµ„æ–™");
     Class c(classId);
     c.uploadCourseData(courseName,dataName,dataPath);
 }
 
 QStringList Manager::getCourseDataInfo(string courseName,int classId)
 {
-    logger.addLogger("¹ÜÀíÔ±²éÑ¯ÁË¿Î³Ì×ÊÁÏ");
+    logger.addLogger("ç®¡ç†å‘˜æŸ¥è¯¢äº†è¯¾ç¨‹èµ„æ–™");
     Class c(classId);
     return c.getCourseDataInfo(courseName);
 }
 
 void Manager::removeCourseData(string courseName, string dataName,int classId)
 {
-    logger.addLogger("¹ÜÀíÔ±É¾³ıÁË¿Î³Ì×ÊÁÏ");
+    logger.addLogger("ç®¡ç†å‘˜åˆ é™¤äº†è¯¾ç¨‹èµ„æ–™");
     Class c(classId);
     c.removeCourseData(courseName,dataName);
 }
 
 void Manager::downloadCourseData(string courseName,string dataName,string downloadPath,int classId)
 {
-    logger.addLogger("¹ÜÀíÔ±ÏÂÔØÑ¯ÁË¿Î³Ì×ÊÁÏ");
+    logger.addLogger("ç®¡ç†å‘˜ä¸‹è½½è¯¢äº†è¯¾ç¨‹èµ„æ–™");
     Class c(classId);
     c.downloadCourseData(courseName,dataName,downloadPath);
 }
 
 void Manager::uploadExam(string courseName, string examName, MyTime startTime, int location, int duration,int classId)
 {
-    logger.addLogger("¹ÜÀíÔ±·¢²¼ÁË¿¼ÊÔ");
+    logger.addLogger("ç®¡ç†å‘˜å‘å¸ƒäº†è€ƒè¯•");
     Class c(classId);
     c.uploadExam(courseName,examName,startTime,location,duration);
 }
 
 void Manager::deleteExam(string courseName,int classId)
 {
-    logger.addLogger("¹ÜÀíÔ±É¾³ıÁË¿¼ÊÔ");
+    logger.addLogger("ç®¡ç†å‘˜åˆ é™¤äº†è€ƒè¯•");
     Class c(classId);
     c.deleteExam(courseName);
 }
 
 QStringList Manager::getExamInfo(string courseName,int classId)
 {
-    logger.addLogger("¹ÜÀíÔ±²éÑ¯ÁË¿¼ÊÔ");
+    logger.addLogger("ç®¡ç†å‘˜æŸ¥è¯¢äº†è€ƒè¯•");
     Class c(classId);
     return c.getExamInfo(courseName);
 }
 
 void Manager::uploadHomework(string courseName, string homeworkName, MyTime deadline, string description,int classId)
 {
-    logger.addLogger("¹ÜÀíÔ±·¢²¼ÁË×÷Òµ");
+    logger.addLogger("ç®¡ç†å‘˜å‘å¸ƒäº†ä½œä¸š");
     Class c(classId);
     c.uploadHomework(courseName,homeworkName,deadline,description);
 }
 
 void Manager::deleteHomework(string courseName, string homeworkName,int classId)
 {
-    logger.addLogger("¹ÜÀíÔ±É¾³ıÁË×÷Òµ");
+    logger.addLogger("ç®¡ç†å‘˜åˆ é™¤äº†ä½œä¸š");
     Class c(classId);
     c.deleteHomework(courseName,homeworkName);
 }
 
 QStringList Manager::getHomework(string courseName,int classId)
 {
-    logger.addLogger("¹ÜÀíÔ±²éÑ¯ÁË×÷Òµ");
+    logger.addLogger("ç®¡ç†å‘˜æŸ¥è¯¢äº†ä½œä¸š");
     Class c(classId);
     return c.getHomework(courseName);
 }
@@ -116,4 +116,3 @@ QStringList Manager::getLogger()
 {
     return logger.getLogger();
 }
-

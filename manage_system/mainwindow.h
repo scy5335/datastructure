@@ -19,7 +19,6 @@
 #include <QCheckBox>
 #include <QMessageBox>
 #include <QButtonGroup>
-#include <QFileDialog>
 #include "mygraphview.h"
 #include "addtest.h"
 #include "addhomework.h"
@@ -36,29 +35,22 @@ class material_detail : public QWidget{
 private:
     QTableWidget *material_list;
     QHBoxLayout *layout;
-    void try_download(int row, int column);
-
-signals:
-    void download(QString data_name, QString file_name);
 
 public:
-    material_detail(QStringList task_list, QWidget *parent = nullptr);
+    material_detail(QWidget *parent = nullptr);
 };
 
 class homework_submit_page : public QWidget{
     Q_OBJECT
 
 private:
-    QLabel *title, *description, *state, *file_path, *ddl;
+    QLabel *title, *description, *state, *file_path;
     QPushButton *file_select, *submit;
     QFormLayout *layout;
     void file_select_page();
 
 public:
-    homework_submit_page(QStringList info, QWidget *parent = nullptr);
-
-signals:
-    void submit_homework(QString homework_name, QString file_name);
+    homework_submit_page(QWidget *parent = nullptr);
 };
 
 class alarm_page : public QWidget{
@@ -174,8 +166,6 @@ private:
     void delete_alarm(int id);
     void student_get_course_info();
     void show_lesson_info(int row, int column);
-    void submit_homework(QString homework_name, QString file_name);
-    void download_task(QString data_name, QString file_name);
 
     //manage
     Manager *log_manager;
