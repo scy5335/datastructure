@@ -327,17 +327,17 @@ void mainwindow::calendar_display(){
     QStringList tot_calendar = log_student -> getRecords();
     int len = tot_calendar.length();
     calendar_list -> setRowCount(len/3);
-    for (int i = 0; i < len;){
+    for (int i = 0, row_count = 0; i < len; row_count++){
         QTableWidgetItem *p_check = new QTableWidgetItem();
         p_check -> setCheckState(Qt::Unchecked);
-        calendar_list -> setItem(0, 0, p_check);
-        calendar_list -> setItem(0 ,2 ,new QTableWidgetItem("个人活动"));
-        calendar_list -> setItem(0 ,3 ,new QTableWidgetItem(tot_calendar[i++]));
-        calendar_list -> setItem(0 ,4 ,new QTableWidgetItem(tot_calendar[i++]));
-        calendar_list -> setItem(0 ,1 ,new QTableWidgetItem(tot_calendar[i++]));
-        calendar_list -> setItem(0 ,5 ,new QTableWidgetItem("南区食堂"));
+        calendar_list -> setItem(row_count, 0, p_check);
+        calendar_list -> setItem(row_count, 2 ,new QTableWidgetItem("个人活动"));
+        calendar_list -> setItem(row_count, 3 ,new QTableWidgetItem(tot_calendar[i++]));
+        calendar_list -> setItem(row_count, 4 ,new QTableWidgetItem(tot_calendar[i++]));
+        calendar_list -> setItem(row_count, 1 ,new QTableWidgetItem(tot_calendar[i++]));
+        calendar_list -> setItem(row_count, 5 ,new QTableWidgetItem("南区食堂"));
     }
-    calendar_list -> resizeColumnsToContents();
+    calendar_list -> horizontalHeader() -> setSectionResizeMode(QHeaderView::ResizeToContents);
 }
 
 void mainwindow::set_guide_page(){
