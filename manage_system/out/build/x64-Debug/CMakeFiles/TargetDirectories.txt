@@ -1,4 +1,0 @@
-C:/Users/18214/Documents/GitHub/datastructure/manage_system/out/build/x64-Debug/CMakeFiles/manage_system.dir
-C:/Users/18214/Documents/GitHub/datastructure/manage_system/out/build/x64-Debug/CMakeFiles/edit_cache.dir
-C:/Users/18214/Documents/GitHub/datastructure/manage_system/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
-C:/Users/18214/Documents/GitHub/datastructure/manage_system/out/build/x64-Debug/CMakeFiles/manage_system_autogen.dir

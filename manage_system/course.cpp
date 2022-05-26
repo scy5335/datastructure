@@ -1,4 +1,4 @@
-#include "course.h"
+﻿#include "course.h"
 
 Course::Course(QObject *parent)
     : QObject{parent}
@@ -31,7 +31,7 @@ Course::Course(unsigned courseId, string root)
     this->dataNum=0;
     if(!fs::exists(dir))
     {
-        qDebug()<<"未找到该课程路径，请检查该课程是否存在";
+        qDebug()<<"未找到该课程路径,请检查该课程是否存在";
         memset(weekTable,0,7*sizeof(unsigned));
         this->examName = "uninitialized";
         this->group = "uninitialized";
@@ -174,7 +174,7 @@ Data* Course::releaseData(string dataName, string fileAddr, MyTime sysTime)
     Data* tmp = dataSearch(dataName);
     if(tmp)
     {
-        qDebug()<<"该资料已存在，将更新该资料";
+        qDebug()<<"该资料已存在，更新该资料";
         tmp->upload(sysTime,fileAddr);
         return tmp;
     }
@@ -247,11 +247,7 @@ void Course::saveFile()
     for(i=0;i<dataNum;i++)
     {
         ofs<<data[i]->getName()<<endl;
-<<<<<<< HEAD
-        //� 需单独资料保存
-=======
         //无需单独资料保存
->>>>>>> parent of b97e4d1 (学生课程表界面对接)
     }
     ofs<<"exam:"<<endl;
     if(examName=="uninitialized")
@@ -272,11 +268,7 @@ void Course::readFile()
 {
     if(need2save==true)
     {
-<<<<<<< HEAD
-        qDebug()<<"数据尚未保存，读取可能� 成数据丢失";
-=======
-        qDebug()<<"数据尚未保存，读取可能造成数据丢失";
->>>>>>> parent of b97e4d1 (学生课程表界面对接)
+        qDebug()<<"数据尚未保存，读取可能造成文件丢失";
     }
     taskNum=0;
     dataNum=0;
@@ -288,7 +280,7 @@ void Course::readFile()
     ifs.open(dir+"\\courseInfo.txt",ios::in);
     if(!ifs.is_open())
     {
-        qDebug()<<"读取课程文件失败";
+        qDebug()<<"读取课程列表失败";
         return;
     }
     ifs>>locale>>courseId;
