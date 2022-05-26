@@ -45,7 +45,3 @@ public:
 };
 
 #endif // CALENDAR_H
-ckTimeConflict();
-};
-
-#endif // CALENDAR_H

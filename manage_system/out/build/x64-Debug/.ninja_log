@@ -1,0 +1,8 @@
+# ninja log v5
+3	1045	0	CMakeFiles/manage_system_autogen	5c24187e9943dff0
+3	1045	0	manage_system_autogen/mocs_compilation.cpp	5c24187e9943dff0
+1046	1611	6752508764773967	../../../manage_system_zh_CN.ts	64767e334814d73c
+1708	3792	6752508786308171	CMakeFiles/manage_system.dir/trie.cpp.obj	bbe012c7a2bcd342
+1733	4095	6752508789572647	CMakeFiles/manage_system.dir/alarm.cpp.obj	a83cdb050975a806
+1742	4377	6752508792434988	CMakeFiles/manage_system.dir/myclock.cpp.obj	592d830e4f25c7d9
+1676	4818	6752508796853749	CMakeFiles/manage_system.dir/mygraphview.cpp.obj	193de16971bce1f3

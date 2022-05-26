@@ -37,8 +37,8 @@ addhomework::addhomework(int now_year, QWidget *parent) :
     main_layout -> addLayout(main_info_layout);
     main_layout -> addWidget(state);
     main_layout -> addLayout(button_layout);
-    connect(nian, &QComboBox::currentIndexChanged, this, &addhomework::change_day);
-    connect(yue, &QComboBox::currentIndexChanged, this, &addhomework::change_day);
+    connect(nian, QOverload<const QString&>::of(&QComboBox::currentIndexChanged), this, &addhomework::change_day);
+    connect(yue, QOverload<const QString&>::of(&QComboBox::currentIndexChanged), this, &addhomework::change_day);
     connect(cancel, &QPushButton::clicked, this, &addhomework::clear_content);
     setLayout(main_layout);
 }

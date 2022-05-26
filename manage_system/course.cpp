@@ -31,7 +31,7 @@ Course::Course(unsigned courseId, string root)
     this->dataNum=0;
     if(!fs::exists(dir))
     {
-        qDebug()<<"未找到该课程路径，请检查该课程是否存在";
+        qDebug()<<"未找到该课程路径,请检查该课程是否存在";
         memset(weekTable,0,7*sizeof(unsigned));
         this->examName = "uninitialized";
         this->group = "uninitialized";
