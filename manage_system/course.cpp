@@ -1,4 +1,4 @@
-ï»¿#include "course.h"
+#include "course.h"
 
 Course::Course(QObject *parent)
     : QObject{parent}
@@ -31,7 +31,7 @@ Course::Course(unsigned courseId, string root)
     this->dataNum=0;
     if(!fs::exists(dir))
     {
-        qDebug()<<"æœªæ‰¾åˆ°è¯¥è¯¾ç¨‹è·¯å¾„,è¯·æ£€æŸ¥è¯¥è¯¾ç¨‹æ˜¯å¦å­˜åœ¨";
+        qDebug()<<"Î´ÕÒµ½¸Ã¿Î³ÌÂ·¾¶,Çë¼ì²é¸Ã¿Î³ÌÊÇ·ñ´æÔÚ";
         memset(weekTable,0,7*sizeof(unsigned));
         this->examName = "uninitialized";
         this->group = "uninitialized";
@@ -67,11 +67,11 @@ void Course::setGroup(string group)
 
 Task *Course::releaseTask(string taskName, MyTime sysTime, MyTime deadline, string description)
 {
-    //æŸ¥æ‰¾åŒåä½œä¸š
+    //²éÕÒÍ¬Ãû×÷Òµ
     Task*temp = taskSearch(taskName);
     if(temp)
     {
-        qDebug()<<"è¯¥ä½œä¸šå·²å­˜åœ¨";
+        qDebug()<<"¸Ã×÷ÒµÒÑ´æÔÚ";
         return nullptr;
     }
     if(taskNum<listLen)
@@ -174,7 +174,7 @@ Data* Course::releaseData(string dataName, string fileAddr, MyTime sysTime)
     Data* tmp = dataSearch(dataName);
     if(tmp)
     {
-        qDebug()<<"è¯¥èµ„æ–™å·²å­˜åœ¨ï¼Œæ›´æ–°è¯¥èµ„æ–™";
+        qDebug()<<"¸Ã×ÊÁÏÒÑ´æÔÚ£¬¸üĞÂ¸Ã×ÊÁÏ";
         tmp->upload(sysTime,fileAddr);
         return tmp;
     }
@@ -197,7 +197,7 @@ void Course::taskReadIn(string name)
         task[taskNum]=new Task(courseId,name,dir,this);
         if(task[taskNum]->readTaskBasicFile()!=4)
         {
-            qDebug()<<name.c_str()<<"ä½œä¸šè¯»å–å¤±è´¥";
+            qDebug()<<name.c_str()<<"×÷Òµ¶ÁÈ¡Ê§°Ü";
             return;
         }
         task[taskNum]->readSubmittedList();
@@ -205,7 +205,7 @@ void Course::taskReadIn(string name)
     }
     else
     {
-        qDebug()<<"å·²è¯»å…¥"<<taskNum<<"ä¸ªè¯¾ç¨‹ï¼Œå·²è¶…å‡ºä¸Šé™";
+        qDebug()<<"ÒÑ¶ÁÈë"<<taskNum<<"¸ö¿Î³Ì£¬ÒÑ³¬³öÉÏÏŞ";
     }
 }
 
@@ -213,7 +213,7 @@ void Course::dataReadIn(string name)
 {
     if(dataNum>=listLen)
     {
-        qDebug()<<"dataListç©ºé—´ä¸è¶³";
+        qDebug()<<"dataList¿Õ¼ä²»×ã";
         return;
     }
     data[dataNum] = new Data(name,dir,this);
@@ -239,7 +239,7 @@ void Course::saveFile()
     for(i=0;i<taskNum;i++)
     {
         ofs<<task[i]->getName()<<endl;
-        //ä½œä¸šä¿å­˜
+        //×÷Òµ±£´æ
         task[i]->saveTaskBasicFile();
         task[i]->saveSubmittedList();
     }
@@ -247,7 +247,7 @@ void Course::saveFile()
     for(i=0;i<dataNum;i++)
     {
         ofs<<data[i]->getName()<<endl;
-        //æ— éœ€å•ç‹¬èµ„æ–™ä¿å­˜
+        //ÎŞĞèµ¥¶À×ÊÁÏ±£´æ
     }
     ofs<<"exam:"<<endl;
     if(examName=="uninitialized")
@@ -268,7 +268,7 @@ void Course::readFile()
 {
     if(need2save==true)
     {
-        qDebug()<<"æ•°æ®å°šæœªä¿å­˜ï¼Œè¯»å–å¯èƒ½é€ æˆæ–‡ä»¶ä¸¢å¤±";
+        qDebug()<<"Êı¾İÉĞÎ´±£´æ£¬¶ÁÈ¡¿ÉÄÜÔì³ÉÎÄ¼ş¶ªÊ§";
     }
     taskNum=0;
     dataNum=0;
@@ -280,7 +280,7 @@ void Course::readFile()
     ifs.open(dir+"\\courseInfo.txt",ios::in);
     if(!ifs.is_open())
     {
-        qDebug()<<"è¯»å–è¯¾ç¨‹åˆ—è¡¨å¤±è´¥";
+        qDebug()<<"¶ÁÈ¡¿Î³ÌÁĞ±íÊ§°Ü";
         return;
     }
     ifs>>locale>>courseId;

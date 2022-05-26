@@ -6,18 +6,18 @@ material_manage_page::material_manage_page(QWidget *parent) :
     ui(new Ui::material_manage_page)
 {
     ui->setupUi(this);
-    setWindowTitle("璧勬枡绠＄悊");
+    setWindowTitle("资料管理");
     description = new QLineEdit();
     file_select = new QPushButton();
-    file_select -> setText("閫夋嫨鏂囦欢");
+    file_select -> setText("选择文件");
     file_path = new QLabel();
     add_material = new QPushButton();
-    add_material -> setText("娣诲姞鏉愭枡");
+    add_material -> setText("添加材料");
     material_list = new QListWidget();
     del_material = new QPushButton();
-    del_material -> setText("鍒犻櫎鏉愭枡");
+    del_material -> setText("删除材料");
     material_layout = new QFormLayout();
-    material_layout -> addRow("鏉愭枡鎻忚堪", description);
+    material_layout -> addRow("材料描述", description);
     material_layout -> addRow(file_select, file_path);
     material_layout -> addRow(add_material);
     material_layout -> addRow(material_list);
@@ -32,6 +32,6 @@ material_manage_page::~material_manage_page()
 }
 
 void material_manage_page::file_select_page(){
-    QString filename = QFileDialog::getOpenFileName(this, tr("閫夋嫨鏂囦欢"), "C:/", tr("All files(*.*)"));
+    QString filename = QFileDialog::getOpenFileName(this, tr("选择文件"), "C:/", tr("All files(*.*)"));
     file_path -> setText(filename);
 }
