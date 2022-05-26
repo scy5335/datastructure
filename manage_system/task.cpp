@@ -72,10 +72,10 @@ bool Task::submit(unsigned long long id, string fileAddr)
 {
     if(!haveIFinished(id))
     {
-        //直接添加到提交列表结尾
+        //直接添� 到提交列表结尾
         submittedStuList[submittedStuList[0]++]=id;
         saveSubmittedList();
-    }//否则不需要添加到该列表
+    }//否则不需要添� 到该列表
     //读取文件
     hfmCompress(fileAddr,this->directory+"\\"+to_string(id)+".task",nullptr,0);
     return true;
@@ -85,11 +85,7 @@ bool Task::download(unsigned long long id, string downloadTo)
 {
     if(!haveIFinished(id))
         return false;
-<<<<<<< HEAD
-    hfmDecode(this->directory+"\\"+to_string(id)+".task",downloadTo,nullptr);//��???
-=======
     hfmDecode(this->directory+"\\"+to_string(id)+".task",downloadTo,nullptr);//未完成
->>>>>>> parent of b97e4d1 (学生课程表界面对接)
     return 0;
 }
 

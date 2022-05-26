@@ -31,11 +31,7 @@ Course::Course(unsigned courseId, string root)
     this->dataNum=0;
     if(!fs::exists(dir))
     {
-<<<<<<< HEAD
-        qDebug()<<"δ�ҵ��ÿγ�·��,����ÿγ��Ƿ����";
-=======
         qDebug()<<"未找到该课程路径，请检查该课程是否存在";
->>>>>>> parent of b97e4d1 (学生课程表界面对接)
         memset(weekTable,0,7*sizeof(unsigned));
         this->examName = "uninitialized";
         this->group = "uninitialized";
@@ -251,7 +247,7 @@ void Course::saveFile()
     for(i=0;i<dataNum;i++)
     {
         ofs<<data[i]->getName()<<endl;
-        //无需单独资料保存
+        //� 需单独资料保存
     }
     ofs<<"exam:"<<endl;
     if(examName=="uninitialized")
@@ -272,7 +268,7 @@ void Course::readFile()
 {
     if(need2save==true)
     {
-        qDebug()<<"数据尚未保存，读取可能造成数据丢失";
+        qDebug()<<"数据尚未保存，读取可能� 成数据丢失";
     }
     taskNum=0;
     dataNum=0;
