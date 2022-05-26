@@ -247,7 +247,11 @@ void Course::saveFile()
     for(i=0;i<dataNum;i++)
     {
         ofs<<data[i]->getName()<<endl;
+<<<<<<< HEAD
         //� 需单独资料保存
+=======
+        //无需单独资料保存
+>>>>>>> parent of b97e4d1 (学生课程表界面对接)
     }
     ofs<<"exam:"<<endl;
     if(examName=="uninitialized")
@@ -268,7 +272,11 @@ void Course::readFile()
 {
     if(need2save==true)
     {
+<<<<<<< HEAD
         qDebug()<<"数据尚未保存，读取可能� 成数据丢失";
+=======
+        qDebug()<<"数据尚未保存，读取可能造成数据丢失";
+>>>>>>> parent of b97e4d1 (学生课程表界面对接)
     }
     taskNum=0;
     dataNum=0;

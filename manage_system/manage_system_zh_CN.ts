@@ -23,6 +23,7 @@
     <name>homework_submit_page</name>
     <message>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <location filename="mainwindow.cpp" line="779"/>
         <source>ѡ���ļ�</source>
         <translation type="unfinished"></translation>
@@ -30,12 +31,17 @@
     <message>
         <location filename="mainwindow.cpp" line="779"/>
 =======
+=======
+>>>>>>> parent of b97e4d1 (学生课程表界面对接)
         <location filename="mainwindow.cpp" line="725"/>
         <source>选择文件</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="725"/>
+<<<<<<< HEAD
+>>>>>>> parent of b97e4d1 (学生课程表界面对接)
+=======
 >>>>>>> parent of b97e4d1 (学生课程表界面对接)
         <source>All files(*.*)</source>
         <translation type="unfinished"></translation>

@@ -72,10 +72,17 @@ bool Task::submit(unsigned long long id, string fileAddr)
 {
     if(!haveIFinished(id))
     {
+<<<<<<< HEAD
         //直接添� 到提交列表结尾
         submittedStuList[submittedStuList[0]++]=id;
         saveSubmittedList();
     }//否则不需要添� 到该列表
+=======
+        //直接添加到提交列表结尾
+        submittedStuList[submittedStuList[0]++]=id;
+        saveSubmittedList();
+    }//否则不需要添加到该列表
+>>>>>>> parent of b97e4d1 (学生课程表界面对接)
     //读取文件
     hfmCompress(fileAddr,this->directory+"\\"+to_string(id)+".task",nullptr,0);
     return true;
