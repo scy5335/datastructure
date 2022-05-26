@@ -22,26 +22,30 @@ struct Record{
 class Calendar
 {
 private:
-    string path;//æ—¥ç¨‹è¡¨æ–‡ä»¶è·¯å¾„
-    Record* head;//ç©ºå¤´èŠ‚ç‚¹
+    string path;//ÈÕ³Ì±íÎÄ¼şÂ·¾¶
+    Record* head;//¿ÕÍ·½Úµã
 
     void getRecordFromfile();
     void updateFile();
 public:
     Calendar(string path);
     ~Calendar();
-    /*å¢åŠ æ—¥ç¨‹è¡¨è®°å½•*/
+    /*Ôö¼ÓÈÕ³Ì±í¼ÇÂ¼*/
     void addRecord(string event,MyTime startTime,MyTime endTime);
-    /*æ›´æ–°æ—¥ç¨‹è¡¨è®°å½•*/
+    /*¸üĞÂÈÕ³Ì±í¼ÇÂ¼*/
     void updateRecord(string event,MyTime startTime,MyTime endTime);
-    /*åˆ é™¤ç‰¹å®šæ—¥ç¨‹å®‰æ’,å‚æ•°ä¸ºäº‹ä»¶*/
+    /*É¾³ıÌØ¶¨ÈÕ³Ì°²ÅÅ,²ÎÊıÎªÊÂ¼ş*/
     void deleteRecord(string event);
-    /*æ¸…é™¤æ‰€æœ‰æ—¥ç¨‹å®‰æ’*/
+    /*Çå³ıËùÓĞÈÕ³Ì°²ÅÅ*/
     void clear();
-    /*è·å–æ—¥ç¨‹è¡¨æ–‡ä»¶æ‰€æœ‰è®°å½•*/
+    /*»ñÈ¡ÈÕ³Ì±íÎÄ¼şËùÓĞ¼ÇÂ¼*/
     QStringList getRecords();
-    /*è¯¥å‡½æ•°åªæ£€æµ‹äº†è¯¾å¤–æ´»åŠ¨æ˜¯å¦å†²çªæ—¶é—´*/
+    /*¸Ãº¯ÊıÖ»¼ì²âÁË¿ÎÍâ»î¶¯ÊÇ·ñ³åÍ»Ê±¼ä*/
     bool checkTimeConflict();
+};
+
+#endif // CALENDAR_H
+ckTimeConflict();
 };
 
 #endif // CALENDAR_H

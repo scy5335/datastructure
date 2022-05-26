@@ -18,21 +18,21 @@ class Task : public QObject
 public:
     MyTime setTime,deadline;
     explicit Task(QObject *parent = nullptr);
-    Task(int parentCourseId, string name, MyTime setTime, MyTime deadline, string description, string parentCourseDir, QObject *parent);//é€šè¿‡æ‰€å±è¯¾ç¨‹å’Œä½œä¸šåç§°å®Œæˆå¯¹ä½œä¸šæ–‡ä»¶ç›®å½•çš„å®šä½ï¼Œå¦‚æœç›®å½•ä¸å­˜åœ¨ï¼Œè¯´æ˜è¯¥ä½œä¸šä¸å­˜åœ¨ï¼Œåˆ›å»ºè¯¥ç›®å½•
+    Task(int parentCourseId, string name, MyTime setTime, MyTime deadline, string description, string parentCourseDir, QObject *parent);//Í¨¹ıËùÊô¿Î³ÌºÍ×÷ÒµÃû³ÆÍê³É¶Ô×÷ÒµÎÄ¼şÄ¿Â¼µÄ¶¨Î»£¬Èç¹ûÄ¿Â¼²»´æÔÚ£¬ËµÃ÷¸Ã×÷Òµ²»´æÔÚ£¬´´½¨¸ÃÄ¿Â¼
     Task(int parentCourseId,string name,string parentCourseDir, QObject *parent);
     void setDesciption(string description);
     void setSetTime(MyTime& time);
     void setDeadline(MyTime& time);
 //    string& getFileAddr();
 
-    //ä½œä¸šä¿¡æ¯æŸ¥è¯¢ å­¦ç”Ÿè§†å›¾
+    //×÷ÒµĞÅÏ¢²éÑ¯ Ñ§ÉúÊÓÍ¼
     int haveIFinished(unsigned long long id);
-    //ä½œä¸šæäº¤
+    //×÷ÒµÌá½»
     bool submit(unsigned long long id, string fileAddr);
     bool download(unsigned long long id, string downloadTo);
     bool readSubmittedList();
     bool saveSubmittedList();
-    int readTaskBasicFile();//å¦‚æœè¯»å–æˆåŠŸè¿”å›4ï¼Œå¦åˆ™è¿”å›-1åˆ°3ä¹‹é—´çš„ä¸€ä¸ªæ•°
+    int readTaskBasicFile();//Èç¹û¶ÁÈ¡³É¹¦·µ»Ø4£¬·ñÔò·µ»Ø-1µ½3Ö®¼äµÄÒ»¸öÊı
     bool saveTaskBasicFile();
 
     string getName();

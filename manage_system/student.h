@@ -12,61 +12,61 @@ private:
     string userPassword;
     Logger logger;
     Calendar calendar;
-    Class *studentClass;//学生班级
+    Class *studentClass;//ѧ���༶
 
 public:
     Student(int id);
     ~Student();
 
-    /*获取学生班级id*/
+    /*��ȡѧ���༶id*/
     int getClassId(int studentId);
 
-    /*静态成员函数,登录验证，若id和密码验证正确，返回true，否则注册账号,默认在2020211302班名单下*/
+    /*��̬��Ա����,��¼��֤����id��������֤��ȷ������true������ע���˺�,Ĭ����2020211302��������*/
     static bool login(int studentId,string password,int classId=2020211302);
 
-    /*课程功能*/
-    /*获取所有课程名称*/
+    /*�γ̹���*/
+    /*��ȡ���пγ�����*/
     QStringList getAllCourseName();
-    /*询问课程时间,参数为课程名称、星期几(1-7)以及接收返回结果的长度为3的数组,数组依次存放课程开始小时，开始分钟，连续几节课*/
+    /*ѯ�ʿγ�ʱ��,����Ϊ�γ����ơ����ڼ�(1-7)�Լ����շ��ؽ���ĳ���Ϊ3������,�������δ�ſγ̿�ʼСʱ����ʼ���ӣ��������ڿ�*/
     void getCourseTime(string courseName,int day,int *timeTable);
-    /*询问课程地点,参数为课程名称,返回值为课程地点编号*/
+    /*ѯ�ʿγ̵ص�,����Ϊ�γ�����,����ֵΪ�γ̵ص���*/
     int getCoursePlace(string courseName);
-    /*询问课程进度,参数为课程名称*/
+    /*ѯ�ʿγ̽���,����Ϊ�γ�����*/
     string getSchedule(string courseName);
-    /*询问课程群,参数为课程名称*/
+    /*ѯ�ʿγ�Ⱥ,����Ϊ�γ�����*/
     string getCourseGroup(string courseName);
 
-    /*课程资料功能*/
-    /*获取课程资料名称,返回值为资料名称列表*/
+    /*�γ����Ϲ���*/
+    /*��ȡ�γ���������,����ֵΪ���������б�*/
     QStringList getCourseDataName(string courseName);
-    /*下载课程资料,参数依次为课程名称,资料名称，存放路径*/
+    /*���ؿγ�����,��������Ϊ�γ�����,�������ƣ����·��*/
     void getCourseData(string courseName,string dataName,string filePath);
 
-    /*作业功能*/
-    /*提交作业,参数为课程名称,返回值列表依次为作业名称，作业文件路径*/
+    /*��ҵ����*/
+    /*�ύ��ҵ,����Ϊ�γ�����,����ֵ�б�����Ϊ��ҵ���ƣ���ҵ�ļ�·��*/
     void submitHomework(string courseName,string homeworkName,string filePath);
-    /*询问已完成作业,参数为课程名称,返回值列表依次为作业名称，作业描述...*/
+    /*ѯ���������ҵ,����Ϊ�γ�����,����ֵ�б�����Ϊ��ҵ���ƣ���ҵ����...*/
     QStringList getHomeworkDone(string courseName);
-    /*询问未完成作业,参数为课程名称,返回值列表依次为作业名称，作业描述...*/
+    /*ѯ��δ�����ҵ,����Ϊ�γ�����,����ֵ�б�����Ϊ��ҵ���ƣ���ҵ����...*/
     QStringList getHomeworkTodo(string courseName);
 
-    /*考试功能*/
-    /*查询考试，参数为课程名称，返回值列表依次为考试名称，开始时间，持续分钟，考试地点*/
+    /*���Թ���*/
+    /*��ѯ���ԣ�����Ϊ�γ����ƣ�����ֵ�б�����Ϊ�������ƣ���ʼʱ�䣬�������ӣ����Եص�*/
     QStringList getExamInfo(string courseName);
 
 
-    /*日程表功能*/
-    /*增加日程安排,要求日程安排不能重名,否则会刷新日程,参数依次为事件,开始时间，结束时间*/
+    /*�ճ̱�����*/
+    /*�����ճ̰���,Ҫ���ճ̰��Ų�������,�����ˢ���ճ�,��������Ϊ�¼�,��ʼʱ�䣬����ʱ��*/
     void insertRecord(string event,MyTime startTime,MyTime endTime);
-    /*修改日程安排,参数依次为事件,开始时间，结束时间*/
+    /*�޸��ճ̰���,��������Ϊ�¼�,��ʼʱ�䣬����ʱ��*/
     void updateRecord(string event,MyTime startTime,MyTime endTime);
-    /*删除特定日程安排,参数为事件*/
+    /*ɾ���ض��ճ̰���,����Ϊ�¼�*/
     void deleteRecord(string event);
-    /*清除所有日程安排*/
+    /*��������ճ̰���*/
     void clearRecords();
-    /*获取日程列表*/
+    /*��ȡ�ճ��б�*/
     QStringList getRecords();
-    /*检测日程冲突*/
+    /*����ճ̳�ͻ*/
     bool checkTimeConflict();
 };
 

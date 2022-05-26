@@ -11,7 +11,7 @@
 #include<QDebug>
 #include<fstream>
 
-const int maxLen = 40;//æœ€å¤§é—¹é’Ÿæ•°é‡
+const int maxLen = 40;//×î´óÄÖÖÓÊıÁ¿
 
 class Heap{
     Alarm** heap;
@@ -45,24 +45,24 @@ class MyClock : public QObject
     Q_OBJECT
 public:
     explicit MyClock(QObject *parent = nullptr);
-    /*å¯ä»¥ç›´æ¥é€šè¿‡alarmsçš„arræ•°ç»„å»è®¿é—®é—¹é’Ÿä¿¡æ¯ã€‚
-    å½“é—¹é’Ÿè¢«æ ‡è®°ä¸ºåˆ é™¤ï¼ˆå³é€šè¿‡rmAlarmå‡½æ•°æˆ–è€…ç›´æ¥å°†æŸä¸ªé—¹é’Ÿçš„çŠ¶æ€è®¾ç½®ä¸ºDELï¼‰æ—¶ï¼Œè¯¥é—¹é’Ÿä¸ä¼šç«‹åˆ»æ¶ˆå¤±ã€‚
-    æ­¤é—¹é’Ÿå°†ä¼šåœ¨è‹¥å¹²åˆ†é’Ÿåè¢«æ”¾å…¥å›æ”¶é˜Ÿåˆ—ï¼Œç­‰å¾…ä¸‹æ¬¡æ·»åŠ é—¹é’Ÿæ—¶å¤ç”¨è¿™ç¯‡å†…å­˜ã€‚æ‰€ä»¥è¯»å–é—¹é’Ÿæ—¶æ³¨æ„åˆ¤æ–­æ­¤é—¹é’Ÿæ˜¯å¦æ ‡è®°ä¸ºåˆ é™¤
+    /*¿ÉÒÔÖ±½ÓÍ¨¹ıalarmsµÄarrÊı×éÈ¥·ÃÎÊÄÖÖÓĞÅÏ¢¡£
+    µ±ÄÖÖÓ±»±ê¼ÇÎªÉ¾³ı£¨¼´Í¨¹ırmAlarmº¯Êı»òÕßÖ±½Ó½«Ä³¸öÄÖÖÓµÄ×´Ì¬ÉèÖÃÎªDEL£©Ê±£¬¸ÃÄÖÖÓ²»»áÁ¢¿ÌÏûÊ§¡£
+    ´ËÄÖÖÓ½«»áÔÚÈô¸É·ÖÖÓºó±»·ÅÈë»ØÊÕ¶ÓÁĞ£¬µÈ´ıÏÂ´ÎÌí¼ÓÄÖÖÓÊ±¸´ÓÃÕâÆªÄÚ´æ¡£ËùÒÔ¶ÁÈ¡ÄÖÖÓÊ±×¢ÒâÅĞ¶Ï´ËÄÖÖÓÊÇ·ñ±ê¼ÇÎªÉ¾³ı
     */
     AlarmArr* alarms;
     MyClock(MyTime sysTime, double secsPerSystemHour);
-    //æ—¶é—´ç›¸å…³å‡½æ•°
+    //Ê±¼äÏà¹Øº¯Êı
     void setTime(MyTime sysTime);
     MyTime getTime();
     void setSecsPerSystemHour(double secsPerSystemHour);
     double getSecsPerSystemHour();
     void start();
     void pause();
-    //é—¹é’Ÿç›¸å…³å‡½æ•°
+    //ÄÖÖÓÏà¹Øº¯Êı
     Alarm* addAlarm(Alarm a);
     void rmAlarm(Alarm* a);
-    string ringingAlarmTip();//å¯ä»¥é€šè¿‡è¯¥å‡½æ•°è·å–å †ä¸­æœ€æ—©çš„å‡½æ•°ï¼Œç”¨äºuiç±»è·å–å“é“ƒé—¹é’Ÿçš„tipä¿¡æ¯
-    void saveFile();//ä¿å­˜åˆ°åŒç›®å½•çš„clock.backupæ–‡ä»¶ä¸­
+    string ringingAlarmTip();//¿ÉÒÔÍ¨¹ı¸Ãº¯Êı»ñÈ¡¶ÑÖĞ×îÔçµÄº¯Êı£¬ÓÃÓÚuiÀà»ñÈ¡ÏìÁåÄÖÖÓµÄtipĞÅÏ¢
+    void saveFile();//±£´æµ½Í¬Ä¿Â¼µÄclock.backupÎÄ¼şÖĞ
     void readFile();
     ~MyClock();
 
@@ -76,8 +76,8 @@ private:
     void check();
 
 signals:
-    void ring(string description);//å“é“ƒé—¹é’Ÿä¿¡å·
-    void timeChange();//æ—¶é—´æ”¹å˜ä¿¡å·
+    void ring(string description);//ÏìÁåÄÖÖÓĞÅºÅ
+    void timeChange();//Ê±¼ä¸Ä±äĞÅºÅ
 };
 
 

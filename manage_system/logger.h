@@ -10,15 +10,15 @@ using namespace std;
 class Logger
 {
 private:
-    string path;//æ—¥å¿—æ–‡ä»¶è·¯å¾„
+    string path;//ÈÕÖ¾ÎÄ¼şÂ·¾¶
 public:
     Logger(string path);
     ~Logger();
-    /*å¢åŠ ä¸€æ¡æ—¥å¿—è®°å½•ï¼Œå‚æ•°ç”¨æˆ·å’Œæ“ä½œä¿¡æ¯çš„å­—ç¬¦ä¸²,æ—¥å¿—è®°å½•ä¼šè‡ªåŠ¨å¢åŠ æ—¶é—´æˆ³*/
+    /*Ôö¼ÓÒ»ÌõÈÕÖ¾¼ÇÂ¼£¬²ÎÊıÓÃ»§ºÍ²Ù×÷ĞÅÏ¢µÄ×Ö·û´®,ÈÕÖ¾¼ÇÂ¼»á×Ô¶¯Ôö¼ÓÊ±¼ä´Á*/
     void addLogger(string userAndOperation);
-    /*æ¸…é™¤æ—¥å¿—*/
+    /*Çå³ıÈÕÖ¾*/
     void clearLogger();
-    /*è¯»å–æ—¥å¿—æ‰€æœ‰è®°å½•*/
+    /*¶ÁÈ¡ÈÕÖ¾ËùÓĞ¼ÇÂ¼*/
     QStringList getLogger();
 };
 

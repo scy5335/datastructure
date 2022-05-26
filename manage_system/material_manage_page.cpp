@@ -6,18 +6,18 @@ material_manage_page::material_manage_page(QWidget *parent) :
     ui(new Ui::material_manage_page)
 {
     ui->setupUi(this);
-    setWindowTitle("×ÊÁÏ¹ÜÀí");
+    setWindowTitle("ï¿½ï¿½ï¿½Ï¹ï¿½ï¿½ï¿½");
     description = new QLineEdit();
     file_select = new QPushButton();
-    file_select -> setText("Ñ¡ÔñÎÄ¼þ");
+    file_select -> setText("Ñ¡ï¿½ï¿½ï¿½Ä¼ï¿½");
     file_path = new QLabel();
     add_material = new QPushButton();
-    add_material -> setText("Ìí¼Ó²ÄÁÏ");
+    add_material -> setText("ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½");
     material_list = new QListWidget();
     del_material = new QPushButton();
-    del_material -> setText("É¾³ý²ÄÁÏ");
+    del_material -> setText("É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
     material_layout = new QFormLayout();
-    material_layout -> addRow("²ÄÁÏÃèÊö", description);
+    material_layout -> addRow("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", description);
     material_layout -> addRow(file_select, file_path);
     material_layout -> addRow(add_material);
     material_layout -> addRow(material_list);
@@ -32,7 +32,7 @@ material_manage_page::~material_manage_page()
 }
 
 void material_manage_page::file_select_page(){
-    QString filename = QFileDialog::getOpenFileName(this, tr("Ñ¡ÔñÎÄ¼þ"), "C:/", tr("All files(*.*)"));
+    QString filename = QFileDialog::getOpenFileName(this, tr("Ñ¡ï¿½ï¿½ï¿½Ä¼ï¿½"), "C:/", tr("All files(*.*)"));
     file_path -> setText(filename);
 }
 

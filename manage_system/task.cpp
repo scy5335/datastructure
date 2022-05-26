@@ -85,7 +85,7 @@ bool Task::download(unsigned long long id, string downloadTo)
 {
     if(!haveIFinished(id))
         return false;
-    hfmDecode(this->directory+"\\"+to_string(id)+".task",downloadTo,nullptr);//Î´Íê³É
+    hfmDecode(this->directory+"\\"+to_string(id)+".task",downloadTo,nullptr);//¦Ä???
     return 0;
 }
 

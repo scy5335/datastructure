@@ -29,7 +29,7 @@ class Alarm : public QObject
     Q_OBJECT
 public:
     explicit Alarm(QObject *parent = nullptr);
-    Alarm(int h, int m, int type, int initState, string tip);//ä½¿ç”¨typeå’Œstateå‘½åç©ºé—´ä¸‹çš„å¸¸é‡
+    Alarm(int h, int m, int type, int initState, string tip);//Ê¹ÓÃtypeºÍstateÃüÃû¿Õ¼äÏÂµÄ³£Á¿
     Alarm(const Alarm& a);
     void setType(int type);
     void setState(int state);
@@ -45,11 +45,11 @@ public:
     bool operator==(const MyTime& t)const;
     friend class MyClock;
 private:
-    int h,m;//å°æ—¶ä¸åˆ†é’Ÿ
+    int h,m;//Ğ¡Ê±Óë·ÖÖÓ
     int type;
     int state;
     string tip;
-    bool valid(int weekDay);//weekDayçš„èŒƒå›´æ˜¯ä»0åˆ°6ï¼Œå¯¹åº”æ˜ŸæœŸä¸€åˆ°æ—¥ï¼Œç”¨äºæ£€æµ‹å‘¨æœŸé—¹é’Ÿè¿™å¤©æ˜¯å¦åº”å“é“ƒ
+    bool valid(int weekDay);//weekDayµÄ·¶Î§ÊÇ´Ó0µ½6£¬¶ÔÓ¦ĞÇÆÚÒ»µ½ÈÕ£¬ÓÃÓÚ¼ì²âÖÜÆÚÄÖÖÓÕâÌìÊÇ·ñÓ¦ÏìÁå
 
 signals:
 

@@ -14,47 +14,47 @@ public:
     Manager();
     ~Manager();
 
-    /*è¯¾ç¨‹åŠŸèƒ½*/
-    /*æ–°å¢è¯¾ç¨‹,å‚æ•°ä¸ºè¯¾ç¨‹åç§°,è¯¾ç¨‹åœ°ç‚¹ç¼–å·å’Œç­çº§id,ç­çº§idèŒƒå›´æ˜¯2020211301â€”â€”2020211310*/
+    /*¿Î³Ì¹¦ÄÜ*/
+    /*ĞÂÔö¿Î³Ì,²ÎÊıÎª¿Î³ÌÃû³Æ,¿Î³ÌµØµã±àºÅºÍ°à¼¶id,°à¼¶id·¶Î§ÊÇ2020211301¡ª¡ª2020211310*/
     void addCourse(string courseName,int locale,int classId);
-    /*åˆ é™¤è¯¾ç¨‹,å‚æ•°ä¸ºè¯¾ç¨‹åç§°*/
+    /*É¾³ı¿Î³Ì,²ÎÊıÎª¿Î³ÌÃû³Æ*/
     void deleteCoure(string courseName,int classId);
-    /*è®¾ç½®è¯¾ç¨‹æ—¶é—´å‚æ•°ä¾æ¬¡ä¸ºå‘¨å‡ (1-7),å¼€å§‹å°æ—¶,å¼€å§‹åˆ†é’Ÿ,æŒç»­å¤šå°‘èŠ‚è¯¾*/
-    /*è¿™ä¸ªè®¾å®šå‰ææ˜¯ä¸€é—¨è¯¾ä¸€å¤©åªä¸Šä¸€æ¬¡ï¼Œå¹¶ä¸”æ˜¯è¿ç»­çš„*/
+    /*ÉèÖÃ¿Î³ÌÊ±¼ä²ÎÊıÒÀ´ÎÎªÖÜ¼¸(1-7),¿ªÊ¼Ğ¡Ê±,¿ªÊ¼·ÖÖÓ,³ÖĞø¶àÉÙ½Ú¿Î*/
+    /*Õâ¸öÉè¶¨Ç°ÌáÊÇÒ»ÃÅ¿ÎÒ»ÌìÖ»ÉÏÒ»´Î£¬²¢ÇÒÊÇÁ¬ĞøµÄ*/
     void setCourseTime(string courseName,int weekday,int startHour,int startMinute,int classes,int classId);
-    /*è®¾ç½®è¯¾ç¨‹ç¾¤,å‚æ•°ä¾æ¬¡ä¸ºè¯¾ç¨‹åç§°ï¼Œè¯¾ç¨‹ç¾¤*/
+    /*ÉèÖÃ¿Î³ÌÈº,²ÎÊıÒÀ´ÎÎª¿Î³ÌÃû³Æ£¬¿Î³ÌÈº*/
     void setCourseGroup(string courseName,string courseGroup,int classId);
 
-    /*è¯¾ç¨‹èµ„æ–™åŠŸèƒ½*/
-    /*ä¸Šä¼ è¯¾ç¨‹èµ„æ–™,å‚æ•°ä¾æ¬¡ä¸ºè¯¾ç¨‹åç§°,èµ„æ–™åç§°,èµ„æ–™æ–‡ä»¶è·¯å¾„*/
+    /*¿Î³Ì×ÊÁÏ¹¦ÄÜ*/
+    /*ÉÏ´«¿Î³Ì×ÊÁÏ,²ÎÊıÒÀ´ÎÎª¿Î³ÌÃû³Æ,×ÊÁÏÃû³Æ,×ÊÁÏÎÄ¼şÂ·¾¶*/
     void uploadCourseData(string courseName,string dataName,string dataPath,int classId);
-    /*è·å–è¯¾ç¨‹èµ„æ–™åç§°,è¿”å›å€¼ä¸ºèµ„æ–™åç§°åˆ—è¡¨*/
+    /*»ñÈ¡¿Î³Ì×ÊÁÏÃû³Æ,·µ»ØÖµÎª×ÊÁÏÃû³ÆÁĞ±í*/
     QStringList getCourseDataInfo(string courseName,int classId);
-    /*åˆ é™¤è¯¾ç¨‹èµ„æ–™,å‚æ•°ä¾æ¬¡ä¸ºè¯¾ç¨‹åç§°,èµ„æ–™åç§°*/
+    /*É¾³ı¿Î³Ì×ÊÁÏ,²ÎÊıÒÀ´ÎÎª¿Î³ÌÃû³Æ,×ÊÁÏÃû³Æ*/
     void removeCourseData(string courseName,string dataName,int classId);
-    /*ä¸‹è½½è¯¾ç¨‹èµ„æ–™,å‚æ•°ä¸ºè¯¾ç¨‹åç§°,èµ„æ–™åç§°,å­˜æ”¾æ–‡ä»¶è·¯å¾„*/
+    /*ÏÂÔØ¿Î³Ì×ÊÁÏ,²ÎÊıÎª¿Î³ÌÃû³Æ,×ÊÁÏÃû³Æ,´æ·ÅÎÄ¼şÂ·¾¶*/
     void downloadCourseData(string courseName,string dataName,string downloadPath,int classId);
 
-    /*è€ƒè¯•åŠŸèƒ½*/
-    /*å‘å¸ƒè€ƒè¯•ï¼Œå‚æ•°ä¾æ¬¡ä¸ºè€ƒè¯•ç§‘ç›®,è€ƒè¯•åç§°,å¼€å§‹æ—¶é—´,åœ°ç‚¹ï¼Œæ—¶é•¿*/
+    /*¿¼ÊÔ¹¦ÄÜ*/
+    /*·¢²¼¿¼ÊÔ£¬²ÎÊıÒÀ´ÎÎª¿¼ÊÔ¿ÆÄ¿,¿¼ÊÔÃû³Æ,¿ªÊ¼Ê±¼ä,µØµã£¬Ê±³¤*/
     void uploadExam(string courseName,string examName,MyTime startTime,int location,int duration,int classId);
-    /*å–æ¶ˆè€ƒè¯•,å‚æ•°ä¸ºè€ƒè¯•ç§‘ç›®,ç”±äºè¯¾ç¨‹ç±»é»˜è®¤åªè®°å½•ä¸€ä¸ªè€ƒè¯•ï¼Œæ‰€ä»¥ä¼šåˆ é™¤å½“å‰è€ƒè¯•*/
+    /*È¡Ïû¿¼ÊÔ,²ÎÊıÎª¿¼ÊÔ¿ÆÄ¿,ÓÉÓÚ¿Î³ÌÀàÄ¬ÈÏÖ»¼ÇÂ¼Ò»¸ö¿¼ÊÔ£¬ËùÒÔ»áÉ¾³ıµ±Ç°¿¼ÊÔ*/
     void deleteExam(string courseName,int classId);
-    /*æŸ¥è¯¢è€ƒè¯•,è¿”å›å€¼ä¾æ¬¡ä¸ºè€ƒè¯•åç§°,å¼€å§‹æ—¶é—´,åœ°ç‚¹,æ—¶é•¿*/
+    /*²éÑ¯¿¼ÊÔ,·µ»ØÖµÒÀ´ÎÎª¿¼ÊÔÃû³Æ,¿ªÊ¼Ê±¼ä,µØµã,Ê±³¤*/
     QStringList getExamInfo(string courseName,int classId);
 
-    /*ä½œä¸šåŠŸèƒ½*/
-    /*å¸ƒç½®ä½œä¸šï¼Œå‚æ•°ä¾æ¬¡ä¸ºè¯¾ç¨‹åç§°,ä½œä¸šåç§°,æˆªæ­¢æ—¶é—´,ä½œä¸šæè¿°*/
+    /*×÷Òµ¹¦ÄÜ*/
+    /*²¼ÖÃ×÷Òµ£¬²ÎÊıÒÀ´ÎÎª¿Î³ÌÃû³Æ,×÷ÒµÃû³Æ,½ØÖ¹Ê±¼ä,×÷ÒµÃèÊö*/
     void uploadHomework(string courseName,string homeworkName,MyTime deadline,string description,int classId);
-    /*åˆ é™¤ä½œä¸š,å‚æ•°ä¾æ¬¡ä¸ºè¯¾ç¨‹åç§°,ä½œä¸šåç§°*/
+    /*É¾³ı×÷Òµ,²ÎÊıÒÀ´ÎÎª¿Î³ÌÃû³Æ,×÷ÒµÃû³Æ*/
     void deleteHomework(string courseName,string homeworkName,int classId);
-    /*æŸ¥è¯¢ä½œä¸š,è¿”å›å€¼ä¾æ¬¡ä¸ºä½œä¸šåç§°,æˆªæ­¢æ—¶é—´,ä½œä¸šæè¿°*/
+    /*²éÑ¯×÷Òµ,·µ»ØÖµÒÀ´ÎÎª×÷ÒµÃû³Æ,½ØÖ¹Ê±¼ä,×÷ÒµÃèÊö*/
     QStringList getHomework(string courseName,int classId);
 
-    /*æ—¥å¿—åŠŸèƒ½*/
-    /*æ¸…ç©ºæ—¥å¿—*/
+    /*ÈÕÖ¾¹¦ÄÜ*/
+    /*Çå¿ÕÈÕÖ¾*/
     void clearLogger();
-    /*è·å–æ—¥å¿—åˆ—è¡¨*/
+    /*»ñÈ¡ÈÕÖ¾ÁĞ±í*/
     QStringList getLogger();
 };
 
