@@ -281,10 +281,10 @@ void mainwindow::set_calendar_page(){
     calendar_layout = new QHBoxLayout();
     calendar_layout -> addLayout(calendar_main_layout);
     calendar_layout -> addLayout(calendar_right);
-    connect(s_nian, QOverload<const QString&>::of(&QComboBox::currentIndexChanged), this, &mainwindow::s_change_day);
-    connect(s_yue, QOverload<const QString&>::of(&QComboBox::currentIndexChanged), this, &mainwindow::s_change_day);
-    connect(e_nian, QOverload<const QString&>::of(&QComboBox::currentIndexChanged), this, &mainwindow::e_change_day);
-    connect(e_yue, QOverload<const QString&>::of(&QComboBox::currentIndexChanged), this, &mainwindow::e_change_day);
+    connect(s_nian, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &mainwindow::s_change_day);
+    connect(s_yue, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &mainwindow::s_change_day);
+    connect(e_nian, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &mainwindow::e_change_day);
+    connect(e_yue, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &mainwindow::e_change_day);
 }
 
 void mainwindow::set_guide_page(){

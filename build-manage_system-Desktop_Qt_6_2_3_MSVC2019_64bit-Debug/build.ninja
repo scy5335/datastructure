@@ -317,7 +317,7 @@ build manage_system_autogen\timestamp manage_system_autogen\mocs_compilation.cpp
 #############################################
 # Phony custom command for CMakeFiles\manage_system_autogen_timestamp_deps
 
-build CMakeFiles\manage_system_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles\manage_system_autogen_timestamp_deps: phony D$:\QT\6.2.3\msvc2019_64\bin\Qt6Cored.dll D$:\QT\6.2.3\msvc2019_64\.\bin\uic.exe D$:\QT\6.2.3\msvc2019_64\.\bin\moc.exe D$:\QT\6.2.3\msvc2019_64\bin\Qt6Widgetsd.dll
+build CMakeFiles\manage_system_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles\manage_system_autogen_timestamp_deps: phony D$:\QT\6.2.3\msvc2019_64\.\bin\moc.exe D$:\QT\6.2.3\msvc2019_64\bin\Qt6Cored.dll D$:\QT\6.2.3\msvc2019_64\.\bin\uic.exe D$:\QT\6.2.3\msvc2019_64\bin\Qt6Widgetsd.dll
 
 
 #############################################

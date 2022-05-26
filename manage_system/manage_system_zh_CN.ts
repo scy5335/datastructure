@@ -5,7 +5,6 @@
     <name>addhomework</name>
     <message>
         <location filename="addhomework.ui" line="16"/>
-        <location filename="out/build/x64-Debug/manage_system_autogen/include/ui_addhomework.h" line="38"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
@@ -14,7 +13,6 @@
     <name>addtest</name>
     <message>
         <location filename="addtest.ui" line="16"/>
-        <location filename="out/build/x64-Debug/manage_system_autogen/include/ui_addtest.h" line="38"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22,27 +20,12 @@
 <context>
     <name>homework_submit_page</name>
     <message>
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <location filename="mainwindow.cpp" line="779"/>
-        <source>ѡ���ļ�</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.cpp" line="779"/>
-=======
-=======
->>>>>>> parent of b97e4d1 (学生课程表界面对接)
-        <location filename="mainwindow.cpp" line="725"/>
+        <location filename="mainwindow.cpp" line="738"/>
         <source>选择文件</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="725"/>
-<<<<<<< HEAD
->>>>>>> parent of b97e4d1 (学生课程表界面对接)
-=======
->>>>>>> parent of b97e4d1 (学生课程表界面对接)
+        <location filename="mainwindow.cpp" line="738"/>
         <source>All files(*.*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -51,7 +34,6 @@
     <name>logwindow</name>
     <message>
         <location filename="logwindow.ui" line="16"/>
-        <location filename="out/build/x64-Debug/manage_system_autogen/include/ui_logwindow.h" line="38"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
@@ -60,16 +42,7 @@
     <name>mainwindow</name>
     <message>
         <location filename="mainwindow.ui" line="16"/>
-        <location filename="out/build/x64-Debug/manage_system_autogen/include/ui_mainwindow.h" line="38"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>material_detail</name>
-    <message>
-        <location filename="mainwindow.cpp" line="745"/>
-        <source>ѡ���ļ���</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -77,13 +50,12 @@
     <name>material_manage_page</name>
     <message>
         <location filename="material_manage_page.ui" line="16"/>
-        <location filename="out/build/x64-Debug/manage_system_autogen/include/ui_material_manage_page.h" line="38"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="material_manage_page.cpp" line="35"/>
-        <source>ѡ���ļ�</source>
+        <source>选择文件</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -23,22 +23,17 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_material_detail_t {
-    const uint offsetsAndSize[10];
-    char stringdata0[46];
+    const uint offsetsAndSize[2];
+    char stringdata0[16];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_material_detail_t, stringdata0) + ofs), len 
 static const qt_meta_stringdata_material_detail_t qt_meta_stringdata_material_detail = {
     {
-QT_MOC_LITERAL(0, 15), // "material_detail"
-QT_MOC_LITERAL(16, 8), // "download"
-QT_MOC_LITERAL(25, 0), // ""
-QT_MOC_LITERAL(26, 9), // "data_name"
-QT_MOC_LITERAL(36, 9) // "file_name"
+QT_MOC_LITERAL(0, 15) // "material_detail"
 
     },
-    "material_detail\0download\0\0data_name\0"
-    "file_name"
+    "material_detail"
 };
 #undef QT_MOC_LITERAL
 
@@ -48,41 +43,22 @@ static const uint qt_meta_data_material_detail[] = {
       10,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       0,    0, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       1,       // signalCount
-
- // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    2,   20,    2, 0x06,    1 /* Public */,
-
- // signals: parameters
-    QMetaType::Void, QMetaType::QString, QMetaType::QString,    3,    4,
+       0,       // signalCount
 
        0        // eod
 };
 
 void material_detail::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<material_detail *>(_o);
-        (void)_t;
-        switch (_id) {
-        case 0: _t->download((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
-        default: ;
-        }
-    } else if (_c == QMetaObject::IndexOfMethod) {
-        int *result = reinterpret_cast<int *>(_a[0]);
-        {
-            using _t = void (material_detail::*)(QString , QString );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&material_detail::download)) {
-                *result = 0;
-                return;
-            }
-        }
-    }
+    (void)_o;
+    (void)_id;
+    (void)_c;
+    (void)_a;
 }
 
 const QMetaObject material_detail::staticMetaObject = { {
@@ -92,7 +68,7 @@ const QMetaObject material_detail::staticMetaObject = { {
     qt_static_metacall,
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_material_detail_t
-, QtPrivate::TypeAndForceComplete<material_detail, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QString, std::false_type>, QtPrivate::TypeAndForceComplete<QString, std::false_type>
+, QtPrivate::TypeAndForceComplete<material_detail, std::true_type>
 
 
 
@@ -117,43 +93,20 @@ void *material_detail::qt_metacast(const char *_clname)
 int material_detail::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QWidget::qt_metacall(_c, _id, _a);
-    if (_id < 0)
-        return _id;
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
-            qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
-    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 1)
-            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 1;
-    }
     return _id;
 }
-
-// SIGNAL 0
-void material_detail::download(QString _t1, QString _t2)
-{
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
-}
 struct qt_meta_stringdata_homework_submit_page_t {
-    const uint offsetsAndSize[10];
-    char stringdata0[62];
+    const uint offsetsAndSize[2];
+    char stringdata0[21];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_homework_submit_page_t, stringdata0) + ofs), len 
 static const qt_meta_stringdata_homework_submit_page_t qt_meta_stringdata_homework_submit_page = {
     {
-QT_MOC_LITERAL(0, 20), // "homework_submit_page"
-QT_MOC_LITERAL(21, 15), // "submit_homework"
-QT_MOC_LITERAL(37, 0), // ""
-QT_MOC_LITERAL(38, 13), // "homework_name"
-QT_MOC_LITERAL(52, 9) // "file_name"
+QT_MOC_LITERAL(0, 20) // "homework_submit_page"
 
     },
-    "homework_submit_page\0submit_homework\0"
-    "\0homework_name\0file_name"
+    "homework_submit_page"
 };
 #undef QT_MOC_LITERAL
 
@@ -163,41 +116,22 @@ static const uint qt_meta_data_homework_submit_page[] = {
       10,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       0,    0, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       1,       // signalCount
-
- // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    2,   20,    2, 0x06,    1 /* Public */,
-
- // signals: parameters
-    QMetaType::Void, QMetaType::QString, QMetaType::QString,    3,    4,
+       0,       // signalCount
 
        0        // eod
 };
 
 void homework_submit_page::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<homework_submit_page *>(_o);
-        (void)_t;
-        switch (_id) {
-        case 0: _t->submit_homework((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
-        default: ;
-        }
-    } else if (_c == QMetaObject::IndexOfMethod) {
-        int *result = reinterpret_cast<int *>(_a[0]);
-        {
-            using _t = void (homework_submit_page::*)(QString , QString );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&homework_submit_page::submit_homework)) {
-                *result = 0;
-                return;
-            }
-        }
-    }
+    (void)_o;
+    (void)_id;
+    (void)_c;
+    (void)_a;
 }
 
 const QMetaObject homework_submit_page::staticMetaObject = { {
@@ -207,7 +141,7 @@ const QMetaObject homework_submit_page::staticMetaObject = { {
     qt_static_metacall,
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_homework_submit_page_t
-, QtPrivate::TypeAndForceComplete<homework_submit_page, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QString, std::false_type>, QtPrivate::TypeAndForceComplete<QString, std::false_type>
+, QtPrivate::TypeAndForceComplete<homework_submit_page, std::true_type>
 
 
 
@@ -232,25 +166,7 @@ void *homework_submit_page::qt_metacast(const char *_clname)
 int homework_submit_page::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QWidget::qt_metacall(_c, _id, _a);
-    if (_id < 0)
-        return _id;
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
-            qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
-    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 1)
-            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 1;
-    }
     return _id;
-}
-
-// SIGNAL 0
-void homework_submit_page::submit_homework(QString _t1, QString _t2)
-{
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 struct qt_meta_stringdata_alarm_page_t {
     const uint offsetsAndSize[18];
