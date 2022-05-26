@@ -8,7 +8,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    a.setStyle(QStyleFactory::create("fusion"));//设置样式为fusion
+    a.setStyle(QStyleFactory::create("fusion"));//璁剧疆鏍峰紡涓篺usion
 
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();

@@ -6,15 +6,15 @@ addhomework::addhomework(int now_year, QWidget *parent) :
     ui(new Ui::addhomework)
 {
     ui->setupUi(this);
-    setWindowTitle("×÷ÒµÌí¼Ó");
+    setWindowTitle("ä½œä¸šæ·»åŠ ");
     this -> now_year = now_year;
     homework_name_title = new QLabel();
-    homework_name_title -> setText("×÷ÒµÃû³Æ");
+    homework_name_title -> setText("ä½œä¸šåç§°");
     homework_name_edit = new QLineEdit();
     homework_time_title = new QLabel();
-    homework_time_title -> setText("½ØÖÁÊ±¼ä");
+    homework_time_title -> setText("æˆªè‡³æ—¶é—´");
     homework_detail = new QLabel();
-    homework_detail -> setText("×÷ÒµÏêÇé");
+    homework_detail -> setText("ä½œä¸šè¯¦æƒ…");
     homework_describption = new QLineEdit();
     set_time();
     main_info_layout = new QGridLayout();
@@ -25,9 +25,9 @@ addhomework::addhomework(int now_year, QWidget *parent) :
     main_info_layout -> addWidget(homework_time_title, 2, 0);
     main_info_layout -> addLayout(homework_time_layout, 2, 1);
     complete = new QPushButton();
-    complete -> setText("È·¶¨");
+    complete -> setText("ç¡®å®š");
     cancel = new QPushButton();
-    cancel -> setText("ÖØÖÃ");
+    cancel -> setText("é‡ç½®");
     button_layout = new QHBoxLayout();
     button_layout -> addWidget(complete);
     button_layout -> addWidget(cancel);
@@ -54,28 +54,28 @@ void addhomework::set_time(){
         nian -> addItem(QString::number(i));
     nian -> setCurrentIndex(-1);
     nian_name = new QLabel();
-    nian_name -> setText("Äê");
+    nian_name -> setText("å¹´");
     yue = new QComboBox();
     for (int i = 1; i <= 12; i++)
         yue -> addItem(QString::number(i));
     yue -> setCurrentIndex(-1);
     yue_name = new QLabel();
-    yue_name -> setText("ÔÂ");
+    yue_name -> setText("æœˆ");
     ri = new QComboBox();
     ri_name = new QLabel();
-    ri_name -> setText("ÈÕ");
+    ri_name -> setText("æ—¥");
     shi = new QComboBox();
     for (int i = 0; i <= 23; i++)
         shi -> addItem(QString::number(i));
     shi -> setCurrentIndex(-1);
     shi_name = new QLabel();
-    shi_name -> setText("Ê±");
+    shi_name -> setText("æ—¶");
     fen = new QComboBox();
     for (int i = 0; i <= 59; i++)
         fen -> addItem(QString::number(i));
     fen -> setCurrentIndex(-1);
     fen_name = new QLabel();
-    fen_name -> setText("·Ö");
+    fen_name -> setText("åˆ†");
     homework_time_layout = new QHBoxLayout();
     homework_time_layout -> addWidget(nian);
     homework_time_layout -> addWidget(nian_name);

@@ -12,8 +12,8 @@ Course* Class::getCourse(string courseName)
 }
 Class::Class(int classId):classId(classId),courseNum(0),course(NULL)
 {
-    //¶ÁÈ¡°à¼¶¿Î³ÌÎÄ¼ş£¬Öğ¸ö»ñÈ¡¿Î³Ìid
-    int courseId[20];//ÏŞÖÆÒ»¸ö°à¼¶×î¶à20ÃÅ¿Î
+    //è¯»å–ç­çº§è¯¾ç¨‹æ–‡ä»¶ï¼Œé€ä¸ªè·å–è¯¾ç¨‹id
+    int courseId[20];//é™åˆ¶ä¸€ä¸ªç­çº§æœ€å¤š20é—¨è¯¾
     fstream file;
     file.open("class\\"+to_string(classId)+"_course.txt",ios::in);
     if(file.is_open()){
@@ -23,7 +23,7 @@ Class::Class(int classId):classId(classId),courseNum(0),course(NULL)
         file.close();
     }
     if(courseNum>0){
-        course=new Course*[courseNum];//newÒ»¸öÊı×é£¬Êı×éÔªËØÎª¿Î³ÌÖ¸ÕëÀàĞÍ
+        course=new Course*[courseNum];//newä¸€ä¸ªæ•°ç»„ï¼Œæ•°ç»„å…ƒç´ ä¸ºè¯¾ç¨‹æŒ‡é’ˆç±»å‹
         for(int i=0;i<courseNum;++i){
             course[i]=new Course(courseId[i],"class\\"+to_string(classId)+"course");
         }
@@ -78,12 +78,12 @@ void Class::addCourse(string courseName, int locale, int classId)
     string name;
     fstream file;
 
-    //×¢²áĞÂµÄ¿Î³Ìid
+    //æ³¨å†Œæ–°çš„è¯¾ç¨‹id
     file.open("class\\"+to_string(classId)+"courseId.txt",ios::in);
     if(file.is_open()){
         while(!file.eof()){
             file>>id>>name;
-            if(name==courseName){//·ÀÖ¹ÖØ¸´Ôö¼Ó¿Î³Ì
+            if(name==courseName){//é˜²æ­¢é‡å¤å¢åŠ è¯¾ç¨‹
                 file.close();
                 return;
             }
@@ -97,7 +97,7 @@ void Class::addCourse(string courseName, int locale, int classId)
         file.close();
     }
 
-    /*ÔÚ°à¼¶¿Î³ÌÃûµ¥µÇ¼Ç¿Î³Ìid*/
+    /*åœ¨ç­çº§è¯¾ç¨‹åå•ç™»è®°è¯¾ç¨‹id*/
     file.open("class\\"+to_string(classId)+"_course.txt",ios::in);
     if(file.is_open()){
         int courseId;
@@ -114,7 +114,7 @@ void Class::addCourse(string courseName, int locale, int classId)
     if(file.is_open()){
         file<<endl<<id;
     }
-    /*ÔÚ¿Î³ÌÀàµÇ¼Ç¿Î³Ìid*/
+    /*åœ¨è¯¾ç¨‹ç±»ç™»è®°è¯¾ç¨‹id*/
     Course c(id,locale,"class\\"+to_string(classId)+"course");
     c.saveFile();
     return ;
@@ -127,7 +127,7 @@ void Class::deleteCoure(string courseName)
 
 void Class::setCourseTime(string courseName, int weekday, int startHour, int startMinute, int classes)
 {
-    /*weekday-1ÊÇÒòÎª¿Î³ÌÀàº¯ÊıµÄ½âÊÍÖÜÒ»¶ÔÓ¦0*/
+    /*weekday-1æ˜¯å› ä¸ºè¯¾ç¨‹ç±»å‡½æ•°çš„è§£é‡Šå‘¨ä¸€å¯¹åº”0*/
     getCourse(courseName)->setCourseTime(weekday-1,startHour,startMinute,classes);
     getCourse(courseName)->saveFile();
 }
@@ -171,7 +171,7 @@ string Class::getCourseGroup(string courseName)
 
 void Class::uploadCourseData(string courseName, string dataName, string dataPath)
 {
-    /*releaseDataº¯ÊıºÃÏñÃ»ÓĞ¸ø³ö×ÊÁÏ²ÎÊıµÄÎ»ÖÃ,µÚÈı¸ö²ÎÊı±¾Ó¦ÎªÏµÍ³µ±Ç°²ÎÊı£¬ÕâÀïÃ»ÓĞ»ñÈ¡ÏµÍ³µ±Ç°Ê±¼äµÄ·½·¨*/
+    /*releaseDataå‡½æ•°å¥½åƒæ²¡æœ‰ç»™å‡ºèµ„æ–™å‚æ•°çš„ä½ç½®,ç¬¬ä¸‰ä¸ªå‚æ•°æœ¬åº”ä¸ºç³»ç»Ÿå½“å‰å‚æ•°ï¼Œè¿™é‡Œæ²¡æœ‰è·å–ç³»ç»Ÿå½“å‰æ—¶é—´çš„æ–¹æ³•*/
     getCourse(courseName)->releaseData(dataName,dataPath,MyTime(2022,5,13));
     getCourse(courseName)->saveFile();
 }
@@ -236,7 +236,7 @@ QStringList Class::getExamInfo(string courseName)
 void Class::uploadHomework(string courseName, string homeworkName, MyTime deadline, string description)
 {
     Course *c=getCourse(courseName);
-    /*ÉèÖÃÏµÍ³Ê±¼ä?*/
+    /*è®¾ç½®ç³»ç»Ÿæ—¶é—´?*/
     c->releaseTask(homeworkName,MyTime(0,0,0),deadline,description);
     c->saveFile();
 }
@@ -255,13 +255,13 @@ QStringList Class::getHomework(string courseName)
     QStringList list;
     Course *c=getCourse(courseName);
     Task t;
-    //Êı¾İ²ĞÈ±,ÎŞ·¨»ñÈ¡taskÊıÄ¿£¬Ö»ÄÜÍ¨¹ıÅĞ¶Ï¿ÕÖ¸Õë
+    //æ•°æ®æ®‹ç¼º,æ— æ³•è·å–taskæ•°ç›®ï¼Œåªèƒ½é€šè¿‡åˆ¤æ–­ç©ºæŒ‡é’ˆ
     for(int i=0;i<c->getTaskNum();i++)
     {
         list.append(QString::fromStdString(c->task[i]->getName()));
         list.append(QString::fromStdString(c->task[i]->deadline.toString()));
         list.append(QString::fromStdString(c->task[i]->getDesc()));
-        //ÕâÀïÖ»ÄÜ²éÑ¯µ½²¼ÖÃ×÷ÒµµÄÃû³ÆºÍ×÷ÒµÃèÊö
+        //è¿™é‡Œåªèƒ½æŸ¥è¯¢åˆ°å¸ƒç½®ä½œä¸šçš„åç§°å’Œä½œä¸šæè¿°
     }
     return list;
 }
@@ -276,7 +276,7 @@ QStringList Class::getHomeworkDone(string courseName,int userId)
     QStringList list;
     Course *c=getCourse(courseName);
     for(int i=0;i<c->getTaskNum();++i){
-        /*haveIFinishedº¯Êı·µ»ØÖµÎª0Ê±£¬±íÊ¾×÷ÒµÎ´Íê³É,´óÓÚ0±íÊ¾Íê³É*/
+        /*haveIFinishedå‡½æ•°è¿”å›å€¼ä¸º0æ—¶ï¼Œè¡¨ç¤ºä½œä¸šæœªå®Œæˆ,å¤§äº0è¡¨ç¤ºå®Œæˆ*/
         Task *t=c->task[i];
         if(t->haveIFinished(userId)>0){
             list.append(QString::fromStdString(t->getName()));
@@ -291,7 +291,7 @@ QStringList Class::getHomeworkTodo(string courseName,int userId)
     QStringList list;
     Course *c=getCourse(courseName);
     for(int i=0;i<c->getTaskNum();++i){
-        /*haveIFinishedº¯Êı·µ»ØÖµÎª0Ê±£¬±íÊ¾×÷ÒµÎ´Íê³É,´óÓÚ0±íÊ¾Íê³É*/
+        /*haveIFinishedå‡½æ•°è¿”å›å€¼ä¸º0æ—¶ï¼Œè¡¨ç¤ºä½œä¸šæœªå®Œæˆ,å¤§äº0è¡¨ç¤ºå®Œæˆ*/
         Task *t=c->task[i];
         if(t->haveIFinished(userId)==0){
             list.append(QString::fromStdString(t->getName()));

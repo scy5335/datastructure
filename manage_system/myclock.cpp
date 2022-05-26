@@ -110,7 +110,7 @@ void MyClock::check()
         {
             if(front->state==state::ON&&(front->type==type::single||front->valid(sysTime.getWeek0_6())))
             {
-                //ÏìÁå
+                //å“é“ƒ
                 qDebug()<<ringingAlarmTip().c_str();
                 if(front->type==type::single)
                 {
@@ -137,7 +137,7 @@ void MyClock::saveFile()
     ofs.open("clock.backup",ios::out|ios::trunc);
     if(!ofs.is_open())
     {
-        qDebug()<<"Ê±ÖÓÎÄ¼ş±£´æÊ§°Ü";
+        qDebug()<<"æ—¶é’Ÿæ–‡ä»¶ä¿å­˜å¤±è´¥";
         return;
     }
     ofs<<sysTime.getYear()<<" "<<sysTime.getMonth()<<" "<<sysTime.getDay()<<" "<<sysTime.getHour()<<" "<<sysTime.getMin()<<" "<<secsPerSystemHour<<endl;
@@ -156,7 +156,7 @@ void MyClock::readFile()
     ifs.open("clock.backup",ios::in);
     if(!ifs.is_open())
     {
-        qDebug()<<"ÕÒ²»µ½Ê±ÖÓÎÄ¼ş";
+        qDebug()<<"æ‰¾ä¸åˆ°æ—¶é’Ÿæ–‡ä»¶";
         return;
     }
     int temp;
@@ -216,8 +216,8 @@ void Heap::pop()
 
 void Heap::adjustHeap(int index)
 {
-    int left = 2 * index + 1;  // indexµÄ×ó×Ó½Úµã
-    int right = 2 * index + 2; // indexµÄÓÒ×Ó½Úµã
+    int left = 2 * index + 1;  // indexçš„å·¦å­èŠ‚ç‚¹
+    int right = 2 * index + 2; // indexçš„å³å­èŠ‚ç‚¹
 
     int minIdx = index;
     if (left < len && *heap[left] < *heap[minIdx])
@@ -234,11 +234,11 @@ void Heap::adjustHeap(int index)
 
 void Heap::heapEstablish()
 {
-    // ¹¹½¨Ğ¡¸ù¶Ñ£¨´Ó×îºóÒ»¸ö·ÇÒ¶×Ó½ÚµãÏòÉÏ£©
+    // æ„å»ºå°æ ¹å †ï¼ˆä»æœ€åä¸€ä¸ªéå¶å­èŠ‚ç‚¹å‘ä¸Šï¼‰
     for (int i = len / 2 - 1; i >= 0; i--)
     {
-        //size/2 -1¶ÔÓ¦ÁË×îºóÒ»¸ö·ÇÒ¶×Ó½áµã
-        //´Ó¸Ã½áµãÆä£¬µ÷ÕûÆäºÍÆä×óÓÒÁ½¸ö¶ù×ÓµÄÎ»ÖÃ
+        //size/2 -1å¯¹åº”äº†æœ€åä¸€ä¸ªéå¶å­ç»“ç‚¹
+        //ä»è¯¥ç»“ç‚¹å…¶ï¼Œè°ƒæ•´å…¶å’Œå…¶å·¦å³ä¸¤ä¸ªå„¿å­çš„ä½ç½®
         adjustHeap(i);
     }
 }

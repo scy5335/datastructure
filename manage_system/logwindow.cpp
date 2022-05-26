@@ -24,7 +24,7 @@ void logwindow::TryLogin()
         emit showmanagewindow();
     }
     else {
-        info->setText("ÕËºÅ»òÃÜÂë´íÎó");
+        info->setText("è´¦å·æˆ–å¯†ç é”™è¯¯");
     }
 }
 
@@ -36,27 +36,27 @@ void logwindow::clear()
 
 void logwindow::dislogwindow()
 {
-    setWindowTitle("µÇÂ¼");
+    setWindowTitle("ç™»å½•");
     layout = new QFormLayout();
     user = new QLineEdit();
-    user -> setPlaceholderText("ÇëÊäÈëÑ§ºÅ»ò¹ÜÀíÔ±ÕËºÅ");
+    user -> setPlaceholderText("è¯·è¾“å…¥å­¦å·æˆ–ç®¡ç†å‘˜è´¦å·");
     QIntValidator * pIntVld = new QIntValidator(this);
     user -> setValidator(pIntVld);
     password = new QLineEdit();
-    password -> setPlaceholderText("ÇëÊäÈëÃÜÂë");
+    password -> setPlaceholderText("è¯·è¾“å…¥å¯†ç ");
     password -> setEchoMode(QLineEdit::Password);
     login = new QPushButton();
-    login -> setText("µÇÂ¼");
+    login -> setText("ç™»å½•");
     cancel = new QPushButton();
-    cancel -> setText("Çå³ý");
+    cancel -> setText("æ¸…é™¤");
     botton = new QHBoxLayout();
     botton -> addWidget(login);
     botton -> addWidget(cancel);
     info = new QLabel();
     info -> setStyleSheet("color:red;");
     info -> setAlignment(Qt::AlignHCenter);
-    layout -> addRow("ÕËºÅ", user);
-    layout -> addRow("ÃÜÂë", password);
+    layout -> addRow("è´¦å·", user);
+    layout -> addRow("å¯†ç ", password);
     layout -> setSpacing(20);
     layout -> addRow(info);
     layout -> addRow(botton);

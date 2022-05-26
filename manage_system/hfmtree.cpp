@@ -7,55 +7,55 @@ void hfmCompress(string srcAddr, string dstAddr, char* extraInfo, int infoSize)
     int i,j;
     int max=0;
 
-    ifs.open(srcAddr,ios::in|ios::binary);//´ò¿ª´ıÑ¹ËõÎÄ¼ş
+    ifs.open(srcAddr,ios::in|ios::binary);//æ‰“å¼€å¾…å‹ç¼©æ–‡ä»¶
     if(!ifs.is_open())
     {
-        qDebug()<<"´ò¿ªÊ§°Ü";
+        qDebug()<<"æ‰“å¼€å¤±è´¥";
         return;
     }
 
-    int size = fs::file_size(srcAddr);//¼ÆËãÎÄ¼ş´óĞ¡
-    unsigned char* buf = new unsigned char[size]();//×¢ÒâÒªÓÃÎŞ·ûºÅchar£¬·ñÔò»á·ÃÎÊ¸ºÊıÏÂ±êÊı×é
+    int size = fs::file_size(srcAddr);//è®¡ç®—æ–‡ä»¶å¤§å°
+    unsigned char* buf = new unsigned char[size]();//æ³¨æ„è¦ç”¨æ— ç¬¦å·charï¼Œå¦åˆ™ä¼šè®¿é—®è´Ÿæ•°ä¸‹æ ‡æ•°ç»„
     hfmTree* tree=new hfmTree();
 
-    ifs.read((char*)buf,size);//½«ÎÄ¼ş¶ÁÈëÄÚ´æÖĞ
+    ifs.read((char*)buf,size);//å°†æ–‡ä»¶è¯»å…¥å†…å­˜ä¸­
     for(i=0;i<size;i++)
     {
-        tree->node[buf[i]].weight++;//Í³¼Æ×Ö½Ú³öÏÖµÄÆµÂÊ
+        tree->node[buf[i]].weight++;//ç»Ÿè®¡å­—èŠ‚å‡ºç°çš„é¢‘ç‡
     }
 
-    tree->coding();//¶Ô×Ö½Ú½øĞĞ±àÂë
-    ofs.open(dstAddr,ios::out|ios::trunc|ios::binary);//´ò¿ªÊä³öÎÄ¼ş
+    tree->coding();//å¯¹å­—èŠ‚è¿›è¡Œç¼–ç 
+    ofs.open(dstAddr,ios::out|ios::trunc|ios::binary);//æ‰“å¼€è¾“å‡ºæ–‡ä»¶
 
     unsigned char byteOut=0;
     unsigned int cnt=0;
     string s;
 
-    for(i=0;i<256;i++)//¸ù¾İ×î´óÆµÂÊ¼ÆËã´æ´¢ÆµÂÊĞèÒªµÄ×Ö½ÚÊı
+    for(i=0;i<256;i++)//æ ¹æ®æœ€å¤§é¢‘ç‡è®¡ç®—å­˜å‚¨é¢‘ç‡éœ€è¦çš„å­—èŠ‚æ•°
     {
         max=tree->node[i].weight>max?tree->node[i].weight:max;
     }
     int Bytes = ceil(ceil(log2(max))/8.0);
 
 
-    ofs.put((char)Bytes);//Ğ´Èë´æ´¢ÆµÂÊĞèÒªµÄ×Ö½ÚÊı
-    ofs.write((char*)&size,4);//Ğ´ÈëÔ­ÎÄ¼ş´óĞ¡
+    ofs.put((char)Bytes);//å†™å…¥å­˜å‚¨é¢‘ç‡éœ€è¦çš„å­—èŠ‚æ•°
+    ofs.write((char*)&size,4);//å†™å…¥åŸæ–‡ä»¶å¤§å°
 
-    unsigned char temp=infoSize;//ĞÅÏ¢´óĞ¡²»µÃ³¬¹ı255×Ö½Ú£¬·ñÔò½Ø¶Ï
-    ofs.put(temp);//Ğ´ÈëĞÅÏ¢µÄ´óĞ¡
+    unsigned char temp=infoSize;//ä¿¡æ¯å¤§å°ä¸å¾—è¶…è¿‡255å­—èŠ‚ï¼Œå¦åˆ™æˆªæ–­
+    ofs.put(temp);//å†™å…¥ä¿¡æ¯çš„å¤§å°
     if(extraInfo!=nullptr&&temp!=0)
     {
         ofs.write(extraInfo,temp);
     }
 
-    //½«×Ö½Ú³öÏÖÆµÂÊ °´×Ö½ÚµÄ¶ş½øÖÆ´óĞ¡Ë³ĞòĞ´ÈëÎÄ¼ş
+    //å°†å­—èŠ‚å‡ºç°é¢‘ç‡ æŒ‰å­—èŠ‚çš„äºŒè¿›åˆ¶å¤§å°é¡ºåºå†™å…¥æ–‡ä»¶
     for(i=0;i<256;i++)
     {
         ofs.write((char*)&tree->node[i].weight,Bytes);
     }
 
 
-    //°´×Ö½ÚĞ´Èë
+    //æŒ‰å­—èŠ‚å†™å…¥
     for(i=0;i<size;i++)
     {
         s= tree->node[buf[i]].code;
@@ -71,7 +71,7 @@ void hfmCompress(string srcAddr, string dstAddr, char* extraInfo, int infoSize)
             }
         }
     }
-    //Ê£ÓàµÄ±ÈÌØ×ó¶ÔÆë
+    //å‰©ä½™çš„æ¯”ç‰¹å·¦å¯¹é½
     if(cnt%8!=0)
     {
         byteOut<<=(8-cnt/8);
@@ -91,33 +91,33 @@ int hfmDecode(string fileAddr, string dstAddr, char* extraInfo)
     ifs.open(fileAddr,ios::in|ios::binary);
     if(!ifs.is_open())
     {
-        qDebug()<<"ÎÄ¼ş´ò¿ªÊ§°Ü£¬Çë¼ì²éÎÄ¼şÂ·¾¶";
+        qDebug()<<"æ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼Œè¯·æ£€æŸ¥æ–‡ä»¶è·¯å¾„";
         return -1;
     }
 
-    int size = fs::file_size(fileAddr);//¼ÆËãÎÄ¼ş´óĞ¡
+    int size = fs::file_size(fileAddr);//è®¡ç®—æ–‡ä»¶å¤§å°
     int bufSize=size;
     unsigned char Bytes=1, tempSize=0;
     int i, j;
     int temp;
     int originSize=0;
 
-    //¸¨ÖúĞÅÏ¢¶ÁÈ¡
+    //è¾…åŠ©ä¿¡æ¯è¯»å–
     ifs.read((char*)&Bytes,1),bufSize-=1;
     ifs.read((char*)&originSize,4),bufSize-=4;
     ifs.read((char*)&tempSize,1),bufSize-=1;
-    if(tempSize!=0)//Èç¹û¶ÁÈ¡µ½µÄ¶îÍâĞÅÏ¢´óĞ¡²»Îª0
+    if(tempSize!=0)//å¦‚æœè¯»å–åˆ°çš„é¢å¤–ä¿¡æ¯å¤§å°ä¸ä¸º0
     {
-        if(extraInfo!=nullptr)//Èç¹ûÊäÈëÁËºÏ·¨µÄµØÖ·
+        if(extraInfo!=nullptr)//å¦‚æœè¾“å…¥äº†åˆæ³•çš„åœ°å€
             ifs.read(extraInfo,tempSize);
-        else//·ñÔò¶îÍâĞÅÏ¢×÷·Ï£¬Ìø¹ıÕâ²¿·Ö
+        else//å¦åˆ™é¢å¤–ä¿¡æ¯ä½œåºŸï¼Œè·³è¿‡è¿™éƒ¨åˆ†
             ifs.seekg(tempSize,ios::cur);
         bufSize-=tempSize;
     }
 
     hfmTree* tree=new hfmTree();
-//    qDebug()<<"Ô­×Ö½ÚÊı£º"<<originSize;
-    for(int i=0;i<256;i++)//Ê÷µÄÖØ½¨
+//    qDebug()<<"åŸå­—èŠ‚æ•°ï¼š"<<originSize;
+    for(int i=0;i<256;i++)//æ ‘çš„é‡å»º
     {
         ifs.read((char*)&tree->node[i].weight,Bytes);
 //        qDebug()<<tree->node[i].weight;
@@ -125,7 +125,7 @@ int hfmDecode(string fileAddr, string dstAddr, char* extraInfo)
     bufSize-=256*Bytes;
 
     tree->build();
-    unsigned char* buf = new unsigned char[bufSize+5]();//×¢ÒâÒªÓÃÎŞ·ûºÅchar£¬·ñÔò»á·ÃÎÊ¸ºÊıÏÂ±êÊı×é
+    unsigned char* buf = new unsigned char[bufSize+5]();//æ³¨æ„è¦ç”¨æ— ç¬¦å·charï¼Œå¦åˆ™ä¼šè®¿é—®è´Ÿæ•°ä¸‹æ ‡æ•°ç»„
     ifs.read((char*)buf,bufSize);
     ofs.open(dstAddr,ios::out|ios::binary|ios::trunc);
     if(!ofs.is_open())
@@ -179,7 +179,7 @@ hfmTree::hfmTree()
 
 void hfmTree::build()
 {
-    //°´ÕÕnodeÈ¨ÖØ¶ÔindexÊı×éµÄÏÂ±êÅÅĞò
+    //æŒ‰ç…§nodeæƒé‡å¯¹indexæ•°ç»„çš„ä¸‹æ ‡æ’åº
     queue<int> leafQ;
     queue<int> supQ;
     int i;
@@ -193,7 +193,7 @@ void hfmTree::build()
     int min1,min2;
     while(true)
     {
-        //È¡×îĞ¡ÔªËØ
+        //å–æœ€å°å…ƒç´ 
         min1=-1;
         if(!leafQ.empty()&&!supQ.empty())
         {
@@ -218,7 +218,7 @@ void hfmTree::build()
             min1=leafQ.front();
             leafQ.pop();
         }
-        //ÔÙÈ¡Ò»¸ö×îĞ¡ÔªËØ
+        //å†å–ä¸€ä¸ªæœ€å°å…ƒç´ 
         min2=-1;
         if(!leafQ.empty()&&!supQ.empty())
         {
@@ -277,7 +277,7 @@ int hfmTree::search(int x)
     else if(x==1)
         cur=node[cur].right;
     else
-        qDebug()<<"ÊäÈë´íÎó";
+        qDebug()<<"è¾“å…¥é”™è¯¯";
     int temp=-1;
     if(node[cur].left==-1)
     {
@@ -296,7 +296,7 @@ hfmTree::~hfmTree()
 
 void hfmTree::coding(int index, char app)
 {
-    //´Óroot´¥·¢£¬Í¾¾¶µÄ½áµã
+    //ä»rootè§¦å‘ï¼Œé€”å¾„çš„ç»“ç‚¹
 //    qDebug()<<index;
     if(index==-1)
     {

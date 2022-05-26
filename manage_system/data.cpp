@@ -13,7 +13,7 @@ Data::Data( string name, string parentCourseDir, QObject *parent)
     this->setTime=MyTime(9999,12,31);
     if(!fs::exists(path))
     {
-        qDebug()<<"注意：创建了新的资料目录";
+        qDebug()<<"娉ㄦ剰锛氬垱寤轰簡鏂扮殑璧勬枡鐩綍";
         fs::create_directories(path);
     }
     setParent(parent);
