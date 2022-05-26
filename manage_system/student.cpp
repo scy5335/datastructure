@@ -23,17 +23,17 @@ Student::Student(int id):
     calendar(to_string(id)+"_calendar.txt"),
     studentClass(new Class(getClassId(id)))
 {
-    /*å°†è¯¾ç¨‹è¡¨å¯¼å…¥æ—¥ç¨‹è¡¨ä¸­ï¼Œè¿™æ˜¯åˆå§‹åŒ–æ“ä½œï¼Œä»¥ä¾¿åç»­åˆ¤æ–­æ—¶é—´å†²çª*/
+    /*½«¿Î³Ì±íµ¼ÈëÈÕ³Ì±íÖĞ£¬ÕâÊÇ³õÊ¼»¯²Ù×÷£¬ÒÔ±ãºóĞøÅĞ¶ÏÊ±¼ä³åÍ»*/
     int day,timeTable[3];
     QStringList list=studentClass->getAllCourseName();
     for(int i=0;i<list.length();++i){
         for(day=1;day<=5;++day){
             studentClass->getCourseTime(list[i].toStdString(),day,timeTable);
-            /*ä¸‹é¢ç”Ÿæˆæ—¶é—´å¹´æœˆæ—¥ä¸å¥½ç¡®å®š*/
+            /*ÏÂÃæÉú³ÉÊ±¼äÄêÔÂÈÕ²»ºÃÈ·¶¨*/
             MyTime *startTime=new MyTime(0,0,0,timeTable[0],timeTable[1]);
             MyTime *endTime=new MyTime(0,0,0,timeTable[0],timeTable[1]);
-            endTime->minIncre(timeTable[2]*50-5);//è®¡ç®—è¯¾ç¨‹æ€»æ—¶é—´,é»˜è®¤è¯¾é—´æ²¡æœ‰æˆ·å¤–æ´»åŠ¨
-            insertRecord("å‘¨"+to_string(day)+list[i].toStdString(),*startTime,*endTime);
+            endTime->minIncre(timeTable[2]*50-5);//¼ÆËã¿Î³Ì×ÜÊ±¼ä,Ä¬ÈÏ¿Î¼äÃ»ÓĞ»§Íâ»î¶¯
+            insertRecord("ÖÜ"+to_string(day)+list[i].toStdString(),*startTime,*endTime);
         }
     }
 }
@@ -51,14 +51,14 @@ bool Student::login(int studentId, string password,int classId)
     if(file.is_open()){
         while(!file.eof()){
             file>>id>>pwd>>classID;
-            if(id==studentId){//å­¦ç”Ÿè´¦å·å­˜åœ¨
+            if(id==studentId){//Ñ§ÉúÕËºÅ´æÔÚ
                 file.close();
                 return password==pwd;
             }
         }
         file.close();
     }
-    /*è‹¥ä¸å­˜åœ¨è¯¥å­¦ç”Ÿï¼Œæ ¹æ®å‚æ•°classIdç»™è¯¥å­¦ç”Ÿæ³¨å†Œè´¦å·*/
+    /*Èô²»´æÔÚ¸ÃÑ§Éú£¬¸ù¾İ²ÎÊıclassId¸ø¸ÃÑ§Éú×¢²áÕËºÅ*/
     file.open("student\\studentInfo.txt",ios::app);
     if(file.is_open()){
         file<<endl<<studentId;
@@ -66,12 +66,12 @@ bool Student::login(int studentId, string password,int classId)
         file<<endl<<classId;
         file.close();
     }
-    /*åˆ›å»ºå­¦ç”Ÿæ—¥å¿—æ–‡ä»¶*/
+    /*´´½¨Ñ§ÉúÈÕÖ¾ÎÄ¼ş*/
     file.open("student\\"+to_string(id)+"_logger.txt",ios::out);
     if(file.is_open()){
         file.close();
     }
-    /*åˆ›å»ºå­¦ç”Ÿæ—¥ç¨‹è¡¨æ–‡ä»¶*/
+    /*´´½¨Ñ§ÉúÈÕ³Ì±íÎÄ¼ş*/
     file.open("student\\"+to_string(id)+"_calendar.txt",ios::out);
     if(file.is_open()){
         file.close();
@@ -81,100 +81,100 @@ bool Student::login(int studentId, string password,int classId)
 
 QStringList Student::getAllCourseName()
 {
-    logger.addLogger("å­¦ç”ŸæŸ¥è¯¢äº†æ‰€æœ‰è¯¾ç¨‹åç§°");
+    logger.addLogger("Ñ§Éú²éÑ¯ÁËËùÓĞ¿Î³ÌÃû³Æ");
     return studentClass->getAllCourseName();
 }
 
 void Student::getCourseTime(string courseName,int day,int *timeTable)
 {
-    logger.addLogger("å­¦ç”ŸæŸ¥è¯¢äº†è¯¾ç¨‹æ—¶é—´");
+    logger.addLogger("Ñ§Éú²éÑ¯ÁË¿Î³ÌÊ±¼ä");
     studentClass->getCourseTime(courseName,day,timeTable);
 }
 
 int Student::getCoursePlace(string courseName)
 {
-    logger.addLogger("å­¦ç”ŸæŸ¥è¯¢äº†è¯¾ç¨‹åœ°ç‚¹");
+    logger.addLogger("Ñ§Éú²éÑ¯ÁË¿Î³ÌµØµã");
     return studentClass->getCoursePlace(courseName);
 }
 
 void Student::getCourseData(string courseName,string dataName,string filePath)
 {
-    logger.addLogger("å­¦ç”ŸæŸ¥è¯¢äº†è¯¾ç¨‹èµ„æº");
+    logger.addLogger("Ñ§Éú²éÑ¯ÁË¿Î³Ì×ÊÔ´");
     studentClass->getCourseData(courseName,dataName,filePath);
 }
 
 string Student::getSchedule(string courseName)
 {
-    logger.addLogger("å­¦ç”ŸæŸ¥è¯¢äº†è¯¾ç¨‹è¿›åº¦");
+    logger.addLogger("Ñ§Éú²éÑ¯ÁË¿Î³Ì½ø¶È");
     return studentClass->getSchedule(courseName);
 }
 
 string Student::getCourseGroup(string courseName)
 {
-    logger.addLogger("å­¦ç”ŸæŸ¥è¯¢äº†è¯¾ç¨‹ç¾¤");
+    logger.addLogger("Ñ§Éú²éÑ¯ÁË¿Î³ÌÈº");
     return studentClass->getCourseGroup(courseName);
 }
 
 QStringList Student::getCourseDataName(string courseName)
 {
-    logger.addLogger("å­¦ç”ŸæŸ¥è¯¢äº†è¯¾ç¨‹èµ„æ–™");
+    logger.addLogger("Ñ§Éú²éÑ¯ÁË¿Î³Ì×ÊÁÏ");
     return studentClass->getCourseDataInfo(courseName);
 }
 void Student::submitHomework(string courseName,string homeworkName,string filePath)
 {
-    logger.addLogger("å­¦ç”Ÿæäº¤äº†ä½œä¸š");
+    logger.addLogger("Ñ§ÉúÌá½»ÁË×÷Òµ");
     studentClass->submitHomework(courseName,homeworkName,filePath,userId);
 }
 QStringList Student::getHomeworkDone(string courseName)
 {
-    logger.addLogger("å­¦ç”ŸæŸ¥è¯¢äº†å·²å®Œæˆä½œä¸š");
+    logger.addLogger("Ñ§Éú²éÑ¯ÁËÒÑÍê³É×÷Òµ");
     return studentClass->getHomeworkDone(courseName,userId);
 }
 
 QStringList Student::getHomeworkTodo(string courseName)
 {
-    logger.addLogger("å­¦ç”ŸæŸ¥è¯¢äº†æœªå®Œæˆä½œä¸š");
+    logger.addLogger("Ñ§Éú²éÑ¯ÁËÎ´Íê³É×÷Òµ");
     return studentClass->getHomeworkTodo(courseName,userId);
 }
 
 QStringList Student::getExamInfo(string courseName)
 {
-    logger.addLogger("å­¦ç”ŸæŸ¥è¯¢äº†è€ƒè¯•");
+    logger.addLogger("Ñ§Éú²éÑ¯ÁË¿¼ÊÔ");
     return studentClass->getExamInfo(courseName);
 }
 
 void Student::insertRecord(string event,MyTime startTime,MyTime endTime)
 {
-    logger.addLogger("å­¦ç”Ÿå¢åŠ äº†ä¸€æ¡æ—¥ç¨‹å®‰æ’");
+    logger.addLogger("Ñ§ÉúÔö¼ÓÁËÒ»ÌõÈÕ³Ì°²ÅÅ");
     calendar.addRecord(event,startTime,endTime);
 }
 
 void Student::updateRecord(string event,MyTime startTime,MyTime endTime)
 {
-    logger.addLogger("å­¦ç”Ÿä¿®æ”¹äº†ä¸€æ¡æ—¥ç¨‹å®‰æ’");
+    logger.addLogger("Ñ§ÉúĞŞ¸ÄÁËÒ»ÌõÈÕ³Ì°²ÅÅ");
     calendar.updateRecord(event,startTime,endTime);
 }
 
 void Student::deleteRecord(string event)
 {
-    logger.addLogger("å­¦ç”Ÿåˆ é™¤äº†ä¸€æ¡è¯¾ç¨‹å®‰æ’");
+    logger.addLogger("Ñ§ÉúÉ¾³ıÁËÒ»Ìõ¿Î³Ì°²ÅÅ");
     calendar.deleteRecord(event);
 }
 
 void Student::clearRecords()
 {
-    logger.addLogger("å­¦ç”Ÿæ¸…é™¤äº†æ—¥ç¨‹å®‰æ’");
+    logger.addLogger("Ñ§ÉúÇå³ıÁËÈÕ³Ì°²ÅÅ");
     calendar.clear();
 }
 
 QStringList Student::getRecords()
 {
-    logger.addLogger("å­¦ç”ŸæŸ¥è¯¢æ—¥ç¨‹å®‰æ’");
+    logger.addLogger("Ñ§Éú²éÑ¯ÈÕ³Ì°²ÅÅ");
     return calendar.getRecords();
 }
 
 bool Student::checkTimeConflict()
 {
-    logger.addLogger("å­¦ç”ŸæŸ¥è¯¢äº†æ—¥ç¨‹å†²çª");
+    logger.addLogger("Ñ§Éú²éÑ¯ÁËÈÕ³Ì³åÍ»");
     return calendar.checkTimeConflict();
 }

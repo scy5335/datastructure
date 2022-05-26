@@ -25,24 +25,24 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
         <location filename="mainwindow.cpp" line="779"/>
-        <source>Ñ¡ï¿½ï¿½ï¿½Ä¼ï¿½</source>
+        <source>??????</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="779"/>
 =======
 =======
->>>>>>> parent of b97e4d1 (å­¦ç”Ÿè¯¾ç¨‹è¡¨ç•Œé¢å¯¹æŽ¥)
+>>>>>>> parent of b97e4d1 (Ñ§Éú¿Î³Ì±í½çÃæ¶Ô½Ó)
         <location filename="mainwindow.cpp" line="725"/>
-        <source>é€‰æ‹©æ–‡ä»¶</source>
+        <source>Ñ¡ÔñÎÄ¼þ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="725"/>
 <<<<<<< HEAD
->>>>>>> parent of b97e4d1 (å­¦ç”Ÿè¯¾ç¨‹è¡¨ç•Œé¢å¯¹æŽ¥)
+>>>>>>> parent of b97e4d1 (Ñ§Éú¿Î³Ì±í½çÃæ¶Ô½Ó)
 =======
->>>>>>> parent of b97e4d1 (å­¦ç”Ÿè¯¾ç¨‹è¡¨ç•Œé¢å¯¹æŽ¥)
+>>>>>>> parent of b97e4d1 (Ñ§Éú¿Î³Ì±í½çÃæ¶Ô½Ó)
         <source>All files(*.*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -69,7 +69,7 @@
     <name>material_detail</name>
     <message>
         <location filename="mainwindow.cpp" line="745"/>
-        <source>Ñ¡ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½</source>
+        <source>????????</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -83,7 +83,7 @@
     </message>
     <message>
         <location filename="material_manage_page.cpp" line="35"/>
-        <source>Ñ¡ï¿½ï¿½ï¿½Ä¼ï¿½</source>
+        <source>??????</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
