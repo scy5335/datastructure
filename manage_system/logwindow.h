@@ -8,6 +8,9 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QStackedLayout>
+#include <QComboBox>
+#include <QMessageBox>
 #include "student.h"
 #include "manager.h"
 #include <QIntValidator>
@@ -31,13 +34,19 @@ signals:
     void showmanagewindow();
 private:
     Ui::logwindow *ui;
-    QFormLayout* layout;
+    QFormLayout* layout, *register_layout;
     QLineEdit* user;
-    QLineEdit* password;
-    QPushButton* login;
-    QPushButton* cancel;
+    QLineEdit* password, *password1, *password2, *user_id;
+    QPushButton* login, *confirm_register;
+    QPushButton* cancel, *to_regis_page, *to_login_page;
     QHBoxLayout* botton;
     QLabel *info;
+    QStackedLayout *login_stack;
+    QComboBox *user_class;
+    QWidget *page[2];
+    void to_regis();
+    void to_login();
+    void try_regis();
 };
 
 #endif // LOGWINDOW_H

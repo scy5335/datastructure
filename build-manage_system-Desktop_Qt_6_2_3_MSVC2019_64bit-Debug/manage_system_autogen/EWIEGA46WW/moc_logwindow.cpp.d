@@ -15,6 +15,7 @@ C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QObject \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QTime \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/QTranslator \
+  D:/QT/6.2.3/msvc2019_64/include/QtCore/qabstractitemmodel.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qalgorithms.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qanystringview.h \
   D:/QT/6.2.3/msvc2019_64/include/QtCore/qarraydata.h \
@@ -129,15 +130,23 @@ C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qvalidator.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qwindowdefs.h \
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qwindowdefs_win.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QComboBox \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QFormLayout \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QHBoxLayout \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QLabel \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QLayout \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QLineEdit \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QMessageBox \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QPushButton \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QStackedLayout \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QWidget \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qabstractbutton.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qabstractitemdelegate.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qabstractslider.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qabstractspinbox.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qboxlayout.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qcombobox.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qdialog.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qformlayout.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qframe.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qgridlayout.h \
@@ -145,8 +154,16 @@ C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qlayout.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qlayoutitem.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qlineedit.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qmessagebox.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qpushbutton.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qrubberband.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qsizepolicy.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qslider.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qstackedlayout.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qstyle.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qstyleoption.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qtabbar.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qtabwidget.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qtwidgets-config.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qtwidgetsglobal.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qwidget.h

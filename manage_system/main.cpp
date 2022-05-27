@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "logwindow.h"
 
 #include <QApplication>
@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
     logwindow logpage;
     mainwindow mainpage;
     logpage.dislogwindow();
+    logpage.show();
     QObject::connect(&logpage, &logwindow::showmainwindow, &mainpage, &mainwindow::display_student_page);
     QObject::connect(&logpage, &logwindow::showmanagewindow, &mainpage, &mainwindow::display_manage_page);
     return a.exec();

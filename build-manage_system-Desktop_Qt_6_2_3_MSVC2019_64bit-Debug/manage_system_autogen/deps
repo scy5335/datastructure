@@ -221,6 +221,7 @@ manage_system_autogen/timestamp: \
 	D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QMessageBox \
 	D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QPushButton \
 	D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QRadioButton \
+	D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QStackedLayout \
 	D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QStackedWidget \
 	D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QTableWidget \
 	D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QVBoxLayout \
@@ -258,6 +259,7 @@ manage_system_autogen/timestamp: \
 	D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qscrollarea.h \
 	D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qsizepolicy.h \
 	D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qslider.h \
+	D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qstackedlayout.h \
 	D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qstackedwidget.h \
 	D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qstyle.h \
 	D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qstyleoption.h \

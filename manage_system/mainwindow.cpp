@@ -137,6 +137,9 @@ void mainwindow::set_lesson_page(){
                                            "14\n20:10\n20:55");
     for (int i=0;i<lessontable -> rowCount();i++)
         lessontable -> setRowHeight(i, 60);
+    for (int i=0; i < 14; i++)
+        for (int j=0; j < 14; j++)
+            lessontable -> setItem(i, j, new QTableWidgetItem(""));
     lesson_name = new QLabel();
     lesson_name -> setText("数据结构");
     lesson_place = new QLabel();
@@ -179,6 +182,10 @@ void mainwindow::set_lesson_page(){
 }
 
 void mainwindow::student_get_course_info(){
+    lessontable -> clearContents();
+    for (int i=0; i < 14; i++)
+        for (int j=0; j < 14; j++)
+            lessontable -> setItem(i, j, new QTableWidgetItem(""));
     QStringList class_list = log_student -> getAllCourseName();
     int len = class_list.length(), course_time[3];
     for (int i = 0; i < len; i++)
@@ -204,6 +211,10 @@ void mainwindow::student_get_course_info(){
 }
 
 void mainwindow::manager_get_course_info(){
+    lessontable -> clearContents();
+    for (int i=0; i < 14; i++)
+        for (int j=0; j < 14; j++)
+            lessontable -> setItem(i, j, new QTableWidgetItem(""));
     Class new_class = Class(class_select -> currentText().toInt());
     QStringList class_list = new_class.getAllCourseName();
     int len = class_list.length(), course_time[3];
@@ -212,15 +223,15 @@ void mainwindow::manager_get_course_info(){
             new_class.getCourseTime(class_list[i].toStdString(), j, course_time);
             if (!course_time[2]) continue;
             else {
-                QString format_min = QString::number(course_time[0]),
-                        format_hour = QString::number(course_time[1]),
+                QString format_hour = QString::number(course_time[0]),
+                        format_min = QString::number(course_time[1]),
                         format_time;
                 if (course_time[0] <= 9) format_hour = "0" + format_hour;
                 if (course_time[1] <= 9) format_min = "0" + format_min;
                 format_time = format_hour + ":" +format_min;
                 int k;
                 for (k = 0; k < 14; k++)
-                    if (lessontable -> horizontalHeaderItem(k) -> text().contains(format_time))
+                    if (lessontable -> verticalHeaderItem(k) -> text().contains(format_time))
                         break;
                 lessontable -> setSpan(k, j-1, course_time[2], 1);
                 lessontable -> item(k, j-1) -> setText(class_list[i] + "\n" +
@@ -259,18 +270,26 @@ void mainwindow::show_lesson_info(int row, int column){
 }
 
 void mainwindow::show_manager_lesson_info(int row, int column){
+    if (class_select -> currentIndex() == -1) return;
     select_row = row;
     select_column = column;
     select_type = 0;
     Class new_class = Class(class_select -> currentText().toInt());
-    if (lessontable -> item(row, column) -> text() == "")
+    if (!lessontable -> item(row, column) || lessontable -> item(row, column) -> text() == ""){
+        class_name -> clear();
+        place_message -> setCurrentIndex(-1);
+        test_list -> clearContents();
+        test_list -> setRowCount(0);
+        homework_list -> clearContents();
+        homework_list -> setRowCount(0);
         return;
+    }
     select_type = 1;
     QStringList lesson_main_info = lessontable -> item(row, column) -> text().split('\n');
     class_name -> setText(lesson_main_info[0]);
     place_message -> setCurrentIndex(place_message -> findText(lesson_main_info[1]));
-    test_info -> clearContents();
-    test_info -> setRowCount(0);
+    test_list -> clearContents();
+    test_list -> setRowCount(0);
     QStringList now_test_info = log_manager -> getExamInfo(lesson_main_info[0].toStdString(), class_select -> currentText().toInt());
     if (now_test_info.length()){
         test_list -> setRowCount(1);
@@ -282,19 +301,21 @@ void mainwindow::show_manager_lesson_info(int row, int column){
         test_list -> setItem(0, 3, new QTableWidgetItem(now_test_info[2]+"分钟"));
         test_list -> setItem(0, 4, new QTableWidgetItem(place_name[now_test_info[3].toInt()]));
     }
-    homework_info -> clearContents();
-    homework_info -> setRowCount(0);
+    test_list -> horizontalHeader() -> setSectionResizeMode(QHeaderView::ResizeToContents);
+    homework_list -> clearContents();
+    homework_list -> setRowCount(0);
     QStringList now_homework_info = log_manager -> getHomework(lesson_main_info[0].toStdString(), class_select -> currentText().toInt());
-    int row_count = homework_info -> rowCount(), len = now_homework_info.length();
+    int row_count = homework_list -> rowCount(), len = now_homework_info.length();
     for (int i = 0; i < len; i++){
-        homework_info -> setRowCount(row_count + 1);
+        homework_list -> setRowCount(row_count + 1);
         QTableWidgetItem *p_check = new QTableWidgetItem();
         p_check -> setCheckState(Qt::Unchecked);
-        homework_info -> setItem(0, 0, p_check);
-        homework_info -> setItem(0, 1, new QTableWidgetItem(now_homework_info[i++]));
-        homework_info -> setItem(0, 2, new QTableWidgetItem(now_homework_info[i++]));
+        homework_list -> setItem(0, 0, p_check);
+        homework_list -> setItem(0, 1, new QTableWidgetItem(now_homework_info[i++]));
+        homework_list -> setItem(0, 2, new QTableWidgetItem(now_homework_info[i++]));
         row_count ++;
     }
+    homework_list -> horizontalHeader() -> setSectionResizeMode(QHeaderView::ResizeToContents);
 }
 
 void mainwindow::set_calendar_page(){
@@ -354,24 +375,33 @@ void mainwindow::set_calendar_page(){
 }
 
 void mainwindow::try_add_calendar(){
-    if (calendar_description -> text() == "")
+    if (calendar_description -> text() == ""){
         QMessageBox::critical(this, "添加活动出错", "活动名称为空");
-    if (s_ri -> currentIndex() == -1 || s_shi -> currentIndex() == -1 || s_fen -> currentIndex() == -1)
+        return;
+    }
+    if (s_ri -> currentIndex() == -1 || s_shi -> currentIndex() == -1 || s_fen -> currentIndex() == -1){
         QMessageBox::critical(this, "添加活动出错","请输入完整的开始时间");
-    if (e_ri -> currentIndex() == -1 || e_shi -> currentIndex() == -1 || e_fen -> currentIndex() == -1)
+        return;
+    }
+    if (e_ri -> currentIndex() == -1 || e_shi -> currentIndex() == -1 || e_fen -> currentIndex() == -1){
         QMessageBox::critical(this, "添加活动出错","请输入完整的结束时间");
+        return;
+    }
     MyTime start_time = MyTime(s_nian -> currentText().toInt(), s_yue -> currentText().toInt(),
                                s_ri -> currentText().toInt(), s_shi -> currentText().toInt(),
                                s_fen -> currentText().toInt());
     MyTime end_time = MyTime(e_nian -> currentText().toInt(), e_yue -> currentText().toInt(),
                              e_ri -> currentText().toInt(), e_shi -> currentText().toInt(),
                              e_fen -> currentText().toInt());
-    if (end_time < start_time)
+    if (end_time < start_time){
         QMessageBox::critical(this, "添加活动出错", "开始时间晚于结束时间");
+        return;
+    }
     log_student -> insertRecord(calendar_description -> text().toStdString(), start_time, end_time);
     if (log_student -> checkTimeConflict()){
         log_student -> deleteRecord(calendar_description -> text().toStdString());
         QMessageBox::critical(this, "添加活动出错", "活动冲突");
+        return;
     }
     calendar_display();
 }
@@ -514,7 +544,8 @@ void mainwindow::switch_to_lesson_page(){
 
 void mainwindow::display_manage_page(){
     manage_page_set();
-    this -> show();
+    this -> showMaximized();
+    //show();
 }
 
 void mainwindow::manage_page_set(){
@@ -535,6 +566,9 @@ void mainwindow::manage_page_set(){
                                            "14\n20:10\n20:55");
     for (int i=0;i<lessontable -> rowCount();i++)
         lessontable -> setRowHeight(i, 60);
+    for (int i=0; i < 14; i++)
+        for (int j=0; j < 14; j++)
+            lessontable -> setItem(i, j, new QTableWidgetItem(""));
     ask_class = new QLabel();
     ask_class -> setText("请选择要进行操作的班级");
     class_select = new QComboBox();
@@ -556,6 +590,7 @@ void mainwindow::manage_page_set(){
     class_count_title -> setText("连续节数");
     class_count = new QComboBox();
     map = new myGraphView();
+    place_name = map -> GetVecName();
     place_message -> addItems(place_name);
     for (int i = 1; i <= 6; i++)
         class_count -> addItem(QString::number(i));
@@ -642,32 +677,46 @@ void mainwindow::trans_hour_min(int row, int &hour, int &min){
     switch (row){
     case 0: hour = 8;
             min = 0;
+        break;
     case 1: hour = 8;
             min = 50;
+        break;
     case 2: hour = 9;
             min = 50;
+        break;
     case 3: hour = 10;
             min = 40;
+        break;
     case 4: hour = 11;
             min = 30;
+        break;
     case 5: hour = 13;
             min = 0;
+        break;
     case 6: hour = 13;
             min = 50;
+        break;
     case 7: hour = 14;
             min = 45;
+        break;
     case 8: hour = 15;
             min = 40;
+        break;
     case 9: hour = 16;
             min = 35;
+        break;
     case 10: hour = 17;
             min = 25;
+        break;
     case 11: hour = 18;
             min = 30;
+        break;
     case 12: hour = 19;
             min = 20;
+        break;
     default: hour = 20;
             min = 10;
+        break;
     }
 }
 
@@ -691,8 +740,10 @@ void mainwindow::try_add_lesson(){
         delete_this_lesson();
     log_manager -> addCourse(class_name -> text().toStdString(), place_message -> currentIndex(),
                         class_select -> currentText().toInt());
+    qDebug()<<"地点信息"<<place_message -> currentIndex();
     int hour, min;
     trans_hour_min(select_row, hour, min);
+    qDebug()<<select_row<<hour<<min;
     log_manager -> setCourseTime(class_name -> text().toStdString(), select_column + 1, hour, min,
                                  class_count -> currentText().toInt(), class_select -> currentText().toInt());
     manager_get_course_info();
@@ -1101,8 +1152,10 @@ void alarm_page::get_new_alarm(){
         for (int i = 0; i < 7 ;i++)
             state |= (day[i] -> checkState() == Qt::Checked) << i;
         qDebug() << state;
-        if (!state)
+        if (!state){
             QMessageBox::critical(this, "错误", "请选择至少一天");
+            return;
+        }
     }
 
     Alarm new_alarm = Alarm(hour -> currentIndex(), minute -> currentIndex(), state, 1,

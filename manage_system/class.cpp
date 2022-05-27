@@ -1,4 +1,4 @@
-#include "class.h"
+﻿#include "class.h"
 
 Course* Class::getCourse(string courseName)
 {
@@ -77,7 +77,7 @@ void Class::addCourse(string courseName, int locale, int classId)
     int id=0;
     string name;
     fstream file;
-
+    qDebug()<<"???";
     //注册新的课程id
     file.open("class\\"+to_string(classId)+"courseId.txt",ios::in);
     if(file.is_open()){
@@ -298,7 +298,7 @@ QStringList Class::getHomework(string courseName)
     QStringList list;
     if(getCourse(courseName)){
         Course *c=getCourse(courseName);
-        Task t;
+        //Task t;
         //数据残缺,无法获取task数目，只能通过判断空指针
         for(int i=0;i<c->getTaskNum();i++)
         {
