@@ -47,13 +47,15 @@ int Class::getCourseId(string courseName)
         while(!file.eof()){
             file>>id>>name;
             if(courseName==name){
-                break;
+                file.close();
+                return id;
             }
         }
         file.close();
     }
-    return id;
+    return 0;
 }
+
 
 string Class::getCourseName(int courseId)
 {
