@@ -1,4 +1,4 @@
-#include "material_manage_page.h"
+﻿#include "material_manage_page.h"
 #include "ui_material_manage_page.h"
 
 material_manage_page::material_manage_page(QWidget *parent) :
@@ -13,7 +13,11 @@ material_manage_page::material_manage_page(QWidget *parent) :
     file_path = new QLabel();
     add_material = new QPushButton();
     add_material -> setText("添加材料");
-    material_list = new QListWidget();
+    material_list = new QTableWidget();
+    material_list -> setColumnCount(2);
+    material_list -> setHorizontalHeaderLabels(QStringList()<<"选择"<<"材料名称");
+    material_list -> horizontalHeader() -> setSectionResizeMode(QHeaderView::Stretch);
+    emit get_all_material();
     del_material = new QPushButton();
     del_material -> setText("删除材料");
     material_layout = new QFormLayout();
@@ -23,7 +27,36 @@ material_manage_page::material_manage_page(QWidget *parent) :
     material_layout -> addRow(material_list);
     material_layout -> addRow(del_material);
     setLayout(material_layout);
+    connect(del_material, &QPushButton::clicked, this, &material_manage_page::try_delete_material);
+    connect(add_material, &QPushButton::clicked, this, &material_manage_page::create_new_material);
     connect(file_select, &QPushButton::clicked, this, &material_manage_page::file_select_page);
+}
+
+void material_manage_page::set_all_material(QStringList all_material_list){
+    int len = all_material_list.length();
+    material_list -> clearContents();
+    material_list -> setRowCount(len);
+    for (int i = 0; i < len; i++){
+        QTableWidgetItem *p_check = new QTableWidgetItem();
+        p_check -> setCheckState(Qt::Unchecked);
+        material_list -> setItem(i, 0, p_check);
+        material_list -> setItem(i, 1, new QTableWidgetItem(all_material_list[i]));
+    }
+}
+
+void material_manage_page::try_delete_material(){
+    int row_count = material_list -> rowCount();
+    for (int i = 0; i < row_count; i++)
+        if (material_list -> item(i, 0) -> checkState() == Qt::Checked)
+            emit delete_material(material_list -> item(i, 1) -> text());
+}
+
+void material_manage_page::create_new_material(){
+    if (file_path -> text() == "")
+        return;
+    emit add_new_material(description -> text(),file_path -> text());
+    emit get_all_material();
+    file_path -> clear();
 }
 
 material_manage_page::~material_manage_page()

@@ -1,4 +1,4 @@
-#ifndef ADDHOMEWORK_H
+﻿#ifndef ADDHOMEWORK_H
 #define ADDHOMEWORK_H
 
 #include <QWidget>
@@ -11,6 +11,8 @@
 #include <QVBoxLayout>
 #include <QString>
 #include <QDate>
+#include <QMessageBox>
+#include "mytime.h"
 
 namespace Ui {
 class addhomework;
@@ -38,6 +40,10 @@ private:
     void set_time();
     void change_day();
     void clear_content();
+    void try_upload_homework();
+
+signals:
+    void homework_upload(QString homework_name, MyTime ddl, QString homework_description);
 };
 
 #endif // ADDHOMEWORK_H

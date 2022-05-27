@@ -20,7 +20,7 @@ int Student::getClassId(int studentId)
 Student::Student(int id):
     userId(id),
     logger("student\\"+to_string(id)+"_log.txt"),
-    calendar(to_string(id)+"_calendar.txt"),
+    calendar("student\\"+to_string(id)+"_calendar.txt"),
     studentClass(new Class(getClassId(id)))
 {
     /*将课程表导入日程表中，这是初始化操作，以便后续判断时间冲突*/
@@ -43,7 +43,7 @@ Student::~Student()
     delete studentClass;
 }
 
-bool Student::login(int studentId, string password,int classId)
+bool Student::enroll(int studentId, string password, int classId)
 {
     int id=1,classID=2020211302;
     string pwd;
@@ -53,7 +53,7 @@ bool Student::login(int studentId, string password,int classId)
             file>>id>>pwd>>classID;
             if(id==studentId){//学生账号存在
                 file.close();
-                return password==pwd;
+                return false;
             }
         }
         file.close();
@@ -74,6 +74,24 @@ bool Student::login(int studentId, string password,int classId)
     /*创建学生日程表文件*/
     file.open("student\\"+to_string(id)+"_calendar.txt",ios::out);
     if(file.is_open()){
+        file.close();
+    }
+    return false;
+}
+
+bool Student::login(int studentId, string password)
+{
+    int id=1,classID=2020211302;
+    string pwd;
+    fstream file("student\\studentInfo.txt",ios::in);
+    if(file.is_open()){
+        while(!file.eof()){
+            file>>id>>pwd>>classID;
+            if(id==studentId){//学生账号存在
+                file.close();
+                return password==pwd;
+            }
+        }
         file.close();
     }
     return false;
@@ -142,17 +160,16 @@ QStringList Student::getExamInfo(string courseName)
     logger.addLogger("学生查询了考试");
     return studentClass->getExamInfo(courseName);
 }
-
-void Student::insertRecord(string event,MyTime startTime,MyTime endTime)
+void Student::insertRecord(string event,MyTime startTime,MyTime endTime,string place,string type)
 {
     logger.addLogger("学生增加了一条日程安排");
-    calendar.addRecord(event,startTime,endTime);
+    calendar.addRecord(event,startTime,endTime,place,type);
 }
 
-void Student::updateRecord(string event,MyTime startTime,MyTime endTime)
+void Student::updateRecord(string event,MyTime startTime,MyTime endTime,string place,string type)
 {
     logger.addLogger("学生修改了一条日程安排");
-    calendar.updateRecord(event,startTime,endTime);
+    calendar.updateRecord(event,startTime,endTime,place,type);
 }
 
 void Student::deleteRecord(string event)

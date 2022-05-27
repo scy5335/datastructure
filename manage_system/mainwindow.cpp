@@ -95,8 +95,6 @@ void mainwindow::student_page_set(){
     connect(accelerate, &QPushButton::clicked, this, &mainwindow::add_speed);
     connect(Clock, &MyClock::timeChange, this, &mainwindow::time_change);
     connect(Clock, &MyClock::ring, this, &mainwindow::clock_ring);
-    connect(student_homework_page, &homework_submit_page::submit_homework, this, &mainwindow::submit_homework);
-    connect(student_material_page, &material_detail::download, this, &mainwindow::download_task);
 }
 
 void mainwindow::download_task(QString data_name, QString file_name){
@@ -105,7 +103,7 @@ void mainwindow::download_task(QString data_name, QString file_name){
 
 void mainwindow::submit_homework(QString homework_name, QString file_name){
     log_student -> submitHomework(lesson_name -> text().toStdString(), homework_name.toStdString(),
-                                  file_name.toStdString());
+                                  file_name.toLocal8Bit().data());
 }
 
 void mainwindow::clock_ring(string description){
@@ -139,7 +137,6 @@ void mainwindow::set_lesson_page(){
                                            "14\n20:10\n20:55");
     for (int i=0;i<lessontable -> rowCount();i++)
         lessontable -> setRowHeight(i, 60);
-    qDebug() << lessontable -> rowCount();
     lesson_name = new QLabel();
     lesson_name -> setText("数据结构");
     lesson_place = new QLabel();
@@ -182,11 +179,11 @@ void mainwindow::set_lesson_page(){
 }
 
 void mainwindow::student_get_course_info(){
-    QStringList class_list = student_class -> getAllCourseName();
+    QStringList class_list = log_student -> getAllCourseName();
     int len = class_list.length(), course_time[3];
     for (int i = 0; i < len; i++)
         for (int j = 1; j <= 7; j++){
-            student_class -> getCourseTime(class_list[i].toStdString(), j, course_time);
+            log_student -> getCourseTime(class_list[i].toStdString(), j, course_time);
             if (!course_time[2]) continue;
             else {
                 QString format_min = QString::number(course_time[0]),
@@ -201,7 +198,33 @@ void mainwindow::student_get_course_info(){
                         break;
                 lessontable -> setSpan(k, j-1, course_time[2], 1);
                 lessontable -> item(k, j-1) -> setText(class_list[i] + "\n" +
-                                                       place_name[student_class -> getCoursePlace(class_list[i].toStdString())]);
+                                                       place_name[log_student -> getCoursePlace(class_list[i].toStdString())]);
+            }
+        }
+}
+
+void mainwindow::manager_get_course_info(){
+    Class new_class = Class(class_select -> currentText().toInt());
+    QStringList class_list = new_class.getAllCourseName();
+    int len = class_list.length(), course_time[3];
+    for (int i = 0; i < len; i++)
+        for (int j = 1; j <= 7; j++){
+            new_class.getCourseTime(class_list[i].toStdString(), j, course_time);
+            if (!course_time[2]) continue;
+            else {
+                QString format_min = QString::number(course_time[0]),
+                        format_hour = QString::number(course_time[1]),
+                        format_time;
+                if (course_time[0] <= 9) format_hour = "0" + format_hour;
+                if (course_time[1] <= 9) format_min = "0" + format_min;
+                format_time = format_hour + ":" +format_min;
+                int k;
+                for (k = 0; k < 14; k++)
+                    if (lessontable -> horizontalHeaderItem(k) -> text().contains(format_time))
+                        break;
+                lessontable -> setSpan(k, j-1, course_time[2], 1);
+                lessontable -> item(k, j-1) -> setText(class_list[i] + "\n" +
+                                                       place_name[new_class.getCoursePlace(class_list[i].toStdString())]);
             }
         }
 }
@@ -212,7 +235,7 @@ void mainwindow::show_lesson_info(int row, int column){
     lesson_place -> setText(lesson_main_info[1]);
     test_info -> clearContents();
     test_info -> setRowCount(0);
-    QStringList now_test_info = student_class -> getExamInfo(lesson_main_info[0].toStdString());
+    QStringList now_test_info = log_student -> getExamInfo(lesson_main_info[0].toStdString());
     if (now_test_info.length()){
         test_info -> setRowCount(1);
         test_info -> setItem(0, 0, new QTableWidgetItem(now_test_info[0]));
@@ -223,6 +246,45 @@ void mainwindow::show_lesson_info(int row, int column){
     homework_info -> clearContents();
     homework_info -> setRowCount(0);
     QStringList now_homework_info = student_class -> getHomework(lesson_main_info[0].toStdString());
+    int row_count = homework_info -> rowCount(), len = now_homework_info.length();
+    for (int i = 0; i < len; i++){
+        homework_info -> setRowCount(row_count + 1);
+        QTableWidgetItem *p_check = new QTableWidgetItem();
+        p_check -> setCheckState(Qt::Unchecked);
+        homework_info -> setItem(0, 0, p_check);
+        homework_info -> setItem(0, 1, new QTableWidgetItem(now_homework_info[i++]));
+        homework_info -> setItem(0, 2, new QTableWidgetItem(now_homework_info[i++]));
+        row_count ++;
+    }
+}
+
+void mainwindow::show_manager_lesson_info(int row, int column){
+    select_row = row;
+    select_column = column;
+    select_type = 0;
+    Class new_class = Class(class_select -> currentText().toInt());
+    if (lessontable -> item(row, column) -> text() == "")
+        return;
+    select_type = 1;
+    QStringList lesson_main_info = lessontable -> item(row, column) -> text().split('\n');
+    class_name -> setText(lesson_main_info[0]);
+    place_message -> setCurrentIndex(place_message -> findText(lesson_main_info[1]));
+    test_info -> clearContents();
+    test_info -> setRowCount(0);
+    QStringList now_test_info = log_manager -> getExamInfo(lesson_main_info[0].toStdString(), class_select -> currentText().toInt());
+    if (now_test_info.length()){
+        test_list -> setRowCount(1);
+        QTableWidgetItem *p_check = new QTableWidgetItem();
+        p_check -> setCheckState(Qt::Unchecked);
+        test_list -> setItem(0, 0, p_check);
+        test_list -> setItem(0, 1, new QTableWidgetItem(now_test_info[0]));
+        test_list -> setItem(0, 2, new QTableWidgetItem(now_test_info[1]));
+        test_list -> setItem(0, 3, new QTableWidgetItem(now_test_info[2]+"分钟"));
+        test_list -> setItem(0, 4, new QTableWidgetItem(place_name[now_test_info[3].toInt()]));
+    }
+    homework_info -> clearContents();
+    homework_info -> setRowCount(0);
+    QStringList now_homework_info = log_manager -> getHomework(lesson_main_info[0].toStdString(), class_select -> currentText().toInt());
     int row_count = homework_info -> rowCount(), len = now_homework_info.length();
     for (int i = 0; i < len; i++){
         homework_info -> setRowCount(row_count + 1);
@@ -457,6 +519,7 @@ void mainwindow::display_manage_page(){
 
 void mainwindow::manage_page_set(){
     setWindowTitle("管理员主页");
+    log_manager = new Manager();
     Clock = new MyClock();
     lessontable = new QTableWidget(14,7);
     lessontable -> setHorizontalHeaderLabels(QStringList()<<"星期一"<<"星期二"<<"星期三"<<
@@ -475,7 +538,9 @@ void mainwindow::manage_page_set(){
     ask_class = new QLabel();
     ask_class -> setText("请选择要进行操作的班级");
     class_select = new QComboBox();
-    class_select -> addItem("2020211302");
+    for (int i = 2020211301; i <= 2020211310; i++)
+        class_select -> addItem(QString::number(i));
+    class_select -> setCurrentIndex(-1);
     class_layout = new QHBoxLayout();
     class_layout -> addWidget(ask_class);
     class_layout -> addWidget(class_select);
@@ -483,12 +548,17 @@ void mainwindow::manage_page_set(){
     class_name_title = new QLabel();
     class_name_title -> setText("课程名");
     class_name = new QLineEdit();
-    teacher_message = new QLineEdit();
+    //teacher_message = new QLineEdit();
     place_message_title = new QLabel();
     place_message_title -> setText("上课地点");
     place_message = new QComboBox();
+    class_count_title = new QLabel();
+    class_count_title -> setText("连续节数");
+    class_count = new QComboBox();
     map = new myGraphView();
     place_message -> addItems(place_name);
+    for (int i = 1; i <= 6; i++)
+        class_count -> addItem(QString::number(i));
     place_message -> setCurrentIndex(-1);
     add_lesson = new QPushButton();
     add_lesson -> setText("添加此课");
@@ -503,14 +573,6 @@ void mainwindow::manage_page_set(){
     test_list = new QTableWidget();
     test_list -> setColumnCount(5);
     test_list -> setHorizontalHeaderLabels(QStringList()<<"选择"<<"考试名称"<<"时间"<<"时长"<<"地点");
-    test_list -> setRowCount(1);
-    QTableWidgetItem *p_check = new QTableWidgetItem();
-    p_check -> setCheckState(Qt::Unchecked);
-    test_list -> setItem(0, 0, p_check);
-    test_list -> setItem(0, 1, new QTableWidgetItem("期中考"));
-    test_list -> setItem(0, 2, new QTableWidgetItem("2000年4月25日"));
-    test_list -> setItem(0, 3, new QTableWidgetItem("90分钟"));
-    test_list -> setItem(0, 4, new QTableWidgetItem("S教学楼"));
     homework_add = new QPushButton();
     homework_add -> setText("添加作业");
     homework_del = new QPushButton();
@@ -520,12 +582,6 @@ void mainwindow::manage_page_set(){
     homework_list = new QTableWidget();
     homework_list -> setColumnCount(3);
     homework_list -> setHorizontalHeaderLabels(QStringList()<<"选择"<<"作业名称"<<"截止时间");
-    homework_list -> setRowCount(1);
-    QTableWidgetItem *p_check1 = new QTableWidgetItem();
-    p_check1 -> setCheckState(Qt::Unchecked);
-    homework_list -> setItem(0, 0, p_check1);
-    homework_list -> setItem(0, 1, new QTableWidgetItem("第一次作业"));
-    homework_list -> setItem(0, 2, new QTableWidgetItem("2000年3月5日"));
     material_manage_button = new QPushButton();
     material_manage_button -> setText("管理课程资料");
     message_layout = new QGridLayout();
@@ -533,6 +589,8 @@ void mainwindow::manage_page_set(){
     message_layout -> addWidget(class_name, 0, 1);
     message_layout -> addWidget(place_message_title, 1, 0);
     message_layout -> addWidget(place_message, 1, 1);
+    message_layout -> addWidget(class_count_title, 2, 0);
+    message_layout -> addWidget(class_count, 2, 1);
     button_grid = new QGridLayout();
     button_grid -> addWidget(add_lesson, 0, 0);
     button_grid -> addWidget(delete_lesson, 0, 1);
@@ -555,9 +613,21 @@ void mainwindow::manage_page_set(){
     manage_main_layout -> addLayout(class_layout);
     manage_main_layout -> addLayout(detail_info_layout);
     setLayout(manage_main_layout);
+    connect(add_lesson, &QPushButton::clicked, this, &mainwindow::try_add_lesson);
+    connect(delete_lesson, &QPushButton::clicked, this, &mainwindow::delete_this_lesson);
+    connect(test_del, &QPushButton::clicked, this, &mainwindow::test_delete);
     connect(test_add, &QPushButton::clicked, this, &mainwindow::test_add_page);
     connect(homework_add, &QPushButton::clicked, this, &mainwindow::homework_add_page);
+    connect(homework_del, &QPushButton::clicked, this, &mainwindow::homework_delete);
     connect(material_manage_button, &QPushButton::clicked, this, &mainwindow::material_add_page);
+    connect(class_select, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &mainwindow::manager_get_course_info);
+    connect(lessontable, &QTableWidget::cellClicked, this, &mainwindow::show_manager_lesson_info);
+}
+
+void mainwindow::test_delete(){
+    if (test_list -> rowCount() == 1 && test_list -> item(0, 0) -> checkState() == Qt::Checked)
+        log_manager -> deleteExam(class_name -> text().toStdString(), class_select -> currentText().toInt());
+    show_manager_lesson_info(select_row, select_column);
 }
 
 void mainwindow::test_add_page(){
@@ -565,24 +635,126 @@ void mainwindow::test_add_page(){
     add_test_page = new addtest(Clock -> getTime().getYear());
     add_test_page -> set_place(place_name);
     add_test_page -> show();
+    connect(add_test_page, &addtest::test_upload, this, &mainwindow::test_upload);
+}
+
+void mainwindow::trans_hour_min(int row, int &hour, int &min){
+    switch (row){
+    case 0: hour = 8;
+            min = 0;
+    case 1: hour = 8;
+            min = 50;
+    case 2: hour = 9;
+            min = 50;
+    case 3: hour = 10;
+            min = 40;
+    case 4: hour = 11;
+            min = 30;
+    case 5: hour = 13;
+            min = 0;
+    case 6: hour = 13;
+            min = 50;
+    case 7: hour = 14;
+            min = 45;
+    case 8: hour = 15;
+            min = 40;
+    case 9: hour = 16;
+            min = 35;
+    case 10: hour = 17;
+            min = 25;
+    case 11: hour = 18;
+            min = 30;
+    case 12: hour = 19;
+            min = 20;
+    default: hour = 20;
+            min = 10;
+    }
+}
+
+void mainwindow::delete_this_lesson(){
+    if (class_name -> text() == "")
+        return;
+    log_manager -> deleteCoure(class_name -> text().toStdString(), class_select -> currentText().toInt());
+    manager_get_course_info();
+}
+
+void mainwindow::try_add_lesson(){
+    if (class_name -> text() == "")
+        QMessageBox::critical(this, "添加课程错误", "请输入课程名称");
+    if (place_message -> currentIndex() == -1)
+        QMessageBox::critical(this, "添加课程错误", "请输入上课地点");
+    if (class_count -> currentIndex() == -1)
+        QMessageBox::critical(this, "添加课程错误", "请输入课程节数");
+    if (class_count -> currentIndex() + select_row > 14)
+        QMessageBox::critical(this, "添加课程错误", "课程结束时间超过最晚的课程");
+    if (select_type)
+        delete_this_lesson();
+    log_manager -> addCourse(class_name -> text().toStdString(), place_message -> currentIndex(),
+                        class_select -> currentText().toInt());
+    int hour, min;
+    trans_hour_min(select_row, hour, min);
+    log_manager -> setCourseTime(class_name -> text().toStdString(), select_column + 1, hour, min,
+                                 class_count -> currentText().toInt(), class_select -> currentText().toInt());
+    manager_get_course_info();
+}
+
+void mainwindow::test_upload(QString test_name, MyTime start_time, int place, int last_time){
+    log_manager -> uploadExam(class_name -> text().toStdString(),
+                               test_name.toStdString(), start_time, place,
+                               last_time, class_select -> currentText().toInt());
+}
+
+void mainwindow::homework_delete(){
+    int len = homework_list -> rowCount();
+    for (int i = 0; i < len; i++)
+        if (homework_list -> item(i, 0) -> checkState() == Qt::Checked)
+            log_manager -> deleteHomework(class_name -> text().toStdString(),
+                                       homework_list -> item(i, 1) -> text().toStdString(),
+                                       class_select -> currentText().toInt());
+    show_manager_lesson_info(select_row, select_column);
 }
 
 void mainwindow::homework_add_page(){
     if (add_homework_page != NULL) delete add_homework_page;
     add_homework_page = new addhomework(Clock -> getTime().getYear());
     add_homework_page -> show();
+    connect(add_homework_page, &addhomework::homework_upload, this, &mainwindow::homework_upload);
+}
+
+void mainwindow::homework_upload(QString homework_name, MyTime ddl, QString homework_description){
+    log_manager -> uploadHomework(class_name -> text().toStdString(), homework_name.toStdString(),
+                             ddl, homework_description.toStdString(), class_select -> currentText().toInt());
 }
 
 void mainwindow::material_add_page(){
     if (material_page != NULL) delete material_page;
     material_page = new material_manage_page();
     material_page -> show();
+    connect(material_page, &material_manage_page::delete_material, this, &mainwindow::delete_material);
+    connect(material_page, &material_manage_page::get_all_material, this, &mainwindow::get_all_material);
+    connect(material_page, &material_manage_page::add_new_material, this, &mainwindow::add_new_material);
 }
 
 void mainwindow::show_material_page(){
     if (student_material_page != NULL) delete student_material_page;
-    student_material_page = new material_detail(student_class -> getCourseDataInfo(lesson_name -> text().toStdString()));
+    student_material_page = new material_detail(log_student -> getCourseDataName(lesson_name -> text().toStdString()));
     student_material_page -> show();
+    connect(student_material_page, &material_detail::download, this, &mainwindow::download_task);
+}
+
+void mainwindow::get_all_material(){
+    material_page -> set_all_material(log_manager -> getCourseDataInfo(class_name -> text().toStdString(),
+                                                                       class_select -> currentText().toInt()));
+}
+
+void mainwindow::delete_material(QString description){
+    log_manager -> removeCourseData(class_name -> text().toStdString(), description.toStdString(),
+                                    class_select -> currentText().toInt());
+}
+
+void mainwindow::add_new_material(QString description, QString file_path){
+    log_manager -> uploadCourseData(class_name -> text().toStdString(),description.toStdString(),
+                                    file_path.toLocal8Bit().data(), class_select -> currentText().toInt());
 }
 
 void mainwindow::show_homework_page(){
@@ -603,6 +775,7 @@ void mainwindow::show_homework_page(){
                         << now_homework_info[id * 3 + 2];
     student_homework_page = new homework_submit_page(homework_total_info);
     student_homework_page -> show();
+    connect(student_homework_page, &homework_submit_page::submit_homework, this, &mainwindow::submit_homework);
 }
 
 void mainwindow::show_alarm_page(){
@@ -796,8 +969,6 @@ homework_submit_page::homework_submit_page(QStringList info, QWidget *parent){
     ddl -> setText(info[1]);
     description = new QLabel();
     description -> setText(info[2]);
-    //state = new QLabel();
-    //state -> setText(info[1]);
     file_select = new QPushButton();
     file_select -> setText("选择文件");
     submit = new QPushButton();

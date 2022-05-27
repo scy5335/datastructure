@@ -1,4 +1,4 @@
-#ifndef LOGWINDOW_H
+﻿#ifndef LOGWINDOW_H
 #define LOGWINDOW_H
 
 #include <QWidget>
@@ -9,6 +9,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include "student.h"
+#include "manager.h"
 #include <QIntValidator>
 
 namespace Ui {

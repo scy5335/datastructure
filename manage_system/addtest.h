@@ -1,4 +1,4 @@
-#ifndef ADDTEST_H
+﻿#ifndef ADDTEST_H
 #define ADDTEST_H
 
 #include <QWidget>
@@ -11,6 +11,8 @@
 #include <QVBoxLayout>
 #include <QString>
 #include <QDate>
+#include <QMessageBox>
+#include "mytime.h"
 
 namespace Ui {
 class addtest;
@@ -39,6 +41,10 @@ private:
     void set_time();
     void change_day();
     void clear_content();
+    void try_upload_test();
+
+signals:
+    void test_upload(QString test_name, MyTime start_time, int place, int last_time);
 };
 
 #endif // ADDTEST_H

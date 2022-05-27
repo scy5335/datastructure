@@ -1,14 +1,76 @@
 #include "manager.h"
 
-Manager::Manager():id(0),logger("manager\\manager_logger.txt")
+Manager::Manager():logger("manager\\manager_logger.txt")
 {
-
+//    //在管理员账号存在的前提下,寻找管理员密码
+//    int id;
+//    string pwd;
+//    fstream file("manager\\managerInfo.txt",ios::in);
+//    if(file.is_open()){
+//        while(!file.eof()){
+//            file>>id>>pwd;
+//            if(id==managerId){
+//                password=pwd;
+//            }
+//        }
+//        file.close();
+//    }
 }
+
+//Manager::Manager(int managerId, string pwd):
+//    id(managerId),password(pwd),
+//    logger("manager\\"+to_string(managerId)+"manager_logger.txt")
+//{
+//}
 
 Manager::~Manager()
 {
 
 }
+
+bool Manager::login(string password)
+{
+    return password=="123456";
+//    int id;
+//    string pwd;
+//    fstream file("manager\\managerInfo.txt",ios::in);
+//    if(file.is_open()){
+//        while(!file.eof()){
+//            file>>id>>pwd;
+//            if(id==managerId){//管理员账号存在
+//                file.close();
+//                return password==pwd;
+//            }
+//        }
+//        file.close();
+//    }
+//    return false;
+}
+
+//bool Manager::enroll(int managerId, string password)
+//{
+//    int id;
+//    string pwd;
+//    fstream file("manager\\managerInfo.txt",ios::in);
+//    if(file.is_open()){
+//        while(!file.eof()){
+//            file>>id>>pwd;
+//            if(id==managerId){//管理员账号已存在
+//                file.close();
+//                return false;
+//            }
+//        }
+//        file.close();
+//    }
+
+//    file.open("manager\\managerInfo.txt",ios::app);
+//    if(file.is_open()){
+//        file<<endl<<managerId;
+//        file<<endl<<password;
+//        file.close();
+//    }
+//    return true;
+//}
 
 void Manager::addCourse(string courseName,int locale,int classId)
 {

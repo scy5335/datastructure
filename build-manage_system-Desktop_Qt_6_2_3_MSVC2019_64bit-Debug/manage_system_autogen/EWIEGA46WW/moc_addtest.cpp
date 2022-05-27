@@ -23,17 +23,25 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_addtest_t {
-    const uint offsetsAndSize[2];
-    char stringdata0[8];
+    const uint offsetsAndSize[16];
+    char stringdata0[65];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_addtest_t, stringdata0) + ofs), len 
 static const qt_meta_stringdata_addtest_t qt_meta_stringdata_addtest = {
     {
-QT_MOC_LITERAL(0, 7) // "addtest"
+QT_MOC_LITERAL(0, 7), // "addtest"
+QT_MOC_LITERAL(8, 11), // "test_upload"
+QT_MOC_LITERAL(20, 0), // ""
+QT_MOC_LITERAL(21, 9), // "test_name"
+QT_MOC_LITERAL(31, 6), // "MyTime"
+QT_MOC_LITERAL(38, 10), // "start_time"
+QT_MOC_LITERAL(49, 5), // "place"
+QT_MOC_LITERAL(55, 9) // "last_time"
 
     },
-    "addtest"
+    "addtest\0test_upload\0\0test_name\0MyTime\0"
+    "start_time\0place\0last_time"
 };
 #undef QT_MOC_LITERAL
 
@@ -43,22 +51,41 @@ static const uint qt_meta_data_addtest[] = {
       10,       // revision
        0,       // classname
        0,    0, // classinfo
-       0,    0, // methods
+       1,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       1,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags, initial metatype offsets
+       1,    4,   20,    2, 0x06,    1 /* Public */,
+
+ // signals: parameters
+    QMetaType::Void, QMetaType::QString, 0x80000000 | 4, QMetaType::Int, QMetaType::Int,    3,    5,    6,    7,
 
        0        // eod
 };
 
 void addtest::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    (void)_o;
-    (void)_id;
-    (void)_c;
-    (void)_a;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        auto *_t = static_cast<addtest *>(_o);
+        (void)_t;
+        switch (_id) {
+        case 0: _t->test_upload((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< MyTime(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4]))); break;
+        default: ;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        {
+            using _t = void (addtest::*)(QString , MyTime , int , int );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&addtest::test_upload)) {
+                *result = 0;
+                return;
+            }
+        }
+    }
 }
 
 const QMetaObject addtest::staticMetaObject = { {
@@ -68,7 +95,7 @@ const QMetaObject addtest::staticMetaObject = { {
     qt_static_metacall,
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_addtest_t
-, QtPrivate::TypeAndForceComplete<addtest, std::true_type>
+, QtPrivate::TypeAndForceComplete<addtest, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QString, std::false_type>, QtPrivate::TypeAndForceComplete<MyTime, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>
 
 
 
@@ -93,7 +120,25 @@ void *addtest::qt_metacast(const char *_clname)
 int addtest::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QWidget::qt_metacall(_c, _id, _a);
+    if (_id < 0)
+        return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 1)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 1;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 1)
+            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+        _id -= 1;
+    }
     return _id;
+}
+
+// SIGNAL 0
+void addtest::test_upload(QString _t1, MyTime _t2, int _t3, int _t4)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t3))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t4))) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

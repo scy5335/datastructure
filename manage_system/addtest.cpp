@@ -1,4 +1,4 @@
-#include "addtest.h"
+﻿#include "addtest.h"
 #include "ui_addtest.h"
 
 addtest::addtest(int now_year, QWidget *parent) :
@@ -46,8 +46,24 @@ addtest::addtest(int now_year, QWidget *parent) :
     main_layout -> addLayout(button_layout);
     connect(nian, &QComboBox::currentIndexChanged, this, &addtest::change_day);
     connect(yue, &QComboBox::currentIndexChanged, this, &addtest::change_day);
+    connect(complete, &QPushButton::clicked, this, &addtest::try_upload_test);
     connect(cancel, &QPushButton::clicked, this, &addtest::clear_content);
     setLayout(main_layout);
+}
+
+void addtest::try_upload_test(){
+    if (test_name_edit -> text() == "")
+        QMessageBox::critical(this, "添加错误", "请输入考试名称");
+    if (ri -> currentIndex() == -1 || shi -> currentIndex() == -1 || fen -> currentIndex() == -1)
+        QMessageBox::critical(this, "添加错误", "请输入完整的考试时间");
+    if (test_last -> text() == "")
+        QMessageBox::critical(this, "添加错误", "请输入考试时长");
+    if (test_place -> currentIndex() == -1)
+        QMessageBox::critical(this, "添加错误", "请输入考试地点");
+    MyTime start_time = MyTime(nian -> currentText().toInt(), yue -> currentText().toInt(),
+                               ri -> currentText().toInt(), shi -> currentText().toInt(),
+                               fen -> currentText().toInt());
+    emit test_upload(test_name_edit -> text(), start_time, test_place -> currentIndex(), test_last -> text().toInt());
 }
 
 void addtest::set_time(){

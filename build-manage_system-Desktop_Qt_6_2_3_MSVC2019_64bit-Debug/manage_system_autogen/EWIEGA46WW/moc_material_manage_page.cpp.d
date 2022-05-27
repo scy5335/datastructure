@@ -119,11 +119,12 @@ C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2
   D:/QT/6.2.3/msvc2019_64/include/QtGui/qwindowdefs_win.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QFileDialog \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QFormLayout \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QHeaderView \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QLabel \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QLayout \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QLineEdit \
-  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QListWidget \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QPushButton \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QTableWidget \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/QWidget \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qabstractbutton.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qabstractitemdelegate.h \
@@ -137,12 +138,11 @@ C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qformlayout.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qframe.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qgridlayout.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qheaderview.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qlabel.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qlayout.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qlayoutitem.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qlineedit.h \
-  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qlistview.h \
-  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qlistwidget.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qpushbutton.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qrubberband.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qsizepolicy.h \
@@ -150,6 +150,8 @@ C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qstyle.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qstyleoption.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qtabbar.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qtableview.h \
+  D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qtablewidget.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qtabwidget.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qtwidgets-config.h \
   D:/QT/6.2.3/msvc2019_64/include/QtWidgets/qtwidgetsglobal.h \

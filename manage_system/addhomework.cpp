@@ -1,4 +1,4 @@
-#include "addhomework.h"
+﻿#include "addhomework.h"
 #include "ui_addhomework.h"
 
 addhomework::addhomework(int now_year, QWidget *parent) :
@@ -39,8 +39,22 @@ addhomework::addhomework(int now_year, QWidget *parent) :
     main_layout -> addLayout(button_layout);
     connect(nian, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &addhomework::change_day);
     connect(yue, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &addhomework::change_day);
+    connect(complete, &QPushButton::clicked, this, &addhomework::try_upload_homework);
     connect(cancel, &QPushButton::clicked, this, &addhomework::clear_content);
     setLayout(main_layout);
+}
+
+void addhomework::try_upload_homework(){
+    if (homework_name_edit -> text() == "")
+        QMessageBox::critical(this, "添加错误", "请输入作业名称");
+    if (ri -> currentIndex() == -1 || shi -> currentIndex() == -1 || fen -> currentIndex() == -1)
+        QMessageBox::critical(this, "添加错误", "请输入完整的作业截止时间");
+    if (homework_describption -> text() == "")
+        QMessageBox::critical(this, "添加错误", "请输入作业描述");
+    MyTime ddl = MyTime(nian -> currentText().toInt(), yue -> currentText().toInt(),
+                               ri -> currentText().toInt(), shi -> currentText().toInt(),
+                               fen -> currentText().toInt());
+    emit homework_upload(homework_name_edit -> text(), ddl, homework_describption -> text());
 }
 
 addhomework::~addhomework()

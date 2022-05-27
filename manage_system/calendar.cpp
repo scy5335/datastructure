@@ -1,18 +1,27 @@
 #include "calendar.h"
 
-void Calendar::getRecordFromfile()
+QStringList Record::getRecordInfo()
+{
+    QStringList list;
+    list.append("活动事件:"+QString::fromStdString(event));
+    list.append("开始时间:"+QString::fromStdString(startTime.toString()));
+    list.append("结束时间:"+QString::fromStdString(endTime.toString()));
+    list.append("活动地点:"+QString::fromStdString(place));
+    return list;
+}
+void Calendar::readFile()
 {
     /*读取文件初始化日程链表，成员函数通过链表来操作，直到析构才释放链表*/
     int year1,month1,day1,hour1,minute1;
     int year2,month2,day2,hour2,minute2;
-    string event;
+    string place,type,event;
     ifstream file(path,ios::in);
     if(file.is_open()){
         while(!file.eof()){
             file>>year1>>month1>>day1>>hour1>>minute1;
             file>>year2>>month2>>day2>>hour2>>minute2;
-            file>>event;
-            addRecord(event,MyTime(year1,month1,day1,hour1,minute1),MyTime(year2,month2,day2,hour2,minute2));
+            file>>event>>place>>type;
+            addRecord(event,MyTime(year1,month1,day1,hour1,minute1),MyTime(year2,month2,day2,hour2,minute2),place,type);
         }
         file.close();
     }
@@ -36,6 +45,8 @@ void Calendar::updateFile()
             file<<endl<<temp->endTime.getHour();
             file<<endl<<temp->endTime.getMin();
             file<<endl<<temp->event;
+            file<<endl<<temp->place;
+            file<<endl<<temp->type;
             temp=temp->next;
         }
         file.close();
@@ -47,7 +58,7 @@ Calendar::Calendar(string path):
     head(new Record())
 {
     head->next=NULL;
-    getRecordFromfile();
+    readFile();
 }
 
 Calendar::~Calendar()
@@ -60,13 +71,15 @@ Calendar::~Calendar()
         temp=head;
     }
 }
-void Calendar::addRecord(string event,MyTime startTime,MyTime endTime)
+void Calendar::addRecord(string event,MyTime startTime,MyTime endTime,string place,string type)
 {
     Record* temp=head;
-    Record* r=new Record(event,startTime,endTime);
+    Record* r=new Record(event,startTime,endTime,place,type);
     while(temp->next){
-        if(event==temp->next->event)//不允许重名
+        if(event==temp->next->event){//不允许重名
+            delete r;
             return;
+        }
         if(startTime<temp->next->startTime){
             r->next=temp->next;
             temp->next=r;
@@ -78,7 +91,7 @@ void Calendar::addRecord(string event,MyTime startTime,MyTime endTime)
     }
     temp->next=r;//此时temp即是最后一个节点
 }
-void Calendar::updateRecord(string event,MyTime startTime,MyTime endTime)
+void Calendar::updateRecord(string event,MyTime startTime,MyTime endTime,string place,string type)
 {
     Record* temp=head->next;
     while(temp){
@@ -86,6 +99,8 @@ void Calendar::updateRecord(string event,MyTime startTime,MyTime endTime)
             temp->startTime=startTime;
             temp->endTime=endTime;
             temp->event=event;
+            temp->place=place;
+            temp->type=type;
             return;
         }
         else{
@@ -119,13 +134,10 @@ void Calendar::clear()
 }
 QStringList Calendar::getRecords()
 {
-    /*如何把日程链表转化为ui需要的列表?未完善*/
     QStringList list;
     Record *temp=head->next;
     while(temp){
-        list.append(QString::fromStdString(temp->startTime.toString()));
-        list.append(QString::fromStdString(temp->endTime.toString()));
-        list.append(QString::fromStdString(temp->event));
+        list+=temp->getRecordInfo();
         temp=temp->next;
     }
     return list;

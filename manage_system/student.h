@@ -1,4 +1,4 @@
-#ifndef STUDENT_H
+ï»¿#ifndef STUDENT_H
 #define STUDENT_H
 #include "logger.h"
 #include "calendar.h"
@@ -12,61 +12,61 @@ private:
     string userPassword;
     Logger logger;
     Calendar calendar;
-    Class *studentClass;//Ñ§Éú°à¼¶
+    Class *studentClass;//å­¦ç”Ÿç­çº§
 
 public:
+    /*è·å–å­¦ç”Ÿç­çº§id*/
+    int getClassId(int studentId);
     Student(int id);
     ~Student();
+    /*æ³¨å†Œå‡½æ•°,å‚æ•°ä¾æ¬¡ä¸ºå­¦ç”Ÿidï¼Œå­¦ç”Ÿå¯†ç ,é»˜è®¤ç­çº§2020211302ç­*/
+    static bool enroll(int studentId,string password,int classId=2020211302);
+    /*ç™»å½•éªŒè¯ï¼Œè‹¥idå’Œå¯†ç éªŒè¯æ­£ç¡®ï¼Œè¿”å›trueï¼Œå¦åˆ™æ³¨å†Œè´¦å·,é»˜è®¤åœ¨2020211302ç­åå•ä¸‹*/
+    static bool login(int studentId,string password);
 
-    /*»ñÈ¡Ñ§Éú°à¼¶id*/
-    int getClassId(int studentId);
-
-    /*¾²Ì¬³ÉÔ±º¯Êı,µÇÂ¼ÑéÖ¤£¬ÈôidºÍÃÜÂëÑéÖ¤ÕıÈ·£¬·µ»Øtrue£¬·ñÔò×¢²áÕËºÅ,Ä¬ÈÏÔÚ2020211302°àÃûµ¥ÏÂ*/
-    static bool login(int studentId,string password,int classId=2020211302);
-
-    /*¿Î³Ì¹¦ÄÜ*/
-    /*»ñÈ¡ËùÓĞ¿Î³ÌÃû³Æ*/
+    /*è¯¾ç¨‹åŠŸèƒ½*/
+    /*è·å–æ‰€æœ‰è¯¾ç¨‹åç§°*/
     QStringList getAllCourseName();
-    /*Ñ¯ÎÊ¿Î³ÌÊ±¼ä,²ÎÊıÎª¿Î³ÌÃû³Æ¡¢ĞÇÆÚ¼¸(1-7)ÒÔ¼°½ÓÊÕ·µ»Ø½á¹ûµÄ³¤¶ÈÎª3µÄÊı×é,Êı×éÒÀ´Î´æ·Å¿Î³Ì¿ªÊ¼Ğ¡Ê±£¬¿ªÊ¼·ÖÖÓ£¬Á¬Ğø¼¸½Ú¿Î*/
+    /*è¯¢é—®è¯¾ç¨‹æ—¶é—´,å‚æ•°ä¸ºè¯¾ç¨‹åç§°ã€æ˜ŸæœŸå‡ (1-7)ä»¥åŠæ¥æ”¶è¿”å›ç»“æœçš„é•¿åº¦ä¸º3çš„æ•°ç»„,æ•°ç»„ä¾æ¬¡å­˜æ”¾è¯¾ç¨‹å¼€å§‹å°æ—¶ï¼Œå¼€å§‹åˆ†é’Ÿï¼Œè¿ç»­å‡ èŠ‚è¯¾*/
     void getCourseTime(string courseName,int day,int *timeTable);
-    /*Ñ¯ÎÊ¿Î³ÌµØµã,²ÎÊıÎª¿Î³ÌÃû³Æ,·µ»ØÖµÎª¿Î³ÌµØµã±àºÅ*/
+    /*è¯¢é—®è¯¾ç¨‹åœ°ç‚¹,å‚æ•°ä¸ºè¯¾ç¨‹åç§°,è¿”å›å€¼ä¸ºè¯¾ç¨‹åœ°ç‚¹ç¼–å·*/
     int getCoursePlace(string courseName);
-    /*Ñ¯ÎÊ¿Î³Ì½ø¶È,²ÎÊıÎª¿Î³ÌÃû³Æ*/
+    /*è¯¢é—®è¯¾ç¨‹è¿›åº¦,å‚æ•°ä¸ºè¯¾ç¨‹åç§°*/
     string getSchedule(string courseName);
-    /*Ñ¯ÎÊ¿Î³ÌÈº,²ÎÊıÎª¿Î³ÌÃû³Æ*/
+    /*è¯¢é—®è¯¾ç¨‹ç¾¤,å‚æ•°ä¸ºè¯¾ç¨‹åç§°*/
     string getCourseGroup(string courseName);
 
-    /*¿Î³Ì×ÊÁÏ¹¦ÄÜ*/
-    /*»ñÈ¡¿Î³Ì×ÊÁÏÃû³Æ,·µ»ØÖµÎª×ÊÁÏÃû³ÆÁĞ±í*/
+    /*è¯¾ç¨‹èµ„æ–™åŠŸèƒ½*/
+    /*è·å–è¯¾ç¨‹èµ„æ–™åç§°,è¿”å›å€¼ä¸ºèµ„æ–™åç§°åˆ—è¡¨*/
     QStringList getCourseDataName(string courseName);
-    /*ÏÂÔØ¿Î³Ì×ÊÁÏ,²ÎÊıÒÀ´ÎÎª¿Î³ÌÃû³Æ,×ÊÁÏÃû³Æ£¬´æ·ÅÂ·¾¶*/
+    /*ä¸‹è½½è¯¾ç¨‹èµ„æ–™,å‚æ•°ä¾æ¬¡ä¸ºè¯¾ç¨‹åç§°,èµ„æ–™åç§°ï¼Œå­˜æ”¾è·¯å¾„*/
     void getCourseData(string courseName,string dataName,string filePath);
 
-    /*×÷Òµ¹¦ÄÜ*/
-    /*Ìá½»×÷Òµ,²ÎÊıÎª¿Î³ÌÃû³Æ,·µ»ØÖµÁĞ±íÒÀ´ÎÎª×÷ÒµÃû³Æ£¬×÷ÒµÎÄ¼şÂ·¾¶*/
+    /*ä½œä¸šåŠŸèƒ½*/
+    /*æäº¤ä½œä¸š,å‚æ•°ä¸ºè¯¾ç¨‹åç§°,è¿”å›å€¼åˆ—è¡¨ä¾æ¬¡ä¸ºä½œä¸šåç§°ï¼Œä½œä¸šæ–‡ä»¶è·¯å¾„*/
     void submitHomework(string courseName,string homeworkName,string filePath);
-    /*Ñ¯ÎÊÒÑÍê³É×÷Òµ,²ÎÊıÎª¿Î³ÌÃû³Æ,·µ»ØÖµÁĞ±íÒÀ´ÎÎª×÷ÒµÃû³Æ£¬×÷ÒµÃèÊö...*/
+    /*è¯¢é—®å·²å®Œæˆä½œä¸š,å‚æ•°ä¸ºè¯¾ç¨‹åç§°,è¿”å›å€¼åˆ—è¡¨ä¾æ¬¡ä¸ºä½œä¸šåç§°ï¼Œä½œä¸šæè¿°...*/
     QStringList getHomeworkDone(string courseName);
-    /*Ñ¯ÎÊÎ´Íê³É×÷Òµ,²ÎÊıÎª¿Î³ÌÃû³Æ,·µ»ØÖµÁĞ±íÒÀ´ÎÎª×÷ÒµÃû³Æ£¬×÷ÒµÃèÊö...*/
+    /*è¯¢é—®æœªå®Œæˆä½œä¸š,å‚æ•°ä¸ºè¯¾ç¨‹åç§°,è¿”å›å€¼åˆ—è¡¨ä¾æ¬¡ä¸ºä½œä¸šåç§°ï¼Œä½œä¸šæè¿°...*/
     QStringList getHomeworkTodo(string courseName);
 
-    /*¿¼ÊÔ¹¦ÄÜ*/
-    /*²éÑ¯¿¼ÊÔ£¬²ÎÊıÎª¿Î³ÌÃû³Æ£¬·µ»ØÖµÁĞ±íÒÀ´ÎÎª¿¼ÊÔÃû³Æ£¬¿ªÊ¼Ê±¼ä£¬³ÖĞø·ÖÖÓ£¬¿¼ÊÔµØµã*/
+    /*è€ƒè¯•åŠŸèƒ½*/
+    /*æŸ¥è¯¢è€ƒè¯•ï¼Œå‚æ•°ä¸ºè¯¾ç¨‹åç§°ï¼Œè¿”å›å€¼åˆ—è¡¨ä¾æ¬¡ä¸ºè€ƒè¯•åç§°ï¼Œå¼€å§‹æ—¶é—´ï¼ŒæŒç»­åˆ†é’Ÿï¼Œè€ƒè¯•åœ°ç‚¹*/
     QStringList getExamInfo(string courseName);
 
 
-    /*ÈÕ³Ì±í¹¦ÄÜ*/
-    /*Ôö¼ÓÈÕ³Ì°²ÅÅ,ÒªÇóÈÕ³Ì°²ÅÅ²»ÄÜÖØÃû,·ñÔò»áË¢ĞÂÈÕ³Ì,²ÎÊıÒÀ´ÎÎªÊÂ¼ş,¿ªÊ¼Ê±¼ä£¬½áÊøÊ±¼ä*/
-    void insertRecord(string event,MyTime startTime,MyTime endTime);
-    /*ĞŞ¸ÄÈÕ³Ì°²ÅÅ,²ÎÊıÒÀ´ÎÎªÊÂ¼ş,¿ªÊ¼Ê±¼ä£¬½áÊøÊ±¼ä*/
-    void updateRecord(string event,MyTime startTime,MyTime endTime);
-    /*É¾³ıÌØ¶¨ÈÕ³Ì°²ÅÅ,²ÎÊıÎªÊÂ¼ş*/
+    /*æ—¥ç¨‹è¡¨åŠŸèƒ½*/
+    /*å¢åŠ æ—¥ç¨‹å®‰æ’,è¦æ±‚æ—¥ç¨‹å®‰æ’ä¸èƒ½é‡å,å¦åˆ™ä¼šåˆ·æ–°æ—¥ç¨‹,å‚æ•°ä¾æ¬¡ä¸ºäº‹ä»¶,å¼€å§‹æ—¶é—´ï¼Œç»“æŸæ—¶é—´*/
+    void insertRecord(string event,MyTime startTime,MyTime endTime,string place="æ— ",string type="ä¸ªäººæ´»åŠ¨");
+    /*ä¿®æ”¹æ—¥ç¨‹å®‰æ’,å‚æ•°ä¾æ¬¡ä¸ºäº‹ä»¶,å¼€å§‹æ—¶é—´ï¼Œç»“æŸæ—¶é—´*/
+    void updateRecord(string event,MyTime startTime,MyTime endTime,string place="æ— ",string type=personalType);
+    /*åˆ é™¤ç‰¹å®šæ—¥ç¨‹å®‰æ’,å‚æ•°ä¸ºäº‹ä»¶*/
     void deleteRecord(string event);
-    /*Çå³ıËùÓĞÈÕ³Ì°²ÅÅ*/
+    /*æ¸…é™¤æ‰€æœ‰æ—¥ç¨‹å®‰æ’*/
     void clearRecords();
-    /*»ñÈ¡ÈÕ³ÌÁĞ±í*/
+    /*è·å–æ—¥ç¨‹åˆ—è¡¨*/
     QStringList getRecords();
-    /*¼ì²âÈÕ³Ì³åÍ»*/
+    /*æ£€æµ‹æ—¥ç¨‹å†²çª*/
     bool checkTimeConflict();
 };
 

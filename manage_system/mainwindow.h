@@ -182,9 +182,9 @@ private:
 
     //manage
     Manager *log_manager;
-    QComboBox* class_select, *place_message;
+    QComboBox* class_select, *place_message, *class_count;
     QLabel* ask_class, *class_name_title, *place_message_title, *teacher_name_title, *test_title,
-            *homework_title;
+            *homework_title, *class_count_title;
     QGridLayout* message_layout, *button_grid;
     QLineEdit* teacher_message, *class_name;
     QHBoxLayout* class_layout, *detail_info_layout;
@@ -195,9 +195,22 @@ private:
     addtest* add_test_page;
     addhomework* add_homework_page;
     material_manage_page* material_page;
+    int select_row, select_column, select_type;
     void test_add_page();
     void homework_add_page();
     void material_add_page();
+    void manager_get_course_info();
+    void show_manager_lesson_info(int row, int column);
+    void test_upload(QString test_name, MyTime start_time, int place, int last_time);
+    void test_delete();
+    void homework_upload(QString homework_name, MyTime ddl, QString homework_description);
+    void homework_delete();
+    void try_add_lesson();
+    void delete_this_lesson();
+    void trans_hour_min(int row, int &hour, int &min);
+    void add_new_material(QString description, QString file_path);
+    void get_all_material();
+    void delete_material(QString description);
 };
 
 #endif // MAINWINDOW_H

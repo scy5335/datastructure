@@ -1,4 +1,4 @@
-#include "logwindow.h"
+﻿#include "logwindow.h"
 #include "ui_logwindow.h"
 
 logwindow::logwindow(QWidget *parent) :
@@ -19,7 +19,7 @@ void logwindow::TryLogin()
         this->hide();
         emit showmainwindow(user -> text().toInt());
     }
-    else if (user -> text() == "11" || password -> text() == "22"){
+    else if (user -> text() == "0" && Manager::login(password -> text().toStdString())){
         this->hide();
         emit showmanagewindow();
     }

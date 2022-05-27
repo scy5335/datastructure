@@ -1,10 +1,12 @@
 C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/manage_system_autogen/EWIEGA46WW/moc_logwindow.cpp: C:/Users/18214/Documents/GitHub/datastructure/manage_system/logwindow.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/alarm.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/calendar.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/class.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/course.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/data.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/hfmtree.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/logger.h \
+  C:/Users/18214/Documents/GitHub/datastructure/manage_system/manager.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/mytime.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/student.h \
   C:/Users/18214/Documents/GitHub/datastructure/manage_system/task.h \
