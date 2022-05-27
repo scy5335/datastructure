@@ -98,11 +98,11 @@ void mainwindow::student_page_set(){
 }
 
 void mainwindow::download_task(QString data_name, QString file_name){
-    student_class -> downloadCourseData(lesson_name -> text().toStdString(), data_name.toStdString(), file_name.toLocal8Bit().data());
+    student_class -> downloadCourseData(lesson_name -> text().toLocal8Bit().data(), data_name.toLocal8Bit().data(), file_name.toLocal8Bit().data());
 }
 
 void mainwindow::submit_homework(QString homework_name, QString file_name){
-    log_student -> submitHomework(lesson_name -> text().toStdString(), homework_name.toStdString(),
+    log_student -> submitHomework(lesson_name -> text().toLocal8Bit().data(), homework_name.toLocal8Bit().data(),
                                   file_name.toLocal8Bit().data());
 }
 
@@ -190,7 +190,7 @@ void mainwindow::student_get_course_info(){
     int len = class_list.length(), course_time[3];
     for (int i = 0; i < len; i++)
         for (int j = 1; j <= 7; j++){
-            log_student -> getCourseTime(class_list[i].toStdString(), j, course_time);
+            log_student -> getCourseTime(class_list[i].toLocal8Bit().data(), j, course_time);
             if (!course_time[2]) continue;
             else {
                 QString format_min = QString::number(course_time[0]),
@@ -205,7 +205,7 @@ void mainwindow::student_get_course_info(){
                         break;
                 lessontable -> setSpan(k, j-1, course_time[2], 1);
                 lessontable -> item(k, j-1) -> setText(class_list[i] + "\n" +
-                                                       place_name[log_student -> getCoursePlace(class_list[i].toStdString())]);
+                                                       place_name[log_student -> getCoursePlace(class_list[i].toLocal8Bit().data())]);
             }
         }
 }
@@ -220,7 +220,7 @@ void mainwindow::manager_get_course_info(){
     int len = class_list.length(), course_time[3];
     for (int i = 0; i < len; i++)
         for (int j = 1; j <= 7; j++){
-            new_class.getCourseTime(class_list[i].toStdString(), j, course_time);
+            new_class.getCourseTime(class_list[i].toLocal8Bit().data(), j, course_time);
             if (!course_time[2]) continue;
             else {
                 QString format_hour = QString::number(course_time[0]),
@@ -235,7 +235,7 @@ void mainwindow::manager_get_course_info(){
                         break;
                 lessontable -> setSpan(k, j-1, course_time[2], 1);
                 lessontable -> item(k, j-1) -> setText(class_list[i] + "\n" +
-                                                       place_name[new_class.getCoursePlace(class_list[i].toStdString())]);
+                                                       place_name[new_class.getCoursePlace(class_list[i].toLocal8Bit().data())]);
             }
         }
 }
@@ -246,7 +246,7 @@ void mainwindow::show_lesson_info(int row, int column){
     lesson_place -> setText(lesson_main_info[1]);
     test_info -> clearContents();
     test_info -> setRowCount(0);
-    QStringList now_test_info = log_student -> getExamInfo(lesson_main_info[0].toStdString());
+    QStringList now_test_info = log_student -> getExamInfo(lesson_main_info[0].toLocal8Bit().data());
     if (now_test_info.length()){
         test_info -> setRowCount(1);
         test_info -> setItem(0, 0, new QTableWidgetItem(now_test_info[0]));
@@ -256,7 +256,7 @@ void mainwindow::show_lesson_info(int row, int column){
     }
     homework_info -> clearContents();
     homework_info -> setRowCount(0);
-    QStringList now_homework_info = student_class -> getHomework(lesson_main_info[0].toStdString());
+    QStringList now_homework_info = student_class -> getHomework(lesson_main_info[0].toLocal8Bit().data());
     int row_count = homework_info -> rowCount(), len = now_homework_info.length();
     for (int i = 0; i < len; i++){
         homework_info -> setRowCount(row_count + 1);
@@ -290,7 +290,7 @@ void mainwindow::show_manager_lesson_info(int row, int column){
     place_message -> setCurrentIndex(place_message -> findText(lesson_main_info[1]));
     test_list -> clearContents();
     test_list -> setRowCount(0);
-    QStringList now_test_info = log_manager -> getExamInfo(lesson_main_info[0].toStdString(), class_select -> currentText().toInt());
+    QStringList now_test_info = log_manager -> getExamInfo(lesson_main_info[0].toLocal8Bit().data(), class_select -> currentText().toInt());
     if (now_test_info.length()){
         test_list -> setRowCount(1);
         QTableWidgetItem *p_check = new QTableWidgetItem();
@@ -304,7 +304,7 @@ void mainwindow::show_manager_lesson_info(int row, int column){
     test_list -> horizontalHeader() -> setSectionResizeMode(QHeaderView::ResizeToContents);
     homework_list -> clearContents();
     homework_list -> setRowCount(0);
-    QStringList now_homework_info = log_manager -> getHomework(lesson_main_info[0].toStdString(), class_select -> currentText().toInt());
+    QStringList now_homework_info = log_manager -> getHomework(lesson_main_info[0].toLocal8Bit().data(), class_select -> currentText().toInt());
     int row_count = homework_list -> rowCount(), len = now_homework_info.length();
     for (int i = 0; i < len; i++){
         homework_list -> setRowCount(row_count + 1);
@@ -397,9 +397,9 @@ void mainwindow::try_add_calendar(){
         QMessageBox::critical(this, "添加活动出错", "开始时间晚于结束时间");
         return;
     }
-    log_student -> insertRecord(calendar_description -> text().toStdString(), start_time, end_time);
+    log_student -> insertRecord(calendar_description -> text().toLocal8Bit().data(), start_time, end_time);
     if (log_student -> checkTimeConflict()){
-        log_student -> deleteRecord(calendar_description -> text().toStdString());
+        log_student -> deleteRecord(calendar_description -> text().toLocal8Bit().data());
         QMessageBox::critical(this, "添加活动出错", "活动冲突");
         return;
     }
@@ -410,7 +410,7 @@ void mainwindow::delete_calendars(){
     int len = calendar_list -> rowCount();
     for (int i = 0; i < len; i++)
         if (calendar_list -> item(i, 0) -> checkState() == Qt::Checked)
-            log_student -> deleteRecord(calendar_list -> item(i, 1) -> text().toStdString());
+            log_student -> deleteRecord(calendar_list -> item(i, 1) -> text().toLocal8Bit().data());
     calendar_display();
 }
 
@@ -661,7 +661,7 @@ void mainwindow::manage_page_set(){
 
 void mainwindow::test_delete(){
     if (test_list -> rowCount() == 1 && test_list -> item(0, 0) -> checkState() == Qt::Checked)
-        log_manager -> deleteExam(class_name -> text().toStdString(), class_select -> currentText().toInt());
+        log_manager -> deleteExam(class_name -> text().toLocal8Bit().data(), class_select -> currentText().toInt());
     show_manager_lesson_info(select_row, select_column);
 }
 
@@ -723,7 +723,7 @@ void mainwindow::trans_hour_min(int row, int &hour, int &min){
 void mainwindow::delete_this_lesson(){
     if (class_name -> text() == "")
         return;
-    log_manager -> deleteCoure(class_name -> text().toStdString(), class_select -> currentText().toInt());
+    log_manager -> deleteCoure(class_name -> text().toLocal8Bit().data(), class_select -> currentText().toInt());
     manager_get_course_info();
 }
 
@@ -738,21 +738,21 @@ void mainwindow::try_add_lesson(){
         QMessageBox::critical(this, "添加课程错误", "课程结束时间超过最晚的课程");
     if (select_type)
         delete_this_lesson();
-    log_manager -> addCourse(class_name -> text().toStdString(), place_message -> currentIndex(),
+    log_manager -> addCourse(class_name -> text().toLocal8Bit().data(), place_message -> currentIndex(),
                         class_select -> currentText().toInt());
     qDebug()<<"地点信息"<<place_message -> currentIndex();
     int hour, min;
     trans_hour_min(select_row, hour, min);
     qDebug()<<select_row<<hour<<min;
-    log_manager -> setCourseTime(class_name -> text().toStdString(), select_column + 1, hour, min,
+    log_manager -> setCourseTime(class_name -> text().toLocal8Bit().data(), select_column + 1, hour, min,
                                  class_count -> currentText().toInt(), class_select -> currentText().toInt());
     manager_get_course_info();
     show_manager_lesson_info(select_row, select_column);
 }
 
 void mainwindow::test_upload(QString test_name, MyTime start_time, int place, int last_time){
-    log_manager -> uploadExam(class_name -> text().toStdString(),
-                               test_name.toStdString(), start_time, place,
+    log_manager -> uploadExam(class_name -> text().toLocal8Bit().data(),
+                               test_name.toLocal8Bit().data(), start_time, place,
                                last_time, class_select -> currentText().toInt());
     show_manager_lesson_info(select_row, select_column);
     add_test_page -> hide();
@@ -762,8 +762,8 @@ void mainwindow::homework_delete(){
     int len = homework_list -> rowCount();
     for (int i = 0; i < len; i++)
         if (homework_list -> item(i, 0) -> checkState() == Qt::Checked)
-            log_manager -> deleteHomework(class_name -> text().toStdString(),
-                                       homework_list -> item(i, 1) -> text().toStdString(),
+            log_manager -> deleteHomework(class_name -> text().toLocal8Bit().data(),
+                                       homework_list -> item(i, 1) -> text().toLocal8Bit().data(),
                                        class_select -> currentText().toInt());
     show_manager_lesson_info(select_row, select_column);
 }
@@ -776,8 +776,8 @@ void mainwindow::homework_add_page(){
 }
 
 void mainwindow::homework_upload(QString homework_name, MyTime ddl, QString homework_description){
-    log_manager -> uploadHomework(class_name -> text().toStdString(), homework_name.toStdString(),
-                             ddl, homework_description.toStdString(), class_select -> currentText().toInt());
+    log_manager -> uploadHomework(class_name -> text().toLocal8Bit().data(), homework_name.toLocal8Bit().data(),
+                             ddl, homework_description.toLocal8Bit().data(), class_select -> currentText().toInt());
     show_manager_lesson_info(select_row, select_column);
     add_homework_page -> hide();
 }
@@ -793,23 +793,23 @@ void mainwindow::material_add_page(){
 
 void mainwindow::show_material_page(){
     if (student_material_page != NULL) delete student_material_page;
-    student_material_page = new material_detail(log_student -> getCourseDataName(lesson_name -> text().toStdString()));
+    student_material_page = new material_detail(log_student -> getCourseDataName(lesson_name -> text().toLocal8Bit().data()));
     student_material_page -> show();
     connect(student_material_page, &material_detail::download, this, &mainwindow::download_task);
 }
 
 void mainwindow::get_all_material(){
-    material_page -> set_all_material(log_manager -> getCourseDataInfo(class_name -> text().toStdString(),
+    material_page -> set_all_material(log_manager -> getCourseDataInfo(class_name -> text().toLocal8Bit().data(),
                                                                        class_select -> currentText().toInt()));
 }
 
 void mainwindow::delete_material(QString description){
-    log_manager -> removeCourseData(class_name -> text().toStdString(), description.toStdString(),
+    log_manager -> removeCourseData(class_name -> text().toLocal8Bit().data(), description.toLocal8Bit().data(),
                                     class_select -> currentText().toInt());
 }
 
 void mainwindow::add_new_material(QString description, QString file_path){
-    log_manager -> uploadCourseData(class_name -> text().toStdString(),description.toStdString(),
+    log_manager -> uploadCourseData(class_name -> text().toLocal8Bit().data(),description.toLocal8Bit().data(),
                                     file_path.toLocal8Bit().data(), class_select -> currentText().toInt());
 }
 
@@ -826,7 +826,7 @@ void mainwindow::show_homework_page(){
         }
     if (id == -1) return;
     if (student_homework_page != NULL) delete student_homework_page;
-    QStringList homework_total_info, now_homework_info = student_class -> getHomework(lesson_name->text().toStdString());
+    QStringList homework_total_info, now_homework_info = student_class -> getHomework(lesson_name->text().toLocal8Bit().data());
     homework_total_info << now_homework_info[id * 3] << now_homework_info[id * 3 + 1]
                         << now_homework_info[id * 3 + 2];
     student_homework_page = new homework_submit_page(homework_total_info);
@@ -1164,7 +1164,7 @@ void alarm_page::get_new_alarm(){
     }
 
     Alarm new_alarm = Alarm(hour -> currentIndex(), minute -> currentIndex(), state, 1,
-                            alarm_description -> text().toStdString());
+                            alarm_description -> text().toLocal8Bit().data());
     emit create_new_alarm(new_alarm);
 }
 

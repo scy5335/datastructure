@@ -62,12 +62,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="material_manage_page.cpp" line="68"/>
+        <location filename="material_manage_page.cpp" line="69"/>
         <source>选择文件</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="material_manage_page.cpp" line="68"/>
+        <location filename="material_manage_page.cpp" line="69"/>
         <source>All files(*.*)</source>
         <translation type="unfinished"></translation>
     </message>

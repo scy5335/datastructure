@@ -49,6 +49,7 @@ void material_manage_page::try_delete_material(){
     for (int i = 0; i < row_count; i++)
         if (material_list -> item(i, 0) -> checkState() == Qt::Checked)
             emit delete_material(material_list -> item(i, 1) -> text());
+    emit get_all_material();
 }
 
 void material_manage_page::create_new_material(){

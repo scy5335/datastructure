@@ -170,7 +170,7 @@ QStringList Class::getAllCourseName()
 {
     QStringList list;
     for(int i=0;i<courseNum;++i){
-        list.append(QString::fromStdString(getCourseName(course[i]->getCourseId())));
+        list.append(QString::fromLocal8Bit(getCourseName(course[i]->getCourseId())));
     }
     return list;
 }
@@ -179,8 +179,8 @@ QStringList Class::getCourseInfo(string courseName)
 {
     QStringList list;
     list+=QString::number(getCoursePlace(courseName));
-    list+=QString::fromStdString(getSchedule(courseName));
-    list+=QString::fromStdString(getCourseGroup(courseName));
+    list+=QString::fromLocal8Bit(getSchedule(courseName));
+    list+=QString::fromLocal8Bit(getCourseGroup(courseName));
     return list;
 }
 
@@ -230,7 +230,7 @@ QStringList Class::getCourseDataInfo(string courseName)
     if(getCourse(courseName)){
         int dataNum=getCourse(courseName)->getDataNum();
         for(int i=0;i<dataNum;++i){
-            list.append(QString::fromStdString(getCourse(courseName)->data[i]->getName()));
+            list.append(QString::fromLocal8Bit(getCourse(courseName)->data[i]->getName()));
         }
     }
     return list;
@@ -287,8 +287,8 @@ QStringList Class::getExamInfo(string courseName)
     QStringList list;
     if(getCourse(courseName)){
         Course *c=getCourse(courseName);
-        list.append(QString::fromStdString(c->getExamName()));
-        list.append(QString::fromStdString(c->getStartTime().toString()));
+        list.append(QString::fromLocal8Bit(c->getExamName()));
+        list.append(QString::fromLocal8Bit(c->getStartTime().toString()));
         list.append(QString::number(c->getLastMinute()));
         list.append(QString::number(c->getLocale()));
     }
@@ -323,9 +323,9 @@ QStringList Class::getHomework(string courseName)
         Course *c=getCourse(courseName);
         for(int i=0;i<c->getTaskNum();i++)
         {
-            list.append(QString::fromStdString(c->task[i]->getName()));
-            list.append(QString::fromStdString(c->task[i]->deadline.toString()));
-            list.append(QString::fromStdString(c->task[i]->getDesc()));
+            list.append(QString::fromLocal8Bit(c->task[i]->getName()));
+            list.append(QString::fromLocal8Bit(c->task[i]->deadline.toString()));
+            list.append(QString::fromLocal8Bit(c->task[i]->getDesc()));
             //这里只能查询到布置作业的名称和作业描述
         }
     }
@@ -348,8 +348,8 @@ QStringList Class::getHomeworkDone(string courseName,int userId)
             /*haveIFinished函数返回值为0时，表示作业未完成,大于0表示完成*/
             Task *t=c->task[i];
             if(t->haveIFinished(userId)>0){
-                list.append(QString::fromStdString(t->getName()));
-                list.append(QString::fromStdString(t->getDesc()));
+                list.append(QString::fromLocal8Bit(t->getName()));
+                list.append(QString::fromLocal8Bit(t->getDesc()));
             }
         }
     }
@@ -365,8 +365,8 @@ QStringList Class::getHomeworkTodo(string courseName,int userId)
             /*haveIFinished函数返回值为0时，表示作业未完成,大于0表示完成*/
             Task *t=c->task[i];
             if(t->haveIFinished(userId)==0){
-                list.append(QString::fromStdString(t->getName()));
-                list.append(QString::fromStdString(t->getDesc()));
+                list.append(QString::fromLocal8Bit(t->getName()));
+                list.append(QString::fromLocal8Bit(t->getDesc()));
             }
         }
     }
