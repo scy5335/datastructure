@@ -747,12 +747,15 @@ void mainwindow::try_add_lesson(){
     log_manager -> setCourseTime(class_name -> text().toStdString(), select_column + 1, hour, min,
                                  class_count -> currentText().toInt(), class_select -> currentText().toInt());
     manager_get_course_info();
+    show_manager_lesson_info(select_row, select_column);
 }
 
 void mainwindow::test_upload(QString test_name, MyTime start_time, int place, int last_time){
     log_manager -> uploadExam(class_name -> text().toStdString(),
                                test_name.toStdString(), start_time, place,
                                last_time, class_select -> currentText().toInt());
+    show_manager_lesson_info(select_row, select_column);
+    add_test_page -> hide();
 }
 
 void mainwindow::homework_delete(){
@@ -775,6 +778,8 @@ void mainwindow::homework_add_page(){
 void mainwindow::homework_upload(QString homework_name, MyTime ddl, QString homework_description){
     log_manager -> uploadHomework(class_name -> text().toStdString(), homework_name.toStdString(),
                              ddl, homework_description.toStdString(), class_select -> currentText().toInt());
+    show_manager_lesson_info(select_row, select_column);
+    add_homework_page -> hide();
 }
 
 void mainwindow::material_add_page(){

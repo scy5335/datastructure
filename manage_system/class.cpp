@@ -14,11 +14,12 @@ Class::Class(int classId):classId(classId),courseNum(0),course(NULL)
 {
     //读取班级课程文件，逐个获取课程id
     int courseId[20];//限制一个班级最多20门课
+    string courseName;
     fstream file;
-    file.open("class\\"+to_string(classId)+"_course.txt",ios::in);
+    file.open("class\\"+to_string(classId)+"courseId.txt",ios::in);
     if(file.is_open()){
         while(!file.eof()){
-            file>>courseId[courseNum++];
+            file>>courseId[courseNum++]>>courseName;
         }
         file.close();
     }
@@ -77,7 +78,7 @@ void Class::addCourse(string courseName, int locale, int classId)
     int id=0;
     string name;
     fstream file;
-    qDebug()<<"???";
+
     //注册新的课程id
     file.open("class\\"+to_string(classId)+"courseId.txt",ios::in);
     if(file.is_open()){
@@ -97,23 +98,23 @@ void Class::addCourse(string courseName, int locale, int classId)
         file.close();
     }
 
-    /*在班级课程名单登记课程id*/
-    file.open("class\\"+to_string(classId)+"_course.txt",ios::in);
-    if(file.is_open()){
-        int courseId;
-        while(!file.eof()){
-            file>>courseId;
-            if(courseId==id){
-                file.close();
-                return;
-            }
-        }
-        file.close();
-    }
-    file.open("class\\"+to_string(classId)+"_course.txt",ios::app);
-    if(file.is_open()){
-        file<<endl<<id;
-    }
+    //    /*在班级课程名单登记课程id*/
+    //    file.open("class\\"+to_string(classId)+"_course.txt",ios::in);
+    //    if(file.is_open()){
+    //        int courseId;
+    //        while(!file.eof()){
+    //            file>>courseId;
+    //            if(courseId==id){
+    //                file.close();
+    //                return;
+    //            }
+    //        }
+    //        file.close();
+    //    }
+    //    file.open("class\\"+to_string(classId)+"_course.txt",ios::app);
+    //    if(file.is_open()){
+    //        file<<endl<<id;
+    //    }
     /*在课程类登记课程id*/
     Course c(id,locale,"class\\"+to_string(classId)+"course");
     c.saveFile();
@@ -124,6 +125,28 @@ void Class::deleteCoure(string courseName)
 {
     if(getCourse(courseName)){
         getCourse(courseName)->remove();
+
+        int id[50];
+        string name[50];
+        /*修改班级下的课程名单*/
+        fstream file;
+        file.open("class\\"+to_string(classId)+"courseId.txt",ios::in);
+        if(file.is_open()){
+            int i=0;
+            while(!file.eof()){
+                file>>id[i]>>name[i];
+                ++i;
+            }
+            file.close();
+        }
+        file.open("class\\"+to_string(classId)+"courseId.txt",ios::out);
+        if(file.is_open()){
+            for(int i=0;i<courseNum;++i){
+                if(name[i]!=courseName)
+                    file<<endl<<id[i]<<endl<<name[i];
+            }
+            file.close();
+        }
     }
 }
 
@@ -155,9 +178,9 @@ QStringList Class::getAllCourseName()
 QStringList Class::getCourseInfo(string courseName)
 {
     QStringList list;
-    list+="上课地点:"+QString::number(getCoursePlace(courseName));
-    list+="课程进度:"+QString::fromStdString(getSchedule(courseName));
-    list+="课程群号:"+QString::fromStdString(getCourseGroup(courseName));
+    list+=QString::number(getCoursePlace(courseName));
+    list+=QString::fromStdString(getSchedule(courseName));
+    list+=QString::fromStdString(getCourseGroup(courseName));
     return list;
 }
 
@@ -264,10 +287,10 @@ QStringList Class::getExamInfo(string courseName)
     QStringList list;
     if(getCourse(courseName)){
         Course *c=getCourse(courseName);
-        list.append("考试名称:"+QString::fromStdString(c->getExamName()));
-        list.append("开始时间:"+QString::fromStdString(c->getStartTime().toString()));
-        list.append("考试时长(分钟):"+QString::number(c->getLastMinute()));
-        list.append("考试地点:"+QString::number(c->getLocale()));
+        list.append(QString::fromStdString(c->getExamName()));
+        list.append(QString::fromStdString(c->getStartTime().toString()));
+        list.append(QString::number(c->getLastMinute()));
+        list.append(QString::number(c->getLocale()));
     }
     return list;
 }
@@ -298,8 +321,6 @@ QStringList Class::getHomework(string courseName)
     QStringList list;
     if(getCourse(courseName)){
         Course *c=getCourse(courseName);
-        //Task t;
-        //数据残缺,无法获取task数目，只能通过判断空指针
         for(int i=0;i<c->getTaskNum();i++)
         {
             list.append(QString::fromStdString(c->task[i]->getName()));
