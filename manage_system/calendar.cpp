@@ -3,10 +3,10 @@
 QStringList Record::getRecordInfo()
 {
     QStringList list;
-    list.append("活动事件:"+QString::fromStdString(event));
-    list.append("开始时间:"+QString::fromStdString(startTime.toString()));
-    list.append("结束时间:"+QString::fromStdString(endTime.toString()));
-    list.append("活动地点:"+QString::fromStdString(place));
+    list.append(QString::fromStdString(event));
+    list.append(QString::fromStdString(startTime.toString()));
+    list.append(QString::fromStdString(endTime.toString()));
+    list.append(QString::number(place));
     return list;
 }
 void Calendar::readFile()
@@ -14,7 +14,8 @@ void Calendar::readFile()
     /*读取文件初始化日程链表，成员函数通过链表来操作，直到析构才释放链表*/
     int year1,month1,day1,hour1,minute1;
     int year2,month2,day2,hour2,minute2;
-    string place,type,event;
+    int place,type;
+    string event;
     ifstream file(path,ios::in);
     if(file.is_open()){
         while(!file.eof()){
@@ -71,7 +72,7 @@ Calendar::~Calendar()
         temp=head;
     }
 }
-void Calendar::addRecord(string event,MyTime startTime,MyTime endTime,string place,string type)
+void Calendar::addRecord(string event,MyTime startTime,MyTime endTime,int place,int type)
 {
     Record* temp=head;
     Record* r=new Record(event,startTime,endTime,place,type);
@@ -91,7 +92,7 @@ void Calendar::addRecord(string event,MyTime startTime,MyTime endTime,string pla
     }
     temp->next=r;//此时temp即是最后一个节点
 }
-void Calendar::updateRecord(string event,MyTime startTime,MyTime endTime,string place,string type)
+void Calendar::updateRecord(string event,MyTime startTime,MyTime endTime,int place,int type)
 {
     Record* temp=head->next;
     while(temp){
@@ -142,19 +143,45 @@ QStringList Calendar::getRecords()
     }
     return list;
 }
-bool Calendar::checkTimeConflict()
+bool Calendar::checkTimeConflict(MyTime* courseTTb[15][8])
 {
-    Record *preTemp,*temp;
-    preTemp=head->next;
-    if(preTemp){
-        temp=preTemp->next;
-        while(temp&&preTemp->endTime<temp->startTime){
-            preTemp=temp;
-            temp=temp->next;
+    Record *preTemp=head,*temp=head->next;
+    while(temp){
+        if(preTemp!=head&&temp->startTime<preTemp->endTime){
+            return true;//课外活动自身冲突
         }
-        if(temp){//由于发生时间冲突退出循环
-            return true;
+
+        int day=temp->startTime.getWeek0_6()+1;//day记录temp的开始时间所属星期几
+        for(int i=1;i<=14;++i){
+            if(courseTTb[i][day]!=NULL){
+
+                int time1=temp->startTime.getHour()*100+temp->startTime.getMin();
+                int time2=courseTTb[i][day]->getHour()*100+courseTTb[i][day]->getMin();
+                if(time1<time2){
+                    time1=temp->endTime.getHour()*100+temp->endTime.getMin();
+                    if(time2<time1){
+                        return true;//课外活动夹着课程开始时间
+                    }
+                    else{
+                        break;//课外活动完全处于某一课程开始时间之前
+                    }
+                }
+                else{
+                    MyTime endTime=*courseTTb[i][day];
+                    endTime.minIncre(45);
+
+                    int time3=temp->startTime.getHour()*100+temp->startTime.getMin();
+                    int time4=endTime.getHour()*100+endTime.getMin();
+                    if(time3<time4){
+                        return true;//课外活动夹着课程结束时间
+                    }
+                }
+            }
         }
+
+        preTemp=temp;
+        temp=temp->next;
     }
     return false;
 }
+

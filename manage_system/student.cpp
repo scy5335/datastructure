@@ -19,23 +19,23 @@ int Student::getClassId(int studentId)
 
 Student::Student(int id):
     userId(id),
-    logger("student\\"+to_string(id)+"_log.txt"),
+    logger("student\\"+to_string(id)+"_logger.txt"),
     calendar("student\\"+to_string(id)+"_calendar.txt"),
     studentClass(new Class(getClassId(id)))
 {
-    /*将课程表导入日程表中，这是初始化操作，以便后续判断时间冲突*/
-    int day,timeTable[3];
-    QStringList list=studentClass->getAllCourseName();
-    for(int i=0;i<list.length();++i){
-        for(day=1;day<=5;++day){
-            studentClass->getCourseTime(list[i].toStdString(),day,timeTable);
-            /*下面生成时间年月日不好确定*/
-            MyTime *startTime=new MyTime(0,0,0,timeTable[0],timeTable[1]);
-            MyTime *endTime=new MyTime(0,0,0,timeTable[0],timeTable[1]);
-            endTime->minIncre(timeTable[2]*50-5);//计算课程总时间,默认课间没有户外活动
-            insertRecord("周"+to_string(day)+list[i].toStdString(),*startTime,*endTime);
-        }
-    }
+//    /*将课程表导入日程表中，这是初始化操作，以便后续判断时间冲突*/
+//    int day,timeTable[3];
+//    QStringList list=studentClass->getAllCourseName();
+//    for(int i=0;i<list.length();++i){
+//        for(day=1;day<=5;++day){
+//            studentClass->getCourseTime(list[i].toStdString(),day,timeTable);
+//            /*下面生成时间年月日不好确定*/
+//            MyTime *startTime=new MyTime(0,0,0,timeTable[0],timeTable[1]);
+//            MyTime *endTime=new MyTime(0,0,0,timeTable[0],timeTable[1]);
+//            endTime->minIncre(timeTable[2]*50-5);//计算课程总时间,默认课间没有户外活动
+//            insertRecord("周"+to_string(day)+list[i].toStdString(),*startTime,*endTime);
+//        }
+//    }
 }
 
 Student::~Student()
@@ -66,16 +66,16 @@ bool Student::enroll(int studentId, string password, int classId)
         file<<endl<<classId;
         file.close();
     }
-    /*创建学生日志文件*/
-    file.open("student\\"+to_string(id)+"_logger.txt",ios::out);
-    if(file.is_open()){
-        file.close();
-    }
-    /*创建学生日程表文件*/
-    file.open("student\\"+to_string(id)+"_calendar.txt",ios::out);
-    if(file.is_open()){
-        file.close();
-    }
+//    /*创建学生日志文件*/
+//    file.open("student\\"+to_string(id)+"_logger.txt",ios::out);
+//    if(file.is_open()){
+//        file.close();
+//    }
+//    /*创建学生日程表文件*/
+//    file.open("student\\"+to_string(id)+"_calendar.txt",ios::out);
+//    if(file.is_open()){
+//        file.close();
+//    }
     return false;
 }
 
@@ -160,13 +160,13 @@ QStringList Student::getExamInfo(string courseName)
     logger.addLogger("学生查询了考试");
     return studentClass->getExamInfo(courseName);
 }
-void Student::insertRecord(string event,MyTime startTime,MyTime endTime,string place,string type)
+void Student::insertRecord(string event,MyTime startTime,MyTime endTime,int place,int type)
 {
     logger.addLogger("学生增加了一条日程安排");
     calendar.addRecord(event,startTime,endTime,place,type);
 }
 
-void Student::updateRecord(string event,MyTime startTime,MyTime endTime,string place,string type)
+void Student::updateRecord(string event,MyTime startTime,MyTime endTime,int place,int type)
 {
     logger.addLogger("学生修改了一条日程安排");
     calendar.updateRecord(event,startTime,endTime,place,type);
@@ -193,5 +193,50 @@ QStringList Student::getRecords()
 bool Student::checkTimeConflict()
 {
     logger.addLogger("学生查询了日程冲突");
-    return calendar.checkTimeConflict();
+
+    /*计算课程表*/
+    int day,timeTable[3];
+    int startTime[15]={0,800,850,950,1040,1130,1300,1350,1445,1540,1635,1725,1830,1920,2010};
+    MyTime* courseTTb[15][8];//此处注意应当初始为null
+    for(int i=0;i<15;++i){
+        for(int j=0;j<8;++j){
+            courseTTb[i][j]=NULL;
+        }
+    }
+    QStringList list=studentClass->getAllCourseName();
+    for(int i=0;i<list.length();++i){
+        for(day=1;day<=7;++day){
+            int cnt;
+            studentClass->getCourseTime(list[i].toStdString(),day,timeTable);
+            switch(timeTable[0]*100+timeTable[1]){
+            case 800:cnt=1;break;
+            case 850:cnt=2;break;
+            case 950:cnt=3;break;
+            case 1040:cnt=4;break;
+            case 1130:cnt=5;break;
+            case 1300:cnt=6;break;
+            case 1350:cnt=7;break;
+            case 1445:cnt=8;break;
+            case 1540:cnt=9;break;
+            case 1635:cnt=10;break;
+            case 1725:cnt=11;break;
+            case 1830:cnt=12;break;
+            case 1920:cnt=13;break;
+            case 2010:cnt=14;break;
+            default:break;
+            }
+            for(int i=0;i<timeTable[2];++i){
+                courseTTb[cnt+i][day]=new MyTime(0,0,0,startTime[cnt+i]/100,startTime[cnt+i]%100);
+            }
+        }
+    }
+
+
+    bool flag=calendar.checkTimeConflict(courseTTb);
+    for(int i=0;i<15;++i){
+        for(int j=0;j<8;++j){
+            delete courseTTb[i][j];
+        }
+    }
+    return flag;
 }

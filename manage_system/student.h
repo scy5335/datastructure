@@ -1,4 +1,4 @@
-﻿#ifndef STUDENT_H
+#ifndef STUDENT_H
 #define STUDENT_H
 #include "logger.h"
 #include "calendar.h"
@@ -14,9 +14,9 @@ private:
     Calendar calendar;
     Class *studentClass;//学生班级
 
-public:
     /*获取学生班级id*/
     int getClassId(int studentId);
+public:
     Student(int id);
     ~Student();
     /*注册函数,参数依次为学生id，学生密码,默认班级2020211302班*/
@@ -57,9 +57,9 @@ public:
 
     /*日程表功能*/
     /*增加日程安排,要求日程安排不能重名,否则会刷新日程,参数依次为事件,开始时间，结束时间*/
-    void insertRecord(string event,MyTime startTime,MyTime endTime,string place="无",string type="个人活动");
+    void insertRecord(string event,MyTime startTime,MyTime endTime,int place=0,int type=0);
     /*修改日程安排,参数依次为事件,开始时间，结束时间*/
-    void updateRecord(string event,MyTime startTime,MyTime endTime,string place="无",string type=personalType);
+    void updateRecord(string event,MyTime startTime,MyTime endTime,int place=0,int type=0);
     /*删除特定日程安排,参数为事件*/
     void deleteRecord(string event);
     /*清除所有日程安排*/

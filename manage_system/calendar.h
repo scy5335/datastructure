@@ -6,8 +6,9 @@
 #include "alarm.h"
 using namespace std;
 
-static string personalType="个人活动";
-static string groupType="集体活动";
+static int personalType=0;//个人活动
+static int groupType=1;//集体活动
+
 static string study="自习";
 static string exercise="锻炼";
 static string outgoing="外出";
@@ -22,13 +23,13 @@ struct Record{
     string event;
     MyTime startTime;
     MyTime endTime;
-    string place;
-    string type;
+    int place;
+    int type;
     Record *next;
     Record():next(NULL)
     {
     }
-    Record(string event,MyTime startTime,MyTime endTime,string place="无",string type=personalType):
+    Record(string event,MyTime startTime,MyTime endTime,int place=0,int type=personalType):
         event(event),startTime(startTime),endTime(endTime),place(place),type(type),next(NULL)
     {
     }
@@ -47,9 +48,9 @@ public:
     Calendar(string path);
     ~Calendar();
     /*增加日程表记录*/
-    void addRecord(string event,MyTime startTime,MyTime endTime,string place="无",string type=personalType);
+    void addRecord(string event,MyTime startTime,MyTime endTime,int place=0,int type=personalType);
     /*更新日程表记录*/
-    void updateRecord(string event,MyTime startTime,MyTime endTime,string place="无",string type=personalType);
+    void updateRecord(string event,MyTime startTime,MyTime endTime,int place=0,int type=personalType);
     /*删除特定日程安排,参数为事件*/
     void deleteRecord(string event);
     /*清除所有日程安排*/
@@ -57,7 +58,7 @@ public:
     /*获取日程表文件所有记录,列表依次为事件，开始时间，结束时间，地点*/
     QStringList getRecords();
     /*该函数只检测了课外活动是否冲突时间*/
-    bool checkTimeConflict();
+    bool checkTimeConflict(MyTime* courseTTb[15][8]);
 };
 
 #endif // CALENDAR_H
