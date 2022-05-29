@@ -1,4 +1,4 @@
-﻿#include "course.h"
+#include "course.h"
 
 Course::Course(QObject *parent)
     : QObject{parent}
@@ -31,7 +31,7 @@ Course::Course(unsigned courseId, string root)
     this->dataNum=0;
     if(!fs::exists(dir))
     {
-        qDebug()<<"未找到该课程路径,请检查该课程是否存在";
+        qDebug()<<"未找到该课程路径，请检查该课程是否存在";
         memset(weekTable,0,7*sizeof(unsigned));
         this->examName = "uninitialized";
         this->group = "uninitialized";
@@ -174,7 +174,7 @@ Data* Course::releaseData(string dataName, string fileAddr, MyTime sysTime)
     Data* tmp = dataSearch(dataName);
     if(tmp)
     {
-        qDebug()<<"该资料已存在，更新该资料";
+        qDebug()<<"该资料已存在，将更新该资料";
         tmp->upload(sysTime,fileAddr);
         return tmp;
     }
@@ -252,11 +252,11 @@ void Course::saveFile()
     ofs<<"exam:"<<endl;
     if(examName=="uninitialized")
     {
-        ofs<<examName;
+        ofs<<examName<<endl;
     }
     else
     {
-        ofs<<examName<<" "<<examLocale<<" "<<startTime.getYear()<<" "
+        ofs<<examName<<endl<<examLocale<<" "<<startTime.getYear()<<" "
           <<startTime.getMonth()<<" "<<startTime.getDay()<<" "
          <<startTime.getHour()<<" "<<startTime.getMin()<<" "<<lastMinute<<endl;
     }
@@ -268,7 +268,7 @@ void Course::readFile()
 {
     if(need2save==true)
     {
-        qDebug()<<"数据尚未保存，读取可能造成文件丢失";
+        qDebug()<<"数据尚未保存，读取可能造成数据丢失";
     }
     taskNum=0;
     dataNum=0;
@@ -280,7 +280,7 @@ void Course::readFile()
     ifs.open(dir+"\\courseInfo.txt",ios::in);
     if(!ifs.is_open())
     {
-        qDebug()<<"读取课程列表失败";
+        qDebug()<<"读取课程文件失败";
         return;
     }
     ifs>>locale>>courseId;
@@ -291,15 +291,26 @@ void Course::readFile()
     }
     ifs>>group;
     string temp;
-    for(i=0;ifs>>temp&&temp!="data:";i++)
+    char Str[100];
+    ifs.getline(Str,100);//读掉一个换行符
+    ifs.getline(Str,100);
+    temp=Str;
+    for(i=0;temp!="data:";i++)
     {
         taskReadIn(temp);
+        ifs.getline(Str,100);
+        temp=Str;
     }
-    for(i=0;ifs>>temp&&temp!="exam:";i++)
+    ifs.getline(Str,100);
+    temp=Str;
+    for(i=0;temp!="exam:";i++)
     {
         dataReadIn(temp);
+        ifs.getline(Str,100);
+        temp=Str;
     }
-    ifs>>examName;
+    ifs.getline(Str,100);
+    examName = Str;
     if(examName != "uninitialized")
     {
         ifs>>examLocale;
