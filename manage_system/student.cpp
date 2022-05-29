@@ -1,4 +1,4 @@
-#include "student.h"
+﻿#include "student.h"
 
 int Student::getClassId(int studentId)
 {
@@ -28,12 +28,12 @@ Student::Student(int id):
 //    QStringList list=studentClass->getAllCourseName();
 //    for(int i=0;i<list.length();++i){
 //        for(day=1;day<=5;++day){
-//            studentClass->getCourseTime(list[i].toStdString(),day,timeTable);
+//            studentClass->getCourseTime(list[i].toLocal8Bit().data(),day,timeTable);
 //            /*下面生成时间年月日不好确定*/
 //            MyTime *startTime=new MyTime(0,0,0,timeTable[0],timeTable[1]);
 //            MyTime *endTime=new MyTime(0,0,0,timeTable[0],timeTable[1]);
 //            endTime->minIncre(timeTable[2]*50-5);//计算课程总时间,默认课间没有户外活动
-//            insertRecord("周"+to_string(day)+list[i].toStdString(),*startTime,*endTime);
+//            insertRecord("周"+to_string(day)+list[i].toLocal8Bit().data(),*startTime,*endTime);
 //        }
 //    }
 }
@@ -207,7 +207,7 @@ bool Student::checkTimeConflict()
     for(int i=0;i<list.length();++i){
         for(day=1;day<=7;++day){
             int cnt;
-            studentClass->getCourseTime(list[i].toStdString(),day,timeTable);
+            studentClass->getCourseTime(list[i].toLocal8Bit().data(),day,timeTable);
             switch(timeTable[0]*100+timeTable[1]){
             case 800:cnt=1;break;
             case 850:cnt=2;break;

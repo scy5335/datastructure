@@ -1,4 +1,4 @@
-#ifndef STUDENT_H
+﻿#ifndef STUDENT_H
 #define STUDENT_H
 #include "logger.h"
 #include "calendar.h"
@@ -14,9 +14,9 @@ private:
     Calendar calendar;
     Class *studentClass;//学生班级
 
+public:
     /*获取学生班级id*/
     int getClassId(int studentId);
-public:
     Student(int id);
     ~Student();
     /*注册函数,参数依次为学生id，学生密码,默认班级2020211302班*/

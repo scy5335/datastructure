@@ -1,4 +1,4 @@
-#include "mytime.h"
+﻿#include "mytime.h"
 const int days[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 MyTime::MyTime()
@@ -174,13 +174,13 @@ string MyTime::toString()
 {
     QString date = QDate(year,this->getMonth(),this->getDay()).toString("yyyy-MM-dd");
     QString time = QTime(hour,minute).toString("HH:mm");
-    return date.toStdString()+" "+time.toStdString();
+    return (date+" "+time).toLocal8Bit().data();
 }
 
 string MyTime::toString(char *format)
 {
     QString dateTime = QDateTime(QDate(year,getMonth(),getDay()),QTime(hour,minute)).toString(format);
-    return dateTime.toStdString();
+    return dateTime.toLocal8Bit().data();
 }
 
 bool MyTime::operator<(const MyTime &b)const

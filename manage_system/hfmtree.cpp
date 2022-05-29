@@ -1,4 +1,4 @@
-#include "hfmtree.h"
+﻿#include "hfmtree.h"
 
 
 void hfmCompress(string srcAddr, string dstAddr, char* extraInfo, int infoSize)
@@ -89,6 +89,7 @@ int hfmDecode(string fileAddr, string dstAddr, char* extraInfo)
 {
     fstream ifs,ofs;
     ifs.open(fileAddr,ios::in|ios::binary);
+    qDebug()<<QString::fromLocal8Bit(fileAddr);
     if(!ifs.is_open())
     {
         qDebug()<<"文件打开失败，请检查文件路径";

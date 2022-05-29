@@ -1,11 +1,12 @@
-#include "calendar.h"
+﻿#include "calendar.h"
 
 QStringList Record::getRecordInfo()
 {
     QStringList list;
-    list.append(QString::fromStdString(event));
-    list.append(QString::fromStdString(startTime.toString()));
-    list.append(QString::fromStdString(endTime.toString()));
+    list.append(QString::fromLocal8Bit(event));
+    list.append(QString::number(type));
+    list.append(QString::fromLocal8Bit(startTime.toString()));
+    list.append(QString::fromLocal8Bit(endTime.toString()));
     list.append(QString::number(place));
     return list;
 }

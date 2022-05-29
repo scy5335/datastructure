@@ -36,7 +36,7 @@ class material_detail : public QWidget{
 private:
     QTableWidget *material_list;
     QHBoxLayout *layout;
-    void try_download(int row, int column);
+    void try_download();
 
 signals:
     void download(QString data_name, QString file_name);

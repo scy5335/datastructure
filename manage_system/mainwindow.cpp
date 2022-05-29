@@ -107,7 +107,7 @@ void mainwindow::submit_homework(QString homework_name, QString file_name){
 }
 
 void mainwindow::clock_ring(string description){
-    QMessageBox::information(this, "闹钟", QString::fromStdString(description));
+    QMessageBox::information(this, "闹钟", QString::fromLocal8Bit(description));
     if (alarm_set_page)alarm_flash();
 }
 
@@ -141,9 +141,7 @@ void mainwindow::set_lesson_page(){
         for (int j=0; j < 14; j++)
             lessontable -> setItem(i, j, new QTableWidgetItem(""));
     lesson_name = new QLabel();
-    lesson_name -> setText("数据结构");
     lesson_place = new QLabel();
-    lesson_place -> setText("N教学楼");
     test_label = new QLabel();
     test_label -> setText("考试信息");
     test_info = new QTableWidget();
@@ -184,7 +182,7 @@ void mainwindow::set_lesson_page(){
 void mainwindow::student_get_course_info(){
     lessontable -> clearContents();
     for (int i=0; i < 14; i++)
-        for (int j=0; j < 14; j++)
+        for (int j=0; j < 7; j++)
             lessontable -> setItem(i, j, new QTableWidgetItem(""));
     QStringList class_list = log_student -> getAllCourseName();
     int len = class_list.length(), course_time[3];
@@ -193,15 +191,15 @@ void mainwindow::student_get_course_info(){
             log_student -> getCourseTime(class_list[i].toLocal8Bit().data(), j, course_time);
             if (!course_time[2]) continue;
             else {
-                QString format_min = QString::number(course_time[0]),
-                        format_hour = QString::number(course_time[1]),
+                QString format_hour = QString::number(course_time[0]),
+                        format_min = QString::number(course_time[1]),
                         format_time;
                 if (course_time[0] <= 9) format_hour = "0" + format_hour;
                 if (course_time[1] <= 9) format_min = "0" + format_min;
                 format_time = format_hour + ":" +format_min;
                 int k;
                 for (k = 0; k < 14; k++)
-                    if (lessontable -> horizontalHeaderItem(k) -> text().contains(format_time))
+                    if (lessontable -> verticalHeaderItem(k) -> text().contains(format_time))
                         break;
                 lessontable -> setSpan(k, j-1, course_time[2], 1);
                 lessontable -> item(k, j-1) -> setText(class_list[i] + "\n" +
@@ -213,7 +211,7 @@ void mainwindow::student_get_course_info(){
 void mainwindow::manager_get_course_info(){
     lessontable -> clearContents();
     for (int i=0; i < 14; i++)
-        for (int j=0; j < 14; j++)
+        for (int j=0; j < 7; j++)
             lessontable -> setItem(i, j, new QTableWidgetItem(""));
     Class new_class = Class(class_select -> currentText().toInt());
     QStringList class_list = new_class.getAllCourseName();
@@ -398,11 +396,8 @@ void mainwindow::try_add_calendar(){
         return;
     }
     log_student -> insertRecord(calendar_description -> text().toLocal8Bit().data(), start_time, end_time);
-    if (log_student -> checkTimeConflict()){
-        log_student -> deleteRecord(calendar_description -> text().toLocal8Bit().data());
-        QMessageBox::critical(this, "添加活动出错", "活动冲突");
-        return;
-    }
+    if (log_student -> checkTimeConflict())
+        QMessageBox::critical(this, "警告", "活动冲突");
     calendar_display();
 }
 
@@ -418,16 +413,16 @@ void mainwindow::calendar_display(){
     calendar_list -> clearContents();
     QStringList tot_calendar = log_student -> getRecords();
     int len = tot_calendar.length();
-    calendar_list -> setRowCount(len/3);
+    calendar_list -> setRowCount(len/5);
     for (int i = 0, row_count = 0; i < len; row_count++){
         QTableWidgetItem *p_check = new QTableWidgetItem();
         p_check -> setCheckState(Qt::Unchecked);
         calendar_list -> setItem(row_count, 0, p_check);
-        calendar_list -> setItem(row_count, 2 ,new QTableWidgetItem("个人活动"));
+        calendar_list -> setItem(row_count, 1 ,new QTableWidgetItem(tot_calendar[i++]));
+        calendar_list -> setItem(row_count, 2 ,new QTableWidgetItem(tot_calendar[i++].toInt()?"个人活动":"集体活动"));
         calendar_list -> setItem(row_count, 3 ,new QTableWidgetItem(tot_calendar[i++]));
         calendar_list -> setItem(row_count, 4 ,new QTableWidgetItem(tot_calendar[i++]));
-        calendar_list -> setItem(row_count, 1 ,new QTableWidgetItem(tot_calendar[i++]));
-        calendar_list -> setItem(row_count, 5 ,new QTableWidgetItem("南区食堂"));
+        calendar_list -> setItem(row_count, 5 ,new QTableWidgetItem(place_name[tot_calendar[i++].toInt()]));
     }
     calendar_list -> horizontalHeader() -> setSectionResizeMode(QHeaderView::ResizeToContents);
 }
@@ -789,6 +784,7 @@ void mainwindow::material_add_page(){
     connect(material_page, &material_manage_page::delete_material, this, &mainwindow::delete_material);
     connect(material_page, &material_manage_page::get_all_material, this, &mainwindow::get_all_material);
     connect(material_page, &material_manage_page::add_new_material, this, &mainwindow::add_new_material);
+    material_page -> initial_set();
 }
 
 void mainwindow::show_material_page(){
@@ -1000,14 +996,19 @@ material_detail::material_detail(QStringList task_list, QWidget *parent){
         download -> setText("下载");
         material_list -> setItem(i, 0, new QTableWidgetItem(task_list[i]));
         material_list -> setCellWidget(i, 1, download);
+        connect(download, &QPushButton::clicked, this, &material_detail::try_download);
     }
     layout = new QHBoxLayout();
     layout -> addWidget(material_list);
     setLayout(layout);
-    connect(material_list, &QTableWidget::cellClicked, this, &material_detail::try_download);
 }
 
-void material_detail::try_download(int row, int column){
+void material_detail::try_download(){
+    QPushButton *senderObj = qobject_cast<QPushButton*>(sender());
+    if (senderObj == nullptr)
+        return;
+    QModelIndex idx = material_list -> indexAt(QPoint(senderObj->frameGeometry().x(),senderObj->frameGeometry().y()));
+    int row = idx.row(), column =idx.column();
     if (column == 1){
         QString file_path_name = QFileDialog::getExistingDirectory(this, tr("选择文件夹"),QDir::currentPath());
         if (file_path_name.isEmpty())
@@ -1044,6 +1045,7 @@ void homework_submit_page::file_select_page(){
     QString filename = QFileDialog::getOpenFileName(this, tr("选择文件"), "C:/", tr("All files(*.*)"));
     file_path -> setText(filename);
     emit submit_homework(title -> text(), filename);
+    file_path -> setText("");
 }
 
 alarm_page::alarm_page(QWidget *parent){
@@ -1185,7 +1187,7 @@ void alarm_page::set_alarm_list(MyClock *Clock){
                 p_check -> setCheckState(Qt::Unchecked);
             sel_check -> setCheckState(Qt::Unchecked);
             alarm_list -> setItem(row_count, 0, sel_check);
-            alarm_list -> setItem(row_count, 1,new QTableWidgetItem(QString::fromStdString(
+            alarm_list -> setItem(row_count, 1,new QTableWidgetItem(QString::fromLocal8Bit(
                                       Clock -> alarms -> arr[i].getTip())));
             alarm_list -> setItem(row_count, 2, p_check);
             QString Str1, Str2;

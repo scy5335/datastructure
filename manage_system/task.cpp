@@ -114,7 +114,6 @@ bool Task::saveSubmittedList()
         fs::create_directories(directory);
     }
     fstream ofs;
-    qDebug()<<"???????????-------";
     ofs.open(this->directory+"\\"+"list.txt",ios::out);
     if(!ofs.is_open())
         return false;

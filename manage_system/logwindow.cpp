@@ -15,11 +15,11 @@ logwindow::~logwindow()
 
 void logwindow::TryLogin()
 {
-    if (Student::login(user -> text().toInt(), password -> text().toStdString())){
+    if (Student::login(user -> text().toInt(), password -> text().toLocal8Bit().data())){
         this->hide();
         emit showmainwindow(user -> text().toInt());
     }
-    else if (user -> text() == "0" && Manager::login(password -> text().toStdString())){
+    else if (user -> text() == "0" && Manager::login(password -> text().toLocal8Bit().data())){
         this->hide();
         emit showmanagewindow();
     }
@@ -123,7 +123,7 @@ void logwindow::try_regis(){
         QMessageBox::critical(this, "注册错误", "请选择班级");
         return;
     }
-    if (Student::enroll(user_id -> text().toInt(), password1 -> text().toStdString(), user_class -> currentText().toInt())){
+    if (Student::enroll(user_id -> text().toInt(), password1 -> text().toLocal8Bit().data(), user_class -> currentText().toInt())){
         QMessageBox::information(this, "注册成功", "注册成功");
         to_login();
     }

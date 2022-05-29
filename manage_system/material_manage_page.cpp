@@ -17,7 +17,6 @@ material_manage_page::material_manage_page(QWidget *parent) :
     material_list -> setColumnCount(2);
     material_list -> setHorizontalHeaderLabels(QStringList()<<"选择"<<"材料名称");
     material_list -> horizontalHeader() -> setSectionResizeMode(QHeaderView::Stretch);
-    emit get_all_material();
     del_material = new QPushButton();
     del_material -> setText("删除材料");
     material_layout = new QFormLayout();
@@ -30,6 +29,10 @@ material_manage_page::material_manage_page(QWidget *parent) :
     connect(del_material, &QPushButton::clicked, this, &material_manage_page::try_delete_material);
     connect(add_material, &QPushButton::clicked, this, &material_manage_page::create_new_material);
     connect(file_select, &QPushButton::clicked, this, &material_manage_page::file_select_page);
+}
+
+void material_manage_page::initial_set(){
+    emit get_all_material();
 }
 
 void material_manage_page::set_all_material(QStringList all_material_list){

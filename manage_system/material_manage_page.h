@@ -22,6 +22,7 @@ public:
     explicit material_manage_page(QWidget *parent = nullptr);
     ~material_manage_page();
     void set_all_material(QStringList all_material_list);
+    void initial_set();
 
 private:
     Ui::material_manage_page *ui;

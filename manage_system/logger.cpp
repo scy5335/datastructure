@@ -1,4 +1,4 @@
-#include "logger.h"
+﻿#include "logger.h"
 
 Logger::Logger(string path):path(path)
 {
@@ -11,7 +11,7 @@ Logger::~Logger()
 void Logger::addLogger(string userAndOperation)
 {
     ofstream file(path,ios::app);
-    string log=QDateTime::currentDateTime().toString("yyyy年MM月dd日hh:mm:ss").toStdString()+userAndOperation;
+    string log=QDateTime::currentDateTime().toString("yyyy年MM月dd日hh:mm:ss").toLocal8Bit().data()+userAndOperation;
     file<<endl<<log;
     file.close();
 }
@@ -28,7 +28,7 @@ QStringList Logger::getLogger()
         while(!file.eof()){
             string line;
             file>>line;
-            list.append(QString::fromStdString(line));
+            list.append(QString::fromLocal8Bit(line));
         }
         file.close();
     }
