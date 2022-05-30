@@ -200,6 +200,7 @@ int Class::getCoursePlace(string courseName)
     if(getCourse(courseName)){
         return getCourse(courseName)->getLocale();
     }
+    return 0;
 }
 
 string Class::getSchedule(string courseName)
@@ -208,6 +209,7 @@ string Class::getSchedule(string courseName)
         getCourse(courseName)->dataSort();
         return getCourse(courseName)->data[getCourse(courseName)->getDataNum()-1]->getName();
     }
+    return "0";
 }
 
 string Class::getCourseGroup(string courseName)
@@ -215,6 +217,7 @@ string Class::getCourseGroup(string courseName)
     if(getCourse(courseName)){
         return getCourse(courseName)->getGroup();
     }
+    return "0";
 }
 
 void Class::uploadCourseData(string courseName, string dataName, string dataPath)
@@ -318,7 +321,7 @@ void Class::deleteHomework(string courseName, string homeworkName)
     }
 }
 
-QStringList Class::getHomework(string courseName)
+QStringList Class::getAllHomework(string courseName)
 {
     QStringList list;
     if(getCourse(courseName)){
@@ -328,7 +331,23 @@ QStringList Class::getHomework(string courseName)
             list.append(QString::fromLocal8Bit(c->task[i]->getName()));
             list.append(QString::fromLocal8Bit(c->task[i]->deadline.toString()));
             list.append(QString::fromLocal8Bit(c->task[i]->getDesc()));
-            //这里只能查询到布置作业的名称和作业描述
+        }
+    }
+    return list;
+}
+
+QStringList Class::getHomeworkInfo(string courseName, string homeworkName)
+{
+    QStringList list;
+    if(getCourse(courseName)){
+        Course *c=getCourse(courseName);
+        for(int i=0;i<c->getTaskNum();i++)
+        {
+            if(c->task[i]->getName()==homeworkName){
+                list.append(QString::fromLocal8Bit(c->task[i]->getName()));
+                list.append(QString::fromLocal8Bit(c->task[i]->deadline.toString()));
+                list.append(QString::fromLocal8Bit(c->task[i]->getDesc()));
+            }
         }
     }
     return list;
@@ -339,6 +358,14 @@ void Class::submitHomework(string courseName, string homeworkName, string filePa
         getCourse(courseName)->taskSearch(homeworkName)->submit(userId,filePath);
         getCourse(courseName)->saveFile();
     }
+}
+
+bool Class::judgeHomework(string courseName, string homeworkName,int userId)
+{
+    if(getCourse(courseName)){
+        return getCourse(courseName)->taskSearch(homeworkName)->haveIFinished(userId);
+    }
+    return false;
 }
 
 QStringList Class::getHomeworkDone(string courseName,int userId)

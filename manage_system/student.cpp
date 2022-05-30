@@ -143,6 +143,18 @@ void Student::submitHomework(string courseName,string homeworkName,string filePa
     logger.addLogger("学生提交了作业");
     studentClass->submitHomework(courseName,homeworkName,filePath,userId);
 }
+
+bool Student::judgeHomework(string courseName, string homeworkName)
+{
+    logger.addLogger("学生查询了作业是否完成");
+    return studentClass->judgeHomework(courseName,homeworkName,userId);
+}
+
+QStringList Student::getAllHomework(string courseName)
+{
+    logger.addLogger("学生查询了已完成作业");
+    return studentClass->getAllHomework(courseName);
+}
 QStringList Student::getHomeworkDone(string courseName)
 {
     logger.addLogger("学生查询了已完成作业");

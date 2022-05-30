@@ -45,6 +45,10 @@ public:
     /*作业功能*/
     /*提交作业,参数为课程名称,返回值列表依次为作业名称，作业文件路径*/
     void submitHomework(string courseName,string homeworkName,string filePath);
+    /*询问作业是否完成,参数为课程名称,作业名称,若提交则返回true*/
+    bool judgeHomework(string courseName,string homeworkName);
+    /*询问所有作业,参数为课程名称,返回值列表依次为作业名称，作业描述...*/
+    QStringList getAllHomework(string courseName);
     /*询问已完成作业,参数为课程名称,返回值列表依次为作业名称，作业描述...*/
     QStringList getHomeworkDone(string courseName);
     /*询问未完成作业,参数为课程名称,返回值列表依次为作业名称，作业描述...*/
