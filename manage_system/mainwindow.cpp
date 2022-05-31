@@ -13,6 +13,7 @@ mainwindow::mainwindow(QWidget *parent) :
     student_homework_page = NULL;
     student_material_page = NULL;
     alarm_set_page = NULL;
+    time_info = new time_table();
 }
 
 mainwindow::~mainwindow()
@@ -490,6 +491,8 @@ void mainwindow::set_guide_page(){
     mode_group -> addButton(dist_only, 0);
     mode_group -> addButton(time_first, 1);
     mode_group -> addButton(mix, 2);
+    display_timetable = new QPushButton();
+    display_timetable -> setText("交通工具时间表");
     dist_only -> setChecked(true);
     guide_mod_layout -> addWidget(query_label);
     guide_mod_layout -> addWidget(query_list);
@@ -497,6 +500,7 @@ void mainwindow::set_guide_page(){
     guide_mod_layout -> addWidget(answer_list);
     guide_mod_layout -> addWidget(guide_time);
     guide_mod_layout -> addWidget(map_change);
+    guide_mod_layout -> addWidget(display_timetable);
     guide_mod_layout -> addWidget(place_select);
     guide_mod_layout -> addLayout(place_layout);
     guide_mod_layout -> addWidget(start_guide);
@@ -512,7 +516,12 @@ void mainwindow::set_guide_page(){
     connect(map1, &myGraphView::selected, this, &mainwindow::set_place_info);
     connect(map2, &myGraphView::selected, this, &mainwindow::set_place_info);
     connect(map_change, &QPushButton::clicked, this, &mainwindow::change_map);
+    connect(display_timetable, &QPushButton::clicked, this, &mainwindow::show_time_table);
     //connect(start_guide, &QPushButton::clicked, map, &myGraphView::SaveToFile);
+}
+
+void mainwindow::show_time_table(){
+    time_info -> show();
 }
 
 void mainwindow::change_map(){
@@ -1260,4 +1269,27 @@ void alarm_page::set_alarm_list(MyClock *Clock){
 void alarm_page::set_type(int row, int column){
     if (column == 2)
         emit alarm_type_changed(alarm_id[row]);
+}
+
+time_table::time_table(QWidget *parent){
+    bus_layout = new QVBoxLayout();
+    bus_title = new QLabel();
+    bus_layout -> addWidget(bus_title);
+    bus_title -> setText("校车时间表");
+    for (int i = 0; i < 6; i++){
+        bus_list[i] = new QLabel();
+        bus_layout -> addWidget(bus_list[i]);
+    }
+    bus_list[0] -> setText("06:30");
+    bus_list[1] -> setText("09:50");
+    bus_list[2] -> setText("12:30");
+    bus_list[3] -> setText("15:50");
+    bus_list[4] -> setText("18:30");
+    bus_list[5] -> setText("21:00");
+    vehicle_description = new QLabel();
+    vehicle_description -> setText("公交车运营时间6:00-23:00，每隔15分钟发一辆车");
+    tot_layout = new QHBoxLayout();
+    tot_layout -> addLayout(bus_layout);
+    tot_layout -> addWidget(vehicle_description);
+    setLayout(tot_layout);
 }
