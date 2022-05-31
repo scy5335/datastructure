@@ -1,4 +1,4 @@
-#ifndef MYGRAPHVIEW_H
+﻿#ifndef MYGRAPHVIEW_H
 #define MYGRAPHVIEW_H
 
 #include <QGraphicsView>
@@ -27,9 +27,9 @@ class myGraphView:public QGraphicsView
 
 private:
     QGraphicsScene* myGraphicsScene;
-    myGraphVectex* addVec(QPointF center, QString name, qreal radius=10);
+    myGraphVectex* addVec(QPointF center, QString name, qreal radius=10, int vx = 0);
     void addLine(myGraphVectex* start, myGraphVectex* end);
-    void GetNewNarrow();
+    void GetNewNarrow(int line_base);
 
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
@@ -48,9 +48,9 @@ signals:
 public:
     myGraphView();
     void SaveToFile();
-    void ReadFromFile();
+    void ReadFromFile(std::string file_name, int vx, int vy, int ex, int ey);
     QStringList GetVecName();
-    graph *maingraph;
+    static graph *maingraph;
 };
 
 class myGraphVectex:public QObject, public QGraphicsEllipseItem
@@ -62,7 +62,7 @@ private:
     QBrush regBrush = QBrush(QColor(58, 143, 192));
     QBrush selBrush = QBrush(QColor(208, 90, 110));
     QBrush currentBrush = QBrush(QColor(0, 137, 108));
-
+    int base;
     QPointF center;
     qreal radius;
 
@@ -145,17 +145,22 @@ private:
     int VecNum = 0, EdgeNum = 1;
     int head[max_vec];
     char name[max_vec][105];
-    Edge e[205];
+    Edge e[405];
     trie graphtrie;
     double dis[max_vec];
     bool vis[max_vec];
     int lastpos[max_vec];
     QStringList dijkstra(int st, int ed, double &totminutes, int mod);
+    QString select_route(double &totminutes, int hour, int minute);
+    int hour[8];
+    int minute[8];
+
 public:
-    QStringList FindPath(QStringList guide_list, double &totminutes, int mod);
+    void create_time_table();
+    QStringList FindPath(QStringList guide_list, double &totminutes, int mod, int hour, int minute);
     void addVec(char* S);
     void addEdge(int start,int end, double len);
-    void resetnarrow(int* narrowlist, int num);
+    void resetnarrow(int* narrowlist, int num, int line_base);
 };
 
 #endif // MYGRAPHVIEW_H

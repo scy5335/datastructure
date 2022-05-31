@@ -121,13 +121,13 @@ private:
     QPushButton* accelerate, *to_calendar_module1, *to_calendar_module2,
                 *to_guide_module1, *to_guide_module2, *to_lesson_module1, *to_lesson_module2,
                 *place_select_button, *place_clear_button, *start_guide, *homework_submit,
-                *material_list_button, *calendar_add, *calendar_del, *alarm_modify;
+                *material_list_button, *calendar_add, *calendar_del, *alarm_modify, *map_change;
     QLabel* timelabel, *datelabel, *speedlabel, *calendar_title, *guide_time, *query_label, *answer_label,
             *lesson_name, *lesson_place, *lesson_teacher, *test_label, *homework_label;
     QTableWidget* lessontable, *alarm_list, *test_info, *homework_info, *calendar_list;
     QWidget* page[3], *time_widget;
-    myGraphView* map;
-    QStackedWidget* stackwidget;
+    myGraphView* map1, *map2;
+    QStackedWidget* stackwidget, *map_stack;
     QListWidget* query_list, *answer_list;
     QComboBox* place_select, *calendar_place;
     QFormLayout* lesson_detail_info_layout, *lesson_message_button, *calendar_info_layout;
@@ -179,6 +179,7 @@ private:
     void calendar_display();
     void try_add_calendar();
     void delete_calendars();
+    void change_map();
 
     //manage
     Manager *log_manager;

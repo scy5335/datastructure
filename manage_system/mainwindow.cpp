@@ -34,7 +34,10 @@ void mainwindow::student_page_set(){
     set_lesson_page();
     set_calendar_page();
     set_guide_page();
-    place_name = map -> GetVecName();
+    place_name = map1 -> GetVecName() + map2 -> GetVecName();
+    qDebug()<<place_name.length();
+    place_select -> addItems(place_name);
+    place_select -> setCurrentIndex(-1);
     calendar_set_place(place_name);
     student_get_course_info();
     page[0] = new QWidget();
@@ -428,8 +431,18 @@ void mainwindow::calendar_display(){
 }
 
 void mainwindow::set_guide_page(){
-    map = new myGraphView();
-    map -> setSceneRect(map -> rect());
+    map_stack = new QStackedWidget();
+    map1 = new myGraphView();
+    myGraphView::maingraph = new graph();
+    myGraphView::maingraph -> create_time_table();
+    map1 -> ReadFromFile(QString::fromLocal8Bit("map1.txt").toLocal8Bit().data(), 0, 25, 0, 99);
+    map1 -> setSceneRect(map1 -> rect());
+    map_stack -> addWidget(map1);
+    map2 = new myGraphView();
+    map2 -> ReadFromFile(QString::fromLocal8Bit("map2.txt").toLocal8Bit().data(), 26, 46, 100, 199);
+    map2 -> setSceneRect(map2 -> rect());
+    map_stack -> addWidget(map2);
+    map_stack -> setCurrentIndex(0);
     to_lesson_module2 = new QPushButton();
     to_lesson_module2 -> setText("查看课程表");
     to_calendar_module2 = new QPushButton();
@@ -440,7 +453,6 @@ void mainwindow::set_guide_page(){
     guide_button_layout -> addWidget(to_calendar_module2);
 
     place_select = new QComboBox();
-    place_select -> addItems(place_name);
     place_select -> setCurrentIndex(-1);
     place_select_button = new QPushButton();
     place_select_button -> setText("确认");
@@ -466,6 +478,8 @@ void mainwindow::set_guide_page(){
     dist_only -> setText("距离优先");
     time_first = new QRadioButton();
     time_first -> setText("时间优先");
+    map_change = new QPushButton();
+    map_change -> setText("切换校区");
     mix = new QRadioButton();
     mix -> setText("交通工具");
     mode_select = new QHBoxLayout();
@@ -482,6 +496,7 @@ void mainwindow::set_guide_page(){
     guide_mod_layout -> addWidget(answer_label);
     guide_mod_layout -> addWidget(answer_list);
     guide_mod_layout -> addWidget(guide_time);
+    guide_mod_layout -> addWidget(map_change);
     guide_mod_layout -> addWidget(place_select);
     guide_mod_layout -> addLayout(place_layout);
     guide_mod_layout -> addWidget(start_guide);
@@ -489,12 +504,19 @@ void mainwindow::set_guide_page(){
     guide_mod_layout -> addLayout(guide_button_layout);
 
     guide_layout = new QHBoxLayout();
-    guide_layout -> addWidget(map);
+    guide_layout -> addWidget(map_stack);
     guide_layout -> addLayout(guide_mod_layout);
     connect(place_select_button, &QPushButton::clicked, this, &mainwindow::send_place_info);
     connect(start_guide, &QPushButton::clicked, this, &mainwindow::get_guide_result);
     connect(place_clear_button, &QPushButton::clicked, this, &mainwindow::clear_guide_list);
-    connect(map, &myGraphView::selected, this, &mainwindow::set_place_info);
+    connect(map1, &myGraphView::selected, this, &mainwindow::set_place_info);
+    connect(map2, &myGraphView::selected, this, &mainwindow::set_place_info);
+    connect(map_change, &QPushButton::clicked, this, &mainwindow::change_map);
+    //connect(start_guide, &QPushButton::clicked, map, &myGraphView::SaveToFile);
+}
+
+void mainwindow::change_map(){
+    map_stack -> setCurrentIndex(map_stack -> currentIndex() ^ 1);
 }
 
 void mainwindow::send_place_info(){
@@ -511,7 +533,7 @@ void mainwindow::get_guide_result(){
     }
     answer_list -> clear();
     double totminutes = 0;
-    answer_list -> addItems(map -> maingraph -> FindPath(qsl, totminutes, mode_group -> checkedId()));
+    answer_list -> addItems(myGraphView::maingraph -> FindPath(qsl, totminutes, mode_group -> checkedId(), Clock->getTime().getHour(), Clock->getTime().getMin()));
     QString estimate_time = "预计用时 " + QString::number(ceil(totminutes))+" 分钟";
     guide_time -> setText(estimate_time);
 }
@@ -526,14 +548,19 @@ void mainwindow::set_place_info(int id){
 }
 
 void mainwindow::switch_to_guide_page(){
+    Clock->pause();
     stackwidget -> setCurrentIndex(2);
 }
 
 void mainwindow::switch_to_calendar_page(){
+    if (stackwidget->currentIndex()==2)
+        Clock->start();
     stackwidget -> setCurrentIndex(1);
 }
 
 void mainwindow::switch_to_lesson_page(){
+    if (stackwidget->currentIndex()==2)
+        Clock->start();
     stackwidget -> setCurrentIndex(0);
 }
 
@@ -584,8 +611,10 @@ void mainwindow::manage_page_set(){
     class_count_title = new QLabel();
     class_count_title -> setText("连续节数");
     class_count = new QComboBox();
-    map = new myGraphView();
-    place_name = map -> GetVecName();
+    map1 = new myGraphView();
+    myGraphView::maingraph = new graph();
+    map2 = new myGraphView();
+    place_name = map1 -> GetVecName() + map2 -> GetVecName();
     place_message -> addItems(place_name);
     for (int i = 1; i <= 6; i++)
         class_count -> addItem(QString::number(i));

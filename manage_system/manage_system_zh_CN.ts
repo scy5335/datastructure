@@ -20,12 +20,12 @@
 <context>
     <name>homework_submit_page</name>
     <message>
-        <location filename="mainwindow.cpp" line="1045"/>
+        <location filename="mainwindow.cpp" line="1074"/>
         <source>选择文件</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1045"/>
+        <location filename="mainwindow.cpp" line="1074"/>
         <source>All files(*.*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -49,7 +49,7 @@
 <context>
     <name>material_detail</name>
     <message>
-        <location filename="mainwindow.cpp" line="1013"/>
+        <location filename="mainwindow.cpp" line="1042"/>
         <source>选择文件夹</source>
         <translation type="unfinished"></translation>
     </message>
