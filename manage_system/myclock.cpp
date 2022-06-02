@@ -1,4 +1,4 @@
-#include "myclock.h"
+﻿#include "myclock.h"
 
 MyClock::MyClock(QObject *parent)
     : QObject{parent}
@@ -46,7 +46,6 @@ double MyClock::getSecsPerSystemHour()
 
 void MyClock::start()
 {
-    dayInit();
     timer.start(secsPerSystemHour*1000/60);
 }
 

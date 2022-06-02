@@ -1,6 +1,8 @@
-#include "mygraphview.h"
+﻿#include "mygraphview.h"
 
 using namespace std;
+
+graph* myGraphView::maingraph = NULL;
 
 myGraphView::myGraphView()
 {
@@ -14,13 +16,10 @@ myGraphView::myGraphView()
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
     setResizeAnchor(QGraphicsView::AnchorUnderMouse);
-    maingraph = new graph();
 
     QTime randomTime;
     randomTime = QTime::currentTime();
     srand(randomTime.msec()+randomTime.second()*1000);
-
-    ReadFromFile();
 }
 
 void myGraphView::mousePressEvent(QMouseEvent *event)
@@ -28,6 +27,7 @@ void myGraphView::mousePressEvent(QMouseEvent *event)
     if (event -> button() == Qt::LeftButton){
         onLeftbotton = 1;
         emit mouseLeftClicked(mapToScene(event->pos()));
+        //addVec(mapToScene(event->pos()), "test");
     }
 }
 
@@ -39,7 +39,16 @@ void myGraphView::mouseReleaseEvent(QMouseEvent *event)
     }
 }
 
-myGraphVectex* myGraphView::addVec(QPointF center, QString name, qreal radius)
+void graph::create_time_table(){
+    hour[0]=6; minute[0]=30;
+    hour[0]=9; minute[0]=50;
+    hour[0]=12; minute[0]=30;
+    hour[0]=15; minute[0]=50;
+    hour[0]=18; minute[0]=30;
+    hour[0]=21; minute[0]=00;
+}
+
+myGraphVectex* myGraphView::addVec(QPointF center, QString name, qreal radius, int vx)
 {
     myGraphVectex* newvec = new myGraphVectex(center, radius, name);
     this -> scene() -> addItem(newvec);
@@ -81,15 +90,15 @@ void myGraphView::SaveToFile(){
     ts.close();
 }
 
-void myGraphView::ReadFromFile(){
+void myGraphView::ReadFromFile(string file_name, int vx, int vy, int ex, int ey){
     //vexes
-    fstream ts("map.txt", ios::in);
+    fstream ts(file_name, ios::in);
     ts >> VecCnt;
     int x,y,r;
     char S[105];
     for (int i = 0; i < VecCnt; i++){
         ts>>x>>y>>r>>S;
-        addVec(QPointF(x, y), QString::fromStdString(S), r);
+        addVec(QPointF(x, y), QString::fromStdString(S), r, vx);
         maingraph -> addVec(S);
     }
     ts >> EdgeCnt;
@@ -100,7 +109,7 @@ void myGraphView::ReadFromFile(){
                              dis(vexes[x]->getX(), vexes[x]->getY(),
                                  vexes[y]->getX(), vexes[y]->getY()));
     }
-    GetNewNarrow();
+    GetNewNarrow(ex);
     ts.close();
 }
 
@@ -108,11 +117,11 @@ double myGraphView::dis(double x1, double y1, double x2, double y2){
     return sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
 }
 
-void myGraphView::GetNewNarrow(){
+void myGraphView::GetNewNarrow(int line_base){
     int *NarrowList = new int[line.size()];
     for (int i=0; i < line.size(); i++)
         NarrowList[i] = line[i]->ReflashNarrow();
-    maingraph -> resetnarrow(NarrowList, line.size());
+    maingraph -> resetnarrow(NarrowList, line.size(), line_base);
     delete[] NarrowList;
 }
 
@@ -235,17 +244,54 @@ void graph::addEdge(int start, int end, double len){
     e[EdgeNum].to = start; e[EdgeNum].last = head[end]; e[EdgeNum].len = len; head[end] = EdgeNum++;
 }
 
-QStringList graph::FindPath(QStringList guide_list, double &totminutes, int mod){
+QStringList graph::FindPath(QStringList guide_list, double &totminutes, int mod, int hour, int minute){
     int list[15];
     int size = guide_list.size();
     if (size <= 1) return guide_list;
     QStringList result_list;
     for (int i = 0; i < size; i++)
         list[i] = graphtrie.findid(guide_list[i].toStdString().c_str());
-    result_list << QString::fromUtf8(name[list[0]]);
-    for (int i = 1; i < size; i++)
-        result_list += dijkstra(list[i], list[i-1], totminutes, mod);
+    result_list << QString::fromStdString(name[list[0]]);
+    for (int i = 1; i < size; i++){
+        if ((list[i] < 26 && list[i-1] < 26)||(list[i] >= 26 && list[i-1] >= 26))
+            result_list += dijkstra(list[i], list[i-1], totminutes, mod);
+        else {
+            result_list += select_route(totminutes, hour, minute);
+            result_list += QString::fromStdString(name[list[i]]);
+        }
+    }
     return result_list;
+}
+
+QString graph::select_route(double &totminutes, int hour, int minute){
+    int school_bus_time, i, vehicle_time;
+    for (i = 0; i < 6; i++)
+        if (hour < this -> hour[i] || (hour == this->hour[i] && minute <= this -> minute[i]))
+            break;
+    if (i == 6){
+        if (hour <= 6)
+            school_bus_time = (this -> hour[0] - hour) * 60 + this -> minute[0] - minute + 60;
+        else
+            school_bus_time = (this -> hour[0] + 24 - hour) * 60 + this -> minute[0] - minute + 60;
+    }
+    else
+        school_bus_time = (this -> hour[i] - hour) * 60 + this -> minute[i] - minute + 60;
+    if ((hour >= 6 && hour <= 22) || (hour == 23 && minute == 0))
+        vehicle_time = minute % 15 + 90;
+    else {
+        if (hour < 6)
+            vehicle_time = (6 - hour) * 60 - minute + 90;
+        else
+            vehicle_time = (6 + 24 - hour) * 60 - minute + 90;
+    }
+    if (school_bus_time <= vehicle_time){
+        totminutes += school_bus_time;
+        return QString::fromStdString("校车");
+    }
+    else {
+        totminutes += vehicle_time;
+        return QString::fromStdString("公交车");
+    }
 }
 
 QStringList graph::dijkstra(int st, int ed, double &totminutes, int mod){
@@ -278,12 +324,12 @@ QStringList graph::dijkstra(int st, int ed, double &totminutes, int mod){
     QStringList ret_list;
     while (ed!=st){
         ed = lastpos[ed];
-        ret_list.append(QString::fromUtf8(name[ed]));
+        ret_list.append(QString::fromStdString(name[ed]));
     }
     return ret_list;
 }
 
-void graph::resetnarrow(int *narrowlist, int num){
-    for (int i = 1; i <= num; i++)
+void graph::resetnarrow(int *narrowlist, int num, int line_base){
+    for (int i = 1 + line_base; i <= num + line_base; i++)
         e[i * 2].narrow = e[i * 2 - 1].narrow = narrowlist[i];
 }

@@ -30,6 +30,18 @@
 #include "class.h"
 #include "course.h"
 
+class time_table : public QWidget{
+    Q_OBJECT
+
+private:
+    QLabel *bus_title, *vehicle_description, *bus_list[6];
+    QVBoxLayout *bus_layout;
+    QHBoxLayout *tot_layout;
+
+public:
+    time_table(QWidget *parent = nullptr);
+};
+
 class material_detail : public QWidget{
     Q_OBJECT
 
@@ -113,6 +125,7 @@ private:
     QStringList place_name;
     Student *log_student;
     Class* student_class;
+    time_table* time_info;
     QHBoxLayout* layout, *time_button_layout, *lesson_layout, *calendar_layout, *guide_layout,
                 *place_layout, *guide_button_layout, *lesson_jump_button, *info_layout,
                 *s_calendar_time_layout, *e_calendar_time_layout, *activity_radio,
@@ -121,13 +134,14 @@ private:
     QPushButton* accelerate, *to_calendar_module1, *to_calendar_module2,
                 *to_guide_module1, *to_guide_module2, *to_lesson_module1, *to_lesson_module2,
                 *place_select_button, *place_clear_button, *start_guide, *homework_submit,
-                *material_list_button, *calendar_add, *calendar_del, *alarm_modify;
+                *material_list_button, *calendar_add, *calendar_del, *alarm_modify, *map_change,
+                *display_timetable;
     QLabel* timelabel, *datelabel, *speedlabel, *calendar_title, *guide_time, *query_label, *answer_label,
             *lesson_name, *lesson_place, *lesson_teacher, *test_label, *homework_label;
     QTableWidget* lessontable, *alarm_list, *test_info, *homework_info, *calendar_list;
     QWidget* page[3], *time_widget;
-    myGraphView* map;
-    QStackedWidget* stackwidget;
+    myGraphView* map1, *map2;
+    QStackedWidget* stackwidget, *map_stack;
     QListWidget* query_list, *answer_list;
     QComboBox* place_select, *calendar_place;
     QFormLayout* lesson_detail_info_layout, *lesson_message_button, *calendar_info_layout;
@@ -179,6 +193,9 @@ private:
     void calendar_display();
     void try_add_calendar();
     void delete_calendars();
+    void change_map();
+    void show_time_table();
+
 
     //manage
     Manager *log_manager;

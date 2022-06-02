@@ -3,5 +3,6 @@
 第一次作业
 data:
 数项级数的定义和性质
+5 函数项级数
 exam:
 uninitialized
