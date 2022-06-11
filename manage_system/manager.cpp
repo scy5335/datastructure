@@ -2,6 +2,9 @@
 
 Manager::Manager():logger("manager\\manager_logger.txt")
 {
+    if(!std::filesystem::exists("manager")){
+        std::filesystem::create_directories("manager");
+    }
 //    //在管理员账号存在的前提下,寻找管理员密码
 //    int id;
 //    string pwd;

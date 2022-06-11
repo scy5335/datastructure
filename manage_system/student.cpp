@@ -58,6 +58,9 @@ bool Student::enroll(int studentId, string password, int classId)
         }
         file.close();
     }
+    if(!std::filesystem::exists("student")){
+        std::filesystem::create_directories("student");
+    }
     /*若不存在该学生，根据参数classId给该学生注册账号*/
     file.open("student\\studentInfo.txt",ios::app);
     if(file.is_open()){
@@ -76,7 +79,7 @@ bool Student::enroll(int studentId, string password, int classId)
 //    if(file.is_open()){
 //        file.close();
 //    }
-    return false;
+    return true;
 }
 
 bool Student::login(int studentId, string password)

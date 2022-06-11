@@ -12,6 +12,9 @@ Course* Class::getCourse(string courseName)
 }
 Class::Class(int classId):classId(classId),courseNum(0),course(NULL)
 {
+    if(!std::filesystem::exists("class")){
+        std::filesystem::create_directories("class");
+    }
     //读取班级课程文件，逐个获取课程id
     int courseId[20];//限制一个班级最多20门课
     string courseName;
