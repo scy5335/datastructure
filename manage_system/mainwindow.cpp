@@ -258,7 +258,7 @@ void mainwindow::show_lesson_info(int row, int column){
     }
     homework_info -> clearContents();
     homework_info -> setRowCount(0);
-    QStringList now_homework_info = student_class -> getHomework(lesson_main_info[0].toLocal8Bit().data());
+    QStringList now_homework_info = student_class -> getAllHomework(lesson_main_info[0].toLocal8Bit().data());
     int row_count = homework_info -> rowCount(), len = now_homework_info.length();
     for (int i = 0; i < len; i++){
         homework_info -> setRowCount(row_count + 1);
@@ -860,7 +860,7 @@ void mainwindow::show_homework_page(){
         }
     if (id == -1) return;
     if (student_homework_page != NULL) delete student_homework_page;
-    QStringList homework_total_info, now_homework_info = student_class -> getHomework(lesson_name->text().toLocal8Bit().data());
+    QStringList homework_total_info, now_homework_info = student_class -> getAllHomework(lesson_name->text().toLocal8Bit().data());
     homework_total_info << now_homework_info[id * 3] << now_homework_info[id * 3 + 1]
                         << now_homework_info[id * 3 + 2];
     student_homework_page = new homework_submit_page(homework_total_info);

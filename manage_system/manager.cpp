@@ -166,7 +166,7 @@ QStringList Manager::getHomework(string courseName,int classId)
 {
     logger.addLogger("管理员查询了作业");
     Class c(classId);
-    return c.getHomework(courseName);
+    return c.getAllHomework(courseName);
 }
 
 void Manager::clearLogger()
