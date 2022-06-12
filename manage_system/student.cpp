@@ -58,6 +58,9 @@ bool Student::enroll(int studentId, string password, int classId)
         }
         file.close();
     }
+    if(!std::filesystem::exists("student")){
+        std::filesystem::create_directories("student");
+    }
     /*若不存在该学生，根据参数classId给该学生注册账号*/
     file.open("student\\studentInfo.txt",ios::app);
     if(file.is_open()){
@@ -76,7 +79,7 @@ bool Student::enroll(int studentId, string password, int classId)
 //    if(file.is_open()){
 //        file.close();
 //    }
-    return false;
+    return true;
 }
 
 bool Student::login(int studentId, string password)
@@ -131,6 +134,12 @@ string Student::getCourseGroup(string courseName)
 {
     logger.addLogger("学生查询了课程群");
     return studentClass->getCourseGroup(courseName);
+}
+
+void Student::uploadCourseData(string courseName, string dataName, string dataPath)
+{
+    logger.addLogger("学生上传了课程资料");
+    studentClass->uploadCourseData(courseName,dataName,dataPath);
 }
 
 QStringList Student::getCourseDataName(string courseName)
@@ -196,10 +205,10 @@ void Student::clearRecords()
     calendar.clear();
 }
 
-QStringList Student::getRecords()
+QStringList Student::getRecords(string name,int type)
 {
     logger.addLogger("学生查询日程安排");
-    return calendar.getRecords();
+    return calendar.getRecords(name,type);
 }
 
 bool Student::checkTimeConflict()

@@ -47,21 +47,30 @@ class material_detail : public QWidget{
 
 private:
     QTableWidget *material_list;
-    QHBoxLayout *layout;
+    QFormLayout *layout;
+    QLineEdit *description;
+    QPushButton *file_select, *add_material;
+    QLabel *file_path;
     void try_download();
+    void create_new_material();
+    void file_select_page();
 
 signals:
     void download(QString data_name, QString file_name);
+    void add_new_material(QString description, QString file_path);
+    void get_all_material();
 
 public:
-    material_detail(QStringList task_list, QWidget *parent = nullptr);
+    material_detail(QWidget *parent = nullptr);
+    void set_all_material(QStringList all_material_list);
+    void initial_set();
 };
 
 class homework_submit_page : public QWidget{
     Q_OBJECT
 
 private:
-    QLabel *title, *description, *state, *file_path, *ddl;
+    QLabel *title, *description, *state, *file_path, *ddl, *submited;
     QPushButton *file_select, *submit;
     QFormLayout *layout;
     void file_select_page();
@@ -195,7 +204,8 @@ private:
     void delete_calendars();
     void change_map();
     void show_time_table();
-
+    void student_get_material();
+    void student_add_material(QString description, QString file_path);
 
     //manage
     Manager *log_manager;

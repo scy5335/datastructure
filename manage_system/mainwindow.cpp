@@ -243,6 +243,7 @@ void mainwindow::manager_get_course_info(){
 }
 
 void mainwindow::show_lesson_info(int row, int column){
+    if (lessontable -> item(row, column)->text() == "")return;
     QStringList lesson_main_info = lessontable -> item(row, column) -> text().split('\n');
     lesson_name -> setText(lesson_main_info[0]);
     lesson_place -> setText(lesson_main_info[1]);
@@ -816,6 +817,7 @@ void mainwindow::homework_upload(QString homework_name, MyTime ddl, QString home
 }
 
 void mainwindow::material_add_page(){
+    if (class_name->text()=="")return;
     if (material_page != NULL) delete material_page;
     material_page = new material_manage_page();
     material_page -> show();
@@ -826,15 +828,28 @@ void mainwindow::material_add_page(){
 }
 
 void mainwindow::show_material_page(){
+    if (lesson_name->text() == "")return;
     if (student_material_page != NULL) delete student_material_page;
-    student_material_page = new material_detail(log_student -> getCourseDataName(lesson_name -> text().toLocal8Bit().data()));
+    student_material_page = new material_detail();
     student_material_page -> show();
+    connect(student_material_page, &material_detail::get_all_material, this, &mainwindow::student_get_material);
+    connect(student_material_page, &material_detail::add_new_material, this, &mainwindow::student_add_material);
+    student_material_page -> initial_set();
     connect(student_material_page, &material_detail::download, this, &mainwindow::download_task);
 }
 
 void mainwindow::get_all_material(){
     material_page -> set_all_material(log_manager -> getCourseDataInfo(class_name -> text().toLocal8Bit().data(),
                                                                        class_select -> currentText().toInt()));
+}
+
+void mainwindow::student_get_material(){
+    student_material_page -> set_all_material(log_student -> getCourseDataName(lesson_name -> text().toLocal8Bit().data()));
+}
+
+void mainwindow::student_add_material(QString description, QString file_path){
+    log_student -> uploadCourseData(lesson_name -> text().toLocal8Bit().data(),description.toLocal8Bit().data(),
+                                    file_path.toLocal8Bit().data());
 }
 
 void mainwindow::delete_material(QString description){
@@ -863,6 +878,8 @@ void mainwindow::show_homework_page(){
     QStringList homework_total_info, now_homework_info = student_class -> getAllHomework(lesson_name->text().toLocal8Bit().data());
     homework_total_info << now_homework_info[id * 3] << now_homework_info[id * 3 + 1]
                         << now_homework_info[id * 3 + 2];
+    homework_total_info << (log_student -> judgeHomework(lesson_name->text().toLocal8Bit().data(), now_homework_info[id * 3].toLocal8Bit().data())?
+                            "已完成":"未完成");
     student_homework_page = new homework_submit_page(homework_total_info);
     student_homework_page -> show();
     connect(student_homework_page, &homework_submit_page::submit_homework, this, &mainwindow::submit_homework);
@@ -1021,13 +1038,31 @@ QString mainwindow::trans_date(MyTime now_time){
     return Str1+"年"+Str2+"月"+Str3+"日";
 }
 
-material_detail::material_detail(QStringList task_list, QWidget *parent){
+material_detail::material_detail(QWidget *parent){
     setWindowTitle("课程资料");
+    description = new QLineEdit();
+    file_select = new QPushButton();
+    file_select -> setText("选择文件");
+    file_path = new QLabel();
+    add_material = new QPushButton();
+    add_material -> setText("添加材料");
     material_list = new QTableWidget();
     material_list -> setColumnCount(2);
     material_list -> setHorizontalHeaderLabels(QStringList()<<"资料名"<<"下载");
     material_list -> horizontalHeader() -> setSectionResizeMode(QHeaderView::Stretch);
+    layout = new QFormLayout();
+    layout -> addRow("材料描述", description);
+    layout -> addRow(file_select, file_path);
+    layout -> addRow(add_material);
+    layout -> addRow(material_list);
+    connect(file_select, &QPushButton::clicked, this, &material_detail::file_select_page);
+    connect(add_material, &QPushButton::clicked, this, &material_detail::create_new_material);
+    setLayout(layout);
+}
+
+void material_detail::set_all_material(QStringList task_list){
     int len = task_list.length();
+    material_list -> clearContents();
     material_list -> setRowCount(len);
     for (int i = 0; i < len; i++){
         QPushButton *download = new QPushButton();
@@ -1036,9 +1071,11 @@ material_detail::material_detail(QStringList task_list, QWidget *parent){
         material_list -> setCellWidget(i, 1, download);
         connect(download, &QPushButton::clicked, this, &material_detail::try_download);
     }
-    layout = new QHBoxLayout();
-    layout -> addWidget(material_list);
-    setLayout(layout);
+}
+
+void material_detail::file_select_page(){
+    QString filename = QFileDialog::getOpenFileName(this, tr("选择文件"), "C:/", tr("All files(*.*)"));
+    file_path -> setText(filename);
 }
 
 void material_detail::try_download(){
@@ -1056,6 +1093,18 @@ void material_detail::try_download(){
     }
 }
 
+void material_detail::initial_set(){
+    emit get_all_material();
+}
+
+void material_detail::create_new_material(){
+    if (file_path -> text() == "")
+        return;
+    emit add_new_material(description -> text(),file_path -> text());
+    emit get_all_material();
+    file_path -> clear();
+}
+
 homework_submit_page::homework_submit_page(QStringList info, QWidget *parent){
     setWindowTitle("作业提交");
     title = new QLabel();
@@ -1064,6 +1113,8 @@ homework_submit_page::homework_submit_page(QStringList info, QWidget *parent){
     ddl -> setText(info[1]);
     description = new QLabel();
     description -> setText(info[2]);
+    submited = new QLabel();
+    submited -> setText(info[2]);
     file_select = new QPushButton();
     file_select -> setText("选择文件");
     submit = new QPushButton();
@@ -1073,6 +1124,7 @@ homework_submit_page::homework_submit_page(QStringList info, QWidget *parent){
     layout -> addRow("作业名称", title);
     layout -> addRow("作业截至时间", ddl);
     layout -> addRow("提交状态", description);
+    layout -> addRow("是否提交", submited);
     layout -> addRow(file_select, file_path);
     layout -> addRow(submit);
     setLayout(layout);
@@ -1084,6 +1136,7 @@ void homework_submit_page::file_select_page(){
     file_path -> setText(filename);
     emit submit_homework(title -> text(), filename);
     file_path -> setText("");
+    submited -> setText("已提交");
 }
 
 alarm_page::alarm_page(QWidget *parent){

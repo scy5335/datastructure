@@ -56,7 +56,7 @@ public:
     /*清除所有日程安排*/
     void clear();
     /*获取日程表文件所有记录,列表依次为事件，开始时间，结束时间，地点*/
-    QStringList getRecords();
+    QStringList getRecords(string name="",int type=-1);
     /*该函数只检测了课外活动是否冲突时间*/
     bool checkTimeConflict(MyTime* courseTTb[15][8]);
 };

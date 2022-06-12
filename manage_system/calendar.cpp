@@ -134,12 +134,18 @@ void Calendar::clear()
         temp=head->next;
     }
 }
-QStringList Calendar::getRecords()
+QStringList Calendar::getRecords(string name,int type)
 {
     QStringList list;
     Record *temp=head->next;
     while(temp){
-        list+=temp->getRecordInfo();
+        bool flag=true;
+        if(name!="")
+            flag &=temp->event==name;
+        if(type!=-1)
+            flag &=temp->type==type;
+        if(flag)
+            list+=temp->getRecordInfo();
         temp=temp->next;
     }
     return list;
