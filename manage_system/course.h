@@ -224,9 +224,13 @@ public:
     void saveFile();
     void readFile();
     void taskSort(bool sortByDDL);
+    static void taskSort(Task*buffer[], int len, bool sortByDDL);
     Task* taskSearch(string name);
+    int taskSearchByKeyword(string keyword, Task*buffer[]);
     void dataSort();
+    static void dataSort(Data*buffer[], int len);
     Data* dataSearch(string name);
+    int dataSearchByKeyword(string keyword, Data* buffer[]);
     int getTaskNum();
     int getDataNum();
     void taskRemove(Task* t);

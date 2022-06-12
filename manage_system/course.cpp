@@ -348,6 +348,29 @@ void Course::taskSort(bool sortByDDL)
     }
 }
 
+void Course::taskSort(Task *buffer[], int len, bool sortByDDL)
+{
+    int i, j;
+    if(sortByDDL==1)
+    {
+        for(i=1;i<len;i++)
+        {
+            for(j=i;j>0&&buffer[j]->deadline<buffer[j-1]->deadline;j--)
+            {
+                swap(buffer[j],buffer[j-1]);
+            }
+        }
+        return;
+    }
+    for(i=1;i<len;i++)
+    {
+        for(j=i;j>0&&buffer[j]->setTime<buffer[j-1]->setTime;j--)
+        {
+            swap(buffer[j],buffer[j-1]);
+        }
+    }
+}
+
 Task *Course::taskSearch(string name)
 {
     for(int i=0;i<taskNum;i++)
@@ -360,6 +383,20 @@ Task *Course::taskSearch(string name)
     return nullptr;
 }
 
+int Course::taskSearchByKeyword(string keyword, Task *buffer[])
+{
+    int cnt=0;
+    for(int i=0; i<taskNum; i++)
+    {
+        if(task[i]->getName().find(keyword)>=0)
+        {
+            buffer[cnt++]=task[i];
+        }
+    }
+    return cnt;
+}
+
+
 void Course::dataSort()
 {
     int i, j;
@@ -368,6 +405,18 @@ void Course::dataSort()
         for(j=i;j>0&&data[j]->setTime<data[j]->setTime;j--)
         {
             swap(data[j],data[j-1]);
+        }
+    }
+}
+
+void Course::dataSort(Data *buffer[], int len)
+{
+    int i, j;
+    for(i=1;i<len;i++)
+    {
+        for(j=i;j>0&&buffer[j]->setTime<buffer[j]->setTime;j--)
+        {
+            swap(buffer[j],buffer[j-1]);
         }
     }
 }
@@ -382,6 +431,19 @@ Data *Course::dataSearch(string name)
         }
     }
     return nullptr;
+}
+
+int Course::dataSearchByKeyword(string keyword, Data *buffer[])
+{
+    int cnt=0;
+    for(int i=0; i<dataNum; i++)
+    {
+        if(data[i]->getName().find(keyword)>=0)
+        {
+            buffer[cnt++]=data[i];
+        }
+    }
+    return cnt;
 }
 
 int Course::getTaskNum()
