@@ -185,7 +185,7 @@ void hfmTree::build()
     int i;
     quicksort(index,0,255);
 
-    for(i=0;!node[index[i]].weight;i++);
+    for(i=0;!node[index[i]].weight&&i<256;i++);
     for(;i<256;i++)
     {
         leafQ.push(index[i]);
