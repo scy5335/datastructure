@@ -138,13 +138,13 @@ private:
     QHBoxLayout* layout, *time_button_layout, *lesson_layout, *calendar_layout, *guide_layout,
                 *place_layout, *guide_button_layout, *lesson_jump_button, *info_layout,
                 *s_calendar_time_layout, *e_calendar_time_layout, *activity_radio,
-                *calendar_change_button, *mode_select;
+                *calendar_change_button, *mode_select, *sb_layout;
     QVBoxLayout* time_clock_layout, *calendar_main_layout, *guide_mod_layout, *calendar_right;
     QPushButton* accelerate, *to_calendar_module1, *to_calendar_module2,
                 *to_guide_module1, *to_guide_module2, *to_lesson_module1, *to_lesson_module2,
                 *place_select_button, *place_clear_button, *start_guide, *homework_submit,
                 *material_list_button, *calendar_add, *calendar_del, *alarm_modify, *map_change,
-                *display_timetable;
+                *display_timetable, *search_button;
     QLabel* timelabel, *datelabel, *speedlabel, *calendar_title, *guide_time, *query_label, *answer_label,
             *lesson_name, *lesson_place, *lesson_teacher, *test_label, *homework_label;
     QTableWidget* lessontable, *alarm_list, *test_info, *homework_info, *calendar_list;
@@ -159,11 +159,13 @@ private:
     QComboBox* s_nian, *s_yue, *s_ri, *s_shi, *s_fen, *e_nian, *e_yue, *e_ri, *e_shi, *e_fen;
     QLabel *s_nian_name, *s_yue_name, *s_ri_name, *s_shi_name, *s_fen_name,
            *e_nian_name, *e_yue_name, *e_ri_name, *e_shi_name, *e_fen_name;
-    QLineEdit *calendar_description, *speed_change;
-    QRadioButton *single_activity, *group_activity, *time_first, *dist_only, *mix;
-    QButtonGroup *mode_group;
+    QLineEdit *calendar_description, *speed_change, *search_name;
+    QRadioButton *single_activity, *group_activity, *time_first, *dist_only, *mix, *sa, *sb, *sc;
+    QButtonGroup *mode_group, *sa_group, *sb_group;
     alarm_page *alarm_set_page;
     MyClock *Clock;
+    QString calendar_name;
+    int calendar_type;
     int speed;
 
     void student_page_set();
@@ -206,6 +208,7 @@ private:
     void show_time_table();
     void student_get_material();
     void student_add_material(QString description, QString file_path);
+    void calendar_search();
 
     //manage
     Manager *log_manager;

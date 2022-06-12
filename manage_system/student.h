@@ -63,9 +63,9 @@ public:
 
     /*日程表功能*/
     /*增加日程安排,要求日程安排不能重名,否则会刷新日程,参数依次为事件,开始时间，结束时间*/
-    void insertRecord(string event,MyTime startTime,MyTime endTime,int place=0,int type=-1);
+    void insertRecord(string event,MyTime startTime,MyTime endTime,int place=0,int type=0);
     /*修改日程安排,参数依次为事件,开始时间，结束时间*/
-    void updateRecord(string event,MyTime startTime,MyTime endTime,int place=0,int type=-1);
+    void updateRecord(string event,MyTime startTime,MyTime endTime,int place=0,int type=0);
     /*删除特定日程安排,参数为事件*/
     void deleteRecord(string event);
     /*清除所有日程安排*/

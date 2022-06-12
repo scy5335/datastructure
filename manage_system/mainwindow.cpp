@@ -322,6 +322,8 @@ void mainwindow::show_manager_lesson_info(int row, int column){
 }
 
 void mainwindow::set_calendar_page(){
+    calendar_name = "";
+    calendar_type = -1;
     calendar_title = new QLabel();
     calendar_title -> setText("日程表");
     calendar_list = new QTableWidget();
@@ -343,6 +345,9 @@ void mainwindow::set_calendar_page(){
     activity_radio = new QHBoxLayout();
     activity_radio -> addWidget(single_activity);
     activity_radio -> addWidget(group_activity);
+    sa_group = new QButtonGroup();
+    sa_group -> addButton(single_activity);
+    sa_group -> addButton(group_activity);
     calendar_place = new QComboBox();
     calendar_info_layout = new QFormLayout();
     calendar_info_layout -> addRow("活动名称", calendar_description);
@@ -356,6 +361,27 @@ void mainwindow::set_calendar_page(){
     calendar_del -> setText("删除活动");
     calendar_info_layout -> addRow(calendar_add);
     calendar_info_layout -> addRow(calendar_del);
+    search_name = new QLineEdit();
+    sa = new QRadioButton();
+    sa -> setText("个人活动");
+    sb = new QRadioButton();
+    sb -> setText("集体活动");
+    sb_layout = new QHBoxLayout();
+    sc = new QRadioButton();
+    sc -> setText("所有活动");
+    sb_layout -> addWidget(sc);
+    sb_layout -> addWidget(sa);
+    sb_layout -> addWidget(sb);
+    sc -> setChecked(true);
+    sb_group = new QButtonGroup();
+    sb_group -> addButton(sa);
+    sb_group -> addButton(sb);
+    sb_group -> addButton(sc);
+    search_button = new QPushButton();
+    search_button -> setText("查询");
+    calendar_info_layout -> addRow("活动名称", search_name);
+    calendar_info_layout -> addRow("活动类型", sb_layout);
+    calendar_info_layout -> addRow(search_button);
     to_lesson_module1 = new QPushButton();
     to_lesson_module1 -> setText("查看课程表");
     to_guide_module2 = new QPushButton();
@@ -375,6 +401,18 @@ void mainwindow::set_calendar_page(){
     connect(e_yue, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &mainwindow::e_change_day);
     connect(calendar_add, &QPushButton::clicked, this, &mainwindow::try_add_calendar);
     connect(calendar_del, &QPushButton::clicked, this, &mainwindow::delete_calendars);
+    connect(search_button, &QPushButton::clicked, this, &mainwindow::calendar_search);
+}
+
+void mainwindow::calendar_search(){
+    calendar_name = search_name -> text();
+    if (sc->isChecked())
+        calendar_type = -1;
+    else if (sa->isChecked())
+        calendar_type = 0;
+    else
+        calendar_type = 1;
+    calendar_display();
 }
 
 void mainwindow::try_add_calendar(){
@@ -400,7 +438,11 @@ void mainwindow::try_add_calendar(){
         QMessageBox::critical(this, "添加活动出错", "开始时间晚于结束时间");
         return;
     }
-    log_student -> insertRecord(calendar_description -> text().toLocal8Bit().data(), start_time, end_time);
+    int type = 0;
+    if (single_activity->isChecked())
+        type = 0;
+    else type = 1;
+    log_student -> insertRecord(calendar_description -> text().toLocal8Bit().data(), start_time, end_time, calendar_place->currentIndex(), type);
     if (log_student -> checkTimeConflict())
         QMessageBox::critical(this, "警告", "活动冲突");
     calendar_display();
@@ -415,8 +457,8 @@ void mainwindow::delete_calendars(){
 }
 
 void mainwindow::calendar_display(){
+    QStringList tot_calendar = log_student -> getRecords(calendar_name.toLocal8Bit().data(), calendar_type);
     calendar_list -> clearContents();
-    QStringList tot_calendar = log_student -> getRecords();
     int len = tot_calendar.length();
     calendar_list -> setRowCount(len/5);
     for (int i = 0, row_count = 0; i < len; row_count++){
@@ -424,7 +466,7 @@ void mainwindow::calendar_display(){
         p_check -> setCheckState(Qt::Unchecked);
         calendar_list -> setItem(row_count, 0, p_check);
         calendar_list -> setItem(row_count, 1 ,new QTableWidgetItem(tot_calendar[i++]));
-        calendar_list -> setItem(row_count, 2 ,new QTableWidgetItem(tot_calendar[i++].toInt()?"个人活动":"集体活动"));
+        calendar_list -> setItem(row_count, 2 ,new QTableWidgetItem((!tot_calendar[i++].toInt())?"个人活动":"集体活动"));
         calendar_list -> setItem(row_count, 3 ,new QTableWidgetItem(tot_calendar[i++]));
         calendar_list -> setItem(row_count, 4 ,new QTableWidgetItem(tot_calendar[i++]));
         calendar_list -> setItem(row_count, 5 ,new QTableWidgetItem(place_name[tot_calendar[i++].toInt()]));
@@ -1016,7 +1058,7 @@ void mainwindow::e_change_day(){
 
 void mainwindow::calendar_set_place(QStringList name){
     calendar_place -> addItems(name);
-    calendar_place -> setCurrentIndex(-1);
+    calendar_place -> setCurrentIndex(0);
 }
 
 QString mainwindow::trans_time(MyTime now_time){
