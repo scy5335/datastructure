@@ -136,6 +136,12 @@ string Student::getCourseGroup(string courseName)
     return studentClass->getCourseGroup(courseName);
 }
 
+void Student::uploadCourseData(string courseName, string dataName, string dataPath)
+{
+    logger.addLogger("学生上传了课程资料");
+    studentClass->uploadCourseData(courseName,dataName,dataPath);
+}
+
 QStringList Student::getCourseDataName(string courseName)
 {
     logger.addLogger("学生查询了课程资料");

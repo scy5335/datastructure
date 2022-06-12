@@ -37,6 +37,8 @@ public:
     string getCourseGroup(string courseName);
 
     /*课程资料功能*/
+    /*上传课程资料,参数依次为课程名称,资料名称,资料文件路径*/
+    void uploadCourseData(string courseName,string dataName,string dataPath);
     /*获取课程资料名称,返回值为资料名称列表*/
     QStringList getCourseDataName(string courseName);
     /*下载课程资料,参数依次为课程名称,资料名称，存放路径*/
