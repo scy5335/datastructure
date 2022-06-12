@@ -185,7 +185,7 @@ void hfmTree::build()
     int i;
     quicksort(index,0,255);
 
-    for(i=0;!node[index[i]].weight&&i<256;i++);
+    for(i=0;i<256&&!node[index[i]].weight;i++);
     for(;i<256;i++)
     {
         leafQ.push(index[i]);
@@ -208,12 +208,12 @@ void hfmTree::build()
                 supQ.pop();
             }
         }
-        else if(leafQ.empty())
+        else if(leafQ.empty()&&!supQ.empty())
         {
             min1=supQ.front();
             supQ.pop();
         }
-        else if(supQ.empty())
+        else if(supQ.empty()&&!leafQ.empty())
         {
             min1=leafQ.front();
             leafQ.pop();
@@ -233,23 +233,23 @@ void hfmTree::build()
                 supQ.pop();
             }
         }
-        else if(leafQ.empty())
+        else if(leafQ.empty()&&!supQ.empty())
         {
             min2=supQ.front();
             supQ.pop();
         }
-        else if(supQ.empty())
+        else if(supQ.empty()&&!leafQ.empty())
         {
             min2=leafQ.front();
             leafQ.pop();
         }
-        node[min1].parent=node[min2].parent=supLen;
-//        qDebug()<<node[min1].parent<<" "<<node[min2].parent;
-        node[supLen].left=min1;
-        node[supLen].right=min2;
-//        qDebug()<<node[supLen].left<<" "<<node[supLen].right;
-        node[supLen].weight=node[min1].weight+node[min2].weight;
-//        qDebug()<<node[supLen].weight;
+        if(min1!=-1&&min2!=-1)
+        {
+            node[min1].parent=node[min2].parent=supLen;
+            node[supLen].left=min1;
+            node[supLen].right=min2;
+            node[supLen].weight=node[min1].weight+node[min2].weight;
+        }
         if(leafQ.empty()&&supQ.empty())
         {
             this->root=supLen;
