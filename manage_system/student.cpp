@@ -205,10 +205,10 @@ void Student::clearRecords()
     calendar.clear();
 }
 
-QStringList Student::getRecords()
+QStringList Student::getRecords(string name,int type)
 {
     logger.addLogger("学生查询日程安排");
-    return calendar.getRecords();
+    return calendar.getRecords(name,type);
 }
 
 bool Student::checkTimeConflict()

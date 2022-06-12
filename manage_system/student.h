@@ -63,15 +63,15 @@ public:
 
     /*日程表功能*/
     /*增加日程安排,要求日程安排不能重名,否则会刷新日程,参数依次为事件,开始时间，结束时间*/
-    void insertRecord(string event,MyTime startTime,MyTime endTime,int place=0,int type=0);
+    void insertRecord(string event,MyTime startTime,MyTime endTime,int place=0,int type=-1);
     /*修改日程安排,参数依次为事件,开始时间，结束时间*/
-    void updateRecord(string event,MyTime startTime,MyTime endTime,int place=0,int type=0);
+    void updateRecord(string event,MyTime startTime,MyTime endTime,int place=0,int type=-1);
     /*删除特定日程安排,参数为事件*/
     void deleteRecord(string event);
     /*清除所有日程安排*/
     void clearRecords();
-    /*获取日程列表*/
-    QStringList getRecords();
+    /*获取日程列表,参数为活动名称和活动类型，参数可选*/
+    QStringList getRecords(string name="",int type=-1);
     /*检测日程冲突*/
     bool checkTimeConflict();
 };
