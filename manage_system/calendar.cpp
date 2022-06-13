@@ -10,6 +10,27 @@ QStringList Record::getRecordInfo()
     list.append(QString::number(place));
     return list;
 }
+void Calendar::insert(string event, MyTime startTime, MyTime endTime, int place, int type)
+{
+    Record* temp=head;
+    Record* r=new Record(event,startTime,endTime,place,type);
+    while(temp->next){
+        if(event==temp->next->event){//不允许重名
+            delete r;
+            return;
+        }
+        if(startTime<temp->next->startTime){
+            r->next=temp->next;
+            temp->next=r;
+            return;
+        }
+        else{
+            temp=temp->next;
+        }
+    }
+    temp->next=r;//此时temp即是最后一个节点
+}
+
 void Calendar::readFile()
 {
     /*读取文件初始化日程链表，成员函数通过链表来操作，直到析构才释放链表*/
@@ -23,7 +44,7 @@ void Calendar::readFile()
             file>>year1>>month1>>day1>>hour1>>minute1;
             file>>year2>>month2>>day2>>hour2>>minute2;
             file>>event>>place>>type;
-            addRecord(event,MyTime(year1,month1,day1,hour1,minute1),MyTime(year2,month2,day2,hour2,minute2),place,type);
+            insert(event,MyTime(year1,month1,day1,hour1,minute1),MyTime(year2,month2,day2,hour2,minute2),place,type);
         }
         file.close();
     }
@@ -31,27 +52,33 @@ void Calendar::readFile()
 
 void Calendar::updateFile()
 {
+    qDebug()<<"updateCalendarFile";
     /*通过链表更新文件*/
     Record *temp=head->next;
-    ofstream file(path,ios::out);
-    if(file.is_open()){
-        while(temp){
-            file<<endl<<temp->startTime.getYear();
-            file<<endl<<temp->startTime.getMonth();
-            file<<endl<<temp->startTime.getDay();
-            file<<endl<<temp->startTime.getHour();
-            file<<endl<<temp->startTime.getMin();
-            file<<endl<<temp->endTime.getYear();
-            file<<endl<<temp->endTime.getMonth();
-            file<<endl<<temp->endTime.getDay();
-            file<<endl<<temp->endTime.getHour();
-            file<<endl<<temp->endTime.getMin();
-            file<<endl<<temp->event;
-            file<<endl<<temp->place;
-            file<<endl<<temp->type;
-            temp=temp->next;
+    if(!temp){
+        remove(path.c_str());
+    }
+    else{
+        ofstream file(path,ios::out);
+        if(file.is_open()){
+            while(temp){
+                file<<endl<<temp->startTime.getYear();
+                file<<endl<<temp->startTime.getMonth();
+                file<<endl<<temp->startTime.getDay();
+                file<<endl<<temp->startTime.getHour();
+                file<<endl<<temp->startTime.getMin();
+                file<<endl<<temp->endTime.getYear();
+                file<<endl<<temp->endTime.getMonth();
+                file<<endl<<temp->endTime.getDay();
+                file<<endl<<temp->endTime.getHour();
+                file<<endl<<temp->endTime.getMin();
+                file<<endl<<temp->event;
+                file<<endl<<temp->place;
+                file<<endl<<temp->type;
+                temp=temp->next;
+            }
+            file.close();
         }
-        file.close();
     }
 }
 
@@ -92,6 +119,7 @@ void Calendar::addRecord(string event,MyTime startTime,MyTime endTime,int place,
         }
     }
     temp->next=r;//此时temp即是最后一个节点
+    updateFile();
 }
 void Calendar::updateRecord(string event,MyTime startTime,MyTime endTime,int place,int type)
 {
@@ -109,6 +137,7 @@ void Calendar::updateRecord(string event,MyTime startTime,MyTime endTime,int pla
             temp=temp->next;
         }
     }
+    updateFile();
 }
 void Calendar::deleteRecord(string event)
 {
@@ -124,6 +153,7 @@ void Calendar::deleteRecord(string event)
             preTemp=preTemp->next;
         }
     }
+    updateFile();
 }
 void Calendar::clear()
 {
@@ -133,6 +163,7 @@ void Calendar::clear()
         delete temp;
         temp=head->next;
     }
+    updateFile();
 }
 QStringList Calendar::getRecords(string name,int type)
 {

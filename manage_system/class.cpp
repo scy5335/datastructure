@@ -232,13 +232,24 @@ void Class::uploadCourseData(string courseName, string dataName, string dataPath
     }
 }
 
-QStringList Class::getCourseDataInfo(string courseName)
+QStringList Class::getCourseDataInfo(string courseName,string dataName)
 {
     QStringList list;
     if(getCourse(courseName)){
-        int dataNum=getCourse(courseName)->getDataNum();
-        for(int i=0;i<dataNum;++i){
-            list.append(QString::fromLocal8Bit(getCourse(courseName)->data[i]->getName()));
+        Course* c=getCourse(courseName);
+        int dataNum=c->getDataNum();
+        if(!dataName.empty()){
+            Data **buffer=new Data*[dataNum];
+            dataNum=c->dataSearchByKeyword(dataName,buffer);
+            for(int i=0;i<dataNum;++i){
+                list.append(QString::fromLocal8Bit(buffer[i]->getName()));
+            }
+            delete []buffer;
+        }
+        else{
+            for(int i=0;i<dataNum;++i){
+                list.append(QString::fromLocal8Bit(c->data[i]->getName()));
+            }
         }
     }
     return list;
@@ -339,19 +350,32 @@ QStringList Class::getAllHomework(string courseName)
     return list;
 }
 
-QStringList Class::getHomeworkInfo(string courseName, string homeworkName)
+QStringList Class::getHomeworkInfo(string courseName, string homeworkName,bool sortByDDL)
 {
     QStringList list;
     if(getCourse(courseName)){
         Course *c=getCourse(courseName);
-        for(int i=0;i<c->getTaskNum();i++)
-        {
-            if(c->task[i]->getName()==homeworkName){
-                list.append(QString::fromLocal8Bit(c->task[i]->getName()));
-                list.append(QString::fromLocal8Bit(c->task[i]->deadline.toString()));
-                list.append(QString::fromLocal8Bit(c->task[i]->getDesc()));
+        int taskNum=c->getTaskNum();
+        if(taskNum>0){
+            Task**buffer=new Task*[taskNum];
+            //此处并没有创建新的Task对象,只是创造了Task指针数组，该数组要释放掉
+            int len=c->taskSearchByKeyword(homeworkName,buffer);
+            c->taskSort(buffer,len,sortByDDL);
+            for(int i=0;i<len;++i){
+                list+=QString::fromLocal8Bit(buffer[i]->getName());
+                list+=QString::fromLocal8Bit(buffer[i]->deadline.toString());
+                list+=QString::fromLocal8Bit(buffer[i]->getDesc());
             }
+            delete []buffer;
         }
+        //        for(int i=0;i<c->getTaskNum();i++)
+        //        {
+        //            if(c->task[i]->getName()==homeworkName){
+        //                list.append(QString::fromLocal8Bit(c->task[i]->getName()));
+        //                list.append(QString::fromLocal8Bit(c->task[i]->deadline.toString()));
+        //                list.append(QString::fromLocal8Bit(c->task[i]->getDesc()));
+        //            }
+        //        }
     }
     return list;
 }

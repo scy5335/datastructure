@@ -4,6 +4,7 @@
 #include<fstream>
 #include "mytime.h"
 #include "alarm.h"
+#include<stdio.h>
 using namespace std;
 
 static int personalType=0;//个人活动
@@ -42,6 +43,7 @@ private:
     string path;//日程表文件路径
     Record* head;//空头节点
 
+    void insert(string event,MyTime startTime,MyTime endTime,int place=0,int type=personalType);
     void readFile();
     void updateFile();
 public:

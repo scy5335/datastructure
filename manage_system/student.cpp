@@ -142,10 +142,10 @@ void Student::uploadCourseData(string courseName, string dataName, string dataPa
     studentClass->uploadCourseData(courseName,dataName,dataPath);
 }
 
-QStringList Student::getCourseDataName(string courseName)
+QStringList Student::getCourseDataName(string courseName,string dataName)
 {
     logger.addLogger("学生查询了课程资料");
-    return studentClass->getCourseDataInfo(courseName);
+    return studentClass->getCourseDataInfo(courseName,dataName);
 }
 void Student::submitHomework(string courseName,string homeworkName,string filePath)
 {

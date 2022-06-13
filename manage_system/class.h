@@ -48,12 +48,12 @@ public:
     /*上传课程资料,参数依次为课程名称,资料名称,资料文件路径*/
     void uploadCourseData(string courseName,string dataName,string dataPath);
     /*获取课程资料名称,返回值为资料名称列表*/
-    QStringList getCourseDataInfo(string courseName);
+    QStringList getCourseDataInfo(string courseName,string dataName="");
     /*删除课程资料,参数依次为课程名称,资料名称*/
     void removeCourseData(string courseName,string dataName);
     /*下载课程资料,参数为课程名称,资料名称,存放文件路径*/
     void downloadCourseData(string courseName,string dataName,string downloadPath);
-    /*下载课程资料,参数依次为课程名称,资料名称，存放路径*/
+    /*获取课程资料内容,参数依次为课程名称,资料名称，存放路径*/
     void getCourseData(string courseName,string dataName,string filePath);
 
     /*考试功能*/
@@ -71,8 +71,9 @@ public:
     void deleteHomework(string courseName,string homeworkName);
     /*查询作业,返回值依次为作业名称,截止时间,作业描述*/
     QStringList getAllHomework(string courseName);
-    /*查询作业,返回值依次为作业名称,截止时间,作业描述*/
-    QStringList getHomeworkInfo(string courseName,string homeworkName);
+    /*查询作业,参数homeworkName支持子串匹配,sortByDDL默认true按照截止时间排序,false按照开始时间排序*/
+    /*返回值依次为作业名称,截止时间,作业描述*/
+    QStringList getHomeworkInfo(string courseName,string homeworkName,bool sortByDDL=true);
     /*提交作业,参数为课程名称,返回值列表依次为作业名称，作业文件路径*/
     void submitHomework(string courseName,string homeworkName,string filePath,int userId);
     /*询问作业是否完成,参数为课程名称,作业名称,若提交则返回true*/
