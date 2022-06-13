@@ -30,6 +30,25 @@
 #include "class.h"
 #include "course.h"
 
+class place_search_page : public QWidget{
+    Q_OBJECT
+
+private:
+    QComboBox* xingqi, *shi, *fen;
+    QLabel* week_label, *shi_label, *fen_label;
+    QLineEdit* class_name;
+    QFormLayout* layout;
+    QPushButton* search;
+    QHBoxLayout* time_layout;
+    void try_search();
+
+signals:
+    void search_signal(QString cname, int week, int hour, int time);
+
+public:
+    place_search_page();
+};
+
 class time_table : public QWidget{
     Q_OBJECT
 
@@ -144,7 +163,7 @@ private:
                 *to_guide_module1, *to_guide_module2, *to_lesson_module1, *to_lesson_module2,
                 *place_select_button, *place_clear_button, *start_guide, *homework_submit,
                 *material_list_button, *calendar_add, *calendar_del, *alarm_modify, *map_change,
-                *display_timetable, *search_button;
+                *display_timetable, *search_button, *sb_search_button;
     QLabel* timelabel, *datelabel, *speedlabel, *calendar_title, *guide_time, *query_label, *answer_label,
             *lesson_name, *lesson_place, *lesson_teacher, *test_label, *homework_label;
     QTableWidget* lessontable, *alarm_list, *test_info, *homework_info, *calendar_list;
@@ -167,6 +186,7 @@ private:
     QString calendar_name;
     int calendar_type;
     int speed;
+    place_search_page *search_page;
 
     void student_page_set();
     void manage_page_set();
@@ -209,6 +229,8 @@ private:
     void student_get_material();
     void student_add_material(QString description, QString file_path);
     void calendar_search();
+    void show_search_page();
+    void try_search(QString cname, int week, int hour, int min);
 
     //manage
     Manager *log_manager;

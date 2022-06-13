@@ -13,6 +13,7 @@ mainwindow::mainwindow(QWidget *parent) :
     student_homework_page = NULL;
     student_material_page = NULL;
     alarm_set_page = NULL;
+    search_page = NULL;
     time_info = new time_table();
 }
 
@@ -516,6 +517,8 @@ void mainwindow::set_guide_page(){
     answer_list = new QListWidget();
     answer_list -> setFixedWidth(200);
     guide_time = new QLabel();
+    sb_search_button = new QPushButton();
+    sb_search_button -> setText("查询地点");
     start_guide = new QPushButton();
     start_guide -> setText("开始导航");
     dist_only = new QRadioButton();
@@ -544,6 +547,7 @@ void mainwindow::set_guide_page(){
     guide_mod_layout -> addWidget(guide_time);
     guide_mod_layout -> addWidget(map_change);
     guide_mod_layout -> addWidget(display_timetable);
+    guide_mod_layout -> addWidget(sb_search_button);
     guide_mod_layout -> addWidget(place_select);
     guide_mod_layout -> addLayout(place_layout);
     guide_mod_layout -> addWidget(start_guide);
@@ -560,7 +564,73 @@ void mainwindow::set_guide_page(){
     connect(map2, &myGraphView::selected, this, &mainwindow::set_place_info);
     connect(map_change, &QPushButton::clicked, this, &mainwindow::change_map);
     connect(display_timetable, &QPushButton::clicked, this, &mainwindow::show_time_table);
+    connect(sb_search_button, &QPushButton::clicked, this, &mainwindow::show_search_page);
     //connect(start_guide, &QPushButton::clicked, map, &myGraphView::SaveToFile);
+}
+
+void mainwindow::show_search_page(){
+    if (search_page != NULL) delete search_page;
+    search_page = new place_search_page();
+    connect(search_page, &place_search_page::search_signal, this, &mainwindow::try_search);
+}
+
+void mainwindow::try_search(QString cname, int week, int hour, int min){
+    if (week == -1) week = 0;
+    if (hour == -1) hour = 0;
+    if (min == -1) min = 0;
+    hour = hour * 60 + min;
+    int tmp_hour, tmp_min, pos, tmp_pos, end_pos, flag = 0;
+    for (int i = 0; i < 14; i++){
+        trans_hour_min(i, tmp_hour, tmp_min);
+        tmp_hour = tmp_hour * 60 + tmp_min;
+        if (hour <= tmp_hour)
+            pos = i;
+        else if (i == 13){
+            pos = 0;
+            week++;
+        }
+    }
+    tmp_pos = pos;
+    end_pos = 14;
+    if (cname == ""){
+        for (int i = 0; i < 8; i++){
+            if (i == 7) end_pos = tmp_pos;
+            for (int j = pos; j < end_pos; j++)
+                if (lessontable -> item(j, week) -> text() != ""){
+                    QStringList class_list = lessontable -> item(j, week) -> text().split("\n");
+                    flag = 1;
+                    query_list -> addItem(class_list[1]);
+                    break;
+                }
+            if (flag)
+                break;
+            pos = 0;
+            week++;
+            week %= 7;
+        }
+    }
+    else {
+        for (int i = 0; i < 8; i++){
+            if (i == 7) end_pos = tmp_pos;
+            for (int j = pos; j < end_pos; j++)
+                if (lessontable -> item(j, week) -> text() != ""){
+                    QStringList class_list = lessontable -> item(j, week) -> text().split("\n");
+                    if (class_list[0] == cname){
+                        flag = 1;
+                        query_list -> addItem(class_list[1]);
+                        break;
+                    }
+                }
+            if (flag)
+                break;
+            pos = 0;
+            week++;
+            week %= 7;
+        }
+    }
+    if (!flag)
+        QMessageBox::critical(this, "查询失败", "找不到相关地点");
+    search_page -> hide();
 }
 
 void mainwindow::show_time_table(){
@@ -1387,4 +1457,46 @@ time_table::time_table(QWidget *parent){
     tot_layout -> addLayout(bus_layout);
     tot_layout -> addWidget(vehicle_description);
     setLayout(tot_layout);
+}
+
+place_search_page::place_search_page(){
+    xingqi = new QComboBox();
+    for (int i = 1; i <= 7; i++)
+        xingqi -> addItem(QString::number(i));
+    xingqi -> setCurrentIndex(-1);
+    shi = new QComboBox();
+    for (int i = 0; i <= 23; i++)
+        shi -> addItem(QString::number(i));
+    shi -> setCurrentIndex(-1);
+    fen = new QComboBox();
+    for (int i = 0; i <= 59; i++)
+        fen -> addItem(QString::number(i));
+    fen -> setCurrentIndex(-1);
+    week_label = new QLabel();
+    week_label -> setText("星期");
+    shi_label = new QLabel();
+    shi_label -> setText("时");
+    fen_label = new QLabel();
+    fen_label -> setText("分");
+    time_layout = new QHBoxLayout();
+    time_layout -> addWidget(week_label);
+    time_layout -> addWidget(xingqi);
+    time_layout -> addWidget(shi);
+    time_layout -> addWidget(shi_label);
+    time_layout -> addWidget(fen);
+    time_layout -> addWidget(fen_label);
+    class_name = new QLineEdit();
+    layout = new QFormLayout();
+    search = new QPushButton();
+    search -> setText("搜索");
+    layout -> addRow("课程名", class_name);
+    layout -> addRow("上课时间", time_layout);
+    layout -> addRow(search);
+    setLayout(layout);
+    show();
+    connect(search, &QPushButton::clicked, this, &place_search_page::try_search);
+}
+
+void place_search_page::try_search(){
+    emit search_signal(class_name->text(), xingqi->currentIndex(), shi->currentIndex(), fen->currentIndex());
 }
