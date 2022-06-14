@@ -15,6 +15,7 @@ private:
     Class *studentClass;//学生班级
 
 public:
+    Class* getStudentClass();
     /*获取学生班级id*/
     int getClassId(int studentId);
     Student(int id);

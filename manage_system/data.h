@@ -1,4 +1,4 @@
-#ifndef DATA_H
+﻿#ifndef DATA_H
 #define DATA_H
 
 #include <QObject>
@@ -30,6 +30,10 @@ signals:
 
 };
 
+struct DataInfo{
+    MyTime setTime;
+    char extionsion[8];
+};
 #endif // DATA_H
 
 struct DataInfo{

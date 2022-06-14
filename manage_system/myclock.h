@@ -64,6 +64,7 @@ public:
     string ringingAlarmTip();//可以通过该函数获取堆中最早的函数，用于ui类获取响铃闹钟的tip信息
     void saveFile();//保存到同目录的clock.backup文件中
     void readFile();
+    int getWeek0_6()const;
     ~MyClock();
 
 private:

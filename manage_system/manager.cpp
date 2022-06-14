@@ -1,4 +1,4 @@
-#include "manager.h"
+﻿#include "manager.h"
 
 Manager::Manager():logger("manager\\manager_logger.txt")
 {
@@ -109,11 +109,11 @@ void Manager::uploadCourseData(string courseName, string dataName, string dataPa
     c.uploadCourseData(courseName,dataName,dataPath);
 }
 
-QStringList Manager::getCourseDataInfo(string courseName,int classId)
+QStringList Manager::getCourseDataInfo(string courseName, string dataname,int classId)
 {
     logger.addLogger("管理员查询了课程资料");
     Class c(classId);
-    return c.getCourseDataInfo(courseName);
+    return c.getCourseDataInfo(courseName,dataname);
 }
 
 void Manager::removeCourseData(string courseName, string dataName,int classId)

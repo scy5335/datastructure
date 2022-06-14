@@ -2,7 +2,7 @@
 0 9502 0 0 0 0 0 uninitialized
 第一次作业
 data:
-数项级数的定义和性质
-5 函数项级数
+第一次课件
+第二次课件
 exam:
 uninitialized

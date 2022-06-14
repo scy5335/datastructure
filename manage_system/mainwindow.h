@@ -67,17 +67,19 @@ class material_detail : public QWidget{
 private:
     QTableWidget *material_list;
     QFormLayout *layout;
-    QLineEdit *description;
-    QPushButton *file_select, *add_material;
+    QLineEdit *description, *data_name;
+    QPushButton *file_select, *add_material, *search;
     QLabel *file_path;
     void try_download();
     void create_new_material();
     void file_select_page();
+    void filter_metarials();
 
 signals:
     void download(QString data_name, QString file_name);
     void add_new_material(QString description, QString file_path);
-    void get_all_material();
+    void get_all_material(std::string dataname = "");
+    void get_search_result(std::string dataname);
 
 public:
     material_detail(QWidget *parent = nullptr);
@@ -152,7 +154,6 @@ private:
     Ui::mainwindow *ui;
     QStringList place_name;
     Student *log_student;
-    Class* student_class;
     time_table* time_info;
     QHBoxLayout* layout, *time_button_layout, *lesson_layout, *calendar_layout, *guide_layout,
                 *place_layout, *guide_button_layout, *lesson_jump_button, *info_layout,
@@ -165,7 +166,7 @@ private:
                 *material_list_button, *calendar_add, *calendar_del, *alarm_modify, *map_change,
                 *display_timetable, *search_button, *sb_search_button;
     QLabel* timelabel, *datelabel, *speedlabel, *calendar_title, *guide_time, *query_label, *answer_label,
-            *lesson_name, *lesson_place, *lesson_teacher, *test_label, *homework_label;
+            *lesson_name, *lesson_place, *lesson_teacher, *test_label, *homework_label, *weekday;
     QTableWidget* lessontable, *alarm_list, *test_info, *homework_info, *calendar_list;
     QWidget* page[3], *time_widget;
     myGraphView* map1, *map2;
@@ -226,7 +227,7 @@ private:
     void delete_calendars();
     void change_map();
     void show_time_table();
-    void student_get_material();
+    void student_get_material(string dataname = "");
     void student_add_material(QString description, QString file_path);
     void calendar_search();
     void show_search_page();
@@ -261,7 +262,7 @@ private:
     void delete_this_lesson();
     void trans_hour_min(int row, int &hour, int &min);
     void add_new_material(QString description, QString file_path);
-    void get_all_material();
+    void get_all_material(string dataname="");
     void delete_material(QString description);
 };
 

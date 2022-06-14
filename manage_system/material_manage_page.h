@@ -26,19 +26,21 @@ public:
 
 private:
     Ui::material_manage_page *ui;
-    QLineEdit *description;
-    QPushButton *file_select, *add_material, *del_material;
+    QLineEdit *description, *data_name;
+    QPushButton *file_select, *add_material, *del_material, *search;
     QTableWidget *material_list;
     QFormLayout *material_layout;
     QLabel *file_path;
     void file_select_page();
     void create_new_material();
     void try_delete_material();
+    void filter_metarials();
 
 signals:
     void add_new_material(QString description, QString file_path);
-    void get_all_material();
+    void get_all_material(std::string dataname = "");
     void delete_material(QString description);
+    void get_search_result(std::string dataname);
 };
 
 #endif // MATERIAL_MANAGE_PAGE_H

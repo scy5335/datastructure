@@ -7,6 +7,9 @@ material_manage_page::material_manage_page(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowTitle("资料管理");
+    data_name = new QLineEdit();
+    search = new QPushButton();
+    search -> setText("查询");
     description = new QLineEdit();
     file_select = new QPushButton();
     file_select -> setText("选择文件");
@@ -23,6 +26,8 @@ material_manage_page::material_manage_page(QWidget *parent) :
     material_layout -> addRow("材料描述", description);
     material_layout -> addRow(file_select, file_path);
     material_layout -> addRow(add_material);
+    material_layout -> addRow("材料名称", data_name);
+    material_layout -> addRow(search);
     material_layout -> addRow(material_list);
     material_layout -> addRow(del_material);
     setLayout(material_layout);
@@ -71,4 +76,9 @@ material_manage_page::~material_manage_page()
 void material_manage_page::file_select_page(){
     QString filename = QFileDialog::getOpenFileName(this, tr("选择文件"), "C:/", tr("All files(*.*)"));
     file_path -> setText(filename);
+}
+
+void material_manage_page::filter_metarials(){
+    emit get_search_result(data_name->text().toLocal8Bit().data());
+    data_name -> setText("");
 }
