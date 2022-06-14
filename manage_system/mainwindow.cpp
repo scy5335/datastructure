@@ -1209,7 +1209,7 @@ void material_detail::try_download(){
         QString file_path_name = QFileDialog::getExistingDirectory(this, tr("选择文件夹"),QDir::currentPath());
         if (file_path_name.isEmpty())
             return;
-        file_path_name += "\\" + material_list -> item(row, 0) -> text() + ".data";
+        file_path_name += "\\" + material_list -> item(row, 0) -> text();
         emit download(material_list -> item(row, 0) -> text(), file_path_name);
     }
 }
