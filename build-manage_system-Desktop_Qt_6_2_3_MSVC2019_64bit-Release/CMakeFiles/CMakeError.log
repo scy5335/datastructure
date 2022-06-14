@@ -1,9 +1,9 @@
 Determining if the include file pthread.h exists failed with the following output:
 Change Dir: C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Release/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/PROGRA~2/MICROS~3/2019/COMMUN~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_f891d && [1/2] Building CXX object CMakeFiles\cmTC_f891d.dir\CheckIncludeFile.cxx.obj
-FAILED: CMakeFiles/cmTC_f891d.dir/CheckIncludeFile.cxx.obj 
-D:\QT\Tools\QtCreator\bin\clang\bin\clang-cl.exe --target=x86_64-pc-windows-msvc  /nologo -TP   /DWIN32 /D_WINDOWS /W3 /GR /EHsc  /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\cmTC_f891d.dir\CheckIncludeFile.cxx.obj /FdCMakeFiles\cmTC_f891d.dir\ -c -- C:\Users\18214\Documents\GitHub\datastructure\build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Release\CMakeFiles\CMakeTmp\CheckIncludeFile.cxx
+Run Build Command(s):C:/PROGRA~2/MICROS~3/2019/COMMUN~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_d1a18 && [1/2] Building CXX object CMakeFiles\cmTC_d1a18.dir\CheckIncludeFile.cxx.obj
+FAILED: CMakeFiles/cmTC_d1a18.dir/CheckIncludeFile.cxx.obj 
+D:\QT\Tools\QtCreator\bin\clang\bin\clang-cl.exe --target=x86_64-pc-windows-msvc  /nologo -TP   /DWIN32 /D_WINDOWS /W3 /GR /EHsc  /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\cmTC_d1a18.dir\CheckIncludeFile.cxx.obj /FdCMakeFiles\cmTC_d1a18.dir\ -c -- C:\Users\18214\Documents\GitHub\datastructure\build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Release\CMakeFiles\CMakeTmp\CheckIncludeFile.cxx
 C:\Users\18214\Documents\GitHub\datastructure\build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Release\CMakeFiles\CMakeTmp\CheckIncludeFile.cxx(1,10): fatal error: 'pthread.h' file not found
 #include <pthread.h>
          ^~~~~~~~~~~

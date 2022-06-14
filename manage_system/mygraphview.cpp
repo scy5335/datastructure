@@ -105,7 +105,7 @@ void myGraphView::ReadFromFile(string file_name, int vx, int vy, int ex, int ey)
     for (int i = 0; i < EdgeCnt; i++){
         ts>>x>>y;
         addLine(vexes[x], vexes[y]);
-        maingraph -> addEdge(x + 1, y + 1,
+        maingraph -> addEdge(x + 1 + vx, y + 1 + vx,
                              dis(vexes[x]->getX(), vexes[x]->getY(),
                                  vexes[y]->getX(), vexes[y]->getY()));
     }
@@ -295,6 +295,7 @@ QString graph::select_route(double &totminutes, int hour, int minute){
 }
 
 QStringList graph::dijkstra(int st, int ed, double &totminutes, int mod){
+    qDebug()<<st<<ed;
     memset(vis, 0, sizeof vis);
     for (int i = 1; i <= VecNum; i++) dis[i]=1e9;
     dis[st] = 0;
