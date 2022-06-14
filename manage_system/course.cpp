@@ -388,7 +388,7 @@ int Course::taskSearchByKeyword(string keyword, Task *buffer[])
     int cnt=0;
     for(int i=0; i<taskNum; i++)
     {
-        if(task[i]->getName().find(keyword)!=string::npos)
+        if(MyString::contains(task[i]->getName(),keyword))
         {
             buffer[cnt++]=task[i];
         }
@@ -438,7 +438,7 @@ int Course::dataSearchByKeyword(string keyword, Data *buffer[])
     int cnt=0;
     for(int i=0; i<dataNum; i++)
     {
-        if(data[i]->getName().find(keyword)!=string::npos)
+        if(MyString::contains(data[i]->getName(),keyword))
         {
             buffer[cnt++]=data[i];
         }
@@ -499,3 +499,55 @@ Course::~Course()
 {
 
 }
+
+bool MyString::contains(string parent, string child)
+{
+    int next[parent.length()+5];
+    getNext(child,next);
+    return KMP(parent,child,next)>=0;
+}
+
+void MyString::getNext(string child, int next[])
+{
+    int len = 0;
+    int i=0, j=-1;
+    next[0]=-1;
+    len=child.length();
+    while(i<len-1)
+    {
+        if(j==-1||child[i]==child[j])
+        {
+            i++;
+            j++;
+            next[i]=j;
+        }
+        else
+        {
+            j=next[j];
+        }
+    }
+}
+
+int MyString::KMP(string parent, string child, int next[])
+{
+    int i=0,j=0;
+    int len1=parent.length();
+    int len2=child.length();
+    while(i<len1&&j<len2)
+    {
+        if(j==-1||parent[i]==child[j])
+        {
+            i++;
+            j++;
+        }
+        else
+        {
+            j=next[j];
+        }
+    }
+    if(j>=len2)
+        return i-len2+1;
+    else
+        return -1;
+}
+

@@ -243,9 +243,14 @@ signals:
 
 #endif // COURSE_H
 
-
-
-
+class MyString
+{
+public:
+    static bool contains(string parent, string child);
+private:
+    static void getNext(string child, int next[]);
+    static int KMP(string parent, string child, int next[]);
+};
 
 
 
