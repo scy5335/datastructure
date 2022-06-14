@@ -1,0 +1,5 @@
+C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Release/CMakeFiles/manage_system.dir
+C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Release/CMakeFiles/edit_cache.dir
+C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Release/CMakeFiles/rebuild_cache.dir
+C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Release/CMakeFiles/manage_system_autogen_timestamp_deps.dir
+C:/Users/18214/Documents/GitHub/datastructure/build-manage_system-Desktop_Qt_6_2_3_MSVC2019_64bit-Release/CMakeFiles/manage_system_autogen.dir

@@ -236,9 +236,11 @@ void mainwindow::manager_get_course_info(){
                 for (k = 0; k < 14; k++)
                     if (lessontable -> verticalHeaderItem(k) -> text().contains(format_time))
                         break;
+                qDebug()<<new_class.getCoursePlace(class_list[i].toLocal8Bit().data());
                 lessontable -> setSpan(k, j-1, course_time[2], 1);
                 lessontable -> item(k, j-1) -> setText(class_list[i] + "\n" +
-                                                       place_name[new_class.getCoursePlace(class_list[i].toLocal8Bit().data())]);
+                                                    place_name[new_class.getCoursePlace(class_list[i].toLocal8Bit().data())]);
+
             }
         }
 }
@@ -733,10 +735,13 @@ void mainwindow::manage_page_set(){
     class_count_title = new QLabel();
     class_count_title -> setText("连续节数");
     class_count = new QComboBox();
-    map1 = new myGraphView();
     myGraphView::maingraph = new graph();
+    map1 = new myGraphView();
+    map1 -> ReadFromFile(QString::fromLocal8Bit("map1.txt").toLocal8Bit().data(), 0, 25, 0, 99);
     map2 = new myGraphView();
+    map2 -> ReadFromFile(QString::fromLocal8Bit("map2.txt").toLocal8Bit().data(), 26, 46, 100, 199);
     place_name = map1 -> GetVecName() + map2 -> GetVecName();
+    qDebug()<<place_name.length();
     place_message -> addItems(place_name);
     for (int i = 1; i <= 6; i++)
         class_count -> addItem(QString::number(i));

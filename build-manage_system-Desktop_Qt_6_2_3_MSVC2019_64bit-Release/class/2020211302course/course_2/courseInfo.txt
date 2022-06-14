@@ -1,0 +1,8 @@
+18 2
+0 9502 0 0 0 0 0 uninitialized
+第一次作业
+data:
+数项级数的定义和性质
+5 函数项级数
+exam:
+uninitialized
