@@ -388,7 +388,7 @@ int Course::taskSearchByKeyword(string keyword, Task *buffer[])
     int cnt=0;
     for(int i=0; i<taskNum; i++)
     {
-        if(task[i]->getName().find(keyword)>=0)
+        if(task[i]->getName().find(keyword)!=string::npos)
         {
             buffer[cnt++]=task[i];
         }
@@ -438,7 +438,7 @@ int Course::dataSearchByKeyword(string keyword, Data *buffer[])
     int cnt=0;
     for(int i=0; i<dataNum; i++)
     {
-        if(data[i]->getName().find(keyword)>=0)
+        if(data[i]->getName().find(keyword)!=string::npos)
         {
             buffer[cnt++]=data[i];
         }

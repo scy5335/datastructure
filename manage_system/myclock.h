@@ -20,8 +20,6 @@ class Heap{
     void push(Alarm* aPtr);
     Alarm* front();
     void pop();
-    void adjustHeap(int index);
-    void heapEstablish();
     ~Heap();
     friend class MyClock;
 };

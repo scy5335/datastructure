@@ -192,58 +192,40 @@ Heap::Heap()
     len=0;
 }
 
-void Heap::push(Alarm *aPtr)
-{
-    heap[len++]=aPtr;
-}
-
 Alarm *Heap::front()
 {
     if(len!=0)
     {
-        heapEstablish();
-        return heap[0];
+        return heap[1];
     }
     else
         return NULL;
 }
 
-void Heap::pop()
-{
+void Heap::push(Alarm *aPtr){
+    if(len==maxLen-1)
+        return;
+    int i=++len;
+    for (int f=i>>1;f&&*aPtr<*heap[f];i=f,f=i>>1)
+        heap[i]=heap[f];
+    heap[i]=aPtr;
+}
+
+void Heap::pop(){
     if(len==0)
         return;
-    heap[0]=heap[len-1];
-    len--;
-    heapEstablish();
-}
-
-void Heap::adjustHeap(int index)
-{
-    int left = 2 * index + 1;  // index的左子节点
-    int right = 2 * index + 2; // index的右子节点
-
-    int minIdx = index;
-    if (left < len && *heap[left] < *heap[minIdx])
-        minIdx = left;
-    if (right < len && *heap[right]<*heap[minIdx])
-        minIdx = right;
-
-    if (minIdx != index)
+    Alarm* k=heap[len--];
+    int i=1;
+    for (int a=i<<1,b=i<<1|1;a<=len;a=i<<1,b=i<<1|1)
     {
-        std::swap(heap[minIdx], heap[index]);
-        adjustHeap(minIdx);
+        if (b<=len&&*heap[b]<*heap[a])
+            a=b;
+        if (!(*heap[a]<*k))
+            break;
+        heap[i]=heap[a];
+        i=a;
     }
-}
-
-void Heap::heapEstablish()
-{
-    // 构建小根堆（从最后一个非叶子节点向上）
-    for (int i = len / 2 - 1; i >= 0; i--)
-    {
-        //size/2 -1对应了最后一个非叶子结点
-        //从该结点其，调整其和其左右两个儿子的位置
-        adjustHeap(i);
-    }
+    heap[i]=k;
 }
 
 Heap::~Heap()
