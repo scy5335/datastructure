@@ -123,6 +123,10 @@ void mainwindow::time_change(){
 
 void mainwindow::add_speed(){
     speed = speed_change -> text().toInt();
+    if (speed < 1 || speed > 3600){
+        QMessageBox::critical(this, "设置错误", "可输入速度范围为1~3600");
+        return;
+    }
     speedlabel -> setText("当前速度:" + QString::number(speed) + "x");
     Clock -> setSecsPerSystemHour(3600/speed);
 }
