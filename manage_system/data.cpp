@@ -33,12 +33,19 @@ void Data::setName(string name)
 void Data::upload(MyTime setTime, string fileAddr)
 {
     this->setTime=setTime;
-    hfmCompress(fileAddr,path+"\\"+this->name+".data",(char*)&setTime,sizeof(MyTime));
+    string extension = fs::path(fileAddr).extension().string();
+    DataInfo info;
+    info.setTime=setTime;
+    strcpy_s(info.extionsion,extension.length()+1,extension.c_str());
+    hfmCompress(fileAddr,path+"\\"+this->name+".data",(char*)&info,sizeof(info));
 }
 
 void Data::download(string downloadTo)
 {
-    hfmDecode(path+"\\"+this->name+".data",downloadTo,(char*)&setTime);
+    string ext = getExtension();
+    DataInfo info;
+    hfmDecode(path+"\\"+this->name+".data",downloadTo+"\\"+this->name+ext,(char*)&info);
+    this->setTime=info.setTime;
 }
 
 void Data::getSetTime()
@@ -48,6 +55,17 @@ void Data::getSetTime()
     ifs.seekg(1+4+1,ios::cur);
     ifs.read((char*)&setTime,sizeof(MyTime));
     ifs.close();
+}
+
+string Data::getExtension()
+{
+    fstream ifs;
+    ifs.open(path+"\\"+this->name+".data",ios::in|ios::binary);
+    ifs.seekg(1+4+1,ios::cur);
+    DataInfo info;
+    ifs.read((char*)&info,sizeof(info));
+    ifs.close();
+    return string(info.extionsion);
 }
 
 string Data::getName()
@@ -65,4 +83,5 @@ Data::~Data()
 {
 
 }
+
 

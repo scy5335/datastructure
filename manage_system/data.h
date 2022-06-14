@@ -24,6 +24,7 @@ public:
 private:
     string path;
     string name;
+    string getExtension();
 
 signals:
 
@@ -31,4 +32,8 @@ signals:
 
 #endif // DATA_H
 
+struct DataInfo{
+    MyTime setTime;
+    char extionsion[8];
+};
 
