@@ -24,7 +24,6 @@ mainwindow::~mainwindow()
 
 void mainwindow::display_student_page(int user_id){
     log_student = new Student(user_id);
-    student_class = new Class(log_student -> getClassId(user_id));
     student_page_set();
     this -> showMaximized();
 }
@@ -60,6 +59,10 @@ void mainwindow::student_page_set(){
     timelabel -> setText(trans_time(Clock -> getTime()));
     timelabel -> setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     ftdate.setPointSize(18);
+    weekday = new QLabel();
+    weekday -> setFont(ftdate);
+    weekday -> setText("星期" + QString::number(Clock -> getWeek0_6()+1));
+    weekday -> setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     datelabel = new QLabel();
     datelabel -> setFont(ftdate);
     datelabel -> setText(trans_date(Clock -> getTime()));
@@ -80,6 +83,7 @@ void mainwindow::student_page_set(){
     time_button_layout -> addWidget(accelerate);
     time_clock_layout = new QVBoxLayout();
     time_clock_layout -> addWidget(datelabel);
+    time_clock_layout -> addWidget(weekday);
     time_clock_layout -> addWidget(timelabel);
     time_clock_layout -> addWidget(speedlabel);
     time_clock_layout -> addWidget(alarm_modify);
@@ -103,7 +107,7 @@ void mainwindow::student_page_set(){
 }
 
 void mainwindow::download_task(QString data_name, QString file_name){
-    student_class -> downloadCourseData(lesson_name -> text().toLocal8Bit().data(), data_name.toLocal8Bit().data(), file_name.toLocal8Bit().data());
+    log_student -> getStudentClass() -> downloadCourseData(lesson_name -> text().toLocal8Bit().data(), data_name.toLocal8Bit().data(), file_name.toLocal8Bit().data());
 }
 
 void mainwindow::submit_homework(QString homework_name, QString file_name){
@@ -119,6 +123,7 @@ void mainwindow::clock_ring(string description){
 void mainwindow::time_change(){
     datelabel -> setText(trans_date(Clock -> getTime()));
     timelabel -> setText(trans_time(Clock -> getTime()));
+    weekday -> setText("星期" + QString::number(Clock -> getWeek0_6()+1));
 }
 
 void mainwindow::add_speed(){
@@ -266,15 +271,15 @@ void mainwindow::show_lesson_info(int row, int column){
     }
     homework_info -> clearContents();
     homework_info -> setRowCount(0);
-    QStringList now_homework_info = student_class -> getAllHomework(lesson_main_info[0].toLocal8Bit().data());
+    QStringList now_homework_info = log_student -> getAllHomework(lesson_main_info[0].toLocal8Bit().data());
     int row_count = homework_info -> rowCount(), len = now_homework_info.length();
     for (int i = 0; i < len; i++){
         homework_info -> setRowCount(row_count + 1);
         QTableWidgetItem *p_check = new QTableWidgetItem();
         p_check -> setCheckState(Qt::Unchecked);
-        homework_info -> setItem(0, 0, p_check);
-        homework_info -> setItem(0, 1, new QTableWidgetItem(now_homework_info[i++]));
-        homework_info -> setItem(0, 2, new QTableWidgetItem(now_homework_info[i++]));
+        homework_info -> setItem(row_count, 0, p_check);
+        homework_info -> setItem(row_count, 1, new QTableWidgetItem(now_homework_info[i++]));
+        homework_info -> setItem(row_count, 2, new QTableWidgetItem(now_homework_info[i++]));
         row_count ++;
     }
 }
@@ -320,9 +325,9 @@ void mainwindow::show_manager_lesson_info(int row, int column){
         homework_list -> setRowCount(row_count + 1);
         QTableWidgetItem *p_check = new QTableWidgetItem();
         p_check -> setCheckState(Qt::Unchecked);
-        homework_list -> setItem(0, 0, p_check);
-        homework_list -> setItem(0, 1, new QTableWidgetItem(now_homework_info[i++]));
-        homework_list -> setItem(0, 2, new QTableWidgetItem(now_homework_info[i++]));
+        homework_list -> setItem(row_count, 0, p_check);
+        homework_list -> setItem(row_count, 1, new QTableWidgetItem(now_homework_info[i++]));
+        homework_list -> setItem(row_count, 2, new QTableWidgetItem(now_homework_info[i++]));
         row_count ++;
     }
     homework_list -> horizontalHeader() -> setSectionResizeMode(QHeaderView::ResizeToContents);
@@ -945,6 +950,7 @@ void mainwindow::material_add_page(){
     connect(material_page, &material_manage_page::delete_material, this, &mainwindow::delete_material);
     connect(material_page, &material_manage_page::get_all_material, this, &mainwindow::get_all_material);
     connect(material_page, &material_manage_page::add_new_material, this, &mainwindow::add_new_material);
+    connect(material_page, &material_manage_page::get_search_result, this, &mainwindow::get_all_material);
     material_page -> initial_set();
 }
 
@@ -957,15 +963,17 @@ void mainwindow::show_material_page(){
     connect(student_material_page, &material_detail::add_new_material, this, &mainwindow::student_add_material);
     student_material_page -> initial_set();
     connect(student_material_page, &material_detail::download, this, &mainwindow::download_task);
+    connect(student_material_page, &material_detail::get_search_result, this, &mainwindow::student_get_material);
 }
 
-void mainwindow::get_all_material(){
-    material_page -> set_all_material(log_manager -> getCourseDataInfo(class_name -> text().toLocal8Bit().data(),
+void mainwindow::get_all_material(string dataname){
+    material_page -> set_all_material(log_manager -> getCourseDataInfo(class_name -> text().toLocal8Bit().data(), dataname,
                                                                        class_select -> currentText().toInt()));
 }
 
-void mainwindow::student_get_material(){
-    student_material_page -> set_all_material(log_student -> getCourseDataName(lesson_name -> text().toLocal8Bit().data()));
+void mainwindow::student_get_material(string dataname){
+    qDebug()<<QString::fromLocal8Bit(dataname);
+    student_material_page -> set_all_material(log_student -> getCourseDataName(lesson_name -> text().toLocal8Bit().data(), dataname));
 }
 
 void mainwindow::student_add_material(QString description, QString file_path){
@@ -996,7 +1004,7 @@ void mainwindow::show_homework_page(){
         }
     if (id == -1) return;
     if (student_homework_page != NULL) delete student_homework_page;
-    QStringList homework_total_info, now_homework_info = student_class -> getAllHomework(lesson_name->text().toLocal8Bit().data());
+    QStringList homework_total_info, now_homework_info = log_student -> getAllHomework(lesson_name->text().toLocal8Bit().data());
     homework_total_info << now_homework_info[id * 3] << now_homework_info[id * 3 + 1]
                         << now_homework_info[id * 3 + 2];
     homework_total_info << (log_student -> judgeHomework(lesson_name->text().toLocal8Bit().data(), now_homework_info[id * 3].toLocal8Bit().data())?
@@ -1162,6 +1170,9 @@ QString mainwindow::trans_date(MyTime now_time){
 material_detail::material_detail(QWidget *parent){
     setWindowTitle("课程资料");
     description = new QLineEdit();
+    data_name = new QLineEdit();
+    search = new QPushButton();
+    search -> setText("查询");
     file_select = new QPushButton();
     file_select -> setText("选择文件");
     file_path = new QLabel();
@@ -1175,13 +1186,22 @@ material_detail::material_detail(QWidget *parent){
     layout -> addRow("材料描述", description);
     layout -> addRow(file_select, file_path);
     layout -> addRow(add_material);
+    layout -> addRow("材料名称", data_name);
+    layout -> addRow(search);
     layout -> addRow(material_list);
     connect(file_select, &QPushButton::clicked, this, &material_detail::file_select_page);
     connect(add_material, &QPushButton::clicked, this, &material_detail::create_new_material);
+    connect(search, &QPushButton::clicked, this, &material_detail::filter_metarials);
     setLayout(layout);
 }
 
+void material_detail::filter_metarials(){
+    emit get_search_result(data_name->text().toLocal8Bit().data());
+    data_name -> setText("");
+}
+
 void material_detail::set_all_material(QStringList task_list){
+    qDebug()<<task_list.length();
     int len = task_list.length();
     material_list -> clearContents();
     material_list -> setRowCount(len);
@@ -1209,7 +1229,7 @@ void material_detail::try_download(){
         QString file_path_name = QFileDialog::getExistingDirectory(this, tr("选择文件夹"),QDir::currentPath());
         if (file_path_name.isEmpty())
             return;
-        file_path_name += "\\" + material_list -> item(row, 0) -> text();
+        //file_path_name += "\\" + material_list -> item(row, 0) -> text();
         emit download(material_list -> item(row, 0) -> text(), file_path_name);
     }
 }
@@ -1235,7 +1255,7 @@ homework_submit_page::homework_submit_page(QStringList info, QWidget *parent){
     description = new QLabel();
     description -> setText(info[2]);
     submited = new QLabel();
-    submited -> setText(info[2]);
+    submited -> setText(info[3]);
     file_select = new QPushButton();
     file_select -> setText("选择文件");
     submit = new QPushButton();
@@ -1244,7 +1264,7 @@ homework_submit_page::homework_submit_page(QStringList info, QWidget *parent){
     layout = new QFormLayout();
     layout -> addRow("作业名称", title);
     layout -> addRow("作业截至时间", ddl);
-    layout -> addRow("提交状态", description);
+    layout -> addRow("作业描述", description);
     layout -> addRow("是否提交", submited);
     layout -> addRow(file_select, file_path);
     layout -> addRow(submit);

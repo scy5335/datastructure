@@ -178,6 +178,10 @@ void MyClock::readFile()
     }
 }
 
+int MyClock::getWeek0_6()const{
+    return sysTime.getWeek0_6();
+}
+
 MyClock::~MyClock()
 {
 }

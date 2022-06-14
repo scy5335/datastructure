@@ -1,5 +1,10 @@
 ﻿#include "student.h"
 
+Class *Student::getStudentClass()
+{
+    return studentClass;
+}
+
 int Student::getClassId(int studentId)
 {
     int id,classId=0;

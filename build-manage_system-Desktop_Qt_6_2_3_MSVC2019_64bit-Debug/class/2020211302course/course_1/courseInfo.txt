@@ -1,6 +1,6 @@
 18 1
 8002 0 0 0 0 0 0 uninitialized
 data:
-ฃฟฃฟฃฟ
+สตั้ฮฤตต
 exam:
 uninitialized

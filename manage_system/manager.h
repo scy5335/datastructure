@@ -1,4 +1,4 @@
-#ifndef MANAGER_H
+﻿#ifndef MANAGER_H
 #define MANAGER_H
 #include "logger.h"
 #include "course.h"
@@ -35,7 +35,7 @@ public:
     /*上传课程资料,参数依次为课程名称,资料名称,资料文件路径*/
     void uploadCourseData(string courseName,string dataName,string dataPath,int classId);
     /*获取课程资料名称,返回值为资料名称列表*/
-    QStringList getCourseDataInfo(string courseName,int classId);
+    QStringList getCourseDataInfo(string courseName,string dataname,int classId);
     /*删除课程资料,参数依次为课程名称,资料名称*/
     void removeCourseData(string courseName,string dataName,int classId);
     /*下载课程资料,参数为课程名称,资料名称,存放文件路径*/

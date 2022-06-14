@@ -1,4 +1,4 @@
-#ifndef DATA_H
+﻿#ifndef DATA_H
 #define DATA_H
 
 #include <QObject>
@@ -24,11 +24,16 @@ public:
 private:
     string path;
     string name;
+    string getExtension();
 
 signals:
 
 };
 
+struct DataInfo{
+    MyTime setTime;
+    char extionsion[8];
+};
 #endif // DATA_H
 
 
