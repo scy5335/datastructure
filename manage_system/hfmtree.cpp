@@ -15,7 +15,7 @@ void hfmCompress(string srcAddr, string dstAddr, char* extraInfo, int infoSize)
     }
 
     int size = fs::file_size(srcAddr);//计算文件大小
-    unsigned char* buf = new unsigned char[size]();//注意要用无符号char，否则会访问负数下标数组
+    unsigned char* buf = new unsigned char[size+5]();//注意要用无符号char，否则会访问负数下标数组
     hfmTree* tree=new hfmTree();
 
     ifs.read((char*)buf,size);//将文件读入内存中
@@ -23,6 +23,7 @@ void hfmCompress(string srcAddr, string dstAddr, char* extraInfo, int infoSize)
     {
         tree->node[buf[i]].weight++;//统计字节出现的频率
     }
+
 
     tree->coding();//对字节进行编码
     ofs.open(dstAddr,ios::out|ios::trunc|ios::binary);//打开输出文件
@@ -35,12 +36,9 @@ void hfmCompress(string srcAddr, string dstAddr, char* extraInfo, int infoSize)
     {
         max=tree->node[i].weight>max?tree->node[i].weight:max;
     }
-    int Bytes = ceil(ceil(log2(max))/8.0);
-
-
+    int Bytes = ceil(ceil(log2(max)+1)/8.0);
     ofs.put((char)Bytes);//写入存储频率需要的字节数
-    ofs.write((char*)&size,4);//写入原文件大小
-
+    ofs.write((char*)&size,4);
     unsigned char temp=infoSize;//信息大小不得超过255字节，否则截断
     ofs.put(temp);//写入信息的大小
     if(extraInfo!=nullptr&&temp!=0)
@@ -48,12 +46,12 @@ void hfmCompress(string srcAddr, string dstAddr, char* extraInfo, int infoSize)
         ofs.write(extraInfo,temp);
     }
 
+
     //将字节出现频率 按字节的二进制大小顺序写入文件
     for(i=0;i<256;i++)
     {
         ofs.write((char*)&tree->node[i].weight,Bytes);
     }
-
 
     //按字节写入
     for(i=0;i<size;i++)
@@ -65,19 +63,19 @@ void hfmCompress(string srcAddr, string dstAddr, char* extraInfo, int infoSize)
             cnt++;
             if(s[j]=='1')
                 byteOut+=1;
-            if(cnt%8==0)
+            if(cnt==8)
             {
                 ofs.put(byteOut);
+                cnt-=8;
             }
         }
     }
     //剩余的比特左对齐
-    if(cnt%8!=0)
+    if(cnt!=0)
     {
-        byteOut<<=(8-cnt/8);
+        byteOut<<=(8-cnt);
         ofs.put(byteOut);
     }
-
     ifs.close();
     ofs.close();
     delete tree;
@@ -100,11 +98,10 @@ int hfmDecode(string fileAddr, string dstAddr, char* extraInfo)
     unsigned char Bytes=1, tempSize=0;
     int i, j;
     int temp;
-    int originSize=0;
-
+    int originalSize;
     //辅助信息读取
     ifs.read((char*)&Bytes,1),bufSize-=1;
-    ifs.read((char*)&originSize,4),bufSize-=4;
+    ifs.read((char*)&originalSize,4),bufSize-=4;
     ifs.read((char*)&tempSize,1),bufSize-=1;
     if(tempSize!=0)//如果读取到的额外信息大小不为0
     {
@@ -116,11 +113,9 @@ int hfmDecode(string fileAddr, string dstAddr, char* extraInfo)
     }
 
     hfmTree* tree=new hfmTree();
-//    qDebug()<<"原字节数："<<originSize;
     for(int i=0;i<256;i++)//树的重建
     {
         ifs.read((char*)&tree->node[i].weight,Bytes);
-//        qDebug()<<tree->node[i].weight;
     }
     bufSize-=256*Bytes;
 
@@ -130,7 +125,6 @@ int hfmDecode(string fileAddr, string dstAddr, char* extraInfo)
     ofs.open(dstAddr,ios::out|ios::binary|ios::trunc);
     if(!ofs.is_open())
         return -1;
-
     for(i=0;i<bufSize;i++)
     {
         for(j=7;j>=0;j--)
@@ -139,9 +133,15 @@ int hfmDecode(string fileAddr, string dstAddr, char* extraInfo)
             if(temp!=-1)
             {
                 ofs.put((char)temp);
+                originalSize--;
+                if(originalSize==0)
+                    break;
             }
         }
+        if(originalSize==0)
+            break;
     }
+
     ifs.close();
     ofs.close();
     delete[] buf;
@@ -175,16 +175,23 @@ hfmTree::hfmTree()
 void hfmTree::build()
 {
     //按照node权重对index数组的下标排序
+    //哈夫曼树的建造方式只对不止一个结点的有效
     queue<int> leafQ;
     queue<int> supQ;
     int i;
     quicksort(index,0,255);
 
-    for(i=0;!node[index[i]].weight;i++);
+    for(i=0;i<256&&!node[index[i]].weight;i++);
+    if(i==255)
+    {
+        root=index[i];
+        return;
+    }
     for(;i<256;i++)
     {
         leafQ.push(index[i]);
     }
+
     int min1,min2;
     while(true)
     {
@@ -203,12 +210,12 @@ void hfmTree::build()
                 supQ.pop();
             }
         }
-        else if(leafQ.empty())
+        else if(leafQ.empty()&&!supQ.empty())
         {
             min1=supQ.front();
             supQ.pop();
         }
-        else if(supQ.empty())
+        else if(supQ.empty()&&!leafQ.empty())
         {
             min1=leafQ.front();
             leafQ.pop();
@@ -228,23 +235,23 @@ void hfmTree::build()
                 supQ.pop();
             }
         }
-        else if(leafQ.empty())
+        else if(leafQ.empty()&&!supQ.empty())
         {
             min2=supQ.front();
             supQ.pop();
         }
-        else if(supQ.empty())
+        else if(supQ.empty()&&!leafQ.empty())
         {
             min2=leafQ.front();
             leafQ.pop();
         }
-        node[min1].parent=node[min2].parent=supLen;
-//        qDebug()<<node[min1].parent<<" "<<node[min2].parent;
-        node[supLen].left=min1;
-        node[supLen].right=min2;
-//        qDebug()<<node[supLen].left<<" "<<node[supLen].right;
-        node[supLen].weight=node[min1].weight+node[min2].weight;
-//        qDebug()<<node[supLen].weight;
+        if(min1!=-1&&min2!=-1)
+        {
+            node[min1].parent=node[min2].parent=supLen;
+            node[supLen].left=min1;
+            node[supLen].right=min2;
+            node[supLen].weight=node[min1].weight+node[min2].weight;
+        }
         if(leafQ.empty()&&supQ.empty())
         {
             this->root=supLen;
@@ -261,12 +268,16 @@ void hfmTree::build()
 void hfmTree::coding()
 {
     build();
+    if(root<256)
+        node[root].code="0";
     coding(node[root].left,'0');
     coding(node[root].right,'1');
 }
 
 int hfmTree::search(int x)
 {
+    if(root<256)
+        return root;
     if(x==0)
         cur=node[cur].left;
     else if(x==1)
@@ -291,8 +302,6 @@ hfmTree::~hfmTree()
 
 void hfmTree::coding(int index, char app)
 {
-    //从root触发，途径的结点
-//    qDebug()<<index;
     if(index==-1)
     {
         return;
