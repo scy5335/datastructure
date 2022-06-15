@@ -502,7 +502,17 @@ Course::~Course()
 
 bool MyString::contains(string parent, string child)
 {
-    int next[parent.length()+5];
+    int childLen=child.length();
+    if(childLen==0)
+        return true;
+    int parentLen = parent.length();
+    if(parentLen<childLen)
+        return false;
+    if(parentLen==childLen)
+    {
+        return parent==child;
+    }
+    int next[parentLen+5];
     getNext(child,next);
     return KMP(parent,child,next)>=0;
 }
