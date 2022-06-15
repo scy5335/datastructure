@@ -1,6 +1,9 @@
 18 1
 8002 0 0 0 0 0 0 uninitialized
+第一次作业
 data:
 实验文档
+第一次代码
+经验分享
 exam:
 uninitialized

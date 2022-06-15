@@ -241,8 +241,6 @@ signals:
 
 };
 
-#endif // COURSE_H
-
 class MyString
 {
 public:
@@ -251,6 +249,8 @@ private:
     static void getNext(string child, int next[]);
     static int KMP(string parent, string child, int next[]);
 };
+#endif // COURSE_H
+
 
 
 

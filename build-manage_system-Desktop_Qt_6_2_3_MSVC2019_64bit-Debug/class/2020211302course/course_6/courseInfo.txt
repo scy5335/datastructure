@@ -1,0 +1,5 @@
+41 6
+0 13003 0 0 0 0 0 99112321
+data:
+exam:
+uninitialized

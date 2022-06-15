@@ -34,6 +34,7 @@ material_manage_page::material_manage_page(QWidget *parent) :
     connect(del_material, &QPushButton::clicked, this, &material_manage_page::try_delete_material);
     connect(add_material, &QPushButton::clicked, this, &material_manage_page::create_new_material);
     connect(file_select, &QPushButton::clicked, this, &material_manage_page::file_select_page);
+    connect(search, &QPushButton::clicked, this, &material_manage_page::filter_metarials);
 }
 
 void material_manage_page::initial_set(){

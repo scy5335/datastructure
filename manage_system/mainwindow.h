@@ -95,6 +95,7 @@ private:
     QPushButton *file_select, *submit;
     QFormLayout *layout;
     void file_select_page();
+    void try_submit();
 
 public:
     homework_submit_page(QStringList info, QWidget *parent = nullptr);
@@ -152,6 +153,7 @@ public:
 
 private:
     Ui::mainwindow *ui;
+    QString weekname[7] = {"一", "二", "三", "四", "五", "六", "日"};
     QStringList place_name;
     Student *log_student;
     time_table* time_info;
@@ -166,7 +168,7 @@ private:
                 *material_list_button, *calendar_add, *calendar_del, *alarm_modify, *map_change,
                 *display_timetable, *search_button, *sb_search_button;
     QLabel* timelabel, *datelabel, *speedlabel, *calendar_title, *guide_time, *query_label, *answer_label,
-            *lesson_name, *lesson_place, *lesson_teacher, *test_label, *homework_label, *weekday;
+            *lesson_name, *lesson_place, *lesson_teacher, *test_label, *homework_label, *weekday, *lesson_group;
     QTableWidget* lessontable, *alarm_list, *test_info, *homework_info, *calendar_list;
     QWidget* page[3], *time_widget;
     myGraphView* map1, *map2;
@@ -237,9 +239,9 @@ private:
     Manager *log_manager;
     QComboBox* class_select, *place_message, *class_count;
     QLabel* ask_class, *class_name_title, *place_message_title, *teacher_name_title, *test_title,
-            *homework_title, *class_count_title;
+            *homework_title, *class_count_title, *class_group_title;
     QGridLayout* message_layout, *button_grid;
-    QLineEdit* teacher_message, *class_name;
+    QLineEdit* teacher_message, *class_name, *class_group;
     QHBoxLayout* class_layout, *detail_info_layout;
     QVBoxLayout* manage_main_layout, *class_detail_layout;
     QPushButton* add_lesson, *delete_lesson, *test_add, *homework_add, *homework_del, *test_del,

@@ -52,14 +52,22 @@ addtest::addtest(int now_year, QWidget *parent) :
 }
 
 void addtest::try_upload_test(){
-    if (test_name_edit -> text() == "")
+    if (test_name_edit -> text() == ""){
         QMessageBox::critical(this, "添加错误", "请输入考试名称");
-    if (ri -> currentIndex() == -1 || shi -> currentIndex() == -1 || fen -> currentIndex() == -1)
+        return;
+    }
+    if (ri -> currentIndex() == -1 || shi -> currentIndex() == -1 || fen -> currentIndex() == -1){
         QMessageBox::critical(this, "添加错误", "请输入完整的考试时间");
-    if (test_last -> text() == "")
+        return;
+    }
+    if (test_last -> text() == ""){
         QMessageBox::critical(this, "添加错误", "请输入考试时长");
-    if (test_place -> currentIndex() == -1)
+        return;
+    }
+    if (test_place -> currentIndex() == -1){
         QMessageBox::critical(this, "添加错误", "请输入考试地点");
+        return;
+    }
     MyTime start_time = MyTime(nian -> currentText().toInt(), yue -> currentText().toInt(),
                                ri -> currentText().toInt(), shi -> currentText().toInt(),
                                fen -> currentText().toInt());

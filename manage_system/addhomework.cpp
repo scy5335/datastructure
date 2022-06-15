@@ -45,12 +45,18 @@ addhomework::addhomework(int now_year, QWidget *parent) :
 }
 
 void addhomework::try_upload_homework(){
-    if (homework_name_edit -> text() == "")
+    if (homework_name_edit -> text() == ""){
         QMessageBox::critical(this, "添加错误", "请输入作业名称");
-    if (ri -> currentIndex() == -1 || shi -> currentIndex() == -1 || fen -> currentIndex() == -1)
+        return;
+    }
+    if (ri -> currentIndex() == -1 || shi -> currentIndex() == -1 || fen -> currentIndex() == -1){
         QMessageBox::critical(this, "添加错误", "请输入完整的作业截止时间");
-    if (homework_describption -> text() == "")
+        return;
+    }
+    if (homework_describption -> text() == ""){
         QMessageBox::critical(this, "添加错误", "请输入作业描述");
+        return;
+    }
     MyTime ddl = MyTime(nian -> currentText().toInt(), yue -> currentText().toInt(),
                                ri -> currentText().toInt(), shi -> currentText().toInt(),
                                fen -> currentText().toInt());

@@ -3,7 +3,7 @@
 MyClock::MyClock(QObject *parent)
     : QObject{parent}
 {
-    this->sysTime=MyTime(2000,1,1);
+    this->sysTime=MyTime(2022,1,1);
     this->secsPerSystemHour=10;
     this->alarms=new AlarmArr();
     this->heap=new Heap();

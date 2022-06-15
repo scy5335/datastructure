@@ -23,8 +23,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_material_manage_page_t {
-    const uint offsetsAndSize[14];
-    char stringdata0[94];
+    const uint offsetsAndSize[20];
+    char stringdata0[133];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_material_manage_page_t, stringdata0) + ofs), len 
@@ -36,12 +36,16 @@ QT_MOC_LITERAL(38, 0), // ""
 QT_MOC_LITERAL(39, 11), // "description"
 QT_MOC_LITERAL(51, 9), // "file_path"
 QT_MOC_LITERAL(61, 16), // "get_all_material"
-QT_MOC_LITERAL(78, 15) // "delete_material"
+QT_MOC_LITERAL(78, 11), // "std::string"
+QT_MOC_LITERAL(90, 8), // "dataname"
+QT_MOC_LITERAL(99, 15), // "delete_material"
+QT_MOC_LITERAL(115, 17) // "get_search_result"
 
     },
     "material_manage_page\0add_new_material\0"
     "\0description\0file_path\0get_all_material\0"
-    "delete_material"
+    "std::string\0dataname\0delete_material\0"
+    "get_search_result"
 };
 #undef QT_MOC_LITERAL
 
@@ -51,22 +55,26 @@ static const uint qt_meta_data_material_manage_page[] = {
       10,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       3,       // signalCount
+       5,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    2,   32,    2, 0x06,    1 /* Public */,
-       5,    0,   37,    2, 0x06,    4 /* Public */,
-       6,    1,   38,    2, 0x06,    5 /* Public */,
+       1,    2,   44,    2, 0x06,    1 /* Public */,
+       5,    1,   49,    2, 0x06,    4 /* Public */,
+       5,    0,   52,    2, 0x26,    6 /* Public | MethodCloned */,
+       8,    1,   53,    2, 0x06,    7 /* Public */,
+       9,    1,   56,    2, 0x06,    9 /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString, QMetaType::QString,    3,    4,
+    QMetaType::Void, 0x80000000 | 6,    7,
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString,    3,
+    QMetaType::Void, 0x80000000 | 6,    7,
 
        0        // eod
 };
@@ -78,8 +86,10 @@ void material_manage_page::qt_static_metacall(QObject *_o, QMetaObject::Call _c,
         (void)_t;
         switch (_id) {
         case 0: _t->add_new_material((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
-        case 1: _t->get_all_material(); break;
-        case 2: _t->delete_material((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 1: _t->get_all_material((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 2: _t->get_all_material(); break;
+        case 3: _t->delete_material((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 4: _t->get_search_result((*reinterpret_cast< std::string(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -92,7 +102,7 @@ void material_manage_page::qt_static_metacall(QObject *_o, QMetaObject::Call _c,
             }
         }
         {
-            using _t = void (material_manage_page::*)();
+            using _t = void (material_manage_page::*)(std::string );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&material_manage_page::get_all_material)) {
                 *result = 1;
                 return;
@@ -101,7 +111,14 @@ void material_manage_page::qt_static_metacall(QObject *_o, QMetaObject::Call _c,
         {
             using _t = void (material_manage_page::*)(QString );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&material_manage_page::delete_material)) {
-                *result = 2;
+                *result = 3;
+                return;
+            }
+        }
+        {
+            using _t = void (material_manage_page::*)(std::string );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&material_manage_page::get_search_result)) {
+                *result = 4;
                 return;
             }
         }
@@ -115,7 +132,7 @@ const QMetaObject material_manage_page::staticMetaObject = { {
     qt_static_metacall,
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_material_manage_page_t
-, QtPrivate::TypeAndForceComplete<material_manage_page, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QString, std::false_type>, QtPrivate::TypeAndForceComplete<QString, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QString, std::false_type>
+, QtPrivate::TypeAndForceComplete<material_manage_page, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QString, std::false_type>, QtPrivate::TypeAndForceComplete<QString, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<std::string, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QString, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<std::string, std::false_type>
 
 
 
@@ -143,13 +160,13 @@ int material_manage_page::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 5)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 3;
+        _id -= 5;
     }
     return _id;
 }
@@ -162,16 +179,24 @@ void material_manage_page::add_new_material(QString _t1, QString _t2)
 }
 
 // SIGNAL 1
-void material_manage_page::get_all_material()
+void material_manage_page::get_all_material(std::string _t1)
 {
-    QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 1, _a);
 }
 
-// SIGNAL 2
+// SIGNAL 3
 void material_manage_page::delete_material(QString _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 2, _a);
+    QMetaObject::activate(this, &staticMetaObject, 3, _a);
+}
+
+// SIGNAL 4
+void material_manage_page::get_search_result(std::string _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 4, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

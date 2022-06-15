@@ -1,0 +1,5 @@
+22 5
+13002 0 0 0 0 0 0 111222333
+data:
+exam:
+uninitialized

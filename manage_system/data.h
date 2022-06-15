@@ -36,8 +36,3 @@ struct DataInfo{
 };
 #endif // DATA_H
 
-struct DataInfo{
-    MyTime setTime;
-    char extionsion[8];
-};
-

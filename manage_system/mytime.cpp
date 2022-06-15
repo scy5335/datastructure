@@ -3,7 +3,7 @@ const int days[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 MyTime::MyTime()
 {
-    this->year = 2000;
+    this->year = 2022;
     this->month = 0;
     this->day = 0;
     this->hour = 0;

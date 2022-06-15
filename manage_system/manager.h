@@ -28,8 +28,10 @@ public:
     /*设置课程时间参数依次为周几(1-7),开始小时,开始分钟,持续多少节课*/
     /*这个设定前提是一门课一天只上一次，并且是连续的*/
     void setCourseTime(string courseName,int weekday,int startHour,int startMinute,int classes,int classId);
-    /*设置课程群,参数依次为课程名称，课程群*/
+    /*设置课程群,参数依次为课程名称，课程编号*/
     void setCourseGroup(string courseName,string courseGroup,int classId);
+    /*查询课程群,参数依次为课程名称，课程编号*/
+    string getCourseGroup(string courseName,int classId);
 
     /*课程资料功能*/
     /*上传课程资料,参数依次为课程名称,资料名称,资料文件路径*/

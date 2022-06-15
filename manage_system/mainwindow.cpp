@@ -36,10 +36,10 @@ void mainwindow::student_page_set(){
     set_calendar_page();
     set_guide_page();
     place_name = map1 -> GetVecName() + map2 -> GetVecName();
-    qDebug()<<place_name.length();
     place_select -> addItems(place_name);
     place_select -> setCurrentIndex(-1);
     calendar_set_place(place_name);
+    calendar_display();
     student_get_course_info();
     page[0] = new QWidget();
     page[0] -> setLayout(lesson_layout);
@@ -61,7 +61,7 @@ void mainwindow::student_page_set(){
     ftdate.setPointSize(18);
     weekday = new QLabel();
     weekday -> setFont(ftdate);
-    weekday -> setText("星期" + QString::number(Clock -> getWeek0_6()+1));
+    weekday -> setText("星期" + weekname[Clock -> getWeek0_6()]);
     weekday -> setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     datelabel = new QLabel();
     datelabel -> setFont(ftdate);
@@ -123,7 +123,7 @@ void mainwindow::clock_ring(string description){
 void mainwindow::time_change(){
     datelabel -> setText(trans_date(Clock -> getTime()));
     timelabel -> setText(trans_time(Clock -> getTime()));
-    weekday -> setText("星期" + QString::number(Clock -> getWeek0_6()+1));
+    weekday -> setText("星期" + weekname[Clock -> getWeek0_6()]);
 }
 
 void mainwindow::add_speed(){
@@ -177,9 +177,11 @@ void mainwindow::set_lesson_page(){
     lesson_jump_button = new QHBoxLayout();
     lesson_jump_button -> addWidget(to_calendar_module1);
     lesson_jump_button -> addWidget(to_guide_module1);
+    lesson_group = new QLabel();
     lesson_detail_info_layout = new QFormLayout();
     lesson_detail_info_layout -> addRow("课程名称", lesson_name);
     lesson_detail_info_layout -> addRow("上课地点", lesson_place);
+    lesson_detail_info_layout -> addRow("课程群", lesson_group);
     lesson_detail_info_layout -> addRow(test_label, homework_label);
     lesson_detail_info_layout -> addRow(test_info, homework_info);
     lesson_detail_info_layout -> addRow(homework_submit);
@@ -255,10 +257,16 @@ void mainwindow::manager_get_course_info(){
 }
 
 void mainwindow::show_lesson_info(int row, int column){
-    if (lessontable -> item(row, column)->text() == "")return;
+    if (lessontable -> item(row, column)->text() == ""){
+        lesson_name -> setText("");
+        lesson_place -> setText("");
+        lesson_group -> setText("");
+        return;
+    }
     QStringList lesson_main_info = lessontable -> item(row, column) -> text().split('\n');
     lesson_name -> setText(lesson_main_info[0]);
     lesson_place -> setText(lesson_main_info[1]);
+    lesson_group -> setText(QString::fromLocal8Bit(log_student -> getCourseGroup(lesson_main_info[0].toLocal8Bit().data())));
     test_info -> clearContents();
     test_info -> setRowCount(0);
     QStringList now_test_info = log_student -> getExamInfo(lesson_main_info[0].toLocal8Bit().data());
@@ -293,6 +301,7 @@ void mainwindow::show_manager_lesson_info(int row, int column){
     if (!lessontable -> item(row, column) || lessontable -> item(row, column) -> text() == ""){
         class_name -> clear();
         place_message -> setCurrentIndex(-1);
+        class_group -> clear();
         test_list -> clearContents();
         test_list -> setRowCount(0);
         homework_list -> clearContents();
@@ -303,6 +312,7 @@ void mainwindow::show_manager_lesson_info(int row, int column){
     QStringList lesson_main_info = lessontable -> item(row, column) -> text().split('\n');
     class_name -> setText(lesson_main_info[0]);
     place_message -> setCurrentIndex(place_message -> findText(lesson_main_info[1]));
+    class_group -> setText(QString::fromLocal8Bit(log_manager -> getCourseGroup(lesson_main_info[0].toLocal8Bit().data(), class_select -> currentText().toInt())));
     test_list -> clearContents();
     test_list -> setRowCount(0);
     QStringList now_test_info = log_manager -> getExamInfo(lesson_main_info[0].toLocal8Bit().data(), class_select -> currentText().toInt());
@@ -342,7 +352,6 @@ void mainwindow::set_calendar_page(){
     calendar_list -> setColumnCount(6);
     calendar_list -> setHorizontalHeaderLabels(QStringList()<<"选择"<<"活动名称"<<"活动类型"<<"开始时间"<<"结束时间"<<"地点");
     calendar_list -> horizontalHeader() -> setSectionResizeMode(QHeaderView::Stretch);
-    calendar_display();
     calendar_main_layout = new QVBoxLayout();
     calendar_main_layout -> addWidget(calendar_title);
     calendar_main_layout -> addWidget(calendar_list);
@@ -478,7 +487,8 @@ void mainwindow::calendar_display(){
         p_check -> setCheckState(Qt::Unchecked);
         calendar_list -> setItem(row_count, 0, p_check);
         calendar_list -> setItem(row_count, 1 ,new QTableWidgetItem(tot_calendar[i++]));
-        calendar_list -> setItem(row_count, 2 ,new QTableWidgetItem((!tot_calendar[i++].toInt())?"个人活动":"集体活动"));
+        calendar_list -> setItem(row_count, 2 ,new QTableWidgetItem((!tot_calendar[i].toInt())?"个人活动":"集体活动"));
+        i++;
         calendar_list -> setItem(row_count, 3 ,new QTableWidgetItem(tot_calendar[i++]));
         calendar_list -> setItem(row_count, 4 ,new QTableWidgetItem(tot_calendar[i++]));
         calendar_list -> setItem(row_count, 5 ,new QTableWidgetItem(place_name[tot_calendar[i++].toInt()]));
@@ -740,6 +750,9 @@ void mainwindow::manage_page_set(){
     //teacher_message = new QLineEdit();
     place_message_title = new QLabel();
     place_message_title -> setText("上课地点");
+    class_group = new QLineEdit();
+    class_group_title = new QLabel();
+    class_group_title -> setText("课程群");
     place_message = new QComboBox();
     class_count_title = new QLabel();
     class_count_title -> setText("连续节数");
@@ -786,6 +799,8 @@ void mainwindow::manage_page_set(){
     message_layout -> addWidget(place_message, 1, 1);
     message_layout -> addWidget(class_count_title, 2, 0);
     message_layout -> addWidget(class_count, 2, 1);
+    message_layout -> addWidget(class_group_title, 3, 0);
+    message_layout -> addWidget(class_group, 3, 1);
     button_grid = new QGridLayout();
     button_grid -> addWidget(add_lesson, 0, 0);
     button_grid -> addWidget(delete_lesson, 0, 1);
@@ -888,24 +903,35 @@ void mainwindow::delete_this_lesson(){
 }
 
 void mainwindow::try_add_lesson(){
-    if (class_name -> text() == "")
+    if (class_name -> text() == ""){
         QMessageBox::critical(this, "添加课程错误", "请输入课程名称");
-    if (place_message -> currentIndex() == -1)
+        return;
+    }
+    if (place_message -> currentIndex() == -1){
         QMessageBox::critical(this, "添加课程错误", "请输入上课地点");
-    if (class_count -> currentIndex() == -1)
+        return;
+    }
+    if (class_count -> currentIndex() == -1){
         QMessageBox::critical(this, "添加课程错误", "请输入课程节数");
-    if (class_count -> currentIndex() + select_row > 14)
+        return;
+    }
+    if (class_count -> currentIndex() + select_row > 14){
         QMessageBox::critical(this, "添加课程错误", "课程结束时间超过最晚的课程");
-    if (select_type)
-        delete_this_lesson();
+        return;
+    }
+    QStringList lesson_main_info = lessontable -> item(select_row, select_column) -> text().split('\n');
+    if (lesson_main_info[0] != class_name->text()||lesson_main_info[1] != place_message -> currentText()||!select_type){
     log_manager -> addCourse(class_name -> text().toLocal8Bit().data(), place_message -> currentIndex(),
                         class_select -> currentText().toInt());
+    }
     qDebug()<<"地点信息"<<place_message -> currentIndex();
     int hour, min;
     trans_hour_min(select_row, hour, min);
     qDebug()<<select_row<<hour<<min;
     log_manager -> setCourseTime(class_name -> text().toLocal8Bit().data(), select_column + 1, hour, min,
                                  class_count -> currentText().toInt(), class_select -> currentText().toInt());
+    if (class_group->text()!="")
+        log_manager -> setCourseGroup(class_name -> text().toLocal8Bit().data(),class_group->text().toLocal8Bit().data(),class_select -> currentText().toInt());
     manager_get_course_info();
     show_manager_lesson_info(select_row, select_column);
 }
@@ -967,6 +993,7 @@ void mainwindow::show_material_page(){
 }
 
 void mainwindow::get_all_material(string dataname){
+    qDebug()<<QString::fromLocal8Bit(dataname);
     material_page -> set_all_material(log_manager -> getCourseDataInfo(class_name -> text().toLocal8Bit().data(), dataname,
                                                                        class_select -> currentText().toInt()));
 }
@@ -1270,12 +1297,20 @@ homework_submit_page::homework_submit_page(QStringList info, QWidget *parent){
     layout -> addRow(submit);
     setLayout(layout);
     connect(file_select, &QPushButton::clicked, this, &homework_submit_page::file_select_page);
+    connect(submit, &QPushButton::clicked, this, &homework_submit_page::try_submit);
 }
 
 void homework_submit_page::file_select_page(){
     QString filename = QFileDialog::getOpenFileName(this, tr("选择文件"), "C:/", tr("All files(*.*)"));
     file_path -> setText(filename);
-    emit submit_homework(title -> text(), filename);
+}
+
+void homework_submit_page::try_submit(){
+    if (file_path -> text() == ""){
+        QMessageBox::critical(this, "提交错误", "请选择一个文件");
+        return;
+    }
+    emit submit_homework(title -> text(), file_path -> text());
     file_path -> setText("");
     submited -> setText("已提交");
 }
@@ -1434,7 +1469,7 @@ void alarm_page::set_alarm_list(MyClock *Clock){
             if (Clock -> alarms -> arr[i].getType() == 0)
                 Str1 = "仅一次";
             else if (Clock -> alarms -> arr[i].getType() == 0x7f)
-                Str1 = "每周一次";
+                Str1 = "每天一次";
             else for (int j = 0; j < 7; j++)
                 if (Clock -> alarms -> arr[i].getType() & (1<<j)){
                     switch (j){

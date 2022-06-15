@@ -1,4 +1,4 @@
-#include "course.h"
+﻿#include "course.h"
 
 Course::Course(QObject *parent)
     : QObject{parent}
@@ -512,7 +512,7 @@ bool MyString::contains(string parent, string child)
     {
         return parent==child;
     }
-    int next[parentLen+5];
+    int next[505];
     getNext(child,next);
     return KMP(parent,child,next)>=0;
 }

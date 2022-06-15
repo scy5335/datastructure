@@ -102,6 +102,13 @@ void Manager::setCourseGroup(string courseName,string courseGroup,int classId)
     c.setCourseGroup(courseName,courseGroup);
 }
 
+string Manager::getCourseGroup(string courseName,int classId)
+{
+    logger.addLogger("管理员查询了课程群");
+    Class c(classId);
+    return c.getCourseGroup(courseName);
+}
+
 void Manager::uploadCourseData(string courseName, string dataName, string dataPath,int classId)
 {
     logger.addLogger("管理员上传了课程资料");
